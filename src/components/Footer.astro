@@ -1,0 +1,152 @@
+---
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+/* Footer.astro
+   - Año automático
+   - Centro: "Contáctanos" + número como link (sin fondo/borde; hover cambia color)
+   - Derecha: Política de privacidad + correo
+*/
+const currentLang = getCurrentLanguage();
+const year = new Date().getFullYear();
+const phone = '+1 (385) 242-8571';                 // ← cámbialo si es necesario
+const email = 'info@carinjuryclinic.com';          // ← tu correo público
+const privacyHref = '/privacy';                    // ← ruta a tu política
+---
+
+<footer class="site-footer" aria-label="Pie de página">
+  <div class="footer-inner">
+    <!-- Izquierda: copyright -->
+    <div class="footer-left">
+      © {year} Car Injury Clinic. <span data-i18n="footer.copyright">{t('footer.copyright', currentLang)}</span>
+    </div>
+
+    <!-- Centro: contacto -->
+    <div class="footer-center">
+      <span class="cta-label" data-i18n="footer.contact_label">{t('footer.contact_label', currentLang)}</span>
+      <a
+        class="phone-link"
+        href={`tel:${phone.replace(/[^+\d]/g,'')}`}
+        aria-label="Llamar a Car Injury Clinic"
+      >
+        {phone}
+      </a>
+    </div>
+
+    <!-- Derecha: privacidad + correo -->
+    <div class="footer-right">
+      <a class="policy-link" href={privacyHref} data-i18n="footer.privacy">{t('footer.privacy', currentLang)}</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a class="mail-link" href={`mailto:${email}`}>{email}</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* ====== Paleta con fallbacks (usa tus variables globales si existen) ====== */
+  :root{
+    --brand: var(--brand, #BA93C2);
+    --brand-700: var(--brand-700, #7f4b8a);
+    --ink: var(--ink, #0f1223);
+    --muted: var(--muted, #60657a);
+    --line: var(--line, rgba(15,18,35,.12));
+  }
+
+  .site-footer{
+    /* sin fondo para integrarse con tu layout; pon uno si lo necesitas */
+    background: #611E6C;
+    border-top: 1px solid var(--line);
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .footer-inner{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .footer-left{
+    flex: 1 1 auto;
+    min-width: 220px;
+  }
+
+  .footer-center{
+    flex: 0 1 auto;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    justify-content: center;
+    text-align: center;
+    min-width: 260px;
+  }
+
+  .cta-label{
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: .01em;
+  }
+
+  /* Número: “botón” visual sin fondo ni borde */
+  .phone-link{
+    display: inline-block;
+    font-weight: 900;
+    color: #fff;
+    text-decoration: none;
+    padding: 0;               /* sin padding de botón */
+    border: none;             /* sin borde */
+    background: none;         /* sin fondo */
+    transition: color .18s ease, transform .12s ease;
+  }
+  .phone-link:hover,
+  .phone-link:focus-visible{
+    color: #BA93C2;
+    text-decoration: none;
+    outline: none;
+  }
+  .phone-link:active{ transform: translateY(1px); }
+
+  .footer-right{
+    flex: 1 1 auto;
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 260px;
+  }
+
+  .footer-right a{
+    color: #fff;
+    text-decoration: none;
+    transition: color .18s ease, text-decoration-color .18s ease;
+  }
+  .footer-right a:hover,
+  .footer-right a:focus-visible{
+    color: #BA93C2;
+    text-decoration: none;
+    outline: none;
+  }
+
+  .sep{ opacity: .55; }
+
+  /* ====== Responsive ====== */
+  @media (max-width: 720px){
+    .footer-inner{
+      padding: 12px 16px;
+      gap: 6px 10px;
+    }
+    .footer-left,
+    .footer-center,
+    .footer-right{
+      flex: 1 1 100%;
+      min-width: 0;
+      justify-content: center;
+      text-align: center;
+    }
+    .footer-right{ gap: 6px; }
+  }
+</style>

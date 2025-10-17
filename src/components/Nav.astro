@@ -1,0 +1,701 @@
+---
+/* Nav.astro — responsive sin cambiar tu layout base (menú centrado absoluto)
+   - Mantiene estilos y "desplazamiento" original
+   - Responsive mejorado con breakpoints de variables
+   - FAQ dentro de Pacientes (desktop + móvil)
+   - Agrega "Sobre nosotros"
+   - Sistema i18n con botón de idioma
+*/
+
+import { t, getCurrentLanguage } from '../i18n';
+
+const currentLang = getCurrentLanguage();
+
+const SERVICES = [
+  { href: '/services#chiropractic',           label: t('nav.services_dropdown.chiropractic', currentLang), key: 'nav.services_dropdown.chiropractic' },
+  { href: '/services#rehabilitation',          label: t('nav.services_dropdown.rehabilitation', currentLang), key: 'nav.services_dropdown.rehabilitation' },
+  { href: '/services#physical_therapy',          label: t('nav.services_dropdown.physical_therapy', currentLang), key: 'nav.services_dropdown.physical_therapy' },
+  { href: '/services#hot_cold_therapy',       label: t('nav.services_dropdown.hot_cold_therapy', currentLang), key: 'nav.services_dropdown.hot_cold_therapy' },
+  { href: '/services#massage',                  label: t('nav.services_dropdown.massage', currentLang), key: 'nav.services_dropdown.massage' },
+  { href: '/services#ultrasound',     label: t('nav.services_dropdown.ultrasound', currentLang), key: 'nav.services_dropdown.ultrasound' },
+  { href: '/services#tens',            label: t('nav.services_dropdown.tens', currentLang), key: 'nav.services_dropdown.tens' },
+
+  // ===== NUEVOS =====
+  { href: '/services#second_opinions',      label: t('nav.services_dropdown.second_opinions', currentLang), key: 'nav.services_dropdown.second_opinions' },
+  { href: '/services#xray',            label: t('nav.services_dropdown.xray', currentLang), key: 'nav.services_dropdown.xray' },
+  { href: '/services#mri',                     label: t('nav.services_dropdown.mri', currentLang), key: 'nav.services_dropdown.mri' },
+  { href: '/services#pain_management',            label: t('nav.services_dropdown.pain_management', currentLang), key: 'nav.services_dropdown.pain_management' },
+  { href: '/services#surgical_consultations',   label: t('nav.services_dropdown.surgical_consultations', currentLang), key: 'nav.services_dropdown.surgical_consultations' },
+  { href: '/services#concussion',               label: t('nav.services_dropdown.concussion', currentLang), key: 'nav.services_dropdown.concussion' },
+  { href: '/services#free_transport',       label: t('nav.services_dropdown.free_transport', currentLang), key: 'nav.services_dropdown.free_transport'},
+  { href: '/services#trilingual',                label: t('nav.services_dropdown.trilingual', currentLang), key: 'nav.services_dropdown.trilingual'},
+];
+
+const LOGO_SRC = '/assets/img/Car-Injury-Clinic-White.png';
+const LOGO_ALT = 'Car Injury Clinic';
+
+const PHONE_DISPLAY = '385-242-8571';
+const PHONE_TEL = '+13852428571';
+---
+
+<nav id="main-nav" class="navbar" aria-label="Navegación principal">
+  <div class="navbar-container">
+    <!-- Logo -->
+    <div class="navbar-logo">
+      <a href="/" aria-label="Ir al inicio" class="logo-link">
+        <img
+          src={LOGO_SRC}
+          alt={LOGO_ALT}
+          class="brand-img"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </a>
+    </div>
+
+    <!-- Menú (centrado) -->
+    <ul class="nav-links">
+      <li><a class="nav-link" href="/" data-i18n="nav.home">Home</a></li>
+
+      <li class="has-dropdown" data-dd="services">
+        <a class="nav-link" href="/services" data-i18n="nav.services">Servicios</a>
+        <button class="dd-toggle" aria-label="Abrir Servicios" aria-haspopup="menu" aria-expanded="false" type="button">
+          <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M5 7l5 6 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="dropdown" role="menu">
+          {SERVICES.map((s) => (<li><a class="dd-item" href={s.href} role="menuitem" data-i18n={s.key}>{s.label}</a></li>))}
+        </ul>
+      </li>
+
+      <li><a class="nav-link" href="/lawyer-approved" data-i18n="nav.legal_assistance">Asistencia legal</a></li>
+
+      <li class="has-dropdown" data-dd="portal">
+        <a class="nav-link" href="/formulario" data-i18n="nav.patients">Pacientes</a>
+        <button class="dd-toggle" aria-label="Abrir Portal del paciente" aria-haspopup="menu" aria-expanded="false" type="button">
+          <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M5 7l5 6 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="dropdown" role="menu">
+          <li><a class="dd-item" href="/formulario" role="menuitem" data-i18n="nav.form">Formulario</a></li>
+          <li><a class="dd-item" href="/faq" role="menuitem" data-i18n="nav.frequent_questions">Preguntas frecuentes</a></li>
+        </ul>
+      </li>
+
+      <li><a class="nav-link" href="/aboutus" data-i18n="nav.about">Sobre nosotros</a></li>
+    </ul>
+
+    <!-- Acciones (derecha) -->
+    <div class="navbar-actions">
+      <!-- Botón de idioma -->
+      <button 
+        id="language-toggle" 
+        class="btn-language"
+        aria-label="Cambiar idioma"
+        type="button"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" class="language-icon" aria-hidden="true">
+          <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" fill="currentColor"/>
+        </svg>
+        <span id="language-button-text">{currentLang === 'es' ? 'English' : 'Español'}</span>
+      </button>
+
+      <a class="btn-phone" href={`tel:${PHONE_TEL}`} aria-label={`Llamar al ${PHONE_DISPLAY}`}>
+        <span class="phone-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path d="M22 16.92v2a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 3.8 2 2 0 0 1 4.11 2h2a2 2 0 0 1 2 1.72c.12.9.31 1.78.57 2.63a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.45-1.17a2 2 0 0 1 2.11-.45c.85.26 1.73.45 2.63.57A2 2 0 0 1 22 16.92Z" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="phone-number">{PHONE_DISPLAY}</span>
+      </a>
+
+      <a class="btn-cta" href="/schedule">
+        <span class="cta-text" data-i18n="nav.schedule">Agenda en línea</span>
+      </a>
+
+      <!-- Toggle móvil -->
+      <button class="mobile-toggle" aria-label="Abrir menú" type="button" data-mobile>
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Panel móvil (overlay) -->
+  <div class="mobile-panel" data-panel hidden>
+    <div class="mobile-inner">
+      <a class="m-link" href="/">Home</a>
+
+      <details class="mobile-dropdown">
+        <summary class="mobile-summary">Servicios</summary>
+        <div class="m-dd">
+          {SERVICES.map((s) => (<a class="m-dd-item" href={s.href}>{s.label}</a>))}
+        </div>
+      </details>
+
+      <a class="m-link" href="/lawyer-approved">Asistencia legal</a>
+
+      <details class="mobile-dropdown">
+        <summary class="mobile-summary">Pacientes</summary>
+        <div class="m-dd">
+          <a class="m-dd-item" href="/formulario">Formulario</a>
+          <a class="m-dd-item" href="/faq">Preguntas frecuentes</a>
+        </div>
+      </details>
+
+      <a class="m-link" href="/aboutus">Sobre nosotros</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+/* ==========================================================================
+   NAVBAR — Layout estable y optimizado para producción
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700;800;900&family=Source+Sans+3:wght@400;600;700;800;900&display=swap');
+
+:root {
+  --font-heading: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-body: 'Source Sans 3', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+
+  /* Colores */
+  --c1: #CEC6E2; 
+  --c2: #806AAA; 
+  --c3: #7A2E87; 
+  --c4: #BA93C2;
+  --nav-bg: #59216f;
+  --txt: #fff;
+
+  /* Variables fijas */
+  --nav-height: 150px;
+    --nav-padding: 2rem 2rem;
+}
+
+/* ===== Barra principal ===== */
+.navbar {
+  position: relative;
+  background: linear-gradient(180deg, #4a1c5a, #59216f);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  z-index: 100;
+  height: 150px !important;
+  font-family: var(--font-body);
+}
+
+/* ===== Layout principal con flexbox estable ===== */
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem 2rem 0 !important; /* Padding EXTREMADAMENTE aumentado para mostrar logo completo */
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* ===== Logo (izquierda) ===== */
+.navbar-logo {
+  flex: 0 0 auto;
+  margin-right: 1.5rem; /* Separación del menú */
+}
+
+.logo-link {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.logo-link:hover {
+  transform: scale(1.05);
+}
+
+.brand-img {
+  height: 30px !important;
+  width: auto;
+  max-width: 140px !important;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 6px 20px rgba(0,0,0,.35));
+}
+
+/* ===== Menú central ===== */
+.nav-links {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1rem; /* Reducido de 2rem a 1rem para juntar más los botones */
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  font-family: var(--font-heading);
+}
+
+@media (min-width: 1024px) {
+  .nav-links {
+    display: flex;
+  }
+}
+
+.nav-link {
+  color: var(--txt);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  color: #e0e7ff;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 0.2rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c1), var(--c4), var(--c3));
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* ===== Dropdown ===== */
+.has-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dd-toggle {
+  margin-left: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--txt);
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dd-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.dropdown {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  min-width: 280px;
+  max-height: 70vh;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1f2937;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  padding: 0.5rem;
+  list-style: none;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(0.95);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 1300;
+  backdrop-filter: blur(10px);
+}
+
+.has-dropdown:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.dd-item {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: #1f2937;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.dd-item:hover {
+  background: #dbeafe;
+  color: #1d4ed8;
+  transform: translateX(8px);
+}
+
+/* ===== Acciones (derecha) ===== */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+  font-family: var(--font-heading);
+  margin-left: auto; /* Empuja las acciones completamente a la derecha */
+}
+
+.btn-language {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--txt);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-language:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.language-icon {
+  flex-shrink: 0;
+}
+
+.btn-phone {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--txt);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .btn-phone {
+    display: flex;
+  }
+}
+
+.btn-phone:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.phone-icon {
+  flex-shrink: 0;
+}
+
+.btn-cta {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--c3);
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-cta:hover {
+  background: #8b3494;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.cta-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Mobile Toggle ===== */
+.mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--txt);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+  .mobile-toggle {
+    display: none;
+  }
+}
+
+.mobile-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px) rotate(90deg);
+}
+
+/* ===== Panel móvil ===== */
+.mobile-panel {
+  position: fixed;
+  inset: 0;
+  top: var(--nav-height);
+  background: rgba(255, 255, 255, 0.98);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 110;
+  overflow: auto;
+  transform: translateX(100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.mobile-panel.active {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-inner {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.m-link {
+  color: #1f2937;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.m-link:hover {
+  background: #f3f4f6;
+  transform: translateX(8px);
+}
+
+.mobile-dropdown {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mobile-summary {
+  list-style: none;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding: 1rem;
+  background: #f9fafb;
+  color: #1f2937;
+  transition: all 0.3s ease;
+}
+
+.mobile-summary:hover {
+  background: #f3f4f6;
+}
+
+.m-dd {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem 1rem 2rem;
+  background: #f9fafb;
+}
+
+.m-dd-item {
+  color: #4b5563;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.m-dd-item:hover {
+  background: #e5e7eb;
+  color: #1f2937;
+  transform: translateX(8px);
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 767px) {
+  .navbar-container {
+    padding: 1rem;
+  }
+  
+  .brand-img {
+    height: 40px;
+  }
+  
+  .navbar-actions {
+    gap: 0.5rem;
+  }
+  
+  .btn-language span {
+    display: none;
+  }
+}
+</style>
+
+<script>
+// ==========================================================================
+// NAVBAR JAVASCRIPT — Funcionalidad simplificada
+// ==========================================================================
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Elementos
+  const languageToggle = document.getElementById('language-toggle');
+  const mobileToggle = document.querySelector('[data-mobile]');
+  const mobilePanel = document.querySelector('[data-panel]');
+  
+  // Toggle de idioma con mejor manejo de errores y inicialización
+  if (languageToggle) {
+    languageToggle.addEventListener('click', function() {
+      console.log('Language button clicked');
+      
+      // Función para cambiar idioma
+      const changeLanguage = () => {
+        if (typeof window !== 'undefined' && window.i18nClient) {
+          console.log('i18nClient found, current language:', window.i18nClient.currentLang);
+          
+          const currentLang = window.i18nClient.currentLang;
+          const newLang = currentLang === 'es' ? 'en' : 'es';
+          
+          console.log('Changing language to:', newLang);
+          
+          // Cambiar el idioma
+          window.i18nClient.setLanguage(newLang);
+          
+          // Actualizar el texto del botón inmediatamente
+          const buttonText = document.getElementById('language-button-text');
+          if (buttonText) {
+            buttonText.textContent = newLang === 'es' ? 'English' : 'Español';
+            console.log('Button text updated to:', buttonText.textContent);
+          }
+          
+          // Actualizar todas las traducciones en la página
+          window.i18nClient.updateAllTranslations();
+        } else {
+          console.log('i18nClient not available, trying to initialize...');
+          
+          // Si no está disponible, intentar cargar el módulo
+          import('/src/utils/i18n-client.js').then((module) => {
+            console.log('i18n-client module loaded');
+            const i18nClient = module.default;
+            window.i18nClient = i18nClient;
+            
+            // Inicializar y luego cambiar idioma
+            i18nClient.init().then(() => {
+              console.log('i18nClient initialized, now changing language');
+              changeLanguage();
+            }).catch(error => {
+              console.error('Error initializing i18nClient:', error);
+            });
+          }).catch(error => {
+            console.error('Error loading i18n-client module:', error);
+          });
+        }
+      };
+      
+      // Ejecutar cambio de idioma
+      changeLanguage();
+    });
+  }
+  
+  // Toggle móvil
+  if (mobileToggle && mobilePanel) {
+    mobileToggle.addEventListener('click', function() {
+      const isOpen = mobilePanel.classList.contains('active');
+      
+      if (isOpen) {
+        mobilePanel.classList.remove('active');
+        mobilePanel.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+      } else {
+        mobilePanel.classList.add('active');
+        mobilePanel.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+    
+    // Cerrar al hacer clic fuera
+    mobilePanel.addEventListener('click', function(e) {
+      if (e.target === mobilePanel) {
+        mobilePanel.classList.remove('active');
+        mobilePanel.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+  
+  // Cerrar dropdowns al hacer clic fuera
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.has-dropdown')) {
+      document.querySelectorAll('.dropdown').forEach(dropdown => {
+        dropdown.style.opacity = '0';
+        dropdown.style.visibility = 'hidden';
+        dropdown.style.pointerEvents = 'none';
+      });
+    }
+  });
+});
+</script>
+
+<style>
+/* FORCED CSS - NAVBAR SPACIOUS */
+  .navbar {
+    height: 75px !important;
+    min-height: 75px !important;
+    max-height: 75px !important;
+  }
+  
+  .navbar-container {
+    height: 75px !important;
+    padding: 0.7rem 1rem !important;
+  }
+  
+  .brand-img {
+    height: 40px !important;
+    max-width: 180px !important;
+  }
+</style>

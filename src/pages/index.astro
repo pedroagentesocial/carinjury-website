@@ -1,16 +1,48 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Testimonials from '../components/Testimonials.astro';
+import AboutVideo from '../components/AboutVideo.astro';
+import Services from '../components/Services.astro';
+import LegalVideo from '../components/LegalVideo.astro';
+import MapContact from '../components/MapContact.astro';
+import FeatureIcons from '../components/FeatureIcons.astro';
+import Footer from '../components/Footer.astro';
+import Form from '../components/Form.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <Hero durationsMs=(20000) />
+  <FeatureIcons />
+  <AboutVideo />
+  <Form />
+  <LegalVideo />
+  <Testimonials />
+  <MapContact />
+  <Footer />
+</Layout>
+
+<script>
+  // Inicialización del cliente i18n para index.astro
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('Index: DOMContentLoaded');
+    
+    // Esperar a que i18n esté listo o inicializarlo
+    const initializeI18n = async () => {
+      if (window.i18nClient) {
+        console.log('Index: i18nClient already available');
+        window.i18nClient.updateAllTranslations();
+      } else {
+        console.log('Index: Waiting for i18nReady event');
+        window.addEventListener('i18nReady', () => {
+          console.log('Index: i18nReady event received');
+          if (window.i18nClient) {
+            window.i18nClient.updateAllTranslations();
+          }
+        });
+      }
+    };
+    
+    initializeI18n();
+  });
+</script>

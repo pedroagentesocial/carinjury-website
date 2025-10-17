@@ -1,0 +1,334 @@
+---
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+const currentLang = getCurrentLanguage();
+---
+
+<!-- src/components/FeatureIcons.astro -->
+<section 
+  class="feature-icons-section flex gap-6 lg:gap-8 items-stretch justify-start flex-nowrap overflow-x-auto pl-6 pr-4 py-6 lg:pl-8 lg:pr-8 lg:py-8 touch-pan-x snap-x snap-mandatory scrollbar-thin" 
+  style="scrollbar-width: thin;"
+  aria-label={t('feature_icons.aria_label', currentLang)}
+>
+  <!-- 1 ▸ $0 de costo de consulta -->
+  <a 
+    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0s_forwards]"
+    style="grid-template-columns: var(--fi) 1fr;"
+    href="/formulario" 
+    aria-label={t('feature_icons.items.free_consultation.aria_label', currentLang)}
+    data-i18n-aria="feature_icons.items.free_consultation.aria_label"
+  >
+    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
+      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/consulta-cero.png" alt="" />
+    </div>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.free_consultation.title">{t('feature_icons.items.free_consultation.title', currentLang)}</h3>
+  </a>
+
+  <!-- 2 ▸ Transporte GRATIS -->
+  <a 
+    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.1s_forwards]"
+    style="grid-template-columns: var(--fi) 1fr;"
+    href="/services#transporte-gratis" 
+    aria-label={t('feature_icons.items.free_transport.aria_label', currentLang)}
+    data-i18n-aria="feature_icons.items.free_transport.aria_label"
+  >
+    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
+      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/transporte.png" alt="" />
+    </div>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.free_transport.title">{t('feature_icons.items.free_transport.title', currentLang)}</h3>
+  </a>
+
+  <!-- 3 ▸ Cita el mismo día -->
+  <a 
+    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.2s_forwards]"
+    style="grid-template-columns: var(--fi) 1fr;"
+    href="/schedule" 
+    aria-label={t('feature_icons.items.same_day.aria_label', currentLang)}
+    data-i18n-aria="feature_icons.items.same_day.aria_label"
+  >
+    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
+      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/mismo-dia.png" alt="" />
+    </div>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.same_day.title">{t('feature_icons.items.same_day.title', currentLang)}</h3>
+  </a>
+
+  <!-- 4 ▸ X-ray el mismo día -->
+  <a 
+    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.3s_forwards]"
+    style="grid-template-columns: var(--fi) 1fr;"
+    href="/services#radiografias" 
+    aria-label={t('feature_icons.items.xray.aria_label', currentLang)}
+    data-i18n-aria="feature_icons.items.xray.aria_label"
+  >
+    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
+      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/xray.png" alt="" />
+    </div>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.xray.title">{t('feature_icons.items.xray.title', currentLang)}</h3>
+  </a>
+
+  <!-- 5 ▸ Hablamos idiomas -->
+  <a 
+    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.4s_forwards]"
+    style="grid-template-columns: var(--fi) 1fr;"
+    href="/services#bilingue" 
+    aria-label={t('feature_icons.items.languages.aria_label', currentLang)}
+    data-i18n-aria="feature_icons.items.languages.aria_label"
+  >
+    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
+      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/idiomas.png" alt="" />
+    </div>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.languages.title">{t('feature_icons.items.languages.title', currentLang)}</h3>
+  </a>
+
+  <!-- 6 ▸ Orientación legal gratuita -->
+  <a 
+    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.5s_forwards]"
+    style="grid-template-columns: var(--fi) 1fr;"
+    href="/lawyer-approved" 
+    aria-label={t('feature_icons.items.legal_guidance.aria_label', currentLang)}
+    data-i18n-aria="feature_icons.items.legal_guidance.aria_label"
+  >
+    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
+      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/legal.png" alt="" />
+    </div>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.legal_guidance.title">{t('feature_icons.items.legal_guidance.title', currentLang)}</h3>
+  </a>
+</section>
+
+<style>
+
+
+  /* ========= Variables CSS ========= */
+  :root{
+    --c1:#CEC6E2;  /* light */
+    --c2:#806AAA;  /* mid */
+    --c3:#7A2E87;  /* dark */
+    --c4:#BA93C2;  /* brand */
+    --ink:#1A1D2A;
+    --fi: 72px;    /* tamaño del ícono */
+  }
+
+  /* ========= Fondo morado para la sección ========= */
+  .feature-icons-section {
+    background: linear-gradient(180deg, #4a1c5a, #59216f);
+    position: relative;
+    padding: 4rem 0;
+    overflow: hidden;
+  }
+
+  .feature-icons-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(74, 28, 90, 0.9), rgba(89, 33, 111, 0.8));
+    pointer-events: none;
+  }
+
+  /* ========= Responsive Grid Layout ========= */
+  /* Mobile: 480px and below */
+  @media (max-width: 480px) {
+    .feature-border {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto auto !important;
+      justify-items: center;
+      width: 8.5rem !important; /* 136px fijo */
+      padding: 0.5rem !important; /* Padding reducido */
+      gap: 0.5rem !important; /* Gap entre icono y texto */
+    }
+    
+    section {
+      gap: 0.5rem !important; /* Gap entre tarjetas reducido */
+      padding: 0.5rem !important; /* Padding vertical */
+      padding-left: 1rem !important; /* Margen izquierdo para móvil */
+      padding-right: 0.75rem !important; /* Margen derecho para móvil */
+    }
+    
+    :root {
+      --fi: 40px !important; /* Iconos más pequeños: 40px */
+    }
+    
+    .feature-title {
+      display: block !important;
+      font-size: 0.7rem !important; /* Texto más pequeño */
+      line-height: 1.1 !important;
+      text-align: center !important;
+      margin-top: 0.25rem !important;
+      font-weight: 700 !important; /* Mantener legibilidad */
+    }
+  }
+  
+  /* Tablet: 481px to 768px */
+  @media (min-width: 481px) and (max-width: 768px) {
+    .feature-border {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto auto !important;
+      justify-items: center;
+      width: 10rem !important; /* 160px fijo */
+      padding: 0.75rem !important; /* Padding optimizado */
+      gap: 0.75rem !important; /* Gap entre icono y texto */
+    }
+    
+    section {
+      gap: 0.75rem !important; /* Gap entre tarjetas optimizado */
+      padding: 0.75rem !important; /* Padding vertical */
+      padding-left: 1.5rem !important; /* Margen izquierdo para tablet */
+      padding-right: 1rem !important; /* Margen derecho para tablet */
+    }
+    
+    :root {
+      --fi: 52px !important; /* Iconos 52px */
+    }
+    
+    .feature-title {
+      display: block !important;
+      font-size: 0.8rem !important; /* Texto optimizado */
+      text-align: center !important;
+      margin-top: 0.5rem !important;
+      line-height: 1.2 !important;
+      font-weight: 700 !important; /* Mantener legibilidad */
+    }
+  }
+  
+  /* Desktop Small: 769px to 980px */
+  @media (min-width: 769px) and (max-width: 980px) {
+    .feature-border {
+      width: 15rem !important; /* w-60 equivalent */
+      padding: 1rem !important;
+    }
+    
+    section {
+      gap: 1.5rem !important;
+      padding: 1.5rem 2rem !important;
+    }
+    
+    .feature-title {
+      font-size: 0.95rem !important;
+      line-height: 1.3 !important;
+    }
+  }
+  
+  /* Desktop Large: 981px and above */
+  @media (min-width: 981px) {
+    section {
+      gap: 2rem !important;
+      padding: 2rem !important;
+    }
+    
+    .feature-border {
+      width: 16rem !important; /* w-64 equivalent */
+    }
+  }
+
+  /* ========= Animaciones personalizadas ========= */
+  @keyframes slideInUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px) scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+    }
+  }
+  
+  @keyframes spinBorder { 
+    to { transform: rotate(360deg); } 
+  }
+  
+  @keyframes cardShine { 
+    to { left: 120%; } 
+  }
+  
+  @keyframes orbit {
+    0%   { transform: rotate(0deg) translate3d(0,0,0); }
+    50%  { transform: rotate(180deg) translate3d(0,0,0); }
+    100% { transform: rotate(360deg) translate3d(0,0,0); }
+  }
+
+  /* ========= Estilos específicos que requieren CSS ========= */
+  .features::-webkit-scrollbar { height: 8px; }
+  .features::-webkit-scrollbar-thumb { background: var(--c3); border-radius: 8px; }
+
+  /* ========= Estilos específicos para cards ========= */
+  .feature-card-bg {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(206, 198, 226, 0.2);
+  }
+  
+  /* .feature-mask removido - causaba difuminado en el primer icono */
+
+  /* ========= Efectos especiales para cards ========= */
+  .feature-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(206, 198, 226, 0.3), rgba(186, 147, 194, 0.2));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.6;
+    transition: opacity 0.25s ease;
+  }
+  
+  .feature-border:hover::before {
+    animation: spinBorder 2s linear infinite;
+  }
+  
+  .feature-shine::after {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -60%;
+    width: 50%;
+    height: 120%;
+    pointer-events: none;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.7) 50%, transparent 100%);
+    transform: skewX(-22deg) translateZ(0);
+    opacity: 0;
+  }
+  
+  .feature-shine:hover::after {
+    opacity: 1;
+    animation: cardShine 0.9s ease forwards;
+  }
+
+  /* ========= Efectos específicos para iconos ========= */
+  .icon-orbit::before {
+    content: "";
+    position: absolute;
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(closest-side, rgba(255,255,255,.25), transparent 10%);
+    top: -20%;
+    left: -20%;
+    transform-origin: center;
+    animation: orbit 4.2s linear infinite;
+    mix-blend-mode: screen;
+  }
+
+  /* ========= Estilos específicos para títulos ========= */
+  .feature-title {
+    background: linear-gradient(180deg, #261b33, #3a2a4b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  /* ========= Estilos de accesibilidad ========= */
+  .feature-focus:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(186, 147, 194, 0.38),
+                0 10px 26px rgba(10,14,30,.14) !important;
+  }
+
+  /* ========= Configuración de movimiento reducido ========= */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>

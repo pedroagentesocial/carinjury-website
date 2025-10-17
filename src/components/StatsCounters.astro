@@ -1,0 +1,599 @@
+---
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+const currentLang = getCurrentLanguage();
+---
+
+<section class="stats-modern" aria-labelledby="stats-title">
+  <!-- Decorative background elements -->
+  <div class="bg-decoration">
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+  </div>
+  
+  <div class="container">
+    <header class="stats-header">
+      <div class="header-content">
+        <span class="section-badge" data-i18n="stats.badge">{t('stats.badge', currentLang)}</span>
+        <h2 id="stats-title" class="main-title" data-i18n="stats.title">{t('stats.title', currentLang)}</h2>
+        <p class="subtitle" data-i18n="stats.subtitle">{t('stats.subtitle', currentLang)}</p>
+      </div>
+    </header>
+
+    <div class="stats-grid">
+      <!-- 1 ▸ Casos atendidos -->
+      <article class="stat-card">
+        <div class="card-inner">
+          <div class="icon-wrapper">
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M9 12l2 2 4-4"/>
+              <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+            </svg>
+          </div>
+          <div class="stat-value">
+            <span class="counter"
+                  data-target="532"
+                  data-format="int">0</span>
+            <span class="suffix">+</span>
+          </div>
+          <h3 class="stat-label" data-i18n="stats.cases.label">{t('stats.cases.label', currentLang)}</h3>
+          <div class="progress-bar">
+            <div class="progress-fill" data-width="95"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 ▸ Máxima compensación -->
+      <article class="stat-card featured">
+        <div class="card-inner">
+          <div class="icon-wrapper">
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div class="stat-value">
+            <span class="counter"
+                  data-target="245700"
+                  data-format="currency"
+                  data-currency="USD">0</span>
+          </div>
+          <h3 class="stat-label" data-i18n="stats.compensation.label">{t('stats.compensation.label', currentLang)}</h3>
+          <div class="progress-bar">
+            <div class="progress-fill" data-width="100"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 ▸ Experiencia -->
+      <article class="stat-card">
+        <div class="card-inner">
+          <div class="icon-wrapper">
+            <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12,6 12,12 16,14"/>
+            </svg>
+          </div>
+          <div class="stat-value">
+            <span class="counter"
+                  data-target="30"
+                  data-format="int">0</span>
+            <span class="suffix">+</span>
+          </div>
+          <h3 class="stat-label" data-i18n="stats.experience.label">{t('stats.experience.label', currentLang)}</h3>
+          <div class="progress-bar">
+            <div class="progress-fill" data-width="90"></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Removed external AOS library for better performance -->
+
+  <script is:inline>
+    // Removed AOS initialization for better performance
+
+    (function(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const cards = Array.from(document.querySelectorAll('.stats-modern .stat-card'));
+      const locale = navigator.language || 'es-MX';
+
+      // Enhanced easing functions
+      const easeOutQuint = t => 1 - Math.pow(1 - t, 5);
+      const easeOutBack = t => {
+        const c1 = 1.70158;
+        const c3 = c1 + 1;
+        return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+      };
+
+      function durationFor(target){
+        const n = Math.abs(+target || 0);
+        if (n <= 30)  return 1800;
+        if (n <= 120) return 2000;
+        if (n <= 300) return 2200;
+        if (n <= 800) return 2400;
+        return 2800;
+      }
+
+      function formatValue(val, el){
+        const fmtType = (el.getAttribute('data-format') || 'int').toLowerCase();
+        if (fmtType === 'currency'){
+          const cur = el.getAttribute('data-currency') || 'USD';
+          const fmt = new Intl.NumberFormat(locale, {
+            style: 'currency', currency: cur,
+            minimumFractionDigits: 0, maximumFractionDigits: 0
+          });
+          return fmt.format(val);
+        }
+        if (fmtType === 'decimal'){
+          const decimals = Math.max(0, parseInt(el.getAttribute('data-decimals') || '1', 10));
+          return Number(val).toLocaleString(locale, {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals
+          });
+        }
+        return Math.round(val).toLocaleString(locale);
+      }
+
+      function animateCounter(counterEl, delayMs){
+        const targetAttr = counterEl.getAttribute('data-target') || '0';
+        const target = parseFloat(targetAttr);
+        if (!Number.isFinite(target)) return;
+
+        if (prefersReduced){
+          counterEl.textContent = formatValue(target, counterEl);
+          return;
+        }
+
+        const duration = durationFor(target);
+        const t0 = performance.now() + (delayMs || 0);
+
+        function frame(now){
+          const elapsed = now - t0;
+          if (elapsed < 0){ requestAnimationFrame(frame); return; }
+          const p = Math.min(1, elapsed / duration);
+          const eased = easeOutBack(p);
+          const current = target * eased;
+
+          if ((counterEl.getAttribute('data-format') || 'int').toLowerCase() === 'int'){
+            const shown = Math.min(Math.round(current), Math.round(target));
+            counterEl.textContent = formatValue(shown, counterEl);
+          } else {
+            counterEl.textContent = formatValue(current, counterEl);
+          }
+
+          if (p < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      }
+
+      function animateProgressBar(progressEl, targetWidth, delay = 0) {
+        if (prefersReduced) {
+          progressEl.style.width = targetWidth + '%';
+          return;
+        }
+        
+        setTimeout(() => {
+          progressEl.style.width = targetWidth + '%';
+        }, delay);
+      }
+
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            const idx = cards.indexOf(e.target);
+            const counter = e.target.querySelector('.counter');
+            const progressFill = e.target.querySelector('.progress-fill');
+            
+            if (counter){
+              const delay = 200 * idx;
+              animateCounter(counter, delay);
+            }
+            
+            if (progressFill) {
+              const targetWidth = parseInt(progressFill.getAttribute('data-width') || '100');
+              const delay = 400 + (200 * idx);
+              animateProgressBar(progressFill, targetWidth, delay);
+            }
+            
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.25 });
+
+      cards.forEach(c=> io.observe(c));
+      
+      // Floating shapes animation
+      const shapes = document.querySelectorAll('.floating-shape');
+      shapes.forEach((shape, index) => {
+        if (!prefersReduced) {
+          shape.style.animationDelay = `${index * 0.5}s`;
+        }
+      });
+    })();
+  </script>
+
+  <style>
+    :root {
+      --stats-primary: #7A2E87;
+      --stats-secondary: #806AAA;
+      --stats-gradient: linear-gradient(135deg, #7A2E87 0%, #806AAA 100%);
+      --stats-bg: #fafbfc;
+      --stats-card-bg: #ffffff;
+      --stats-text-primary: #1a202c;
+      --stats-text-secondary: #4a5568;
+      --stats-text-muted: #718096;
+      --stats-border: rgba(122, 46, 135, 0.1);
+      --stats-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --stats-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .stats-modern {
+      padding: 6rem 0;
+      background: var(--stats-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative background elements */
+    .bg-decoration {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--stats-gradient);
+      opacity: 0.05;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .shape-1 {
+      width: 120px;
+      height: 120px;
+      top: 10%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+
+    .shape-2 {
+      width: 80px;
+      height: 80px;
+      top: 60%;
+      right: 8%;
+      animation-delay: 2s;
+    }
+
+    .shape-3 {
+      width: 100px;
+      height: 100px;
+      bottom: 15%;
+      left: 15%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-20px) rotate(120deg); }
+      66% { transform: translateY(10px) rotate(240deg); }
+    }
+
+    /* Header styles */
+    .stats-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .section-badge {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      background: var(--stats-gradient);
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: var(--stats-shadow);
+    }
+
+    .main-title {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--stats-text-primary);
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      background: var(--stats-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--stats-text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Grid and cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-card {
+      background: var(--stats-card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--stats-shadow);
+      border: 1px solid var(--stats-border);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--stats-gradient);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--stats-shadow-hover);
+    }
+
+    .stat-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .stat-card.featured {
+      background: linear-gradient(135deg, #7A2E87 0%, #9333EA 100%);
+      color: white;
+      transform: scale(1.05);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-card.featured .stat-value,
+    .stat-card.featured .stat-label {
+      color: white;
+    }
+
+    .stat-card.featured .counter,
+    .stat-card.featured .suffix {
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .stat-card.featured .icon-wrapper {
+      background: rgba(255, 255, 255, 0.25);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card.featured .stat-icon {
+      color: white;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .card-inner {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Icon styles */
+    .icon-wrapper {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: rgba(122, 46, 135, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-icon {
+      width: 40px;
+      height: 40px;
+      color: var(--stats-primary);
+      stroke-width: 2;
+    }
+
+    .stat-card:hover .icon-wrapper {
+      transform: scale(1.1) rotate(5deg);
+      background: rgba(122, 46, 135, 0.15);
+    }
+
+    /* Value styles */
+    .stat-value {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      margin-bottom: 1rem;
+      gap: 0.25rem;
+    }
+
+    .counter {
+      font-size: 2.75rem;
+      font-weight: 900;
+      color: var(--stats-primary);
+      line-height: 1;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .suffix {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--stats-primary);
+      opacity: 0.8;
+    }
+
+    .stat-label {
+      font-size: 1.125rem;
+      color: var(--stats-text-secondary);
+      font-weight: 600;
+      margin: 0 0 1.5rem 0;
+      line-height: 1.4;
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(122, 46, 135, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--stats-gradient);
+      border-radius: 3px;
+      width: 0%;
+      transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-20px); }
+      100% { transform: translateX(20px); }
+    }
+
+    .stat-card.featured .progress-bar {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-card.featured .progress-fill {
+      background: white;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .stats-modern {
+        padding: 4rem 0;
+      }
+
+      .main-title {
+        font-size: 2.25rem;
+      }
+
+      .subtitle {
+        font-size: 1.125rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .stat-card.featured {
+        transform: none;
+      }
+
+      .card-inner {
+        padding: 2rem 1.5rem;
+      }
+
+      .counter {
+        font-size: 2.25rem;
+      }
+
+      .suffix {
+        font-size: 1.5rem;
+      }
+
+      .icon-wrapper {
+        width: 70px;
+        height: 70px;
+      }
+
+      .stat-icon {
+        width: 35px;
+        height: 35px;
+      }
+
+      .floating-shape {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-title {
+        font-size: 2rem;
+      }
+
+      .counter {
+        font-size: 2rem;
+      }
+
+      .suffix {
+        font-size: 1.25rem;
+      }
+
+      .card-inner {
+        padding: 1.5rem 1rem;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .floating-shape,
+      .progress-fill::after {
+        animation: none;
+      }
+
+      .stat-card {
+        transition: none;
+      }
+
+      .stat-card:hover {
+        transform: none;
+      }
+    }
+  </style>
+</section>

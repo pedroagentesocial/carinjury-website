@@ -1,0 +1,227 @@
+---
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+const currentLang = getCurrentLanguage();
+// Importa el archivo con el video
+const videoSrc = '/video/legal-help.mp4'; 
+---
+
+<section id="legal" class="legal-hero">
+  <!-- Video de fondo -->
+  <video src={videoSrc} autoplay muted loop playsinline></video>
+  
+  <!-- Capa oscura -->
+  <div class="legal-hero__scrim"></div>
+
+  <!-- Contenido -->
+  <div class="legal-hero__content">
+    <h1 data-i18n="legal_video.title">{t('legal_video.title', currentLang)}</h1>
+    <p class="legal-hero__text" data-i18n="legal_video.description">
+      {t('legal_video.description', currentLang)}
+    </p>
+
+    <!-- Botón principal degradado con destello -->
+    <a href="/schedule" class="btn-about cta-arrow">
+      <span data-i18n="legal_video.cta_button">{t('legal_video.cta_button', currentLang)}</span>
+      <svg class="ico" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <path d="M5 12h12m0 0l-4-4m4 4l-4 4" 
+              fill="none" 
+              stroke="currentColor" 
+              stroke-width="2" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  :root {
+    --font-heading: 'Manrope', system-ui, sans-serif;
+    --font-body: 'Source Sans 3', system-ui, sans-serif;
+
+    --brand: #BA93C2;
+    --brand-700: #7f4b8a;
+  }
+
+  .legal-hero {
+    position: relative;
+    z-index: 1;
+    min-height: 75vh;
+    padding-top: 120px;
+    background-color: #000;
+    overflow: hidden;
+  }
+
+  .legal-hero__scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+
+  .legal-hero video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .legal-hero__content {
+    position: absolute;
+    z-index: 2;
+    color: #fff;
+    text-align: center;
+    font-family: var(--font-body);
+    max-width: 1200px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .legal-hero__content h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    margin-top: 0;
+    text-align: center;
+    will-change: transform, opacity;
+  }
+
+  .legal-hero__content p {
+    font-size: clamp(1.5rem, 2vw, 1.25rem);
+    opacity: .96;
+    margin-bottom: 25px;
+    margin-top: -1rem;
+    text-align: center;
+    will-change: transform, opacity;
+  }
+
+  /* === Botón degradado con efecto de destello === */
+  .btn-about {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    margin-top: 1.2rem;
+    padding: .9rem 1.6rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #fff;
+    background: var(--c3);
+    text-decoration: none;
+    box-shadow: 0 8px 18px rgba(0,0,0,.28);
+    transition: transform .2s ease, box-shadow .2s ease, background .3s ease;
+    position: relative;
+    overflow: hidden;
+    will-change: transform, opacity;
+  }
+
+  .btn-about::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+  }
+
+  .btn-about:hover::before {
+    animation: shine 0.9s forwards;
+  }
+
+  @keyframes shine {
+    100% { left: 125%; }
+  }
+
+  .btn-about:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0,0,0,.35);
+    background: #6a3f75;
+  }
+
+  /* Animación flecha */
+  .cta-arrow .ico {
+    transition: transform .26s cubic-bezier(.22,.61,.36,1);
+  }
+  .cta-arrow:hover .ico {
+    transform: translateX(5px);
+  }
+
+  .legal-hero__text {
+    text-align: center;
+    max-width: 100%;
+    line-height: 1.6;
+  }
+
+  /* === Animaciones de entrada === */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .legal-hero__content h1 {
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+  }
+
+  .legal-hero__content p {
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+  }
+
+  .btn-about {
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s both;
+  }
+
+  /* Reducir animaciones en dispositivos que lo prefieren */
+  @media (prefers-reduced-motion: reduce) {
+    .legal-hero__content h1,
+    .legal-hero__content p,
+    .btn-about {
+      animation: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .legal-hero__content {
+      padding: 0 3rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .legal-hero__content {
+      max-width: 95vw;
+      padding: 0 4rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .legal-hero__content h1 { font-size: 2rem; }
+    .legal-hero__content p { font-size: 1rem; }
+    .btn-about { font-size: 1rem; padding: .75rem 1.1rem; }
+  }
+</style>

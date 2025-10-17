@@ -1,0 +1,817 @@
+---
+import localReviews from '../data/google-reviews.loca.json';
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+const currentLang = getCurrentLanguage();
+
+// Reseñas (5 base + inventadas)
+const items = [
+  ...localReviews,
+  {
+    author_name: 'Carlos García',
+    rating: 5,
+    text: 'Excelente atención, me ayudaron a recuperar la movilidad en mi espalda después de un accidente. ¡Muy recomendados!',
+    date: 'Hace 2 meses',
+    author_url: '',
+    profile_photo_url: '/assets/img/client2.webp',
+  },
+  {
+    author_name: 'María Rodríguez',
+    rating: 5,
+    text: 'Atención profesional y muy amable. La clínica cuenta con tecnología avanzada y el personal es increíble. ¡Gracias!',
+    date: 'Hace 1 mes',
+    author_url: '',
+    profile_photo_url: '/assets/img/client1.webp',
+  },
+  {
+    author_name: 'José López',
+    rating: 5,
+    text: 'Tuve un accidente de auto y me trataron con mucho cuidado. El servicio fue rápido y efectivo. ¡Muy satisfecho!',
+    date: 'Hace 3 semanas',
+    author_url: '',
+    profile_photo_url: '/assets/img/client3.webp',
+  },
+  {
+    author_name: 'Laura Jiménez',
+    rating: 5,
+    text: 'Una atención de primera. Me sentí muy apoyada durante todo el proceso de recuperación. ¡Altamente recomendados!',
+    date: 'Hace 1 semana',
+    author_url: '',
+    profile_photo_url: '/assets/img/client4.jpeg',
+  },
+  {
+    author_name: 'Alejandro García',
+    rating: 5,
+    text: 'El personal es muy atento y los tratamientos son efectivos. Me ayudaron a recuperarme rápidamente después de mi accidente.',
+    date: 'Hace 5 días',
+    author_url: '',
+    profile_photo_url: '/assets/img/client5.jpg',
+  }
+];
+
+// Tomamos 5 para el bloque base (consistencia visual)
+const base = items.slice(0, 5);
+
+// Place ID (opcional)
+const placeId = import.meta.env.PUBLIC_GOOGLE_PLACE_ID || '';
+---
+
+<section class="testimonials" aria-label="Opiniones de Google">
+  <div class="decorative-particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  <h2 class="testimonials__title">
+    <span class="title-main" data-i18n="testimonials.title.main">{t('testimonials.title.main', currentLang)}</span>
+    <span class="title-accent" data-i18n="testimonials.title.accent">{t('testimonials.title.accent', currentLang)}</span>
+  </h2>
+  <p class="testimonials__subtitle" data-i18n="testimonials.subtitle">{t('testimonials.subtitle', currentLang)}</p>
+
+  <!-- ticker: data-speed = px/seg (más lento para mejor experiencia) -->
+  <div class="carousel" data-speed="8" aria-live="polite">
+    <!-- data-base-count lo usa el JS para medir el ancho del bloque original -->
+    <div class="track" data-base-count={base.length} role="list">
+      {/* Primer conjunto de cards */}
+      {base.map((r, i) => (
+        <article class="card" role="listitem" aria-label={`Reseña de ${r.author_name}`} key={`rev-${i}`}>
+          <img
+            class="avatar"
+            src={r.profile_photo_url || '/assets/img/avatar-default.png'}
+            alt={`Foto de ${r.author_name}`}
+            loading="lazy"
+            decoding="async"
+            onload="this.dataset.loaded=1"
+          />
+          <blockquote>
+            {(r.text || '').length > 200 ? (r.text || '').slice(0, 200) + '…' : (r.text || '')}
+          </blockquote>
+          <div class="stars" aria-label={`Calificación ${r.rating} de 5`}>
+            {Array.from({ length: Number(r.rating) || 0 }).map((_, idx) => (
+              <svg viewBox="0 0 24 24" aria-hidden="true" key={`star-${i}-${idx}`}>
+                <path d="M12 17.27l6.18 3.73-1.64-7.03 5.46-4.73-7.19-.61L12 2 9.19 8.63l-7.19.61 5.46 4.73-1.64 7.03z" />
+              </svg>
+            ))}
+          </div>
+          <span class="meta">
+            <strong>{r.author_name}</strong>{r.date ? ` · ${r.date}` : ''}
+          </span>
+        </article>
+      ))}
+      {/* Segundo conjunto de cards para loop infinito */}
+      {base.map((r, i) => (
+        <article class="card" role="listitem" aria-label={`Reseña de ${r.author_name}`} key={`rev-dup-${i}`}>
+          <img
+            class="avatar"
+            src={r.profile_photo_url || '/assets/img/avatar-default.png'}
+            alt={`Foto de ${r.author_name}`}
+            loading="lazy"
+            decoding="async"
+            onload="this.dataset.loaded=1"
+          />
+          <blockquote>
+            {(r.text || '').length > 200 ? (r.text || '').slice(0, 200) + '…' : (r.text || '')}
+          </blockquote>
+          <div class="stars" aria-label={`Calificación ${r.rating} de 5`}>
+            {Array.from({ length: Number(r.rating) || 0 }).map((_, idx) => (
+              <svg viewBox="0 0 24 24" aria-hidden="true" key={`star-dup-${i}-${idx}`}>
+                <path d="M12 17.27l6.18 3.73-1.64-7.03 5.46-4.73-7.19-.61L12 2 9.19 8.63l-7.19.61 5.46 4.73-1.64 7.03z" />
+              </svg>
+            ))}
+          </div>
+          <span class="meta">
+            <strong>{r.author_name}</strong>{r.date ? ` · ${r.date}` : ''}
+          </span>
+        </article>
+      ))}
+      {/* Tercer conjunto de cards para loop infinito perfecto */}
+      {base.map((r, i) => (
+        <article class="card" role="listitem" aria-label={`Reseña de ${r.author_name}`} key={`rev-dup2-${i}`}>
+          <img
+            class="avatar"
+            src={r.profile_photo_url || '/assets/img/avatar-default.png'}
+            alt={`Foto de ${r.author_name}`}
+            loading="lazy"
+            decoding="async"
+            onload="this.dataset.loaded=1"
+          />
+          <blockquote>
+            {(r.text || '').length > 200 ? (r.text || '').slice(0, 200) + '…' : (r.text || '')}
+          </blockquote>
+          <div class="stars" aria-label={`Calificación ${r.rating} de 5`}>
+            {Array.from({ length: Number(r.rating) || 0 }).map((_, idx) => (
+              <svg viewBox="0 0 24 24" aria-hidden="true" key={`star-dup2-${i}-${idx}`}>
+                <path d="M12 17.27l6.18 3.73-1.64-7.03 5.46-4.73-7.19-.61L12 2 9.19 8.63l-7.19.61 5.46 4.73-1.64 7.03z" />
+              </svg>
+            ))}
+          </div>
+          <span class="meta">
+            <strong>{r.author_name}</strong>{r.date ? ` · ${r.date}` : ''}
+          </span>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="more">
+    <a class="btn-secondary"
+       href={`https://maps.app.goo.gl/76gxBm8r9supmSYR9`}
+       target="_blank" rel="noopener"
+       data-i18n="testimonials.view_more">
+      {t('testimonials.view_more', currentLang)}
+    </a>
+  </div>
+</section>
+
+<style>
+/* ===== Variables globales de fuentes ===== */
+:root{
+  --font-body: 'Source Sans 3', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-heading: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  
+  --c-lilac: #CEC6E2;
+  --c-violet: #806AAA;
+  --c-plum: #7A2E87;
+  --c-brand: #BA93C2;
+}
+
+/* ===== Animaciones Mejoradas ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  0%, 50% {
+    border-color: transparent;
+  }
+  51%, 100% {
+    border-color: var(--c-plum);
+  }
+}
+
+@keyframes starGlow {
+  0%, 100% {
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,.18)) brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 1px 8px rgba(255,215,0,.8)) brightness(1.3);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes slideInfinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-66.66%);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) scale(1.2);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-5px) scale(0.8);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translateY(-30px) translateX(15px) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) rotateX(20deg) scale(0.9);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(20px) rotateX(10deg) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* ===== Sección con efectos mejorados ===== */
+.testimonials{
+  background: var(--c-lilac);
+  color: #fff;
+  padding: clamp(3rem, 6vw, 5rem) 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-body);
+  margin-bottom: -2rem;
+  animation: slideInLeft 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Partículas decorativas */
+.decorative-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--c-brand);
+  border-radius: 50%;
+  animation: particleFloat 6s ease-in-out infinite;
+}
+
+.particle:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+  background: var(--c-violet);
+}
+
+.particle:nth-child(2) {
+  top: 60%;
+  left: 85%;
+  animation-delay: 1.5s;
+  background: var(--c-plum);
+}
+
+.particle:nth-child(3) {
+  top: 30%;
+  left: 75%;
+  animation-delay: 3s;
+  background: var(--c-brand);
+}
+
+.particle:nth-child(4) {
+  top: 80%;
+  left: 20%;
+  animation-delay: 4.5s;
+  background: var(--c-violet);
+}
+
+.particle:nth-child(5) {
+  top: 10%;
+  left: 50%;
+  animation-delay: 2s;
+  background: var(--c-plum);
+}
+
+/* ===== Títulos Rediseñados ===== */
+.testimonials__title{
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin: 0 auto 1rem;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  animation: slideInRight 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+  position: relative;
+  z-index: 2;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.title-main {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  animation: typewriter 2s steps(12) 0.8s both, blink 1s step-end 2.8s infinite;
+  border-right: 3px solid var(--c-plum);
+  white-space: nowrap;
+  margin-right: 0.3em;
+}
+
+.title-accent {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--c-brand), var(--c-violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideInRight 1s ease-out 2.5s both, shimmer 3s ease-in-out 3.5s infinite;
+  background-size: 200% 100%;
+  font-weight: 900;
+  text-shadow: none;
+  position: relative;
+}
+
+.title-accent::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--c-brand), var(--c-violet));
+  opacity: 0.1;
+  border-radius: 8px;
+  transform: scale(1.1);
+  z-index: -1;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.testimonials__title::after{
+  content: "";
+  display: block;
+  width: 120px; 
+  height: 4px;
+  margin: .75rem auto 0;
+  background: var(--c-plum);
+  border-radius: 999px;
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+.testimonials__subtitle{
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--c-plum);
+  opacity: 0;
+  margin: .5rem 0 2.5rem;
+  width: 100%;
+  max-width: none;
+  white-space: nowrap;
+  text-align: center;
+  animation: fadeInUp 1.2s ease-out 1.5s both;
+  position: relative;
+  z-index: 2;
+  line-height: 1.4;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== Carrusel simplificado y estable ===== */
+.carousel{
+  --gap: 2rem;
+  overflow: hidden;
+  max-width: 1100px;
+  margin: 3rem auto 2rem;
+  position: relative;
+  border-radius: 20px;
+  padding: 1rem 0;
+  background: rgba(255,255,255,0.05);
+}
+
+.track{
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+  animation: slideInfinite 180s linear infinite;
+}
+
+/* ===== Card (diseño sólido moderno) ===== */
+.card{
+  position: relative;
+  flex: 0 0 340px;
+  padding: 2rem 1.5rem 1.75rem;
+  border-radius: 20px;
+  text-align: left;
+  font-weight: 700;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  gap: .75rem;
+  background: #ffffff;
+  color: #3e2c4a;
+  font-family: var(--font-body);
+  border: 2px solid var(--c-brand);
+  box-shadow: 0 8px 25px rgba(122,46,135,.12);
+  transition: all .3s ease;
+  animation: cardEntrance 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) calc(0.8s + var(--delay, 0s)) both;
+  transform-origin: center bottom;
+}
+
+.card:nth-child(1) { --delay: 0s; }
+.card:nth-child(2) { --delay: 0.1s; }
+.card:nth-child(3) { --delay: 0.2s; }
+.card:nth-child(4) { --delay: 0.3s; }
+.card:nth-child(5) { --delay: 0.4s; }
+
+/* Franja superior sólida */
+.card::before{
+  content: "";
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0;
+  height: 8px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background: linear-gradient(135deg, var(--c-brand) 0%, var(--c-violet) 50%, var(--c-plum) 100%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Variantes de colores sólidos */
+.card:nth-child(5n+1)::before{
+  background: var(--c-plum);
+}
+.card:nth-child(5n+2)::before{
+  background: var(--c-violet);
+}
+.card:nth-child(5n+3)::before{
+  background: var(--c-brand);
+}
+.card:nth-child(5n+4)::before{
+  background: var(--c-lilac);
+}
+.card:nth-child(5n+5)::before{
+  background: var(--c-plum);
+}
+
+/* Sombra inferior mejorada */
+.card::after{
+  content: "";
+  position: absolute; 
+  left: 12px; 
+  right: 12px; 
+  bottom: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(122,46,135,.15);
+  filter: blur(6px);
+  opacity: .4;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Hover simplificado con pausa del carrusel */
+.card:hover{
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(122,46,135,.2);
+  border-color: var(--c-violet);
+}
+
+.card:hover {
+  animation-play-state: paused;
+}
+
+.track:has(.card:hover) {
+  animation-play-state: paused;
+}
+
+.card:hover::after{
+  opacity: .6;
+}
+
+.card:hover::before{
+  background: var(--c-violet) !important;
+}
+
+.card:hover .avatar{
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(122, 46, 135, 0.3);
+}
+
+/* Avatar simplificado */
+.avatar{
+  width: 86px; 
+  height: 86px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--c-brand);
+  box-shadow: 0 4px 12px rgba(122,46,135,.15);
+  transition: all 0.3s ease;
+}
+
+/* Texto mejorado */
+blockquote{
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: .1rem 0 .5rem;
+  text-align: left;
+  color: var(--c-plum);
+  font-family: var(--font-body);
+  transition: color 0.3s ease;
+}
+
+.card:hover blockquote{
+  color: var(--c-violet);
+}
+
+/* Estrellas simplificadas */
+.stars{
+  display: flex; 
+  gap: 4px;
+  color: #FFD700;
+  margin-bottom: .15rem;
+}
+
+.stars svg{
+  width: 20px; 
+  height: 20px;
+  fill: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.card:hover .stars svg{
+  transform: scale(1.1);
+}
+
+.card .meta{
+  align-self: stretch;
+  text-align: left;
+  font-weight: 800;
+  color: var(--c-violet);
+  opacity: .95;
+  transition: color 0.3s ease;
+}
+
+.card:hover .meta{
+  color: var(--c-plum);
+}
+
+/* ===== Botón sólido moderno ===== */
+.more{ 
+  margin-top: 1.5rem;
+  animation: fadeInUp 0.6s ease-out 1.2s both;
+}
+
+.btn-secondary{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 2.5rem;
+  border-radius: 60px;
+  background: var(--c-plum);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 1.15rem;
+  box-shadow: 0 8px 25px rgba(122, 46, 135, 0.3);
+  transition: all 0.3s ease;
+  font-family: var(--font-heading);
+  border: 2px solid var(--c-plum);
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.btn-secondary:hover{
+  background: var(--c-violet);
+  border-color: var(--c-violet);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(122, 46, 135, 0.4);
+}
+
+.btn-secondary:active{
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(122,46,135,.3);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1100px){
+  .carousel{ --gap: 14px; }
+  .card { flex-basis: 320px; }
+}
+@media (max-width: 740px){
+  .carousel{ --gap: 12px; }
+  .card { flex-basis: 300px; }
+  blockquote{ font-size: .95rem; }
+  
+  .testimonials__subtitle{
+    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px){
+  .testimonials__subtitle{
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    white-space: normal;
+    line-height: 1.3;
+    padding: 0 1rem;
+  }
+}
+
+</style>
+
+<script>
+// Carrusel infinito real con reciclaje de slides (sin parones, sin huecos)
+(function () {
+  const section = document.querySelector('.testimonials');
+  const carousel = section?.querySelector('.carousel');
+  const track = carousel?.querySelector('.track');
+  if (!section || !carousel || !track) return;
+
+  // Opcional: velocidad en px/seg desde data-speed (por defecto 8 = suave)
+  const SPEED = (() => {
+    const v = Number(carousel.dataset?.speed);
+    return Number.isFinite(v) && v > 0 ? v : 8;
+  })();
+
+  const prefersReduce =
+    window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduce) return;
+
+  // Medidas del carrusel
+  let carouselWidth = 0;
+  let trackWidth = 0;
+  let baseCount = 0;
+  let blockWidth = 0;
+
+  // Estado de animación
+  let x = 0;
+  let last = 0;
+  let rafId = 0;
+  let paused = false;
+
+  const measure = () => {
+    carouselWidth = carousel.offsetWidth;
+    trackWidth = track.scrollWidth;
+    baseCount = Number(track.dataset?.baseCount) || 5;
+    blockWidth = trackWidth / 3; // 3 bloques idénticos
+  };
+
+  const ensureFill = () => {
+    if (blockWidth <= carouselWidth) {
+      // Si un bloque es menor que el viewport, duplicar cards
+      const cards = Array.from(track.children);
+      cards.forEach(card => {
+        const clone = card.cloneNode(true);
+        track.appendChild(clone);
+      });
+      measure(); // Recalcular después de duplicar
+    }
+  };
+
+  const step = (now) => {
+    if (!paused) {
+      const delta = now - last;
+      x += (SPEED * delta) / 1000;
+      
+      // Reset cuando completamos un bloque
+      if (x >= blockWidth) {
+        x = 0;
+      }
+      
+      track.style.transform = `translateX(-${x}px)`;
+    }
+    
+    last = now;
+    rafId = requestAnimationFrame(step);
+  };
+
+  const start = () => {
+    cancelAnimationFrame(rafId);
+    x = 0;
+    last = performance.now();
+    ensureFill();
+    rafId = requestAnimationFrame(step);
+  };
+
+  // Pausas accesibles (hover o foco dentro de la sección)
+  const setPaused = (v) => (paused = v);
+  carousel.addEventListener('mouseenter', () => setPaused(true));
+  carousel.addEventListener('mouseleave', () => setPaused(false));
+  section.addEventListener('focusin', () => setPaused(true));
+  section.addEventListener('focusout', () => setPaused(false));
+
+  // Recalcular en resize/orientation/load (por cargas de fuentes/imágenes)
+  let resizeRAF;
+  const handleResize = () => {
+    cancelAnimationFrame(resizeRAF);
+    resizeRAF = requestAnimationFrame(() => {
+      measure();
+      start();
+    });
+  };
+
+  window.addEventListener('resize', handleResize);
+  window.addEventListener('orientationchange', handleResize);
+  window.addEventListener('load', handleResize);
+
+  // Inicializar
+  measure();
+  start();
+})();
+</script>

@@ -1,0 +1,210 @@
+---
+/* Layout.astro – plantilla principal (sin TopBar, Nav arriba) */
+import Nav from '../components/Nav.astro';
+import FloatingButtons from '../components/FloatingButtons.astro';
+import CenterfyChat from '../components/CenterfyChat.astro';
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Car Injury Clinic – Utah | Atención y rehabilitacion integral</title>
+    <meta
+      name="description"
+      content="Tratamientos naturales y sin costo de tu bolsillo (con cobertura de auto calificada) para víctimas de accidentes en Utah. Protegemos tu salud y tus derechos legales."
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/Car-Injury-Clinic-White.png" />
+    <link rel="shortcut icon" href="/favicon.ico?v=2" />
+    <meta name="theme-color" content="#1e40af" />
+
+    <!-- Estilos globales -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+
+    <!-- OVERRIDES específicos del Nav: desbloquean el alto -->
+<style is:global>
+  /* Si algún CSS global fijó alturas/line-height del nav/header, los anulamos aquí */
+  #main-nav,
+  #main-nav.navbar {
+    height: var(--nav-h, auto) !important;
+    min-height: var(--nav-h, auto) !important;
+    line-height: normal !important;
+  }
+  #main-nav .nav-inner {
+    height: var(--nav-h, auto) !important;
+    min-height: var(--nav-h, auto) !important;
+  }
+  #main-nav .brand-img {
+    height: var(--logo-h, 200px) !important;
+    width: auto !important;
+    max-height: none !important;
+  }
+  /* Por si global.css tenía algo agresivo tipo nav{height:56px!important} */
+  header.navbar,
+  nav.navbar { height: auto !important; min-height: 0 !important; }
+</style>
+
+
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;600&family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- (Opcional) Font Awesome 6 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-+3rtQyIyTPqf2V1bAliMI/xPyWaT2b8V0IcSCSm7ygyK73Apw63Tuyg9+LRHnjU3HCMYv6GS+JVB3HEUFq2T1g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <!-- NAV arriba (sin TopBar) -->
+    <Nav />
+
+    <!-- Contenido de cada página -->
+    <slot />
+    <FloatingButtons />
+    <CenterfyChat />
+
+    <!-- Cargar traducciones globalmente -->
+    <script is:inline define:vars={{ translations: { es: await import('../i18n/es.json'), en: await import('../i18n/en.json') } }}>
+      window.translations = translations;
+    </script>
+    
+    <!-- Scripts opcionales -->
+    <script type="module" src="/src/utils/testimonials.js"></script>
+    <script type="module" src="/src/utils/dropdown.js"></script>
+    <script type="module" src="/src/utils/animations.js"></script>
+    
+    <!-- Inicializar i18n client con mejor manejo -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', async () => {
+        console.log('Layout: DOMContentLoaded, initializing i18n...');
+        
+        try {
+          // Cargar el módulo i18n-client dinámicamente
+          const module = await import('/src/utils/i18n-client.js');
+          const i18nClient = module.default;
+          
+          // Asignar a window para acceso global
+          window.i18nClient = i18nClient;
+          console.log('Layout: i18nClient assigned to window');
+          
+          // Inicializar el cliente
+          await i18nClient.init();
+          console.log('Layout: i18nClient initialized');
+          
+          // Función para actualizar el texto del botón de idioma
+          const updateLanguageButton = () => {
+            const buttonText = document.getElementById('language-button-text');
+            if (buttonText && window.i18nClient) {
+              const currentLang = window.i18nClient.currentLang;
+              buttonText.textContent = currentLang === 'es' ? 'English' : 'Español';
+              console.log('Layout: Button text updated to:', buttonText.textContent);
+            }
+          };
+          
+          // Actualizar inmediatamente
+          updateLanguageButton();
+          
+          // Escuchar cambios de idioma
+          window.addEventListener('languageChange', () => {
+            console.log('Layout: Language change event received');
+            updateLanguageButton();
+          });
+          
+          // Disparar evento personalizado para notificar que i18n está listo
+          window.dispatchEvent(new CustomEvent('i18nReady'));
+          console.log('Layout: i18nReady event dispatched');
+          
+        } catch (error) {
+          console.error('Layout: Error initializing i18n:', error);
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* ✅ Layout de ancho completo con legibilidad optimizada */
+
+  /* 1) Resetea márgenes/paddings y establece ancho completo */
+  html, body { 
+    margin: 0; 
+    padding: 0; 
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* 2) Box-sizing para todos los elementos */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* 3) Contenedores principales a ancho completo */
+  body,
+  header,
+  main,
+  .page,
+  .layout,
+  .content {
+    width: 100% !important;
+    max-width: none !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* 4) Elimina variables del TopBar */
+  :root { --topbar-h: 0px; }
+
+  /* 5) Colapsa cualquier "spacer" o restos del TopBar */
+  .topbar,
+  .top-bar,
+  .site-topbar,
+  .topbar-spacer,
+  [data-topbar],
+  [data-spacer="topbar"] {
+    display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 6) Navbar sin margen superior */
+  nav.navbar { margin-top: 0 !important; }
+
+  /* 7) Legibilidad del texto: párrafos con max-width y centrado */
+  p, .text-content {
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 8) Secciones de ancho completo permitidas */
+  .hero,
+  .hero-section,
+  .gallery,
+  .banner,
+  .full-width {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  /* (Opcional) Si tu Nav es sticky y tapa anclas, descomenta:
+  html { scroll-padding-top: 72px; }
+  */
+</style>

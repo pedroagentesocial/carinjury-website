@@ -1,0 +1,957 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About Us",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "schedule": "Schedule",
+    "phone": "Call Now",
+    "language": "Español",
+    "legal_assistance": "Legal Assistance",
+    "patients": "Patients",
+    "form": "Form",
+    "frequent_questions": "Frequently Asked Questions",
+    "schedule_online": "Schedule Online",
+    "services_dropdown": {
+      "chiropractic": "Chiropractic",
+      "rehabilitation": "Injury Rehabilitation",
+      "physical_therapy": "Physical Therapy",
+      "hot_cold_therapy": "Hot/Cold Therapy",
+      "massage": "Massage Therapy",
+      "ultrasound": "Ultrasound Therapy",
+      "tens": "Electrical Stimulation (TENS)",
+      "second_opinions": "Second Opinions",
+      "xray": "Digital X-Rays",
+      "mri": "MRI Request and Results Reading",
+      "pain_management": "Pain Management Specialist",
+      "surgical_consultations": "Surgical Consultations with Specialist",
+      "concussion": "Concussion Diagnosis",
+      "free_transport": "Free Transportation",
+      "trilingual": "Trilingual Care"
+    }
+  },
+  "formulario_page": {
+    "hero": {
+      "title": "Patient Referral Form",
+      "subtitle": "Complete the patient information for medical referral"
+    },
+    "patient_info": {
+      "title": "Patient Information",
+      "first_name": "First Name",
+      "middle_name": "Middle Name",
+      "last_name": "Last Name",
+      "date_of_birth": "Date of Birth",
+      "gender": "Gender",
+      "gender_select": "Select gender",
+      "gender_male": "Male",
+      "gender_female": "Female",
+      "gender_other": "Other",
+      "age": "Age"
+    },
+    "address": {
+      "title": "Address",
+      "address": "Address",
+      "address2": "Address 2 (Optional)",
+      "city": "City",
+      "state": "State/County",
+      "zip": "ZIP Code"
+    },
+    "patient_contact": {
+      "title": "Patient Contact Information",
+      "home_phone": "Home Phone",
+      "cell_phone": "Cell Phone",
+      "work_phone": "Work Phone",
+      "email": "Email"
+    },
+    "incident_info": {
+      "title": "Incident Information",
+      "accident_type": "How did the accident occur?",
+      "type_car": "Car",
+      "type_bicycle": "Bicycle",
+      "type_motorcycle": "Motorcycle",
+      "type_pedestrian": "Pedestrian",
+      "type_other": "Other",
+      "other_specify": "Specify the type of accident:",
+      "legal_representation": "Do you have legal representation?",
+      "legal_specify": "Specify which:",
+      "accident_date": "Accident Date",
+      "additional_notes": "Additional Notes"
+    },
+    "referral_info": {
+      "title": "Referral Information",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "cell_phone": "Cell Phone",
+      "email": "Email"
+    },
+    "authenticity": {
+      "title": "Statement of Authenticity",
+      "statement": "I affirm that I have completed this form to the best of my ability and acknowledge that I have done so honestly. By applying my digitally written name under penalty of perjury, I affirm that it was I who completed the information and I did not do so in an attempt to defraud Car Injury Clinic® or its affiliated companies and insurance companies.",
+      "consent_checkbox_new": "I understand that my data will be transmitted securely and confidentially, and I accept the privacy policy",
+      "privacy_policy": "Privacy Policy"
+    },
+    "signature": {
+      "signature_canvas": "Digital Signature",
+      "signature_placeholder": "Sign here with your finger or mouse",
+      "clear": "Clear",
+      "signature_required": "Signature is required to submit the form"
+    },
+    "submit": {
+      "button": "Submit Form",
+      "success": "Form submitted successfully. We will contact you soon.",
+      "error": "Error submitting form. Please try again."
+    }
+  },
+  "hero": {
+    "slides": {
+      "slide1": {
+        "title": "Car accident? Your health comes first",
+        "subtitle": "We accept all insurance. Clinic specialized in rehabilitation. Same-day appointments.",
+        "cta": "Call Now"
+      },
+      "slide2": {
+        "title": "You're not alone after an accident",
+        "subtitle": "Certified specialists, bilingual and committed to your well-being.",
+        "cta": "Speak with a Specialist"
+      },
+      "slide3": {
+        "title": "Top-rated in Utah for post-accident recovery",
+        "subtitle": "Continuous clinical follow-up and results-focused therapy.",
+        "cta": "Schedule Evaluation"
+      }
+    },
+    "controls": {
+      "previous": "Previous",
+      "next": "Next",
+      "toggle_sound": "Toggle sound",
+      "mute": "Mute",
+      "unmute": "Unmute"
+    }
+  },
+  "gracias_page": {
+    "title": "Thank You!",
+    "message": "We have received your message and will contact you shortly.",
+    "back_home": "Back to Home",
+    "call_now": "Call Now"
+  },
+  "schedule_page": {
+    "hero": {
+      "badge": "Schedule Today",
+      "title": "Free Consultation",
+      "subtitle": "No Commitment",
+      "description": "Professional case evaluation • Response in minutes • Bilingual team"
+    },
+    "clinic": {
+      "badge": "Specialized Clinic"
+    },
+    "benefits": {
+      "free_consultation": {
+        "title": "Free Consultation",
+        "description": "No initial cost or commitment"
+      },
+      "same_day": {
+        "title": "Same Day Appointment",
+        "description": "Immediate attention available"
+      },
+      "bilingual": {
+        "title": "Bilingual Team",
+        "description": "Service in Spanish and English"
+      },
+      "experience": {
+        "title": "Proven Experience",
+        "description": "Thousands of successful cases"
+      }
+    },
+    "form": {
+      "title": "Schedule Your Consultation",
+      "subtitle": "Complete the form and we'll contact you in minutes",
+      "name": "First Name",
+      "name_placeholder": "Your first name",
+      "lastname": "Last Name",
+      "lastname_placeholder": "Your last name",
+      "email": "Email",
+      "email_placeholder": "your@email.com",
+      "phone": "Phone",
+      "phone_title": "Use a valid 10-digit number",
+      "message": "How can we help you?",
+      "message_placeholder": "Tell us about your accident: date, location, type of injuries, etc.",
+      "submit": "Send Request",
+      "or": "or",
+      "call_now": "Call Now"
+    },
+    "modal": {
+      "title": "Request Sent!",
+      "message": "We received your message. We'll contact you in minutes.",
+      "close": "Close"
+    }
+  },
+  "services": {
+    "left": {
+      "title": "Physical & Chiropractic Therapy",
+      "description": "Personalized programs with certified therapists and chiropractors to relieve pain and restore your mobility."
+    },
+    "right": {
+      "title": "Legal Assistance & Claims",
+      "description": "We handle all paperwork and deal with your insurance company so you receive adequate compensation, stress-free."
+    },
+    "cta": {
+      "badge": "New patient!",
+      "subtitle": "First consultation at no cost",
+      "button": "Schedule your appointment"
+    }
+  },
+  "form": {
+    "title": {
+      "line1": "Leading Clinic",
+      "line2": "in Rehabilitation",
+      "line3": "in Salt Lake City"
+    },
+    "description": {
+      "main": "Recover your well-being with specialized treatments and advanced medical technology.",
+      "highlight": "Your health is our priority."
+    },
+    "why_choose_us": "Why choose us?",
+    "benefits": {
+      "xray": "Same-day X-Ray",
+      "same_day": "Same Day Consultation",
+      "experienced_team": "Team of doctors with extensive experience",
+      "lawyer_support": "We work with your lawyer or recommend one if you need it",
+      "insurance_process": "We handle the process with your insurance",
+      "advanced_treatments": "Advanced treatments with modern equipment",
+      "free_transport": "Free round-trip transportation to the clinic",
+      "multilingual": "We speak Spanish, English and Portuguese"
+    },
+    "schedule_button": "Schedule your appointment",
+    "form_title": "Schedule Your Appointment",
+    "form_subtitle": "Call now or complete the form to schedule your visit.",
+    "call_label": "Call",
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "how_found": "How did you find us?",
+      "select_option": "Select…",
+      "who_referred": "Who referred you?",
+      "referral_placeholder": "Name of person / lawyer / clinic",
+      "message": "Anything we should know?",
+      "message_placeholder": "Neck / back pain, whiplash, etc."
+    },
+    "submit_button": "Request Appointment",
+    "sending": "Sending..."
+  },
+  "hero_services": {
+    "badge": "Specialized Services",
+    "title": "Comprehensive Medical Care for Accident Victims",
+    "subtitle": "Cutting-edge technology and specialized therapies for your complete recovery. No out-of-pocket cost with qualified insurance coverage."
+  },
+  "hero_lawyer": {
+    "badge": "Lawyer Approved",
+    "title": "Your guide from accident to recovery",
+    "subtitle": {
+      "main": "Start your treatment with a",
+      "highlight": "free evaluation",
+      "end": "for auto accident injuries. Accurate diagnosis and legal coordination."
+    },
+    "benefits_label": "Key benefits",
+    "benefits": {
+      "free_evaluation": "Free evaluation with our professionals",
+      "insurance_handling": "We handle your insurance case",
+      "legal_support": "We accompany you through the legal process",
+      "specialist_referral": "Referral to specialists according to your treatment"
+    },
+    "actions_label": "Main action",
+    "schedule_button": "Schedule your consultation with a specialist",
+    "call_now": "Call now at",
+    "form": {
+      "title": "Book your consultation",
+      "subtitle": "Free evaluation in less than 24 hours",
+      "free_badge": "No cost",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "how_found": "How did you find us?",
+        "select_option": "Select…",
+        "who_referred": "Who referred you?",
+        "referral_placeholder": "Name of person / lawyer / clinic",
+        "message": "Anything we should know?",
+        "message_placeholder": "Neck / back pain, whiplash, etc."
+      },
+      "submit_button": "I want to start my recovery!"
+    }
+  },
+  "testimonials": {
+    "title": {
+      "main": "Success",
+      "accent": "Stories"
+    },
+    "subtitle": "Real testimonials from patients who recovered their quality of life",
+    "view_more": "View more reviews"
+  },
+  "map_contact": {
+    "info_label": "Information",
+    "hours_label": "Office Hours",
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "closed": "Closed",
+    "phone_label": "Tel",
+    "email_label": "E-mail",
+    "call_now": "Call now",
+    "social_label": "Social media"
+  },
+  "process_steps": {
+    "section_label": "Section",
+    "subtitle": "Our Process",
+    "title": "How We Help You",
+    "description": "We follow a structured process to ensure you get the compensation you deserve",
+    "steps_label": "Legal process steps",
+    "step_label": "Step number",
+    "steps": {
+      "step1": {
+        "title": "Free Consultation",
+        "description": "We evaluate your case at no cost. We analyze the accident details and determine the viability of your claim."
+      },
+      "step2": {
+        "title": "Complete Investigation",
+        "description": "We gather evidence, review medical and police reports, and build a solid case to maximize your compensation."
+      },
+      "step3": {
+        "title": "Expert Negotiation",
+        "description": "We aggressively negotiate with insurance companies to get the best possible settlement for your case."
+      },
+      "step4": {
+        "title": "Fair Compensation",
+        "description": "We help you obtain the full compensation you deserve for your injuries, medical expenses, and lost income."
+      }
+    }
+  },
+  "legal_services": {
+    "badge": "Legal Services",
+    "title": "Lawyer Approved",
+    "description": "At Car Injury Clinic, we distinguish ourselves as the trusted choice for advocates of your rights who seek safe and professional medical care for their clients involved in a car accident.",
+    "cta_text": "Book consultation",
+    "services": {
+      "insurance": {
+        "title": "Insurance Claim",
+        "description": "We manage <strong>your case</strong> and maintain direct communication with your insurance company. Seeking the <strong>fairest compensation</strong> for you.",
+        "cta_label": "Book consultation for insurance claim",
+        "features": {
+          "complete_process": "Complete claim processing",
+          "evidence_monitoring": "Evidence and response monitoring",
+          "real_time_updates": "Real-time case updates"
+        }
+      },
+      "legal": {
+        "title": "Legal Assistance",
+        "description": "<strong>Procedures and documents</strong> always in order. We guide you through every step ensuring your rights and that you get justice.",
+        "cta_label": "Book consultation for legal assistance",
+        "features": {
+          "lawyer_catalog": "Extensive lawyer catalog",
+          "direct_communication": "Direct communication",
+          "rights_defense": "Strong defense of your rights"
+        }
+      },
+      "representation": {
+        "title": "Agreements and Representation",
+        "description": "We represent your interests at every stage to achieve <strong>fair and sustainable agreements</strong>. You receive strategic support and <strong>transparent communication</strong> at all times.",
+        "cta_label": "Book consultation for agreements and representation",
+        "features": {
+          "clear_negotiations": "Clear and effective negotiations",
+          "adequate_treatment": "Treatment tailored to your needs",
+          "professional_guidance": "Professional guidance in key decisions"
+        }
+      }
+    }
+  },
+  "stats": {
+    "badge": "Our Results",
+    "title": "Results that Support",
+    "subtitle": "Experience, effectiveness and real case tracking.",
+    "cases": {
+      "label": "Successfully handled cases"
+    },
+    "compensation": {
+      "label": "Maximum compensation claimed"
+    },
+    "experience": {
+      "label": "Years of experience"
+    }
+  },
+  "final_cta": {
+    "title": "Your case moves forward. You rest.",
+    "subtitle": "Schedule your free consultation and let's start today.",
+    "schedule_button": "Book consultation",
+    "schedule_label": "Book free consultation",
+    "phone_number": "+1 (385) 242-8571"
+  },
+  "floating_buttons": {
+    "phone": {
+      "aria_label": "Call now",
+      "tooltip": "Call now"
+    },
+    "schedule": {
+      "aria_label": "Schedule appointment",
+      "tooltip": "Schedule online"
+    },
+    "help": {
+      "aria_label": "Frequently asked questions",
+      "tooltip": "Help"
+    }
+  },
+  "about_video": {
+    "title": "Top-Rated\nAccident Clinic\nin Salt Lake City",
+    "tagline": "Relieve your pain and recover with elite therapies and technology.",
+    "contact_button": "Contact Us"
+  },
+  "faq_page": {
+    "meta_title": "Frequently Asked Questions - Car Injury Clinic",
+    "hero": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Find answers to the most common questions about car accidents and personal injuries"
+    },
+    "intro": {
+      "title": "Do you have questions about your case?",
+      "description": "Here you'll find answers to the most frequently asked questions about car accidents, personal injuries, and the legal process. If you can't find the answer you're looking for, don't hesitate to contact us directly."
+    },
+    "questions": {
+      "q1": {
+        "question": "How long do I have to file a car accident lawsuit?",
+        "answer": "In most states, you have between 2 and 3 years from the date of the accident to file a personal injury lawsuit. However, this timeframe can vary by state and the specific circumstances of your case. It's important to consult with an attorney as soon as possible to protect your rights."
+      },
+      "q2": {
+        "question": "What should I do immediately after a car accident?",
+        "answer": "After an accident, it's crucial to: 1) Check for injuries and call 911 if necessary, 2) Document the scene with photos, 3) Exchange information with the other driver, 4) Get witness information, 5) Report the accident to your insurance company, and 6) Seek medical attention even if you don't feel pain immediately."
+      },
+      "q3": {
+        "question": "How much could my car accident case be worth?",
+        "answer": "The value of your case depends on several factors: the severity of your injuries, medical expenses, lost income, pain and suffering, and the degree of fault of the other driver. Each case is unique, and an experienced attorney can evaluate your specific situation to give you a more accurate estimate."
+      },
+      "q4": {
+        "question": "Do I need a lawyer for my car accident case?",
+        "answer": "While not mandatory, it's highly recommended to hire an attorney, especially if there are significant injuries, disputes about fault, or if the insurance company offers a low settlement. An attorney can maximize your compensation and handle the legal complexities while you recover."
+      },
+      "q5": {
+        "question": "What happens if the other driver doesn't have insurance?",
+        "answer": "If the other driver doesn't have insurance, you still have options: you can use your uninsured motorist coverage (if you have it), file a lawsuit directly against the driver, or explore other sources of compensation. An attorney can help you identify all available options in your situation."
+      },
+      "q6": {
+        "question": "How much does it cost to hire a car accident attorney?",
+        "answer": "Most car accident attorneys work on a contingency fee basis, which means they only get paid if they win your case. Typically, this represents between 33% and 40% of the final settlement. You pay nothing upfront, and if there's no recovery, there are no fees."
+      },
+      "q7": {
+        "question": "What types of damages can I claim after a car accident?",
+        "answer": "You can claim economic damages (medical expenses, lost income, property damage) and non-economic damages (pain and suffering, emotional distress, loss of enjoyment of life). In cases of gross negligence, punitive damages may also apply."
+      },
+      "q8": {
+        "question": "What if I was partially at fault for the accident?",
+        "answer": "Depending on your state's laws, you may still be entitled to compensation. Some states follow comparative negligence rules, where your compensation is reduced by your percentage of fault. Other states have stricter contributory negligence rules."
+      },
+      "q9": {
+        "question": "How long does it take to resolve a car accident case?",
+        "answer": "The time varies significantly depending on the complexity of the case. Simple cases can be resolved in a few months, while complex cases with serious injuries can take 1-3 years or more. Your attorney can give you a more specific estimate based on your particular situation."
+      }
+    },
+    "contact": {
+      "table_label": "Contact information and hours",
+      "hours_label": "Hours:",
+      "weekdays": "Monday - Friday:",
+      "saturday": "Saturday:",
+      "sunday": "Sunday:",
+      "monday": "Monday:",
+      "tuesday": "Tuesday:",
+      "wednesday": "Wednesday:",
+      "thursday": "Thursday:",
+      "friday": "Friday:",
+      "closed": "Closed"
+    }
+  },
+  "services_page": {
+    "service_label": "Service",
+    "schedule_evaluation": "Schedule evaluation",
+    "items": {
+      "chiropractic": {
+        "title": "Chiropractic Therapy",
+        "description": "Specific adjustments and gentle techniques to align the spine, reduce inflammation and improve mobility after an accident."
+      },
+      "rehabilitation": {
+        "title": "Injury Rehabilitation",
+        "description": "Personalized rehabilitation plans that address the cause of your symptoms and accelerate functional recovery."
+      },
+      "physical_therapy": {
+        "title": "Physical Therapy",
+        "description": "Guided exercises and manual techniques to relieve pain, strengthen muscles and prevent long-term complications."
+      },
+      "hot_cold_therapy": {
+        "title": "Hot-Cold Therapy",
+        "description": "Quick relief combining cold to reduce inflammation and heat to relax muscles and improve mobility. Ideal for sprains, bruises and stiffness caused by an accident."
+      },
+      "massage": {
+        "title": "Massage Therapy",
+        "description": "Therapeutic massage to reduce muscle tension, improve circulation and complement your treatment."
+      },
+      "ultrasound": {
+        "title": "Ultrasound Therapy",
+        "description": "Therapeutic ultrasound that generates deep micro-massage and controlled heat to reduce pain, relax soft tissue and improve mobility."
+      },
+      "tens": {
+        "title": "TENS Therapy (Electrostimulation)",
+        "description": "TENS is a non-invasive therapy that uses low-intensity electrical impulses on the skin to help modulate pain and relax muscles. It is effective support for post-accident discomfort such as neck pain, back pain and sprains, and integrates into your rehabilitation plan."
+      },
+      "second_opinions": {
+        "title": "Second Opinions",
+        "description": "Independent medical evaluation to confirm diagnoses, explore treatment alternatives and provide greater peace of mind to the patient and their attorney."
+      },
+      "xray": {
+        "title": "Digital X-Rays",
+        "description": "High-quality digital images that allow rapid and accurate diagnosis of bone injuries after an accident."
+      },
+      "mri": {
+        "title": "MRI Request and Results Reading",
+        "description": "Coordination of magnetic resonance imaging (MRI) and analysis of results by specialists for a complete view of internal damage."
+      },
+      "pain_management": {
+        "title": "Pain Management Specialist",
+        "description": "Advanced medical treatments to control chronic pain, restore mobility and improve quality of life."
+      },
+      "surgical_consultations": {
+        "title": "Surgical Consultations with Specialist",
+        "description": "Evaluations with specialized surgeons to determine if surgery is necessary and coordinate the best care plan."
+      },
+      "concussion": {
+        "title": "Concussion Diagnosis",
+        "description": "Clinical evaluation to detect and treat concussions, ensuring proper and safe management after an accident."
+      },
+      "free_transport": {
+        "title": "Free Transportation",
+        "description": "At Car Injury Clinic we understand that transportation can be an obstacle to caring for your health. That's why we offer free transportation for all our patients who don't have a way to get here. This way we guarantee that you attend your appointment comfortably, safely and without worries."
+      },
+      "trilingual": {
+        "title": "Trilingual Care",
+        "description": "Our team serves you in Spanish, English and Portuguese, so you receive the best care without communication barriers."
+      }
+    }
+  },
+  "hero": {
+    "slides": {
+      "slide1": {
+        "title": "Recover your life after the accident",
+        "subtitle": "Specialized medical care and complete legal support",
+        "cta": "View successful cases"
+      },
+      "slide2": {
+        "title": "Call now and receive immediate attention",
+        "subtitle": "Our team is ready to help you 24 hours a day",
+        "cta": "Call now"
+      },
+      "slide3": {
+        "title": "Schedule your free consultation today",
+        "subtitle": "Complete evaluation at no cost and no commitment",
+        "cta": "Schedule appointment"
+      }
+    },
+    "controls": {
+      "previous": "Previous slide",
+      "next": "Next slide"
+    }
+  },
+  "hero_services": {
+    "badge": "Our Services",
+    "title": "Specialized Medical Care",
+    "subtitle": "Advanced treatments for car accident injuries backed by experienced professionals"
+  },
+  "hero_lawyer": {
+    "badge": "Specialized Care",
+    "title": "Recover your life after the accident",
+    "subtitle": {
+      "main": "Receive complete medical care and",
+      "highlight": "specialized legal support",
+      "end": "for your total recovery"
+    },
+    "benefits_label": "Benefits of our service",
+    "benefits": {
+      "free_evaluation": "Free medical evaluation",
+      "insurance_handling": "Direct handling of insurance claims",
+      "legal_support": "Specialized legal support",
+      "specialist_referral": "Specialist referrals"
+    },
+    "actions_label": "Contact options",
+    "schedule_button": "Schedule consultation",
+    "call_now": "Call now",
+    "form": {
+      "title": "Free Evaluation",
+      "subtitle": "Complete the form and we'll contact you",
+      "free_badge": "FREE",
+      "fields": {
+        "name": "Full name",
+        "email": "Email",
+        "phone": "Phone",
+        "how_found": "How did you find us?",
+        "select_option": "Select an option",
+        "who_referred": "Who referred you?",
+        "referral_placeholder": "Name of who referred you",
+        "message": "Tell us about your case",
+        "message_placeholder": "Briefly describe your situation..."
+      },
+      "submit_button": "Send request"
+    }
+  },
+  "services": {
+    "left": {
+      "title": "Specialized Medical Care",
+      "description": "Advanced treatments for your complete recovery after a car accident."
+    },
+    "right": {
+      "title": "Professional Legal Support",
+      "description": "Expert legal representation to protect your rights and get the compensation you deserve."
+    },
+    "cta": {
+      "badge": "Need help?",
+      "subtitle": "Contact us now",
+      "button": "Call"
+    }
+  },
+  "testimonials": {
+    "title": {
+      "main": "What our",
+      "accent": "patients say"
+    },
+    "subtitle": "Real testimonials from people who have recovered their lives with our help",
+    "view_more": "View more reviews on Google"
+  },
+  "form": {
+    "title": {
+      "line1": "Were you in an accident?",
+      "line2": "We help you recover completely",
+      "line3": ""
+    },
+    "description": {
+      "main": "Receive specialized medical care and complete legal support for your recovery.",
+      "highlight": "Free evaluation with no commitment."
+    },
+    "why_choose_us": "Why choose us?",
+    "benefits": {
+      "xray": "X-rays and diagnosis the same day",
+      "same_day": "Care the same day of the accident",
+      "experienced_team": "Medical team with over 15 years of experience",
+      "lawyer_support": "Specialized legal support included",
+      "insurance_process": "We handle the entire process with your insurance",
+      "advanced_treatments": "Advanced rehabilitation treatments",
+      "free_transport": "Free transportation to your appointments",
+      "multilingual": "Care in Spanish and English"
+    },
+    "schedule_button": "Schedule my appointment",
+    "form_title": "Schedule your consultation",
+    "form_subtitle": "We'll contact you in less than 24 hours",
+    "call_label": "Or call us directly",
+    "fields": {
+      "name": "Full name",
+      "email": "Email (optional)",
+      "phone": "Phone",
+      "how_found": "How did you find us?",
+      "select_option": "Select an option",
+      "who_referred": "Who referred you?",
+      "referral_placeholder": "Name of who referred you",
+      "message": "Tell us about your case",
+      "message_placeholder": "Briefly describe your situation, type of accident, injuries, etc."
+    },
+    "submit_button": "Send request",
+    "sending": "Sending...",
+    "thank_you": {
+      "title": "Thank you for contacting us!",
+      "message": "We have received your message and will contact you very soon.",
+      "close": "Close"
+    }
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "contact_label": "Contact us:",
+    "privacy": "Privacy policy"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "subtitle": "At Car Injury Clinic, we protect your privacy and handle your personal information with the utmost care and transparency.",
+    "last_updated": "Last updated:",
+    "section1_title": "Introduction",
+    "section1_content": "At Car Injury Clinic, we are committed to protecting your privacy and handling your personal information responsibly. This privacy policy explains how we collect, use, store, and protect your information when you use our medical and legal services.",
+    "section2_title": "Information We Collect",
+    "section2_item1_title": "Personal Information",
+    "section2_item1_content": "We collect information such as your name, address, phone number, email address, date of birth, medical insurance information, and details about your accident or injury.",
+    "section2_item2_title": "Medical Information",
+    "section2_item2_content": "We collect information about your medical history, symptoms, treatments, diagnoses, and any information relevant to your medical care.",
+    "section2_item3_title": "Contact Information",
+    "section2_item3_content": "We collect information about how you prefer to be contacted and when is the best time to reach you.",
+    "section3_title": "How We Use Your Information",
+    "section3_item1_title": "Medical Care",
+    "section3_item1_content": "We use your information to provide you with quality medical care, coordinate treatments, and communicate with you about your care.",
+    "section3_item2_title": "Legal Services",
+    "section3_item2_content": "We use your information to provide legal assistance related to your accident or injury, including communication with insurance companies.",
+    "section3_item3_title": "Communication",
+    "section3_item3_content": "We use your contact information to schedule appointments, send reminders, and communicate with you about your treatment.",
+    "section4_title": "Protecting Your Information",
+    "section4_content": "We implement physical, technical, and administrative security measures to protect your personal information against unauthorized access, misuse, or disclosure. We comply with all HIPAA regulations and other applicable privacy laws.",
+    "section5_title": "Your Rights",
+    "section5_item1_title": "Access to Your Information",
+    "section5_item1_content": "You have the right to request access to the personal information we have about you and to receive a copy of it.",
+    "section5_item2_title": "Information Correction",
+    "section5_item2_content": "You may request that we correct any inaccurate or incomplete personal information we have about you.",
+    "section5_item3_title": "Information Deletion",
+    "section5_item3_content": "Under certain circumstances, you may request that we delete your personal information, subject to our legal and medical obligations.",
+    "section6_title": "Information Sharing",
+    "section6_item1_title": "Healthcare Providers",
+    "section6_item1_content": "We may share your information with other healthcare providers involved in your care, such as specialists or laboratories.",
+    "section6_item2_title": "Insurance Companies",
+    "section6_item2_content": "We share necessary information with insurance companies for claims processing and treatment authorization.",
+    "section6_item3_title": "Legal Requirements",
+    "section6_item3_content": "We may disclose information when required by law, court order, or to protect public health and safety.",
+    "section7_title": "Changes to This Policy",
+    "section7_content": "We may update this privacy policy occasionally. We will notify you of significant changes and the updated version will be available on our website.",
+    "contact_title": "Privacy Contact",
+    "contact_content": "If you have questions about this privacy policy or how we handle your personal information, please don't hesitate to contact us:",
+    "contact_email_label": "Email:",
+    "contact_phone_label": "Phone:",
+    "contact_address_label": "Address:",
+    "contact_address": "Car Injury Clinic\n123 Main Street\nSalt Lake City, UT 84101\nUnited States",
+    "view_on_maps": "View on Google Maps"
+  },
+  "aboutus": {
+    "hero": {
+      "badge": "Our Team",
+      "title": "Meet Our Specialists",
+      "subtitle": "Certified doctors with years of experience treating car accident injuries",
+      "stats": {
+        "patients": "Patients Treated",
+        "recovery": "Recovery Rate"
+      }
+    },
+    "team": {
+      "badge": "Certified Specialists",
+      "title": "Our Team of Specialists",
+      "subtitle": "Professionals dedicated to your complete recovery"
+    },
+    "doctors": {
+      "johnny": {
+        "name": "Dr. Johnny Wong",
+        "title": "Chiropractor",
+        "specialty": "Pain Management and Chiropractic Specialist",
+        "bio": "Specialist in chronic pain management and advanced therapies for car accident victims. With over 10 years of experience, he focuses on advanced chiropractic techniques and complementary therapies for pain relief.",
+        "experience": "10 years of experience",
+        "cases": "Specialist in complex pain cases",
+        "specialties": {
+          "title": "Clinical Specialties:",
+          "items": [
+            "Chiropractic Therapy",
+            "Pain Management",
+            "Massage Therapy",
+            "Hot-Cold Therapy"
+          ]
+        },
+        "credentials": [
+          "Doctor of Chiropractic (DC)",
+          "Diploma in Pain Management",
+          "Certified in Massage Therapy"
+        ]
+      },
+      "darwin": {
+        "name": "Dr. Darwin Lee",
+        "title": "Chiropractor",
+        "specialty": "Physical Therapy and Pain Management Specialist",
+        "bio": "Specialist in functional rehabilitation and physical therapy for car accident victims. With over 8 years of experience, he focuses on advanced rehabilitation techniques and comprehensive pain management for complete recovery.",
+        "experience": "8 years of experience",
+        "cases": "Specialist in workplace injury cases",
+        "specialties": {
+          "title": "Clinical Specialties:",
+          "items": [
+            "Physical Therapy",
+            "Injury Rehabilitation",
+            "Pain Management",
+            "TENS Therapy"
+          ]
+        },
+        "credentials": [
+          "Doctor of Chiropractic (DC)",
+          "Certified in Functional Rehabilitation",
+          "Physical Therapy Specialist"
+        ]
+      },
+      "ana": {
+        "name": "Dr. Lance Rawlings",
+        "title": "Chiropractor",
+        "specialty": "Pain Management and Chiropractic Specialist",
+        "bio": "Specialist in treating cervical injuries and whiplash caused by car accidents. With over 12 years of experience, she focuses on advanced chiropractic techniques and comprehensive cervical pain management.",
+        "experience": "12 years of experience",
+        "cases": "Over 2,500 accident cases treated",
+        "specialties": {
+          "title": "Clinical Specialties:",
+          "items": [
+            "Chiropractic Therapy",
+            "Pain Management",
+            "Ultrasound Therapy",
+            "Injury Rehabilitation"
+          ]
+        },
+        "credentials": [
+          "Doctor of Chiropractic (DC)",
+          "Certified in Vehicular Trauma",
+          "Cervical Injury Specialist"
+        ]
+      }
+    },
+    "credentials": {
+      "badge": "Certifications",
+      "title": "Professional Credentials",
+      "subtitle": "Our team maintains the highest certifications and industry standards",
+      "items": {
+        "education": {
+          "title": "Doctoral Education",
+          "description": "All our doctors hold Doctor of Chiropractic (DC) degrees from nationally recognized accredited universities."
+        },
+        "licenses": {
+          "title": "State Licenses",
+          "description": "Licensed and certified by the state to practice chiropractic care with the highest standards of safety and ethics."
+        },
+        "specialties": {
+          "title": "Advanced Specialties",
+          "description": "Specialized certifications in rehabilitation, sports medicine, pain management, and cutting-edge techniques."
+        },
+        "education_continuous": {
+          "title": "Continuing Education",
+          "description": "Regular participation in seminars, conferences, and courses to stay current with the latest techniques and treatments."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Your Recovery?",
+      "subtitle": "Our team of expert chiropractors is here to help you regain your wellness and return to the activities you love.",
+      "features": [
+        "Free initial consultation",
+        "Appointments available today",
+        "Personalized treatment plans"
+      ],
+      "buttons": {
+        "schedule": "Schedule Free Consultation",
+        "contact": "Contact by Phone"
+      }
+    }
+  },
+  "common": {
+    "schedule_consultation": "Schedule Consultation",
+    "call_now": "Call Now",
+    "learn_more": "Learn More",
+    "contact_us": "Contact Us"
+  },
+  "feature_icons": {
+    "aria_label": "Main features of our services",
+    "items": {
+      "free_consultation": {
+        "title": "Free initial evaluation",
+        "aria_label": "Free initial evaluation - Go to form"
+      },
+      "free_transport": {
+        "title": "Free transportation",
+        "aria_label": "Free transportation - View transport services"
+      },
+      "same_day": {
+        "title": "Same day attention",
+        "aria_label": "Same day attention - Schedule appointment"
+      },
+      "xray": {
+        "title": "Same day X-Ray",
+        "aria_label": "Same day X-Ray - View X-Ray services"
+      },
+      "languages": {
+        "title": "We speak Spanish, English and Portuguese",
+        "aria_label": "Multilingual care - View bilingual services"
+      },
+      "legal_guidance": {
+        "title": "Free legal guidance",
+        "aria_label": "Free legal guidance - View legal services"
+      }
+    }
+  },
+  "legal_video": {
+    "title": "Protect your rights",
+    "description": "We coordinate your medical care with free evaluation. No initial costs and we handle the claim with your insurance.",
+    "cta_button": "Free legal consultation"
+  },
+  "testimonials": {
+    "title": {
+      "main": "What our",
+      "accent": "patients say"
+    },
+    "subtitle": "Real testimonials from people who have recovered their well-being with us",
+    "view_more": "View more reviews on Google"
+  },
+  "map_contact": {
+    "info_label": "Contact Information",
+    "hours_label": "Office hours",
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "closed": "Closed",
+    "phone_label": "Phone",
+    "call_now": "Call now",
+    "email_label": "Email",
+    "social_label": "Follow us on social media"
+  },
+  "chat": {
+    "button_title": "Open virtual assistant",
+    "button_aria_label": "Open chat with virtual assistant",
+    "tooltip": "Hello! Need help?",
+    "title": "Virtual Assistant",
+    "status_online": "Online",
+    "history_title": "Conversation history",
+    "history_aria_label": "View history",
+    "minimize_title": "Minimize",
+    "minimize_aria_label": "Minimize chat",
+    "close_title": "Close",
+    "close_aria_label": "Close chat",
+    "recent_conversations": "Recent Conversations",
+    "close_history_title": "Close history",
+    "close_history_aria_label": "Close history",
+    "messages_aria_label": "Chat messages",
+    "description": "Chat with virtual assistant to resolve questions about services, schedules and contact",
+    "welcome_message": "Hello! I'm your virtual assistant. How can I help you today?",
+    "typing_indicator": "The assistant is typing...",
+    "quick_actions_aria_label": "Quick actions",
+    "quick_actions": {
+      "services": "Services",
+      "services_aria_label": "Check available services",
+      "schedule": "Schedule",
+      "schedule_aria_label": "Check office hours",
+      "how_to_start": "How to start?",
+      "how_to_start_aria_label": "Learn how to get started",
+      "contact": "Contact",
+      "contact_aria_label": "Contact options",
+      "human": "Talk to human",
+      "human_aria_label": "Speak with a person",
+      "new_conversation": "New conversation",
+      "new_conversation_aria_label": "Start new conversation"
+    },
+    "input_label": "Type your message",
+    "input_placeholder": "Type your message here... (Enter to send, Shift+Enter for new line)",
+    "input_aria_label": "Message field",
+    "input_help": "Press Enter to send the message or Shift+Enter to add a new line",
+    "send_title": "Send message",
+    "send_aria_label": "Send message",
+    "reset_title": "Reset conversation",
+    "reset_aria_label": "Reset current conversation",
+    "reset_text": "Reset",
+    "end_title": "End conversation",
+    "end_aria_label": "End current conversation",
+    "end_text": "End"
+  }
+}

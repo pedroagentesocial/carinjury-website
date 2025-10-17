@@ -1,0 +1,42 @@
+---
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+const currentLang = getCurrentLanguage();
+
+const left = {
+  img: '/assets/img/terapia.jpg',
+  title: t('services.left.title', currentLang),
+  copy: t('services.left.description', currentLang)
+};
+
+const right = {
+  img: '/assets/img/legal.jpg',
+  title: t('services.right.title', currentLang),
+  copy: t('services.right.description', currentLang)
+};
+---
+
+<section id="services" class="services-split">
+  <!-- Panel izquierdo -->
+  <div class="split-panel is-left" style={`--bg:url('${left.img}')`}>
+    <div class="panel-content" aria-label={left.title}>
+      <h3 data-i18n="services.left.title">{left.title}</h3>
+      <p data-i18n="services.left.description">{left.copy}</p>
+    </div>
+  </div>
+
+  <!-- CTA circular centrado -->
+  <div class="cta-bubble">
+    <h4 data-i18n="services.cta.badge">{t('services.cta.badge', currentLang)}</h4>
+    <p data-i18n="services.cta.subtitle">{t('services.cta.subtitle', currentLang)}</p>
+    <a href="#contact" class="btn-call" data-i18n="services.cta.button">{t('services.cta.button', currentLang)}</a>
+  </div>
+
+  <!-- Panel derecho -->
+  <div class="split-panel is-right" style={`--bg:url('${right.img}')`}>
+    <div class="panel-content" aria-label={right.title}>
+      <h3 data-i18n="services.right.title">{right.title}</h3>
+      <p data-i18n="services.right.description">{right.copy}</p>
+    </div>
+  </div>
+</section>

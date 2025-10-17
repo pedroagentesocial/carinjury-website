@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "language": "English"
+  },
+  "formulario_page": {
+    "hero": {
+      "title": "Formulario de Referencia de Paciente",
+      "subtitle": "Complete este formulario para referir un paciente"
+    },
+    "patient_data": {
+      "title": "Datos del Paciente",
+      "first_name": "Nombre",
+      "last_name": "Apellido",
+      "phone": "Teléfono",
+      "email": "Correo Electrónico",
+      "date_of_birth": "Fecha de Nacimiento",
+      "gender": "Género",
+      "gender_select": "Seleccionar género",
+      "gender_male": "Masculino",
+      "gender_female": "Femenino",
+      "gender_other": "Otro"
+    },
+    "address": {
+      "title": "Dirección",
+      "street": "Dirección",
+      "city": "Ciudad",
+      "state": "Estado",
+      "zip": "Código Postal"
+    },
+    "contact": {
+      "title": "Información de Contacto",
+      "emergency_name": "Nombre del Contacto de Emergencia",
+      "emergency_phone": "Teléfono de Emergencia",
+      "emergency_relationship": "Relación"
+    },
+    "accident": {
+      "title": "Información del Accidente",
+      "date": "Fecha del Accidente",
+      "time": "Hora del Accidente",
+      "location": "Ubicación del Accidente",
+      "description": "Descripción del Accidente",
+      "injuries": "Lesiones",
+      "police_report": "¿Se hizo reporte policial?",
+      "police_select": "Seleccionar opción",
+      "police_yes": "Sí",
+      "police_no": "No",
+      "police_unknown": "No sé",
+      "police_number": "Número de Reporte Policial"
+    },
+    "insurance": {
+      "title": "Información del Seguro",
+      "company": "Compañía de Seguros",
+      "policy": "Número de Póliza",
+      "claim": "Número de Reclamo"
+    },
+    "legal": {
+      "title": "Representación Legal",
+      "has_attorney": "¿Tiene abogado?",
+      "attorney_select": "Seleccionar opción",
+      "attorney_yes": "Sí",
+      "attorney_no": "No",
+      "attorney_name": "Nombre del Abogado",
+      "attorney_phone": "Teléfono del Abogado"
+    },
+    "referrer": {
+      "title": "Información del Referidor",
+      "name": "Nombre del Referidor",
+      "company": "Compañía",
+      "phone": "Teléfono",
+      "email": "Correo Electrónico"
+    },
+    "signature": {
+      "title": "Firma Digital",
+      "name": "Nombre Completo",
+      "date": "Fecha",
+      "consent": "Acepto los términos y condiciones"
+    },
+    "attachments": {
+      "title": "Archivos Adjuntos",
+      "files": "Seleccionar archivos",
+      "note": "Formatos permitidos: PDF, JPG, PNG, DOC, DOCX"
+    },
+    "submit": {
+      "button": "Enviar Formulario",
+      "success": "Formulario enviado exitosamente",
+      "error": "Error al enviar el formulario"
+    },
+    "help": {
+      "button": "Llamar para Ayuda"
+    }
+  }
+}

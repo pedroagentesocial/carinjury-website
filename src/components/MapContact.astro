@@ -1,0 +1,352 @@
+---
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+const currentLang = getCurrentLanguage();
+
+const mapSrc =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3026.909828347032!2d-111.96001532440677!3d40.6621170713987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87528477e6ebc9c9%3A0x7c5f3a11eda255ad!2s2997%20W%204700%20S%2C%20Taylorsville%2C%20UT%2084129!5e0!3m2!1sen!2sus!4v1699999999999';
+---
+
+<section id="contact" class="contact-wrap">
+  <div class="contact-inner">
+    <!-- Columna: INFORMACIÓN -->
+    <div class="contact-info">
+      <span class="chip" data-i18n="map_contact.info_label">{t('map_contact.info_label', currentLang)}</span>
+
+      <h3 class="clinic-name">Car Injury Clinic</h3>
+
+      <p class="contact-address">
+        2997&nbsp;W&nbsp;4700&nbsp;S<br />
+        Taylorsville,&nbsp;UT&nbsp;84129
+      </p>
+
+      <table class="hours" aria-label={t('map_contact.hours_label', currentLang)}>
+        <tbody>
+          <tr><td data-i18n="map_contact.days.monday">{t('map_contact.days.monday', currentLang)}:</td>     <td>11:00&nbsp;am – 7:00&nbsp;pm</td></tr>
+          <tr><td data-i18n="map_contact.days.tuesday">{t('map_contact.days.tuesday', currentLang)}:</td>    <td>11:00&nbsp;am – 8:00&nbsp;pm</td></tr>
+          <tr><td data-i18n="map_contact.days.wednesday">{t('map_contact.days.wednesday', currentLang)}:</td> <td>11:00&nbsp;am – 7:00&nbsp;pm</td></tr>
+          <tr><td data-i18n="map_contact.days.thursday">{t('map_contact.days.thursday', currentLang)}:</td>    <td>12:00&nbsp;pm – 8:00&nbsp;pm</td></tr>
+          <tr><td data-i18n="map_contact.days.friday">{t('map_contact.days.friday', currentLang)}:</td>   <td>11:00&nbsp;am – 6:30&nbsp;pm</td></tr>
+          <tr><td data-i18n="map_contact.days.saturday">{t('map_contact.days.saturday', currentLang)}:</td>    <td>11:00&nbsp;am – 2:00&nbsp;pm</td></tr>
+          <tr><td data-i18n="map_contact.days.sunday">{t('map_contact.days.sunday', currentLang)}:</td>   <td data-i18n="map_contact.closed">{t('map_contact.closed', currentLang)}</td></tr>
+        </tbody>
+      </table>
+
+      <div class="contact-phone">
+        <strong data-i18n="map_contact.phone_label">{t('map_contact.phone_label', currentLang)}:</strong>
+        <a href="tel:+13852428571">+1&nbsp;(385)&nbsp;242-8571</a>
+        <a href="tel:+13852428571" class="phone-btn" aria-label={t('map_contact.call_now', currentLang)} title={t('map_contact.call_now', currentLang)}>
+          <svg class="phone-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+        </a>
+      </div>
+
+      <p class="contact-email">
+        <strong data-i18n="map_contact.email_label">{t('map_contact.email_label', currentLang)}:</strong>
+        <span class="emails">
+          <a href="mailto:info@carinjuryclinics.com">info@carinjuryclinics.com</a>
+        </span>
+      </p>
+
+      <!-- Redes sociales -->
+      <div class="contact-social" aria-label={t('map_contact.social_label', currentLang)}>
+        <a class="social-btn" href="https://www.facebook.com/profile.php?id=100090183003470" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+          <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M22.675 0H1.326C.593 0 0 .593 0 1.326v21.348C0 23.406.593 24 1.326 24h11.49v-9.294H9.691v-3.622h3.125V8.413c0-3.1 1.893-4.788 4.657-4.788 1.325 0 2.463.099 2.794.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.313h3.592l-.468 3.622h-3.124V24h6.116C23.406 24 24 23.407 24 22.674V1.326C24 .593 23.406 0 22.675 0z"/>
+          </svg>
+        </a>
+
+        <a class="social-btn" href="https://www.instagram.com/car.injuryclinic/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm8.75 3.75a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM12 7.25a4.75 4.75 0 1 0 0 9.5 4.75 4.75 0 0 0 0-9.5z"/>
+          </svg>
+        </a>
+
+        <a class="social-btn" href="https://tiktok.com/@car.injuryclinic" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+          <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12.158 0h3.495a4.793 4.793 0 0 0 4.793 4.793v3.495a8.295 8.295 0 0 1-4.793-1.504v6.744a6.984 6.984 0 1 1-6.984-6.984v3.495a3.489 3.489 0 1 0 3.489 3.489V0z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Logo morado (tintado con máscara) -->
+      <div class="contact-logo" role="img" aria-label="Car Injury Clinic logo"></div>
+      <!-- Si prefieres mantener la <img>, deja esta línea como referencia:
+      <img src="/assets/img/Car-Injury-Clinic-White.png" alt="Car Injury Clinic logo" class="contact-logo-img" width="260" height="260" decoding="async" />
+      -->
+    </div>
+
+    <!-- Columna: MAPA -->
+    <div class="contact-map">
+      <!-- Etiqueta "Mapa" eliminada a petición -->
+      <div class="map-frame">
+        <iframe
+          src={mapSrc}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          title="Mapa de ubicación"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ===== Paleta ===== */
+  :root{
+    --c-lilac:#CEC6E2;   /* CEC6E2 */
+    --c-violet:#806AAA;  /* 806AAA */
+    --c-plum:#7A2E87;    /* 7A2E87 */
+    --c-brand:#BA93C2;   /* BA93C2 */
+  }
+
+  /* ===== Fondo que tapa la franja del layout ===== */
+  .contact-wrap{
+    position: relative;
+    isolation: isolate;
+    margin-top: 0rem;   /* ⬅ sube más la sección para cubrir cualquier franja */
+    padding-top: 18px;
+    padding: 22px 0;
+    background-color: #f8f6fb;
+    
+  }
+  /* Extensión superior para cubrir cualquier “asomo” del layout */
+  .contact-wrap::before{
+    content:"";
+    position:absolute; left:0; right:0; top:-140px; height:0px;
+    display: none;
+    background: inherit; z-index:-1;
+  }
+
+  /* ===== Contenedor centrado ===== */
+  .contact-inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 14px;
+    display: grid;
+    grid-template-columns: minmax(420px, 500px) minmax(520px, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  /* ===== Chip/etiquetas ===== */
+  .chip{
+    display:inline-block;
+    width: fit-content; /* la píldora solo hasta el texto */
+    font: 800 .8rem/1.1 Manrope, system-ui, sans-serif;
+    letter-spacing:.04em;
+    padding:.38rem .62rem;
+    border-radius:999px;
+    color:#fff;
+    background-color: var(--c-plum);
+    box-shadow: 0 6px 14px rgba(0,0,0,.16);
+    margin-bottom:.65rem;
+  }
+
+  /* ===== Card de información ===== */
+  .contact-info{
+    position: relative;
+    background: #ffffff;
+    border: 1px solid rgba(26,29,42,.08);
+    border-radius: 16px;
+    padding: 16px 16px 170px; /* espacio para el logo */
+    box-shadow: 0 18px 38px rgba(0,0,0,.12);
+    color: #2b2140;
+    overflow: visible;
+  }
+
+  .clinic-name{
+    font: 900 1.6rem/1.15 Manrope, system-ui, sans-serif;
+    color: var(--c-plum);
+    margin: .2rem 0 .45rem;
+  }
+  .contact-address{
+    font: 600 1rem/1.5 "Source Sans 3", system-ui, sans-serif;
+    color: #806AAA;
+    margin: 0 0 .6rem;
+    font-size: 1.05rem;
+  }
+
+  /* Horarios: días en morado, valores en gris oscuro */
+  .hours{
+    width: 100%; border-collapse: collapse;
+    margin: .4rem 0 .85rem;
+    font: 600 .98rem/1.5 "Source Sans 3", system-ui, sans-serif;
+    background: #fff;
+    border: 1px solid rgba(26,29,42,.08);
+    border-radius: 10px; overflow: hidden;
+    font-size: 1rem;
+  }
+  .hours td{ padding: .55rem .68rem; color: #7A2E87; }
+  .hours td:first-child{ color: var(--c-plum); font-weight: 600; width: 42%; white-space: nowrap; font-size: 1rem; }
+  .hours tr:nth-child(odd){ background: #f7f3fb; }
+  .hours em{ color:#874ea0; font-weight:800; font-style: normal; }
+
+  .contact-phone, .contact-email{
+    font: 700 1rem/1.5 "Source Sans 3", system-ui, sans-serif;
+    color: #7A2E87; margin: .35rem 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .phone-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--c-plum);
+    border: 1px solid rgba(255,255,255,.32);
+    box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+    text-decoration: none;
+  }
+  
+  .phone-btn:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0,0,0,.16);
+    filter: brightness(1.08) saturate(1.08);
+  }
+  
+  .phone-icon{
+    width: 16px;
+    height: 16px;
+    color: #fff;
+  }
+  .emails{
+    display: inline-block;
+    text-align: left;
+  }
+  .contact-phone a, .contact-email a{
+    color: var(--c-plum); text-decoration: none; font-weight: 900;
+  }
+  .contact-phone a:hover, .contact-email a:hover{ text-decoration: underline; }
+
+  /* Redes: a la IZQUIERDA como pediste */
+  .contact-social{
+    display: flex; gap: 10px; margin-top: .5rem;
+    justify-content: flex-start;   /* ⬅ izquierda */
+  }
+  .social-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:999px;
+    background: var(--c-plum);
+    border:1px solid rgba(255,255,255,.32);
+    box-shadow: 0 6px 16px rgba(0,0,0,.14);
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+    left: 10rem;
+  }
+  .social-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0,0,0,.18);
+    filter: brightness(1.08) saturate(1.08);
+  }
+  .social-icon{ width:22px; height:22px; color: #fff; }
+
+  /* Logo morado con máscara, más a la derecha y más abajo */
+  .contact-logo{
+    position: absolute;
+    left: 14rem;                /* ⬅ más a la derecha */
+    bottom: -42px;                /* ⬅ más abajo */
+    width: 220px;
+    height: 220px;
+    background: var(--c-plum);    /* color morado del texto */
+    opacity: .95;                  /* opacidad para que destaque más */
+    -webkit-mask-image: url("/assets/img/Car-Injury-Clinic-White.png");
+  mask-image: url("/assets/img/Car-Injury-Clinic-White.png");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,.25));
+    pointer-events: none; user-select: none;
+  }
+  /* Si decides usar la <img> en vez de máscara, quítale display:none y coméntalo arriba
+  .contact-logo-img{ position:absolute; right:-140px; bottom:-38px; width:clamp(220px,30vw,280px); height:auto; opacity:.9; filter: drop-shadow(0 6px 16px rgba(0,0,0,.25)); z-index:1; }
+  */
+
+  /* ===== Mapa ===== */
+  .contact-map{
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 18px 38px rgba(0,0,0,.14);
+    display: flex; flex-direction: column;
+    color: #7A2E87;
+  }
+  .map-frame{ position: relative; flex: 1; min-height: 440px; background: linear-gradient(180deg, rgba(255,255,255,.22), transparent); }
+  .map-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+  .contact-info .contact-social{
+    justify-content: flex-start !important; 
+    margin-left: 0;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 980px){
+    .contact-inner{
+      grid-template-columns: 1fr;
+      max-width: 720px;
+      padding: 0 20px;
+    }
+    .map-frame{ min-height: 360px; }
+    .contact-info{ padding-bottom: 190px; padding: 20px 20px 190px; }
+    .contact-logo{ right: -110px; bottom: -34px; width: 240px; height: 240px; }
+    
+    .clinic-name{
+      font-size: 1.4rem;
+    }
+    
+    .contact-address{
+      font-size: 1rem;
+    }
+    
+    .hours{
+      font-size: 0.9rem;
+    }
+    
+    .contact-phone, .contact-email{
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px){
+    .contact-inner{
+      padding: 0 16px;
+    }
+    
+    .contact-info{
+      padding: 16px 16px 170px;
+    }
+    
+    .clinic-name{
+      font-size: 1.2rem;
+    }
+    
+    .contact-address{
+      font-size: 0.9rem;
+    }
+    
+    .hours{
+      font-size: 0.85rem;
+    }
+    
+    .contact-phone, .contact-email{
+      font-size: 0.9rem;
+    }
+    
+    .contact-logo{
+      width: 180px;
+      height: 180px;
+      left: 10rem;
+    }
+  }
+</style>

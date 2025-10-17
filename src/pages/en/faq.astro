@@ -1,0 +1,243 @@
+---
+// English version of FAQ page
+import Layout from '../../layouts/Layout.astro';
+// HeroFAQ component doesn't exist, using inline hero section
+import FinalCTA from '../../components/FinalCTA.astro';
+import MapContact from '../../components/MapContact.astro';
+import Footer from '../../components/Footer.astro';
+import { t, setLanguage } from '../../i18n/index.ts';
+
+// Set language to English for this page
+setLanguage('en');
+const currentLang = 'en';
+---
+
+<Layout>
+  <main>
+    <!-- Hero section -->
+    <header class="hero-min">
+      <div class="hero-min__bg" aria-hidden="true">
+        <img src="/assets/img/fondoNuevoHero.jpeg" alt="" loading="lazy" decoding="async" />
+        <div class="veil" aria-hidden="true"></div>
+      </div>
+      <div class="container hero-min__content">
+        <h1 data-i18n="faq_page.hero.title">{t('faq_page.hero.title', currentLang)}</h1>
+        <p data-i18n="faq_page.hero.subtitle">{t('faq_page.hero.subtitle', currentLang)}</p>
+      </div>
+    </header>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="faq-grid">
+          <div class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-question">
+                <span class="question-text" data-i18n="faq_page.questions.q1.question">{t('faq_page.questions.q1.question', currentLang)}</span>
+                <span class="question-icon"></span>
+              </summary>
+              <div class="faq-answer">
+                <div class="answer-content">
+                  <p data-i18n="faq_page.questions.q1.answer">{t('faq_page.questions.q1.answer', currentLang)}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-question">
+                <span class="question-text" data-i18n="faq_page.questions.q2.question">{t('faq_page.questions.q2.question', currentLang)}</span>
+                <span class="question-icon"></span>
+              </summary>
+              <div class="faq-answer">
+                <div class="answer-content">
+                  <p data-i18n="faq_page.questions.q2.answer">{t('faq_page.questions.q2.answer', currentLang)}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-question">
+                <span class="question-text" data-i18n="faq_page.questions.q3.question">{t('faq_page.questions.q3.question', currentLang)}</span>
+                <span class="question-icon"></span>
+              </summary>
+              <div class="faq-answer">
+                <div class="answer-content">
+                  <p data-i18n="faq_page.questions.q3.answer">{t('faq_page.questions.q3.answer', currentLang)}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-question">
+                <span class="question-text" data-i18n="faq_page.questions.q4.question">{t('faq_page.questions.q4.question', currentLang)}</span>
+                <span class="question-icon"></span>
+              </summary>
+              <div class="faq-answer">
+                <div class="answer-content">
+                  <p data-i18n="faq_page.questions.q4.answer">{t('faq_page.questions.q4.answer', currentLang)}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-question">
+                <span class="question-text" data-i18n="faq_page.questions.q5.question">{t('faq_page.questions.q5.question', currentLang)}</span>
+                <span class="question-icon"></span>
+              </summary>
+              <div class="faq-answer">
+                <div class="answer-content">
+                  <p data-i18n="faq_page.questions.q5.answer">{t('faq_page.questions.q5.answer', currentLang)}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-question">
+                <span class="question-text" data-i18n="faq_page.questions.q6.question">{t('faq_page.questions.q6.question', currentLang)}</span>
+                <span class="question-icon"></span>
+              </summary>
+              <div class="faq-answer">
+                <div class="answer-content">
+                  <p data-i18n="faq_page.questions.q6.answer">{t('faq_page.questions.q6.answer', currentLang)}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-question">
+                <span class="question-text" data-i18n="faq_page.questions.q7.question">{t('faq_page.questions.q7.question', currentLang)}</span>
+                <span class="question-icon"></span>
+              </summary>
+              <div class="faq-answer">
+                <div class="answer-content">
+                  <p data-i18n="faq_page.questions.q7.answer">{t('faq_page.questions.q7.answer', currentLang)}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-question">
+                <span class="question-text" data-i18n="faq_page.questions.q8.question">{t('faq_page.questions.q8.question', currentLang)}</span>
+                <span class="question-icon"></span>
+              </summary>
+              <div class="faq-answer">
+                <div class="answer-content">
+                  <p data-i18n="faq_page.questions.q8.answer">{t('faq_page.questions.q8.answer', currentLang)}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-question">
+                <span class="question-text" data-i18n="faq_page.questions.q9.question">{t('faq_page.questions.q9.question', currentLang)}</span>
+                <span class="question-icon"></span>
+              </summary>
+              <div class="faq-answer">
+                <div class="answer-content">
+                  <p data-i18n="faq_page.questions.q9.answer">{t('faq_page.questions.q9.answer', currentLang)}</p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <FinalCTA />
+    
+    <div style="margin-top: -2rem;">
+      <MapContact />
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  // Set language to English on client side
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('language', 'en');
+    if ((window as any).i18nClient) {
+      (window as any).i18nClient.currentLang = 'en';
+      (window as any).i18nClient.updateAllTranslations();
+    }
+  }
+</script>
+
+<style>
+  .faq-section {
+    padding: 4rem 0;
+    background: #f8fafc;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .faq-item {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .faq-details {
+    border: none;
+  }
+  
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #1f2937;
+    background: white;
+    border: none;
+    list-style: none;
+  }
+  
+  .faq-question:hover {
+    background: #f9fafb;
+  }
+  
+  .question-icon::after {
+    content: '+';
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .faq-details[open] .question-icon::after {
+    transform: rotate(45deg);
+  }
+  
+  .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+</style>

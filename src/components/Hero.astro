@@ -1,0 +1,597 @@
+---
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+interface Slide {
+  src: string;
+  title?: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  hasAudio?: boolean;
+  wantSound?: boolean;
+  durationMs?: number;
+  filter?: string;
+  subs?: string;
+}
+
+const currentLang = getCurrentLanguage();
+
+const slides: Slide[] = [
+  {
+    src: "/video/car-injury.mp4",
+    hasAudio: true,
+    wantSound: false,
+    durationMs: 47000
+  },
+  {
+    src: "/video/accident.mp4",
+    durationMs: 10000,
+    title: t('hero.slides.slide1.title', currentLang),
+    subtitle: t('hero.slides.slide1.subtitle', currentLang),
+    ctaLabel: "Ver Servicios",
+    ctaHref: "/services"
+  },
+  {
+    src: "/video/hero.mp4",
+    durationMs: 10000,
+    title: t('hero.slides.slide2.title', currentLang),
+    subtitle: t('hero.slides.slide2.subtitle', currentLang),
+    ctaLabel: t('hero.slides.slide2.cta', currentLang),
+    ctaHref: "tel:+1234567890"
+  },
+  {
+    src: "/video/chiro.mp4",
+    durationMs: 10000,
+    title: t('hero.slides.slide3.title', currentLang),
+    subtitle: t('hero.slides.slide3.subtitle', currentLang),
+    ctaLabel: t('hero.slides.slide3.cta', currentLang),
+    ctaHref: "/schedule"
+  }
+];
+
+const defaultMs = 24000;
+const hasMany = slides.length > 1;
+---
+
+<section class="hero relative overflow-hidden isolate animate-[heroSlideIn_1s_ease-out] min-h-[80vh] scroll-animate fade-scale" style="height: var(--hero-h)" data-default={defaultMs} aria-roledescription={hasMany ? 'carousel' : undefined}>
+  {slides.map((s, i) => (
+    <div
+      class={`h-slide absolute inset-0 opacity-0 invisible pointer-events-none z-0 transition-opacity duration-600 ease-in-out ${i === 0 ? 'is-active is-primary' : ''}`}
+      data-index={i}
+      data-duration={s.durationMs ?? ''}
+      data-hasaudio={s.hasAudio ? '1' : '0'}
+      data-wantsound={s.wantSound ? '1' : '0'}
+      style={i === 0 ? 'opacity:1; visibility:visible; z-index:10;' : 'opacity:0; visibility:hidden; z-index:0;'}
+      aria-hidden={i === 0 ? 'false' : 'true'}
+      id={`hero-slide-${i}`}
+      role={hasMany ? 'group' : undefined}
+      aria-label={hasMany ? `${i + 1} de ${slides.length}` : undefined}
+    >
+      {s.src ? (
+        <video
+          class="absolute inset-0 w-full h-[85%] object-cover z-[1] will-change-transform transition-transform duration-700 ease-out"
+          style={`object-position: 50% 0%; filter:${s.filter ?? 'brightness(1.2) contrast(1.06) saturate(1.06)'}`}
+          src={s.src}
+          autoplay
+          loop
+          playsinline
+          muted
+          preload="metadata"
+          controls={i === 0 ? true : false}
+          controlslist="nodownload"
+        >
+          {s.subs && (
+            <track kind="subtitles" src={s.subs} srclang="es" label="Español" default />
+          )}
+        </video>
+      ) : (
+        <div class="absolute inset-0 w-full h-full"></div>
+      )}
+
+      <div class="absolute inset-0 pointer-events-none z-[2]" style="background: linear-gradient(135deg, rgba(122, 46, 135, 0.3) 0%, rgba(97, 30, 108, 0.2) 50%, rgba(0, 0, 0, 0.1) 100%)"></div>
+
+      {(s.title || s.subtitle) && (
+        <div class="hero-content-container" data-slide-index={i}>
+          <div class="hero-content-background"></div>
+          {s.title && <h1 class="hero-title" data-i18n={`hero.slides.slide${i}.title`} set:html={s.title}></h1>}
+          {s.subtitle && <p class="hero-subtitle" data-i18n={`hero.slides.slide${i}.subtitle`}>{s.subtitle}</p>}
+        </div>
+      )}
+    </div>
+  ))}
+
+  <!-- Sistema de botones CTA independiente y estable -->
+  <div class="hero-cta-overlay">
+    <div class="hero-cta-container">
+      <button class="hero-cta-btn" data-href="/services" data-slide="1" type="button" style="display: none;">
+        Ver Servicios
+      </button>
+      <button class="hero-cta-btn" data-href="tel:+1234567890" data-slide="2" type="button" style="display: none;" data-i18n="hero.slides.slide2.cta">
+        {t('hero.slides.slide2.cta', currentLang)}
+      </button>
+      <button class="hero-cta-btn" data-href="/schedule" data-slide="3" type="button" style="display: none;" data-i18n="hero.slides.slide3.cta">
+        {t('hero.slides.slide3.cta', currentLang)}
+      </button>
+    </div>
+  </div>
+
+  {hasMany && (
+    <div class="absolute inset-0 z-[1004] pointer-events-none">
+      <div class="absolute left-1/2 bottom-[80px] -translate-x-1/2 flex gap-[10px] pointer-events-auto animate-[heroFadeIn_1s_ease-out_1.2s_both] z-[1005]" role="tablist" aria-label="Slides">
+        {slides.map((_, i) => (
+          <button
+            class={`h-dot w-[24px] h-[4px] rounded-full bg-white/50 border-none cursor-pointer transition-all duration-150 hover:scale-110 z-[1005] ${i === 0 ? 'is-active scale-[1.1] !bg-white' : ''}`}
+            role="tab"
+            aria-controls={`hero-slide-${i}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            data-index={i}
+            type="button"
+          />
+        ))}
+      </div>
+
+
+
+      <div class="h-progress absolute left-0 right-0 bottom-0 h-1 bg-white/18 pointer-events-none z-[1004]" aria-hidden="true">
+        <span class="block h-full w-0 bg-[#BA93C2] z-[1004]"></span>
+      </div>
+    </div>
+  )}
+
+  {hasMany && (
+    <script is:inline>
+      (function(){
+        const root = document.currentScript.closest('.hero');
+        if (!root) return;
+
+        const slides = Array.from(root.querySelectorAll('.h-slide'));
+        if (slides.length <= 1) return;
+
+        const dots     = Array.from(root.querySelectorAll('.h-dot'));
+        const bar      = root.querySelector('.h-progress span');
+        const audioBtn = root.querySelector('.h-audio');
+        const DEFAULT  = Number(root.dataset.default) || 24000;
+
+        let index = 0;
+        let timer = null;
+
+        function v(i){ return slides[i]?.querySelector('video'); }
+        function dur(el){
+          const d = Number(el.dataset.duration);
+          return Number.isFinite(d) && d > 0 ? d : DEFAULT;
+        }
+
+        function clampToHalf(video){
+          if (!video) return;
+          if (!video.muted) video.volume = 0.25;
+        }
+        function bindVolumeGuard(video){
+          if (!video || video.dataset.volGuard === '1') return;
+          video.dataset.volGuard = '1';
+          video.addEventListener('volumechange', () => {
+            if (!video.muted && Math.abs(video.volume - 0.25) > 0.02) {
+              video.volume = 0.25;
+            }
+          });
+        }
+        function ensureSubs(video){
+          if (!video || !video.textTracks) return;
+          const tracks = Array.from(video.textTracks);
+          if (!tracks.length) return;
+          tracks.forEach(t => t.mode = 'hidden');
+          const es = tracks.find(t => (t.language || '').startsWith('es')) || tracks[0];
+          if (es) es.mode = 'showing';
+        }
+
+        function syncAudioUI(i){
+          // Audio button removed, no need to sync UI
+        }
+
+        function apply(i){
+          slides.forEach((el, k) => {
+            const active = k === i;
+            el.classList.toggle('is-active', active);
+            el.setAttribute('aria-hidden', active ? 'false' : 'true');
+            el.style.opacity       = active ? '1' : '0';
+            el.style.visibility    = active ? 'visible' : 'hidden';
+            el.style.pointerEvents = active ? 'auto'   : 'none';
+            el.style.zIndex        = active ? '10'     : '1';
+
+            const video = v(k);
+            if (!video) return;
+
+            if (active) {
+              // Configurar controles y atributos del video
+              if (k === 0) {
+                // Primer video: mostrar controles pero empezar silenciado
+                video.controls = true;
+                video.muted = true;
+              } else {
+                // Otros videos: sin controles, silenciados para autoplay
+                video.controls = false;
+                video.muted = true;
+              }
+              
+              clampToHalf(video);
+              bindVolumeGuard(video);
+              ensureSubs(video);
+              
+              // Mejorar la reproducción del video
+              video.load(); // Recargar el video para asegurar que esté listo
+              setTimeout(() => {
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                  playPromise.catch(() => { 
+                    video.muted = true; 
+                    video.play().catch(()=>{}); 
+                  });
+                }
+              }, 150);
+            } else {
+              video.pause();
+              video.currentTime = 0;
+              video.controls = false;
+            }
+          });
+
+          // Controlar visibilidad de botones CTA según el slide activo
+          const ctaButtons = root.querySelectorAll('.hero-cta-btn');
+          ctaButtons.forEach(btn => {
+            const btnSlide = parseInt(btn.dataset.slide);
+            if (i === 0) {
+              // Primer video: ocultar todos los botones
+              btn.style.display = 'none';
+            } else if (i === btnSlide) {
+              // Mostrar solo el botón correspondiente al slide actual
+              btn.style.display = 'inline-block';
+            } else {
+              // Ocultar otros botones
+              btn.style.display = 'none';
+            }
+          });
+
+          dots.forEach((d, k) => {
+            d.classList.toggle('is-active', k === i);
+            d.setAttribute('aria-selected', k === i ? 'true' : 'false');
+          });
+
+          index = i;
+          restartBar();
+          restartTimer();
+          syncAudioUI(i);
+        }
+
+        function nextSlide(){ apply((index + 1) % slides.length); }
+        function prevSlide(){ apply((index - 1 + slides.length) % slides.length); }
+
+        function restartBar(){
+          if (!bar) return;
+          const d = dur(slides[index]);
+          bar.style.animation = 'none';
+          void bar.offsetWidth;
+          bar.style.animation = 'hBar ' + d + 'ms linear forwards';
+        }
+
+        function restartTimer(){
+          clearTimeout(timer);
+          const d = dur(slides[index]);
+          timer = setTimeout(nextSlide, d);
+        }
+
+        // Controles
+        dots.forEach(d => d.addEventListener('click', (e) => {
+          const i = Number(e.currentTarget.dataset.index);
+          apply(i);
+        }));
+
+        // Audio button removed, no event listener needed
+
+        // Start
+        apply(0);
+        
+        // Sistema de botones CTA independiente
+        const ctaButtons = root.querySelectorAll('.hero-cta-btn');
+        ctaButtons.forEach(btn => {
+          btn.addEventListener('click', function() {
+            const href = this.dataset.href;
+            if (href) {
+              if (href.startsWith('tel:')) {
+                window.location.href = href;
+              } else {
+                window.location.href = href;
+              }
+            }
+          });
+        });
+      })();
+    </script>
+  )}
+
+  <style>
+    /* Variables CSS para Hero */
+    :root{
+      --hero-h: 100vh;
+      --hero-zoom: 1.0;
+      --hero-shiftY: 0;
+      --hero-primary-posY: 50%;
+    }
+
+    /* Animaciones personalizadas */
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes heroSlideIn {
+      from { opacity: 0; transform: scale(1.1); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes heroContentUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes heroPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.95; }
+    }
+    
+    @keyframes hBar { from{width:0%} to{width:100%} }
+
+    /* Estilos específicos que no se pueden reemplazar con Tailwind */
+    .h-slide{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: opacity 0.6s ease-in-out;
+    }
+    
+    .h-slide.is-active{
+      opacity:1 !important; 
+      visibility:visible !important; 
+      pointer-events:auto !important; 
+      z-index:10 !important;
+    }
+    
+    .h-slide:not(.is-active){
+      opacity:0 !important;
+      pointer-events:none !important;
+      z-index:1 !important;
+    }
+    
+    /* Estilos para el nuevo contenido del hero */
+    .hero-content-container {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      z-index: 1003;
+      max-width: 980px;
+      width: 100%;
+      padding: 0 1rem;
+      pointer-events: none;
+    }
+    
+    .hero-content-background {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,.35), rgba(0,0,0,0) 70%);
+      filter: blur(.5px);
+      z-index: -1;
+    }
+    
+    .hero-title {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 3rem;
+      line-height: 1.08;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 6px rgba(0,0,0,.6);
+      text-wrap: balance;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.25rem;
+      line-height: 1.35;
+      opacity: 0.98;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 6px rgba(0,0,0,.6);
+      text-wrap: pretty;
+    }
+
+    /* Sistema de botones CTA independiente y estable */
+    .hero-cta-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1010;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .hero-cta-container {
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      pointer-events: auto;
+    }
+    
+    .hero-cta-btn {
+      display: inline-block;
+      background-color: #7A2E87;
+      color: white;
+      padding: 1rem 1.75rem;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      touch-action: manipulation;
+      user-select: none;
+      position: relative;
+      z-index: 1011;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    
+    .hero-cta-btn:hover {
+      background-color: #6a3f75;
+      box-shadow: 0 8px 18px rgba(0,0,0,.28);
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .hero-cta-btn:focus {
+      background-color: #6a3f75;
+      box-shadow: 0 8px 18px rgba(0,0,0,.28);
+      outline: 2px solid rgba(255,255,255,0.5);
+      outline-offset: 2px;
+    }
+    
+    .hero-cta-btn:active {
+      background-color: #5a2f65;
+      transform: translateY(1px);
+    }
+
+    /* Subtítulos más legibles */
+    .h-slide video::cue {
+      background-color: rgba(0,0,0,.55);
+      color: #fff;
+      padding: .2em .45em;
+      font-weight: 600;
+      line-height: 1.25;
+      text-shadow: 0 1px 1px rgba(0,0,0,.85);
+      font-size: 16px;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px){
+      :root{
+        --hero-h: 100vh;
+        --hero-zoom: 1.0;
+        --hero-shiftY: 0;
+        --hero-primary-posY: 45%;
+      }
+      
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+    }
+    
+    @media (max-width: 480px){
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    /* Asegurar que el video cubra toda la pantalla y tenga más brillo */
+    .h-slide video {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      filter: brightness(1.2) !important;
+    }
+
+    /* Estilos para los controles del video */
+    .h-slide:first-child video::-webkit-media-controls-panel {
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 8px;
+    }
+
+    .h-slide:first-child video::-webkit-media-controls-volume-slider {
+      background-color: #7A2E87;
+    }
+
+    .h-slide:first-child video::-webkit-media-controls-current-time-display,
+    .h-slide:first-child video::-webkit-media-controls-time-remaining-display {
+      color: white;
+      font-weight: 500;
+    }
+
+    /* Posicionar los controles del video */
+    .h-slide:first-child video {
+      pointer-events: auto !important;
+    }
+
+    .h-slide:not(:first-child) video {
+      pointer-events: none !important;
+    }
+    
+    /* Estilos responsivos para botones CTA */
+    @media (max-width: 768px) {
+      .hero-cta-container {
+        top: 70%;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      
+      .hero-cta-btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+        min-width: 200px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-cta-container {
+        top: 75%;
+        padding: 0 1rem;
+      }
+      
+      .hero-cta-btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+        min-width: 180px;
+      }
+    }
+
+    /* Estilos para las bolitas indicadoras */
+    .h-dot {
+      background-color: rgba(255, 255, 255, 0.5) !important;
+      transform: scale(1) !important;
+      transition: all 0.3s ease !important;
+      border: none !important;
+    }
+    
+    .h-dot.is-active {
+      background-color: white !important;
+      transform: scale(1.3) !important;
+    }
+    
+    .h-dot:hover {
+      transform: scale(1.1) !important;
+    }
+    
+    .h-dot.is-active:hover {
+      transform: scale(1.3) !important;
+    }
+  </style>
+</section>

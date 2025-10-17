@@ -1,0 +1,1011 @@
+---
+// src/pages/formulario.astro
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { t, getServerLanguage } from '../i18n/index.ts';
+
+const currentLang = 'es'; // Forzar español por defecto
+
+// Teléfono (para el botón auxiliar)
+const PHONE_DISPLAY = '385-242-8571';
+
+// Correo a donde llegarán los envíos (FormSubmit verificado)
+const FORMSUBMIT_TO = 'info@carinjuryclinics.com';
+
+// Imagen opcional para encabezado
+const HERO_IMG = '/assets/img/fondoNuevoHero.jpeg';
+
+// Cargar traducciones para el cliente
+import esTranslations from '../i18n/es.json';
+import enTranslations from '../i18n/en.json';
+---
+
+<Layout>
+  <main class="ref page">
+    <!-- ===== Encabezado ===== -->
+    <header class="hero-min">
+      <div class="hero-min__bg" aria-hidden="true">
+        <img src={HERO_IMG} alt="" loading="lazy" decoding="async" />
+        <div class="veil" aria-hidden="true"></div>
+      </div>
+      <div class="container hero-min__content">
+        <h1 data-i18n="formulario_page.hero.title">{t('formulario_page.hero.title', currentLang)}</h1>
+        <p class="w-full text-nowrap" data-i18n="formulario_page.hero.subtitle">{t('formulario_page.hero.subtitle', currentLang)}</p>
+      </div>
+    </header>
+
+    <!-- ===== Formulario ===== -->
+    <section class="wrap">
+      <form
+        id="referral-form"
+        class="card"
+        action={`https://formsubmit.co/info@carinjuryclinics.com`}
+        method="POST"
+        accept-charset="UTF-8"
+        autocomplete="on"
+        enctype="multipart/form-data"
+        novalidate
+      >
+        <!-- ===== Ocultos FormSubmit ===== -->
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_subject" value="Nueva referencia de paciente" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="page" value="Formulario de referencia" />
+
+
+
+        <!-- ===== Información del Paciente (Simplificada) ===== -->
+        <fieldset>
+          <legend data-i18n="formulario_page.patient_info.title">{t('formulario_page.patient_info.title', currentLang)}</legend>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first_name" data-i18n="formulario_page.patient_info.first_name">{t('formulario_page.patient_info.first_name', currentLang)}</label>
+              <input type="text" id="first_name" name="first_name" required />
+            </div>
+            <div class="form-group">
+              <label for="middle_name" data-i18n="formulario_page.patient_info.middle_name">{t('formulario_page.patient_info.middle_name', currentLang)}</label>
+              <input type="text" id="middle_name" name="middle_name" />
+            </div>
+            <div class="form-group">
+              <label for="last_name" data-i18n="formulario_page.patient_info.last_name">{t('formulario_page.patient_info.last_name', currentLang)}</label>
+              <input type="text" id="last_name" name="last_name" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date_of_birth" data-i18n="formulario_page.patient_info.date_of_birth">{t('formulario_page.patient_info.date_of_birth', currentLang)}</label>
+              <input type="date" id="date_of_birth" name="date_of_birth" required />
+            </div>
+            <div class="form-group">
+              <label for="gender" data-i18n="formulario_page.patient_info.gender">{t('formulario_page.patient_info.gender', currentLang)}</label>
+              <select id="gender" name="gender" required>
+                <option value="" data-i18n="formulario_page.patient_info.gender_select">{t('formulario_page.patient_info.gender_select', currentLang)}</option>
+                <option value="male" data-i18n="formulario_page.patient_info.gender_male">{t('formulario_page.patient_info.gender_male', currentLang)}</option>
+                <option value="female" data-i18n="formulario_page.patient_info.gender_female">{t('formulario_page.patient_info.gender_female', currentLang)}</option>
+                <option value="other" data-i18n="formulario_page.patient_info.gender_other">{t('formulario_page.patient_info.gender_other', currentLang)}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="age" data-i18n="formulario_page.patient_info.age">{t('formulario_page.patient_info.age', currentLang)}</label>
+              <input type="number" id="age" name="age" min="1" max="120" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ===== Dirección (Simplificada) ===== -->
+        <fieldset>
+          <legend data-i18n="formulario_page.address.title">{t('formulario_page.address.title', currentLang)}</legend>
+          
+          <div class="form-group">
+            <label for="address" data-i18n="formulario_page.address.address">{t('formulario_page.address.address', currentLang)}</label>
+            <input type="text" id="address" name="address" required />
+          </div>
+
+          <div class="form-group">
+            <label for="address2" data-i18n="formulario_page.address.address2">{t('formulario_page.address.address2', currentLang)}</label>
+            <input type="text" id="address2" name="address2" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city" data-i18n="formulario_page.address.city">{t('formulario_page.address.city', currentLang)}</label>
+              <input type="text" id="city" name="city" required />
+            </div>
+            <div class="form-group">
+              <label for="state" data-i18n="formulario_page.address.state">{t('formulario_page.address.state', currentLang)}</label>
+              <input type="text" id="state" name="state" required />
+            </div>
+            <div class="form-group">
+              <label for="zip" data-i18n="formulario_page.address.zip">{t('formulario_page.address.zip', currentLang)}</label>
+              <input type="text" id="zip" name="zip" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ===== Información de Contacto del Paciente (Nueva sección) ===== -->
+        <fieldset>
+          <legend data-i18n="formulario_page.patient_contact.title">{t('formulario_page.patient_contact.title', currentLang)}</legend>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="home_phone" data-i18n="formulario_page.patient_contact.home_phone">{t('formulario_page.patient_contact.home_phone', currentLang)}</label>
+              <input type="tel" id="home_phone" name="home_phone" />
+            </div>
+            <div class="form-group">
+              <label for="cell_phone" data-i18n="formulario_page.patient_contact.cell_phone">{t('formulario_page.patient_contact.cell_phone', currentLang)}</label>
+              <input type="tel" id="cell_phone" name="cell_phone" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="work_phone" data-i18n="formulario_page.patient_contact.work_phone">{t('formulario_page.patient_contact.work_phone', currentLang)}</label>
+              <input type="tel" id="work_phone" name="work_phone" />
+            </div>
+            <div class="form-group">
+              <label for="email" data-i18n="formulario_page.patient_contact.email">{t('formulario_page.patient_contact.email', currentLang)}</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ===== Información del Incidente (Nueva sección) ===== -->
+        <fieldset>
+          <legend data-i18n="formulario_page.incident_info.title">{t('formulario_page.incident_info.title', currentLang)}</legend>
+          
+          <div class="form-group">
+            <label data-i18n="formulario_page.incident_info.accident_type">{t('formulario_page.incident_info.accident_type', currentLang)}</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="accident_type" value="car" required />
+                <span data-i18n="formulario_page.incident_info.type_car">{t('formulario_page.incident_info.type_car', currentLang)}</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="accident_type" value="bicycle" required />
+                <span data-i18n="formulario_page.incident_info.type_bicycle">{t('formulario_page.incident_info.type_bicycle', currentLang)}</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="accident_type" value="motorcycle" required />
+                <span data-i18n="formulario_page.incident_info.type_motorcycle">{t('formulario_page.incident_info.type_motorcycle', currentLang)}</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="accident_type" value="pedestrian" required />
+                <span data-i18n="formulario_page.incident_info.type_pedestrian">{t('formulario_page.incident_info.type_pedestrian', currentLang)}</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="accident_type" value="other" required />
+                <span data-i18n="formulario_page.incident_info.type_other">{t('formulario_page.incident_info.type_other', currentLang)}</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" id="other_accident_type" style="display: none;">
+            <label for="other_accident_specify" data-i18n="formulario_page.incident_info.other_specify">{t('formulario_page.incident_info.other_specify', currentLang)}</label>
+            <input type="text" id="other_accident_specify" name="other_accident_specify" />
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="formulario_page.incident_info.legal_representation">{t('formulario_page.incident_info.legal_representation', currentLang)}</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="has_legal_representation" value="no" required />
+                <span>No</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="has_legal_representation" value="yes" required />
+                <span>Sí</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" id="legal_representation_details" style="display: none;">
+            <label for="legal_representation_specify" data-i18n="formulario_page.incident_info.legal_specify">{t('formulario_page.incident_info.legal_specify', currentLang)}</label>
+            <input type="text" id="legal_representation_specify" name="legal_representation_specify" />
+          </div>
+
+          <div class="form-group">
+            <label for="accident_date" data-i18n="formulario_page.incident_info.accident_date">{t('formulario_page.incident_info.accident_date', currentLang)}</label>
+            <input type="date" id="accident_date" name="accident_date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="additional_notes" data-i18n="formulario_page.incident_info.additional_notes">{t('formulario_page.incident_info.additional_notes', currentLang)}</label>
+            <textarea id="additional_notes" name="additional_notes" rows="4"></textarea>
+          </div>
+        </fieldset>
+
+        <!-- ===== Información del Referido (Simplificada) ===== -->
+        <fieldset>
+          <legend data-i18n="formulario_page.referral_info.title">{t('formulario_page.referral_info.title', currentLang)}</legend>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="referral_first_name" data-i18n="formulario_page.referral_info.first_name">{t('formulario_page.referral_info.first_name', currentLang)}</label>
+              <input type="text" id="referral_first_name" name="referral_first_name" required />
+            </div>
+            <div class="form-group">
+              <label for="referral_last_name" data-i18n="formulario_page.referral_info.last_name">{t('formulario_page.referral_info.last_name', currentLang)}</label>
+              <input type="text" id="referral_last_name" name="referral_last_name" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="referral_cell_phone" data-i18n="formulario_page.referral_info.cell_phone">{t('formulario_page.referral_info.cell_phone', currentLang)}</label>
+              <input type="tel" id="referral_cell_phone" name="referral_cell_phone" required />
+            </div>
+            <div class="form-group">
+              <label for="referral_email" data-i18n="formulario_page.referral_info.email">{t('formulario_page.referral_info.email', currentLang)}</label>
+              <input type="email" id="referral_email" name="referral_email" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ===== Declaración de Autenticidad con Firma ===== -->
+        <fieldset>
+          <legend data-i18n="formulario_page.authenticity.title">{t('formulario_page.authenticity.title', currentLang)}</legend>
+          
+          <!-- Texto de Declaración de Autenticidad -->
+          <div class="form-group">
+            <p class="authenticity-text" data-i18n="formulario_page.authenticity.statement">{t('formulario_page.authenticity.statement', currentLang)}</p>
+          </div>
+
+          <!-- Canvas de Firma -->
+          <div class="form-group">
+            <label data-i18n="formulario_page.signature.signature_canvas">{t('formulario_page.signature.signature_canvas', currentLang)}</label>
+            <div class="signature-container">
+              <canvas id="signature-canvas" width="400" height="200"></canvas>
+              <div class="signature-placeholder" data-i18n="formulario_page.signature.signature_placeholder">{t('formulario_page.signature.signature_placeholder', currentLang)}</div>
+              <div class="signature-buttons">
+                <button type="button" id="clear-signature" class="btn btn-secondary" data-i18n="formulario_page.signature.clear">{t('formulario_page.signature.clear', currentLang)}</button>
+              </div>
+              <div class="signature-error" id="signature-error" style="display: none;" data-i18n="formulario_page.signature.signature_required">{t('formulario_page.signature.signature_required', currentLang)}</div>
+            </div>
+            <input type="hidden" id="signature_data" name="signature_data" />
+          </div>
+
+          <!-- Checkbox de Consentimiento -->
+          <div class="form-group">
+            <div class="checkbox-group">
+              <input type="checkbox" id="privacy_consent" name="privacy_consent" required />
+              <label for="privacy_consent">
+                <span data-i18n="formulario_page.authenticity.consent_checkbox_new">{t('formulario_page.authenticity.consent_checkbox_new', currentLang)}</span>
+                <a href="/privacy" target="_blank" data-i18n="formulario_page.authenticity.privacy_policy">{t('formulario_page.authenticity.privacy_policy', currentLang)}</a>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ===== Botón de Envío ===== -->
+        <div class="form-actions">
+          <input type="submit" value={t('formulario_page.submit.button', currentLang)} data-i18n="formulario_page.submit.button" class="btn btn-primary" />
+        </div>
+
+        <!-- ===== Mensajes de Estado ===== -->
+        <div id="form-messages" style="display: none;">
+          <div class="success-message" data-i18n="formulario_page.submit.success">{t('formulario_page.submit.success', currentLang)}</div>
+          <div class="error-message" data-i18n="formulario_page.submit.error">{t('formulario_page.submit.error', currentLang)}</div>
+        </div>
+      </form>
+    </section>
+
+
+  </main>
+
+  <!-- Footer reducido -->
+  <div class="footer-compact">
+    <Footer />
+  </div>
+
+  <!-- Script para internacionalización dinámica -->
+  <script define:vars={{ esTranslations, enTranslations }}>
+    // Embebemos las traducciones en el cliente
+    window.translations = {
+      es: esTranslations,
+      en: enTranslations
+    };
+  </script>
+  
+  <script define:vars={{ esTranslations, enTranslations }}>
+    // Embebido de traducciones para el cliente
+    window.translations = {
+      es: esTranslations,
+      en: enTranslations
+    };
+  </script>
+  <script src="/src/utils/i18n-client.js"></script>
+  <script>
+    // Inicializar sistema de internacionalización
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar i18n client
+      if (window.i18nClient) {
+        window.i18nClient.init();
+      }
+      
+      // Funcionalidad para mostrar/ocultar campos condicionales
+      const accidentTypeRadios = document.querySelectorAll('input[name="accident_type"]');
+      const otherAccidentField = document.getElementById('other_accident_type');
+      
+      accidentTypeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value === 'other') {
+            otherAccidentField.style.display = 'block';
+          } else {
+            otherAccidentField.style.display = 'none';
+          }
+        });
+      });
+
+      const legalRepRadios = document.querySelectorAll('input[name="has_legal_representation"]');
+      const legalRepDetails = document.getElementById('legal_representation_details');
+      
+      legalRepRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value === 'yes') {
+            legalRepDetails.style.display = 'block';
+          } else {
+            legalRepDetails.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+  <style>
+    /* ===== VARIABLES ===== */
+    :root {
+      --primary-color: #7A2E87;
+      --primary-dark: #5E226A;
+      --primary-light: #BA93C2;
+      --primary-bg: #F3E6F7;
+      --text-primary: #2d3748;
+      --text-secondary: #4a5568;
+      --border-color: rgba(128, 106, 170, 0.28);
+      --surface: rgba(255, 255, 255, 0.9);
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ===== RESET Y BASE ===== */
+    .ref.page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--primary-bg) 0%, #ffffff 100%);
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero-min {
+      position: relative;
+      color: #fff;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-min__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: url('/assets/img/fondoNuevoHero.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .hero-min__bg .veil {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(122, 46, 135, 0.5) 0%, rgba(97, 30, 108, 0.4) 50%, rgba(0, 0, 0, 0.3) 100%);
+    }
+
+    .hero-min__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      display: block;
+    }
+
+    .hero-min__content {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 0;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .hero-min__content h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-min__content p {
+      font-size: 1.2rem;
+      margin-bottom: 0;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      opacity: 0.95;
+    }
+
+    /* ===== CONTENEDOR PRINCIPAL ===== */
+    .wrap {
+      max-width: 900px;
+      margin: 2rem auto 1rem;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== TARJETA DEL FORMULARIO ===== */
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      padding: 3rem;
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(10px);
+    }
+
+    /* ===== DECLARACIÓN DE AUTENTICIDAD ===== */
+    .authenticity-text {
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.5rem;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-left: 4px solid var(--primary-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-primary);
+      margin: 0 0 1.5rem 0;
+    }
+
+    /* ===== FIELDSETS ===== */
+    fieldset {
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      background: var(--surface);
+      backdrop-filter: blur(5px);
+    }
+
+    fieldset:last-of-type {
+      margin-bottom: 0;
+    }
+
+    legend {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      padding: 0 1rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== FORM LAYOUT ===== */
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ===== LABELS ===== */
+    label {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      letter-spacing: 0.025em;
+      transition: color 0.3s ease;
+    }
+
+    /* ===== INPUTS, SELECTS, TEXTAREAS ===== */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="number"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: var(--transition);
+      background: var(--surface);
+      backdrop-filter: blur(5px);
+      color: var(--text-primary);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      background: white;
+      box-shadow: 
+        0 0 0 3px rgba(186, 147, 194, 0.22),
+        0 4px 12px rgba(186, 147, 194, 0.15);
+      transform: translateY(-1px);
+    }
+
+    input:hover,
+    select:hover,
+    textarea:hover {
+      border-color: var(--primary-light);
+      background: white;
+    }
+
+    /* ===== TEXTAREA ESPECÍFICO ===== */
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.5;
+    }
+
+    /* ===== RADIO GROUPS ===== */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+    }
+
+    .radio-option:hover {
+      background-color: rgba(186, 147, 194, 0.1);
+    }
+
+    .radio-option input[type="radio"] {
+      width: auto;
+      margin: 0;
+      accent-color: var(--primary-color);
+    }
+
+    /* ===== CHECKBOX GROUP ===== */
+    .checkbox-group {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+      transform: scale(1.2);
+      accent-color: var(--primary-color);
+    }
+
+    .checkbox-group label {
+      margin: 0;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .checkbox-group label a {
+      color: var(--primary-color);
+      text-decoration: underline;
+    }
+
+    .checkbox-group label a:hover {
+      color: var(--primary-dark);
+    }
+
+    /* ===== FORM ACTIONS ===== */
+    .form-actions {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    /* ===== BOTONES ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1.1rem;
+      font-weight: 600;
+      font-family: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      min-width: 200px;
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 12px rgba(122, 46, 135, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(122, 46, 135, 0.35);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(122, 46, 135, 0.2);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+
+
+    /* ===== FOOTER COMPACTO ===== */
+    .footer-compact {
+      margin-top: 1rem;
+    }
+
+    .footer-compact :global(footer) {
+      padding: 0.5rem 0;
+      font-size: 0.85rem;
+    }
+
+    /* ===== MENSAJES ===== */
+    #form-messages {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      border: 1px solid #c3e6cb;
+      margin-bottom: 1rem;
+    }
+
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      border: 1px solid #f5c6cb;
+      margin-bottom: 1rem;
+    }
+
+    /* ===== ESTILOS PARA CANVAS DE FIRMA ===== */
+    .signature-container {
+      position: relative;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    #signature-canvas {
+      display: block;
+      cursor: crosshair;
+      width: 100%;
+      height: 200px;
+      background: transparent;
+    }
+
+    .signature-placeholder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      pointer-events: none;
+      opacity: 0.7;
+      text-align: center;
+    }
+
+    .signature-placeholder.hidden {
+      display: none;
+    }
+
+    .signature-buttons {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      z-index: 10;
+    }
+
+    .signature-buttons .btn {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.8rem;
+      min-width: auto;
+    }
+
+    .signature-error {
+      color: #dc3545;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(220, 53, 69, 0.1);
+      border-radius: 4px;
+      border-left: 3px solid #dc3545;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .card {
+        padding: 2rem 1.5rem;
+        margin: -1rem 0.5rem 2rem;
+        border-radius: 16px;
+      }
+
+      fieldset {
+        padding: 1.5rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .hero-min__content {
+        padding: 3rem 0;
+      }
+
+
+
+      .radio-group {
+        gap: 0.5rem;
+      }
+
+      #signature-canvas {
+        height: 150px;
+      }
+      
+      .signature-buttons {
+        position: static;
+        margin-top: 0.5rem;
+        text-align: right;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wrap {
+        padding: 0 0.5rem;
+      }
+
+      .card {
+        padding: 1.5rem 1rem;
+      }
+
+      fieldset {
+        padding: 1rem;
+      }
+
+      .hero-min__content h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero-min__content p {
+        font-size: 1rem;
+      }
+
+      #signature-canvas {
+        height: 120px;
+      }
+      
+      .signature-placeholder {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ===== ANIMACIONES ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    fieldset {
+      animation: fadeInUp 0.6s ease-out;
+      animation-fill-mode: both;
+    }
+
+    fieldset:nth-child(1) { animation-delay: 0.1s; }
+    fieldset:nth-child(2) { animation-delay: 0.2s; }
+    fieldset:nth-child(3) { animation-delay: 0.3s; }
+    fieldset:nth-child(4) { animation-delay: 0.4s; }
+    fieldset:nth-child(5) { animation-delay: 0.5s; }
+    fieldset:nth-child(6) { animation-delay: 0.6s; }
+
+    /* ===== REDUCE MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ===== ACCESIBILIDAD ===== */
+    input:invalid {
+      border-color: #e53e3e;
+    }
+
+    input:invalid:focus {
+      box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.22);
+    }
+
+    /* ===== LOADING STATES ===== */
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn:disabled:hover {
+      transform: none;
+      box-shadow: var(--shadow-sm);
+    }
+  </style>
+
+  <script>
+    // ===== FUNCIONALIDAD DEL CANVAS DE FIRMA =====
+    document.addEventListener('DOMContentLoaded', function() {
+      const canvas = document.getElementById('signature-canvas');
+      const ctx = canvas.getContext('2d');
+      const clearBtn = document.getElementById('clear-signature');
+      const placeholder = document.querySelector('.signature-placeholder');
+      const signatureData = document.getElementById('signature_data');
+      const signatureError = document.getElementById('signature-error');
+      
+      let isDrawing = false;
+      let hasSignature = false;
+
+      // Configurar canvas
+      function setupCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        
+        ctx.scale(dpr, dpr);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+      }
+
+      setupCanvas();
+
+      // Funciones de dibujo
+      function startDrawing(e) {
+        isDrawing = true;
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.clientX || e.touches[0].clientX) - rect.left;
+        const y = (e.clientY || e.touches[0].clientY) - rect.top;
+        
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        
+        if (!hasSignature) {
+          hasSignature = true;
+          placeholder.classList.add('hidden');
+          signatureError.style.display = 'none';
+        }
+      }
+
+      function draw(e) {
+        if (!isDrawing) return;
+        
+        e.preventDefault();
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.clientX || e.touches[0].clientX) - rect.left;
+        const y = (e.clientY || e.touches[0].clientY) - rect.top;
+        
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      }
+
+      function stopDrawing() {
+        if (isDrawing) {
+          isDrawing = false;
+          ctx.beginPath();
+          
+          // Guardar firma como base64
+          signatureData.value = canvas.toDataURL();
+        }
+      }
+
+      // Event listeners para mouse
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', draw);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      // Event listeners para touch
+      canvas.addEventListener('touchstart', startDrawing);
+      canvas.addEventListener('touchmove', draw);
+      canvas.addEventListener('touchend', stopDrawing);
+
+      // Limpiar firma
+      clearBtn.addEventListener('click', function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hasSignature = false;
+        placeholder.classList.remove('hidden');
+        signatureData.value = '';
+        signatureError.style.display = 'none';
+      });
+
+      // Redimensionar canvas
+      window.addEventListener('resize', setupCanvas);
+
+      // Validación del formulario
+      const form = document.querySelector('form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          if (!hasSignature || !signatureData.value) {
+            e.preventDefault();
+            signatureError.style.display = 'block';
+            canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return false;
+          }
+        });
+      }
+    });
+  </script>
+</Layout>

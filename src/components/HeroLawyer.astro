@@ -1,0 +1,481 @@
+---
+// src/components/HeroLawyer.astro
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+interface Props {
+  phoneDisplay?: string;
+  phoneTel?: string;
+  heroImg?: string;
+}
+
+const {
+  phoneDisplay = '385-242-8571',
+  phoneTel = '+13852428571',
+  heroImg = '/assets/img/fondoNuevoHero.jpeg',
+} = Astro.props;
+
+const currentLang = getCurrentLanguage();
+---
+
+<section class="hero-lawyer" aria-labelledby="hl-title">
+  <!-- Fondo -->
+  <div class="hl-bg" aria-hidden="true">
+    <img src={heroImg} alt="" loading="eager" decoding="async" />
+    <div class="hl-veil"></div>
+  </div>
+
+  <div class="hl-grid container">
+    <!-- Izquierda -->
+    <div class="hl-left">
+      <span class="hl-eyebrow" data-i18n="hero_lawyer.badge">{t('hero_lawyer.badge', currentLang)}</span>
+      <h1 id="hl-title" data-i18n="hero_lawyer.title">{t('hero_lawyer.title', currentLang)}</h1>
+      <p class="hl-sub">
+        <span data-i18n="hero_lawyer.subtitle.main">{t('hero_lawyer.subtitle.main', currentLang)}</span> <strong data-i18n="hero_lawyer.subtitle.highlight">{t('hero_lawyer.subtitle.highlight', currentLang)}</strong> <span data-i18n="hero_lawyer.subtitle.end">{t('hero_lawyer.subtitle.end', currentLang)}</span>
+      </p>
+
+      <ul class="hl-bullets" role="list" aria-label={t('hero_lawyer.benefits_label', currentLang)}>
+        <li data-i18n="hero_lawyer.benefits.free_evaluation">{t('hero_lawyer.benefits.free_evaluation', currentLang)}</li>
+        <li data-i18n="hero_lawyer.benefits.insurance_handling">{t('hero_lawyer.benefits.insurance_handling', currentLang)}</li>
+        <li data-i18n="hero_lawyer.benefits.legal_support">{t('hero_lawyer.benefits.legal_support', currentLang)}</li>
+        <li data-i18n="hero_lawyer.benefits.specialist_referral">{t('hero_lawyer.benefits.specialist_referral', currentLang)}</li>
+      </ul>
+
+      <div class="hl-actions" role="group" aria-label={t('hero_lawyer.actions_label', currentLang)}>
+        <a href="/schedule" class="btn btn-primary btn-lg cta-arrow">
+          <span data-i18n="hero_lawyer.schedule_button">{t('hero_lawyer.schedule_button', currentLang)}</span>
+          <svg class="ico" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path d="M5 12h12m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a class="btn btn-outline btn-lg" href={`tel:${phoneTel}`} aria-label={`${t('hero_lawyer.call_now', currentLang)} ${phoneDisplay}`}>📞 {phoneDisplay}</a>
+      </div>
+    </div>
+
+    <!-- Derecha: CARD + FORM -->
+    <aside class="hl-card" aria-label="Solicitud de evaluación gratuita">
+      <header class="card-head" aria-labelledby="form-title">
+        <div class="head-title">
+          <!-- Icono calendario -->
+          <svg class="head-ico" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path d="M16 2v3M8 2v3M3 9h18M4 7h16a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="head-copy">
+            <h3 id="form-title" data-i18n="hero_lawyer.form.title">{t('hero_lawyer.form.title', currentLang)}</h3>
+            <p class="head-sub" data-i18n="hero_lawyer.form.subtitle">{t('hero_lawyer.form.subtitle', currentLang)}</p>
+          </div>
+          <span class="head-pill" aria-hidden="true" data-i18n="hero_lawyer.form.free_badge">{t('hero_lawyer.form.free_badge', currentLang)}</span>
+        </div>
+      </header>
+
+      <div class="card-body">
+        <form
+          action="https://formsubmit.co/info@carinjuryclinics.com"
+          method="POST"
+          accept-charset="UTF-8"
+          autocomplete="on"
+          class="mini"
+        >
+          <!-- Honeypot anti-spam -->
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <!-- Opciones FormSubmit -->
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="http://localhost:4321/gracias" />
+          <input type="hidden" name="_subject" value="Nuevo lead desde el sitio" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="page" value="Formulario principal (Hero)" />
+
+          <label class="field">
+            <span data-i18n="hero_lawyer.form.fields.name">{t('hero_lawyer.form.fields.name', currentLang)}</span>
+            <input type="text" name="name" autocomplete="name" required />
+          </label>
+
+          <label class="field">
+            <span data-i18n="hero_lawyer.form.fields.email">{t('hero_lawyer.form.fields.email', currentLang)}</span>
+            <input type="email" name="email" autocomplete="email" />
+          </label>
+
+          <label class="field">
+            <span data-i18n="hero_lawyer.form.fields.phone">{t('hero_lawyer.form.fields.phone', currentLang)}</span>
+            <input type="tel" name="phone" inputmode="tel" placeholder="+1 (___) ___-____" required />
+          </label>
+
+          <!-- Select con flecha custom accesible -->
+          <label class="field" id="row-discovery">
+            <span data-i18n="hero_lawyer.form.fields.how_found">{t('hero_lawyer.form.fields.how_found', currentLang)}</span>
+            <span class="select">
+              <select name="discovery_source" id="discovery" required aria-describedby="discoveryHint">
+                <option value="" data-i18n="hero_lawyer.form.fields.select_option">{t('hero_lawyer.form.fields.select_option', currentLang)}</option>
+                <option value="google_search">Google (búsqueda)</option>
+                <option value="google_maps">Google Maps</option>
+                <option value="facebook">Facebook</option>
+                <option value="instagram">Instagram</option>
+                <option value="tiktok">TikTok</option>
+                <option value="x_twitter">X (Twitter)</option>
+                <option value="youtube">YouTube</option>
+                <option value="ads">Anuncio (Google / Facebook / Instagram)</option>
+                <option value="ref_amigo">Referido: amigo o familiar</option>
+                <option value="ref_abogado">Referido: abogado</option>
+                <option value="ref_medico">Referido: médico / clínica</option>
+                <option value="letrero">Vine por el letrero / pasé por la clínica</option>
+                <option value="evento">Evento / comunidad</option>
+                <option value="radio_tv">Radio / TV</option>
+                <option value="otro">Otro</option>
+              </select>
+            </span>
+            <span id="discoveryHint" class="visually-hidden">Abre el menú con Enter o flecha abajo</span>
+          </label>
+
+          <label class="field is-hidden" id="row-referral" hidden>
+            <span data-i18n="hero_lawyer.form.fields.who_referred">{t('hero_lawyer.form.fields.who_referred', currentLang)}</span>
+            <input
+              type="text"
+              name="referral_name"
+              id="referral_name"
+              placeholder={t('hero_lawyer.form.fields.referral_placeholder', currentLang)}
+              data-i18n-placeholder="hero_lawyer.form.fields.referral_placeholder"
+            />
+          </label>
+
+          <label class="field">
+            <span data-i18n="hero_lawyer.form.fields.message">{t('hero_lawyer.form.fields.message', currentLang)}</span>
+            <textarea name="message" rows="3" placeholder={t('hero_lawyer.form.fields.message_placeholder', currentLang)} data-i18n-placeholder="hero_lawyer.form.fields.message_placeholder"></textarea>
+          </label>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-fill cta-arrow">
+            <span data-i18n="hero_lawyer.form.submit_button">{t('hero_lawyer.form.submit_button', currentLang)}</span>
+            <svg class="ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path d="M5 12h12m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </aside>
+  </div>
+
+  <script is:inline>
+    (function(){
+      const discovery     = document.getElementById('discovery');
+      const rowReferral   = document.getElementById('row-referral');
+      const referralInput = document.getElementById('referral_name');
+      if(!discovery || !rowReferral || !referralInput) return;
+
+      const show=(el,on)=>{ el.hidden = !on; el.classList.toggle('is-hidden',!on); };
+      function sync(){
+        const v = discovery.value;
+        const isRef = ['ref_amigo','ref_abogado','ref_medico'].includes(v);
+        show(rowReferral, isRef);
+        referralInput.required = isRef;
+        if(!isRef) referralInput.value = '';
+      }
+      discovery.addEventListener('change', sync);
+      sync();
+    })();
+  </script>
+
+  <style>
+    /* Fuentes (si ya están globales, puedes omitir @import) */
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700;800;900&family=Source+Sans+3:wght@400;600;700;800;900&display=swap');
+
+    :root{
+      --brand:#BA93C2;
+      --brand-700:#7f4b8a;
+      --ink:#1A1D2A;
+      --muted:#6B6F85;
+      --surface:#ffffff;
+      --surface-2:#F7F2FA;
+      --line: rgba(26,29,42,.12);
+    }
+    .container{ max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+
+    .hero-lawyer{
+      position:relative; isolation:isolate; overflow:hidden; color:#fff;
+      padding: 120px 0 48px;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hl-bg{
+      position:absolute; inset:0; z-index:0; pointer-events:none;
+      background: url('/assets/img/fondoNuevoHero.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .hl-bg img{
+      display: none;
+    }
+    .hl-bg .hl-veil{ 
+      position:absolute; inset:0; 
+      background: linear-gradient(
+        135deg,
+        rgba(122, 46, 135, 0.5) 0%,
+        rgba(97, 30, 108, 0.4) 50%,
+        rgba(0, 0, 0, 0.3) 100%
+      );
+    }
+
+    .hl-grid{
+      position:relative; z-index:1;
+      display:grid; grid-template-columns: 1.12fr .88fr; gap: 28px; align-items:start;
+    }
+    @media (max-width: 980px){ .hl-grid{ grid-template-columns: 1fr; } }
+
+    .hl-left{ 
+      max-width: 760px; 
+      font-family:'Source Sans 3', system-ui, sans-serif;
+      animation: slideInLeft 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .hl-eyebrow{
+      display:inline-block; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+      font-size:.82rem; background: color-mix(in oklab, var(--brand) 22%, rgba(255,255,255,.1));
+      color:#fff; padding:.36rem .64rem; border-radius:999px; backdrop-filter: blur(3px);
+      border:1px solid rgba(255,255,255,.18);
+      font-family:'Manrope', system-ui, sans-serif;
+    }
+    .hero-lawyer h1{
+      font-family:'Manrope', system-ui, sans-serif;
+      font-weight:800; letter-spacing:.005em; line-height:1.02;
+      font-size: clamp(2.2rem, 5vw, 4rem); margin:.6rem 0 .5rem;
+    }
+    .hl-sub{
+      font-weight:700; line-height:1.35; font-size: clamp(1.02rem, 1.9vw, 1.22rem);
+      color:#fff; opacity:.98; text-wrap: pretty; margin:0 0 10px;
+    }
+    .hl-bullets{
+      display:grid; gap:.42rem; padding:0; margin:0 0 1rem 0; list-style:none;
+      animation: fadeInUp 0.8s ease-out 0.6s both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hl-bullets li{
+      position:relative; padding-left: 32px; font-weight:800; color:#f2e9f7;
+      text-shadow: 0 1px 0 rgba(0,0,0,.15);
+      animation: fadeInItem 0.6s ease-out calc(0.8s + var(--delay, 0s)) both;
+    }
+
+    .hl-bullets li:nth-child(1) { --delay: 0.1s; }
+    .hl-bullets li:nth-child(2) { --delay: 0.2s; }
+    .hl-bullets li:nth-child(3) { --delay: 0.3s; }
+    .hl-bullets li:nth-child(4) { --delay: 0.4s; }
+
+    @keyframes fadeInItem {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .hl-bullets li::before{
+      content:"✓"; position:absolute; left:0; top:.2rem; width:18px; height:18px;
+      background: #7A2E87; color: #fff; border-radius:50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 900;
+      box-shadow: 0 0 0 2px rgba(255,255,255,.25), 0 8px 16px rgba(0,0,0,.25);
+    }
+    .hl-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:.6rem; }
+
+    /* Botones */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.9rem 1.15rem; border-radius:12px;
+      font-weight:900; border:1px solid transparent; text-decoration:none;
+      transition: transform .18s cubic-bezier(.22,.61,.36,1), box-shadow .18s, background-color .18s, color .18s, border-color .18s;
+      will-change: transform;
+      font-family:'Manrope', system-ui, sans-serif;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn-lg{ padding:1.05rem 1.35rem; font-size:1.05rem; }
+    .btn-primary{
+      background: #7A2E87;
+      color:#fff; border-color: #7A2E87;
+      box-shadow: 0 10px 18px rgba(122, 46, 135, 0.28);
+    }
+    .btn-primary:hover{
+      background: #806AAA;
+      border-color: #806AAA;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(122, 46, 135, 0.35);
+    }
+    .btn-outline{
+      background:#fff; color: var(--brand-700);
+      border-color: color-mix(in oklab, var(--brand) 55%, #fff);
+      box-shadow: 0 6px 14px rgba(186,147,194,.18);
+    }
+    .btn-fill{ width:100%; }
+
+    .cta-arrow{ gap:.6rem; position:relative; overflow:hidden; }
+    .cta-arrow .ico{ transition: transform .26s cubic-bezier(.22,.61,.36,1); }
+    .cta-arrow:hover .ico{ transform: translateX(4px); }
+
+    /* ===== Card / Form ===== */
+    .hl-card{
+      align-self: start;
+      background:#fff; color: var(--ink);
+      border-radius:16px; border:1px solid var(--line);
+      box-shadow: 0 16px 38px rgba(10,14,30,.28);
+      display:flex; flex-direction:column; overflow:hidden;
+      max-width: 560px; width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+      animation: slideInRight 0.8s ease-out 0.4s both;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hl-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(10,14,30,.35);
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .card-head{
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(240px 120px at 5% 15%, rgba(186,147,194,.18), transparent),
+        linear-gradient(180deg, #ffffff, #fbfafc);
+    }
+    .head-title{
+      display:flex; align-items:center; gap:.75rem;
+    }
+    .head-ico{
+      flex:0 0 auto;
+      color: var(--brand-700);
+      filter: drop-shadow(0 2px 6px rgba(127,75,138,.25));
+    }
+    .head-copy h3{
+      margin:0; padding:0;
+      font-family:'Manrope', system-ui, sans-serif;
+      font-weight:900; color:#7f4b8a;
+      font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+      line-height:1.1;
+      margin-top: 1rem;
+    }
+    .head-sub{
+      margin:.1rem 0 0; font-size:.9rem; color: var(--muted); font-weight:700;
+    }
+    .head-pill{
+      margin-left:auto;
+      font-size:.72rem; letter-spacing:.04em; text-transform:uppercase;
+      font-weight:900; color:#7f4b8a;
+      background: color-mix(in oklab, var(--brand) 18%, #fff);
+      border:1px solid color-mix(in oklab, var(--brand) 45%, #fff);
+      padding:.28rem .5rem; border-radius:999px;
+    }
+
+    .card-body{
+      padding: 14px 16px 16px;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    /* Normaliza box-sizing dentro del form */
+    .hl-card, .hl-card *, .hl-card *::before, .hl-card *::after { box-sizing: border-box; }
+
+    .mini{
+      display:grid; gap:12px;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .field{
+      display:grid; gap:.4rem; margin:0;
+      width: 100%;
+      max-width: 100%;
+    }
+    .field > span{
+      font-weight:900; color:#6B6F85; letter-spacing:.01em;
+      margin-left:.1rem;
+    }
+    .field input,
+    .field textarea{
+      width: 100%;
+      max-width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--ink);
+      border:1px solid color-mix(in oklab, var(--brand) 35%, var(--line));
+      font-size:1rem; outline:none;
+      transition: border-color .2s, box-shadow .2s, background-color .2s;
+      appearance: none;
+    }
+
+    /* SELECT con flecha custom */
+    .select{
+      position:relative; display:block;
+      width:100%;
+    }
+    .select select{
+      width:100%;
+      padding: 12px 44px 12px 14px; /* espacio para la flecha */
+      border-radius:12px;
+      background:#fff;
+      color: var(--ink);
+      border:1px solid color-mix(in oklab, var(--brand) 35%, var(--line));
+      font-size:1rem; outline:none;
+      transition: border-color .2s, box-shadow .2s, background-color .2s;
+      appearance: none; -webkit-appearance: none; -moz-appearance: none;
+      background-image: none;
+    }
+    .select::after{
+      content:"";
+      position:absolute; pointer-events:none;
+      right:14px; top:50%; transform: translateY(-50%) rotate(45deg);
+      width:10px; height:10px;
+      border-right: 2px solid var(--muted);
+      border-bottom: 2px solid var(--muted);
+    }
+    .field select:focus,
+    .field input:focus,
+    .field textarea:focus{
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand) 22%, transparent);
+    }
+    .select:focus-within::after{
+      border-color: var(--brand-700);
+    }
+
+    .field textarea{ resize: vertical; min-height: 96px; }
+
+    /* Oculta fila “¿Quién te recomendó?” cuando no aplica */
+    #row-referral.is-hidden{ display:none !important; }
+
+    /* Accesibilidad visual-only helpers */
+    .visually-hidden{
+      position:absolute !important; height:1px; width:1px; overflow:hidden;
+      clip: rect(1px, 1px, 1px, 1px); white-space:nowrap;
+    }
+
+    @media (max-width: 980px){
+      .hero-lawyer{ padding: 100px 0 32px; }
+      .hl-card{ max-width: 100%; }
+    }
+
+    /* Scroll animations */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .scroll-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</section>

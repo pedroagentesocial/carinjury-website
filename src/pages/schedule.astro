@@ -1,0 +1,893 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import MapContact from '../components/MapContact.astro';
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+const currentLang = getCurrentLanguage();
+---
+
+<Layout>
+  <main class="schedule-page">
+    <!-- Hero Section Moderno -->
+    <section class="hero-modern">
+      <div class="hero-bg">
+        <img src="/assets/img/fondoNuevoHero.jpeg" alt="" loading="lazy" decoding="async" />
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge" data-i18n="schedule_page.hero.badge">{t('schedule_page.hero.badge', currentLang)}</div>
+        <h1 class="hero-title" data-i18n="schedule_page.hero.title">{t('schedule_page.hero.title', currentLang)}<br><span class="accent" data-i18n="schedule_page.hero.subtitle">{t('schedule_page.hero.subtitle', currentLang)}</span></h1>
+        <p class="hero-subtitle" data-i18n="schedule_page.hero.description">{t('schedule_page.hero.description', currentLang)}</p>
+      </div>
+    </section>
+
+    <!-- Sección Principal -->
+    <section class="main-content">
+      <div class="container">
+        <div class="content-grid">
+          <!-- Columna Izquierda: Información -->
+          <div class="info-column">
+            <div class="clinic-showcase">
+              <div class="showcase-image">
+                <img src="/assets/img/cic.jpg" alt="Car Injury Clinic" loading="lazy" />
+                <div class="image-badge" data-i18n="schedule_page.clinic.badge">{t('schedule_page.clinic.badge', currentLang)}</div>
+              </div>
+              
+              <div class="benefits-grid">
+                <div class="benefit-card">
+                  <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                      <circle cx="12" cy="12" r="10" fill="#7A2E87"/>
+                      <path d="M7 12.5l3 3.2 7-7.4" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="benefit-content">
+                    <h3 data-i18n="schedule_page.benefits.free_consultation.title">{t('schedule_page.benefits.free_consultation.title', currentLang)}</h3>
+                    <p data-i18n="schedule_page.benefits.free_consultation.description">{t('schedule_page.benefits.free_consultation.description', currentLang)}</p>
+                  </div>
+                </div>
+                
+                <div class="benefit-card">
+                  <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                      <circle cx="12" cy="12" r="10" fill="#7A2E87"/>
+                      <path d="M7 12.5l3 3.2 7-7.4" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="benefit-content">
+                    <h3 data-i18n="schedule_page.benefits.same_day.title">{t('schedule_page.benefits.same_day.title', currentLang)}</h3>
+                    <p data-i18n="schedule_page.benefits.same_day.description">{t('schedule_page.benefits.same_day.description', currentLang)}</p>
+                  </div>
+                </div>
+                
+                <div class="benefit-card">
+                  <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                      <circle cx="12" cy="12" r="10" fill="#7A2E87"/>
+                      <path d="M7 12.5l3 3.2 7-7.4" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="benefit-content">
+                    <h3 data-i18n="schedule_page.benefits.bilingual.title">{t('schedule_page.benefits.bilingual.title', currentLang)}</h3>
+                    <p data-i18n="schedule_page.benefits.bilingual.description">{t('schedule_page.benefits.bilingual.description', currentLang)}</p>
+                  </div>
+                </div>
+                
+                <div class="benefit-card">
+                  <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                      <circle cx="12" cy="12" r="10" fill="#7A2E87"/>
+                      <path d="M7 12.5l3 3.2 7-7.4" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="benefit-content">
+                    <h3 data-i18n="schedule_page.benefits.experience.title">{t('schedule_page.benefits.experience.title', currentLang)}</h3>
+                    <p data-i18n="schedule_page.benefits.experience.description">{t('schedule_page.benefits.experience.description', currentLang)}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Formulario -->
+          <div class="form-column">
+            <div class="form-container" id="contact-form">
+              <div class="form-header">
+                <h2 data-i18n="schedule_page.form.title">{t('schedule_page.form.title', currentLang)}</h2>
+                <p data-i18n="schedule_page.form.subtitle">{t('schedule_page.form.subtitle', currentLang)}</p>
+              </div>
+              
+              <form
+                id="schedule-form"
+                class="modern-form"
+                method="POST"
+                action="https://formsubmit.co/info@carinjuryclinics.com"
+                enctype="multipart/form-data"
+                name="schedule"
+                accept-charset="UTF-8"
+                autocomplete="on"
+                novalidate
+              >
+                <!-- honeypot anti-spam -->
+                <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" />
+
+                <!-- FormSubmit hidden fields -->
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_subject" value="Nueva solicitud de agenda" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="page" value="Agenda de consulta" />
+
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="name" class="form-label" data-i18n="schedule_page.form.name">{t('schedule_page.form.name', currentLang)} *</label>
+                    <input id="name" name="firstName" type="text" class="form-input" autocomplete="given-name" required data-i18n-placeholder="schedule_page.form.name_placeholder" placeholder={t('schedule_page.form.name_placeholder', currentLang)} />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="lastname" class="form-label" data-i18n="schedule_page.form.lastname">{t('schedule_page.form.lastname', currentLang)} *</label>
+                    <input id="lastname" name="lastName" type="text" class="form-input" autocomplete="family-name" required data-i18n-placeholder="schedule_page.form.lastname_placeholder" placeholder={t('schedule_page.form.lastname_placeholder', currentLang)} />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email" class="form-label" data-i18n="schedule_page.form.email">{t('schedule_page.form.email', currentLang)} *</label>
+                    <input id="email" name="email" type="email" class="form-input" autocomplete="email" required data-i18n-placeholder="schedule_page.form.email_placeholder" placeholder={t('schedule_page.form.email_placeholder', currentLang)} />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="phone" class="form-label" data-i18n="schedule_page.form.phone">{t('schedule_page.form.phone', currentLang)} *</label>
+                    <input
+                      id="phone" name="phone" type="tel" class="form-input" inputmode="tel" autocomplete="tel" required
+                      placeholder="(385) 555-0123"
+                      pattern="^\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$"
+                      title={t('schedule_page.form.phone_title', currentLang)}
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group form-group-full">
+                  <label for="message" class="form-label" data-i18n="schedule_page.form.message">{t('schedule_page.form.message', currentLang)} *</label>
+                  <textarea id="message" name="message" rows="4" class="form-textarea" required
+                    data-i18n-placeholder="schedule_page.form.message_placeholder" placeholder={t('schedule_page.form.message_placeholder', currentLang)}></textarea>
+                </div>
+
+                <div class="form-actions">
+                  <button class="btn-submit" id="submit-btn" type="submit" data-i18n="schedule_page.form.submit">
+                    <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20">
+                      <path d="M22 2L11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M22 2L15 22L11 13L2 9L22 2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    {t('schedule_page.form.submit', currentLang)}
+                  </button>
+                  
+                  <div class="form-separator" data-i18n="schedule_page.form.or">{t('schedule_page.form.or', currentLang)}</div>
+                  
+                  <a href="tel:+13852428571" class="btn-call" data-i18n="schedule_page.form.call_now">
+                    <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.2A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.86.31 1.7.57 2.5a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.58-1.14a2 2 0 0 1 2.11-.45 13.1 13.1 0 0 0 2.5.57A2 2 0 0 1 22 16.92Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    {t('schedule_page.form.call_now', currentLang)}
+                  </a>
+                </div>
+
+                <p id="form-msg" class="form-message" aria-live="polite" role="status"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <div style="margin-top: -2rem;">
+    <MapContact />
+  </div>
+  <Footer />
+
+  <!-- Modal de éxito -->
+  <dialog id="success-dialog" class="success-modal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <svg viewBox="0 0 24 24" width="48" height="48">
+          <circle cx="12" cy="12" r="10" fill="#7A2E87"/>
+          <path d="M7 12.5l3 3.2 7-7.4" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 data-i18n="schedule_page.modal.title">{t('schedule_page.modal.title', currentLang)}</h3>
+      <p data-i18n="schedule_page.modal.message">{t('schedule_page.modal.message', currentLang)}</p>
+      <form method="dialog">
+        <button class="btn-modal" data-i18n="schedule_page.modal.close">{t('schedule_page.modal.close', currentLang)}</button>
+      </form>
+    </div>
+  </dialog>
+</Layout>
+
+<style>
+  /* ===== VARIABLES ===== */
+  :root {
+    --primary: #7A2E87;
+    --primary-dark: #611E6C;
+    --accent: #ffc107;
+    --white: #ffffff;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  }
+
+  /* ===== RESET Y BASE ===== */
+  .schedule-page {
+    min-height: 100vh;
+    background: var(--gray-50);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* ===== HERO MODERNO ===== */
+  .hero-modern {
+    position: relative;
+    height: 60vh;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4) contrast(1.1);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(122, 46, 135, 0.3) 0%,
+      rgba(97, 30, 108, 0.2) 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--white);
+    max-width: 800px;
+    padding: 0.5rem 2rem;
+    margin-top: -20vh;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 193, 7, 0.9);
+    color: var(--gray-900);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-title {
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-title .accent {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    min-width: 180px;
+    justify-content: center;
+  }
+
+  .btn-hero.btn-primary {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .btn-hero.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .btn-hero.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+  }
+
+  .btn-hero.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ===== CONTENIDO PRINCIPAL ===== */
+  .main-content {
+    padding: 5rem 0;
+    background: var(--white);
+  }
+
+
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* ===== COLUMNA DE INFORMACIÓN ===== */
+  .info-column {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .clinic-showcase {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .showcase-image {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .showcase-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .clinic-showcase:hover .showcase-image img {
+    transform: scale(1.05);
+  }
+
+  .image-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--primary);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .benefits-grid {
+    padding: 2rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .benefit-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .benefit-card:hover {
+    background: var(--gray-100);
+    transform: translateX(4px);
+  }
+
+  .benefit-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .benefit-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .benefit-content h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin: 0 0 0.25rem 0;
+  }
+
+  .benefit-content p {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin: 0;
+  }
+
+  /* ===== COLUMNA DEL FORMULARIO ===== */
+  .form-container {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--gray-200);
+  }
+
+  .form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .form-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--gray-900);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .form-header p {
+    color: var(--gray-600);
+    font-size: 1.125rem;
+    margin: 0;
+  }
+
+  .modern-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group-full {
+    grid-column: 1 / -1;
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .form-input,
+  .form-textarea {
+    padding: 1rem;
+    border: 2px solid var(--gray-200);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--white);
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(122, 46, 135, 0.1);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .form-separator {
+    color: #666;
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0 0.5rem;
+    user-select: none;
+  }
+
+  .btn-submit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-submit:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+
+
+  .btn-call {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
+    background: var(--primary);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-call:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .form-message {
+    text-align: center;
+    font-weight: 600;
+    margin: 1rem 0 0 0;
+    padding: 0.75rem;
+    border-radius: 8px;
+    display: none;
+  }
+
+  .form-message.success {
+    background: #d1fae5;
+    color: #065f46;
+    display: block;
+  }
+
+  .form-message.error {
+    background: #fee2e2;
+    color: #991b1b;
+    display: block;
+  }
+
+  /* ===== MODAL ===== */
+  .success-modal {
+    border: none;
+    border-radius: 20px;
+    padding: 0;
+    background: transparent;
+    max-width: 400px;
+    width: 90%;
+  }
+
+  .success-modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .modal-icon {
+    margin: 0 auto 1.5rem;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin: 0 0 1rem 0;
+  }
+
+  .modal-content p {
+    color: var(--gray-600);
+    margin: 0 0 2rem 0;
+    line-height: 1.6;
+  }
+
+  .btn-modal {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .btn-modal:hover {
+    background: var(--primary-dark);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .info-column {
+      position: static;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn-hero {
+      width: 100%;
+      max-width: 300px;
+    }
+
+
+  }
+
+  @media (max-width: 768px) {
+    .hero-modern {
+      height: 60vh;
+      min-height: 450px;
+    }
+
+    .hero-content {
+      padding: 1rem;
+      margin-top: -3vh;
+    }
+
+    .main-content {
+      padding: 3rem 0;
+    }
+
+    .form-container {
+      padding: 1.5rem;
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .benefits-grid {
+      padding: 1.5rem;
+    }
+
+    .benefit-card {
+      padding: 0.75rem;
+    }
+
+
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+
+    .form-header h2 {
+      font-size: 1.5rem;
+    }
+
+    .btn-hero {
+      padding: 0.875rem 1.5rem;
+      font-size: 1rem;
+    }
+
+
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    // Smooth scroll para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Manejo del formulario
+    const form = document.getElementById('schedule-form');
+    const msg = document.getElementById('form-msg');
+    const submit = document.getElementById('submit-btn');
+    const dialog = document.getElementById('success-dialog');
+
+    async function handleSubmit(ev) {
+      ev.preventDefault();
+      if (!form.reportValidity()) return;
+
+      // Verificar honeypot
+      const hp = form.querySelector('input[name="company"]');
+      if (hp && hp.value.trim()) return;
+
+      // Mostrar estado de carga
+      msg.textContent = 'Enviando mensaje...';
+      msg.className = 'form-message';
+      msg.style.display = 'block';
+      submit.disabled = true;
+      submit.innerHTML = `
+        <svg class="btn-icon animate-spin" viewBox="0 0 24 24" width="20" height="20">
+          <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+          <path d="M12 2a10 10 0 0 1 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Enviando...
+      `;
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // Éxito
+          msg.textContent = '¡Mensaje enviado correctamente!';
+          msg.className = 'form-message success';
+          form.reset();
+          
+          // Mostrar modal después de un breve delay
+          setTimeout(() => {
+            dialog.showModal();
+          }, 500);
+        } else {
+          throw new Error('Error en el envío');
+        }
+      } catch (error) {
+        // Error
+        msg.textContent = 'Error al enviar el mensaje. Por favor, intenta de nuevo.';
+        msg.className = 'form-message error';
+      } finally {
+        // Restaurar botón
+        submit.disabled = false;
+        submit.innerHTML = `
+          <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M22 2L11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 2L15 22L11 13L2 9L22 2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Enviar Solicitud
+        `;
+      }
+    }
+
+    if (form) {
+      form.addEventListener('submit', handleSubmit);
+    }
+
+    // Animación de carga para el botón de envío
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .animate-spin {
+        animation: spin 1s linear infinite;
+      }
+    `;
+    document.head.appendChild(style);
+  })();
+</script>

@@ -1,0 +1,103 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import MapContact from '../components/MapContact.astro';
+import Testimonials from '../components/Testimonials.astro';
+
+import HeroLawyer from '../components/HeroLawyer.astro';
+import LegalServices from '../components/LegalServices.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import StatsCounters from '../components/StatsCounters.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+
+const PHONE_DISPLAY = '385-242-8571';
+const PHONE_TEL = '+13852428571';
+const HERO_IMG = '/assets/img/utah.jpg';
+---
+
+<Layout>
+  <main class="lawyer page">
+    <HeroLawyer phoneDisplay={PHONE_DISPLAY} phoneTel={PHONE_TEL} heroImg={HERO_IMG} />
+
+    <div class="scroll-animate">
+      <LegalServices />
+    </div>
+    
+    <div class="scroll-animate">
+      <ProcessSteps />
+    </div>
+    
+    <div class="scroll-animate">
+      <StatsCounters />
+    </div>
+    
+    <div class="scroll-animate">
+      <FinalCTA />
+    </div>
+
+    <div class="scroll-animate">
+      <Testimonials />
+    </div>
+
+    <div class="scroll-animate">
+      <MapContact />
+    </div>
+    
+    <Footer />
+  </main>
+
+  <script>
+    // Intersection Observer para animaciones de scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observar todos los elementos con clase scroll-animate
+    document.addEventListener('DOMContentLoaded', () => {
+      const animateElements = document.querySelectorAll('.scroll-animate');
+      animateElements.forEach(el => observer.observe(el));
+    });
+  </script>
+
+  <style>
+    /* Animaciones globales para la página */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .scroll-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Animación de entrada suave para toda la página */
+    .lawyer.page {
+      animation: pageLoad 0.6s ease-out;
+    }
+
+    @keyframes pageLoad {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Mejoras en hover para elementos interactivos */
+    .lawyer.page section {
+      transition: transform 0.3s ease;
+    }
+
+    .lawyer.page section:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</Layout>

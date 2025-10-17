@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "language": "Español"
+  },
+  "formulario_page": {
+    "hero": {
+      "title": "Patient Referral Form",
+      "subtitle": "Complete this form to refer a patient"
+    },
+    "patient_data": {
+      "title": "Patient Data",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "phone": "Phone",
+      "email": "Email",
+      "date_of_birth": "Date of Birth",
+      "gender": "Gender",
+      "gender_select": "Select gender",
+      "gender_male": "Male",
+      "gender_female": "Female",
+      "gender_other": "Other"
+    },
+    "address": {
+      "title": "Address",
+      "street": "Street Address",
+      "city": "City",
+      "state": "State",
+      "zip": "ZIP Code"
+    },
+    "contact": {
+      "title": "Contact Information",
+      "emergency_name": "Emergency Contact Name",
+      "emergency_phone": "Emergency Phone",
+      "emergency_relationship": "Relationship"
+    },
+    "accident": {
+      "title": "Accident Information",
+      "date": "Accident Date",
+      "time": "Accident Time",
+      "location": "Accident Location",
+      "description": "Accident Description",
+      "injuries": "Injuries",
+      "police_report": "Was a police report filed?",
+      "police_select": "Select option",
+      "police_yes": "Yes",
+      "police_no": "No",
+      "police_unknown": "I don't know",
+      "police_number": "Police Report Number"
+    },
+    "insurance": {
+      "title": "Insurance Information",
+      "company": "Insurance Company",
+      "policy": "Policy Number",
+      "claim": "Claim Number"
+    },
+    "legal": {
+      "title": "Legal Representation",
+      "has_attorney": "Do you have an attorney?",
+      "attorney_select": "Select option",
+      "attorney_yes": "Yes",
+      "attorney_no": "No",
+      "attorney_name": "Attorney Name",
+      "attorney_phone": "Attorney Phone"
+    },
+    "referrer": {
+      "title": "Referrer Information",
+      "name": "Referrer Name",
+      "company": "Company",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "signature": {
+      "title": "Digital Signature",
+      "name": "Full Name",
+      "date": "Date",
+      "consent": "I accept the terms and conditions"
+    },
+    "attachments": {
+      "title": "File Attachments",
+      "files": "Select files",
+      "note": "Allowed formats: PDF, JPG, PNG, DOC, DOCX"
+    },
+    "submit": {
+      "button": "Submit Form",
+      "success": "Form submitted successfully",
+      "error": "Error submitting form"
+    },
+    "help": {
+      "button": "Call for Help"
+    }
+  }
+}

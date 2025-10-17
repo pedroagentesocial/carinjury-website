@@ -1,0 +1,219 @@
+---
+import { t, getCurrentLanguage } from '../i18n/index.ts';
+
+const currentLang = getCurrentLanguage();
+const videoSrc = '/video/clinic.mp4';
+---
+
+<section id="about" class="about-video">
+  <video src={videoSrc} autoplay muted loop playsinline class="about-video-element"></video>
+
+  <div class="about-panel">
+    <h1 data-i18n="about_video.title" class="title-with-breaks">{t('about_video.title', currentLang)}</h1>
+    <p class="about-copy" data-i18n="about_video.tagline">{t('about_video.tagline', currentLang)}</p>
+
+    <!-- Botón debajo del texto -->
+    <a href="/schedule" class="btn-about" data-i18n="about_video.contact_button">{t('about_video.contact_button', currentLang)}</a>
+  </div>
+</section>
+
+<style>
+/* === Variables CSS definidas === */
+:root {
+  --font-heading: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-body: 'Source Sans 3', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --c1: #CEC6E2; /* claro */
+  --c2: #806AAA; /* medio */
+  --c3: #7A2E87; /* acento oscuro */
+  --c4: #BA93C2; /* marca */
+}
+
+/* === Sección AboutVideo === */
+.about-video {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === Capa oscura sobre el video === */
+.about-video::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* === Video de fondo === */
+.about-video-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* === Panel de contenido === */
+.about-panel {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+/* === Título === */
+.about-panel h1 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-heading) !important;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+  line-height: 1.2;
+  text-align: center;
+  will-change: transform, opacity;
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Párrafo === */
+.about-copy {
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* === Botón "Contáctanos" con degradado + destello === */
+.btn-about {
+  display: inline-block;
+  margin-top: 1.2rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--c3);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 8px 18px rgba(0,0,0,.28);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    background .3s ease,
+    color .2s ease,
+    border-color .2s ease;
+}
+
+/* destello en hover */
+.btn-about::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.55) 50%, transparent 100%);
+  transform: skewX(-22deg);
+  pointer-events: none;
+}
+
+.btn-about:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,.35);
+  background: #6a3f75;
+}
+
+.btn-about:hover::before {
+  animation: btnShine .9s forwards;
+}
+
+@keyframes btnShine {
+  to { left: 125%; }
+}
+
+/* accesible al teclado */
+.btn-about:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.35), 0 0 0 6px rgba(186,147,194,.45);
+}
+
+/* Estilo para los saltos de línea */
+.title-with-breaks {
+  white-space: pre-line;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .about-panel {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+  
+  .about-panel h1 {
+    font-size: 2.5rem;
+  }
+  
+  .about-copy {
+    font-size: 1.1rem;
+  }
+  
+  .btn-about {
+    padding: 0.8rem 1.4rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-video {
+    min-height: 500px;
+  }
+  
+  .about-panel {
+    padding: 1rem;
+  }
+  
+  .about-panel h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .about-copy {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .btn-about {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+</style>

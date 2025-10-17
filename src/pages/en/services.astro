@@ -1,0 +1,156 @@
+---
+// English version of services page
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import MapContact from '../../components/MapContact.astro';
+import HeroServices from '../../components/HeroServices.astro';
+import { t, getCurrentLanguage, setLanguage } from '../../i18n/index.ts';
+
+// Set language to English for this page
+setLanguage('en');
+const currentLang = 'en';
+
+/* Coloca las imágenes en /public/images/services/  */
+const items = [
+  {
+    id: 'chiropractic',
+    title: t('services_page.items.chiropractic.title', currentLang),
+    img: '/assets/img/chiro.webp',
+    copy: t('services_page.items.chiropractic.description', currentLang)
+  },
+  {
+    id: 'rehabilitation',
+    title: t('services_page.items.rehabilitation.title', currentLang),
+    img: '/assets/img/rehab.webp',
+    copy: t('services_page.items.rehabilitation.description', currentLang)
+  },
+  {
+    id: 'physical_therapy',
+    title: t('services_page.items.physical_therapy.title', currentLang),
+    img: '/assets/img/phisycal.jpg.webp',
+    copy: t('services_page.items.physical_therapy.description', currentLang)
+  },
+  {
+    id: 'hot_cold_therapy',
+    title: t('services_page.items.hot_cold_therapy.title', currentLang),
+    img: '/assets/img/hotcold.webp',
+    copy: t('services_page.items.hot_cold_therapy.description', currentLang)
+  },
+  {
+    id: 'massage',
+    title: t('services_page.items.massage.title', currentLang),
+    img: '/assets/img/masaje.jpeg',
+    copy: t('services_page.items.massage.description', currentLang)
+  },
+  {
+    id: 'ultrasound',
+    title: t('services_page.items.ultrasound.title', currentLang),
+    img: '/assets/img/ultrasound.webp',
+    copy: t('services_page.items.ultrasound.description', currentLang)
+  },
+  {
+    id: 'tens',
+    title: t('services_page.items.tens.title', currentLang),
+    img: '/assets/img/tens.webp',
+    copy: t('services_page.items.tens.description', currentLang)
+  }
+];
+---
+
+<Layout>
+  <main>
+    <HeroServices />
+    
+    <!-- Services Grid -->
+    <section class="services-grid">
+      <div class="container">
+        <div class="grid">
+          {items.map((item) => (
+            <article class="service-card" id={item.id}>
+              <div class="service-image">
+                <img src={item.img} alt={item.title} loading="lazy" />
+              </div>
+              <div class="service-content">
+                <h3 class="service-title">{item.title}</h3>
+                <p class="service-description">{item.copy}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+    
+    <MapContact />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  // Set language on client side
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('language', 'en');
+    if (window.i18nClient) {
+      window.i18nClient.currentLang = 'en';
+      window.i18nClient.updateAllTranslations();
+    }
+  }
+</script>
+
+<style>
+  .services-grid {
+    padding: 4rem 0;
+    background: #f8fafc;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+  
+  .service-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .service-image {
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .service-content {
+    padding: 1.5rem;
+  }
+  
+  .service-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+  }
+  
+  .service-description {
+    color: #6b7280;
+    line-height: 1.6;
+  }
+</style>
