@@ -198,23 +198,10 @@ class I18nClient {
   }
 
   updateFormTexts() {
-    // Actualizar textos específicos del botón de envío
-    const submitBtn = document.getElementById('submit-btn');
-    const submitText = document.getElementById('submit-text');
-    const loadingText = document.getElementById('loading-text');
-    
-    if (submitText) {
-      submitText.textContent = this.t('form.submit_button');
-    }
-    
-    if (loadingText) {
-      loadingText.textContent = this.t('form.sending');
-    }
-
-    // Actualizar placeholder del input de referencia
-    const referralInput = document.getElementById('referral_name');
-    if (referralInput) {
-      referralInput.placeholder = this.t('form.fields.referral_placeholder');
+    // Actualizar textos específicos del formulario que no usan data-i18n
+    const submitButton = document.querySelector('input[type="submit"]');
+    if (submitButton) {
+      submitButton.value = this.t('form.submit');
     }
   }
 
@@ -275,4 +262,7 @@ if (typeof window !== 'undefined') {
   window.i18nClient = i18nClient;
 }
 
-export default i18nClient;
+// Para compatibilidad con módulos ES6
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = i18nClient;
+}

@@ -2,9 +2,6 @@
 import { t, getCurrentLanguage } from '../i18n/index.ts';
 
 const currentLang = getCurrentLanguage();
-
-const mapSrc =
-  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3026.909828347032!2d-111.96001532440677!3d40.6621170713987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87528477e6ebc9c9%3A0x7c5f3a11eda255ad!2s2997%20W%204700%20S%2C%20Taylorsville%2C%20UT%2084129!5e0!3m2!1sen!2sus!4v1699999999999';
 ---
 
 <section id="contact" class="contact-wrap">
@@ -82,16 +79,21 @@ const mapSrc =
       <!-- Etiqueta "Mapa" eliminada a petición -->
       <div class="map-frame">
         <iframe
-          src={mapSrc}
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3025.8234567890123!2d-111.96241732440677!3d40.6621170713987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f17!3m3!1m2!1s0x87528b0c0c0c0c0c%3A0x0!2s2997%20W%204700%20S%2C%20Taylorsville%2C%20UT%2084129!5e0!3m2!1sen!2sus!4v1640995200000!5m2!1sen!2sus"
+          width="100%"
+          height="100%"
+          style="border:0; border-radius: 16px;"
+          allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen
-          title="Mapa de ubicación"
-        ></iframe>
+          title="Car Injury Clinic - 2997 W 4700 S, Taylorsville, UT 84129">
+        </iframe>
       </div>
     </div>
   </div>
 </section>
+
+
 
 <style>
   /* ===== Paleta ===== */

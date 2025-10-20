@@ -59,11 +59,6 @@ const PHONE_TEL = '+13852428571';
 
       <li class="has-dropdown" data-dd="services">
         <a class="nav-link" href="/services" data-i18n="nav.services">Servicios</a>
-        <button class="dd-toggle" aria-label="Abrir Servicios" aria-haspopup="menu" aria-expanded="false" type="button">
-          <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M5 7l5 6 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
         <ul class="dropdown" role="menu">
           {SERVICES.map((s) => (<li><a class="dd-item" href={s.href} role="menuitem" data-i18n={s.key}>{s.label}</a></li>))}
         </ul>
@@ -71,13 +66,8 @@ const PHONE_TEL = '+13852428571';
 
       <li><a class="nav-link" href="/lawyer-approved" data-i18n="nav.legal_assistance">Asistencia legal</a></li>
 
-      <li class="has-dropdown" data-dd="portal">
-        <a class="nav-link" href="/formulario" data-i18n="nav.patients">Pacientes</a>
-        <button class="dd-toggle" aria-label="Abrir Portal del paciente" aria-haspopup="menu" aria-expanded="false" type="button">
-          <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M5 7l5 6 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
+      <li class="has-dropdown" data-dd="patients">
+        <a class="nav-link" href="/patients" data-i18n="nav.patients">Pacientes</a>
         <ul class="dropdown" role="menu">
           <li><a class="dd-item" href="/formulario" role="menuitem" data-i18n="nav.form">Formulario</a></li>
           <li><a class="dd-item" href="/faq" role="menuitem" data-i18n="nav.frequent_questions">Preguntas frecuentes</a></li>
@@ -191,9 +181,9 @@ const PHONE_TEL = '+13852428571';
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 1rem 2rem 0 !important; /* Padding EXTREMADAMENTE aumentado para mostrar logo completo */
+  max-width: 100%;
+  margin: 0;
+  padding: 2rem 2rem 2rem 2rem !important; /* Padding uniforme en todos los lados */
   height: 100%;
   box-sizing: border-box;
 }
@@ -230,8 +220,7 @@ const PHONE_TEL = '+13852428571';
   padding: 0;
   gap: 1rem; /* Reducido de 2rem a 1rem para juntar más los botones */
   align-items: center;
-  flex: 1;
-  justify-content: center;
+  margin-left: 2rem;
   font-family: var(--font-heading);
 }
 
@@ -283,22 +272,6 @@ const PHONE_TEL = '+13852428571';
   position: relative;
   display: flex;
   align-items: center;
-}
-
-.dd-toggle {
-  margin-left: 6px;
-  border: 0;
-  background: transparent;
-  color: var(--txt);
-  padding: 0.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.dd-toggle:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
 }
 
 .dropdown {

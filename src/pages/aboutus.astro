@@ -3,9 +3,16 @@
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import MapContact from '../components/MapContact.astro';
+import { t, getServerLanguage } from '../i18n/index.ts';
+
+const currentLang = 'es'; // Forzar español por defecto
 
 // Imagen del hero
-const HERO_IMG = '/assets/img/fondoNuevoHero.jpeg';
+const HERO_IMG = '/assets/img/NewHero.jpeg';
+
+// Cargar traducciones para el servidor
+const esTranslations = await import('../i18n/es.json');
+const enTranslations = await import('../i18n/en.json');
 ---
 
 <Layout>
@@ -72,7 +79,7 @@ const HERO_IMG = '/assets/img/fondoNuevoHero.jpeg';
             </div>
             <div class="card-body">
               <p class="bio" data-i18n="aboutus.doctors.johnny.bio">
-                Especialista en manejo del dolor crónico y terapias avanzadas para víctimas de accidentes automovilísticos. Con más de 10 años de experiencia, se enfoca en técnicas de quiropráctica avanzada y terapias complementarias para el alivio del dolor.
+                Especialista en manejo del dolor crónico y terapias avanzadas para víctimas de accidentes automovilísticos. Con más de 1 año de experiencia, se enfoca en técnicas de quiropráctica avanzada y terapias complementarias para el alivio del dolor.
               </p>
               <div class="specialties">
                 <h4 data-i18n="aboutus.doctors.johnny.specialties.title">Especialidades Clínicas:</h4>
@@ -422,38 +429,42 @@ const HERO_IMG = '/assets/img/fondoNuevoHero.jpeg';
   <Footer />
 </Layout>
 
-<script is:inline>
-  // Global i18n system - Use the same system as navigation
-  function getCurrentLanguage() {
-    return localStorage.getItem('language') || 'es';
-  }
+<!-- Script para embeber traducciones -->
+<script is:inline define:vars={{ esTranslations, enTranslations }}>
+  // Embebemos las traducciones en el cliente
+  window.translations = {
+    es: esTranslations,
+    en: enTranslations
+  };
+</script>
 
-  function translateText(key, lang) {
-    // Import translations from the global i18n system
-    if (window.translations && window.translations[lang] && window.translations[lang][key]) {
-      return window.translations[lang][key];
-    }
-    return key;
-  }
-
-  function updatePageContent() {
-    const currentLang = getCurrentLanguage();
+<!-- Cargar el cliente i18n -->
+<script type="module">
+  // Inicialización del cliente i18n para aboutus.astro
+  document.addEventListener('DOMContentLoaded', async () => {
+    console.log('AboutUs: DOMContentLoaded, initializing i18n...');
     
-    // Update all elements with data-i18n attribute
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-      const key = element.getAttribute('data-i18n');
-      const translation = translateText(key, currentLang);
-      if (translation) {
-        element.textContent = translation;
-      }
-    });
-  }
-
-  // Apply translations on page load
-  document.addEventListener('DOMContentLoaded', updatePageContent);
-
-  // Listen for language changes from navigation
-  window.addEventListener('languageChanged', updatePageContent);
+    try {
+      // Cargar el módulo i18n-client dinámicamente
+      const module = await import('/src/utils/i18n-client.js');
+      const i18nClient = module.default;
+      
+      // Asignar a window para acceso global
+      window.i18nClient = i18nClient;
+      console.log('AboutUs: i18nClient assigned to window');
+      
+      // Inicializar el cliente
+      await i18nClient.init();
+      console.log('AboutUs: i18nClient initialized');
+      
+      // Disparar evento personalizado para notificar que i18n está listo
+      window.dispatchEvent(new CustomEvent('i18nReady'));
+      console.log('AboutUs: i18nReady event dispatched');
+      
+    } catch (error) {
+      console.error('AboutUs: Error initializing i18n:', error);
+    }
+  });
 </script>
 
 <style>
@@ -514,8 +525,8 @@ const HERO_IMG = '/assets/img/fondoNuevoHero.jpeg';
   /* ===== HERO CHIRO ===== */
   .hero-chiro{ position:relative; color:#fff; isolation:isolate; overflow:hidden; }
   .hero-chiro__bg{ position:absolute; inset:0; z-index:0; }
-  .hero-chiro__bg img{ width:100%; height:100%; object-fit:cover; opacity:.35; display:block; }
-  .hero-chiro__bg .veil{ position:absolute; inset:0; background: linear-gradient(135deg, rgba(122, 46, 135, 0.3) 0%, rgba(97, 30, 108, 0.2) 50%, rgba(0, 0, 0, 0.1) 100%); }
+  .hero-chiro__bg img{ width:100%; height:100%; object-fit:cover; object-position: center top; opacity:.4; display:block; }
+  .hero-chiro__bg .veil{ position:absolute; inset:0; background: linear-gradient(135deg, rgba(107, 30, 117, 0.7) 0%, rgba(90, 20, 95, 0.6) 50%, rgba(70, 15, 80, 0.5) 100%); }
   .hero-chiro__content{ position:relative; z-index:1; padding: 80px 0 48px 0; text-align:center; }
   .hero-chiro__content h1{
     font-family:'Manrope',system-ui,sans-serif; font-weight:900;
@@ -572,7 +583,7 @@ const HERO_IMG = '/assets/img/fondoNuevoHero.jpeg';
   /* ===== HERO (idéntico a formulario) ===== */
   .hero-min{ position:relative; color:#fff; isolation:isolate; overflow:hidden; }
   .hero-min__bg{ position:absolute; inset:0; z-index:0; }
-  .hero-min__bg img{ width:100%; height:100%; object-fit:cover; opacity:.35; display:block; }
+  .hero-min__bg img{ width:100%; height:100%; object-fit:cover; object-position: center top; opacity:.35; display:block; }
   .hero-min__bg .veil{ position:absolute; inset:0; background: linear-gradient(135deg, rgba(122, 46, 135, 0.3) 0%, rgba(97, 30, 108, 0.2) 50%, rgba(0, 0, 0, 0.1) 100%); }
   .hero-min__content{ position:relative; z-index:1; padding: 120px 0 36px; text-align:center; }
   .hero-min__content h1{
@@ -1391,34 +1402,15 @@ const HERO_IMG = '/assets/img/fondoNuevoHero.jpeg';
   .cta-arrow .ico{ transition: transform .26s cubic-bezier(.22,.61,.36,1); }
   .cta-arrow:hover .ico{ transform: translateX(4px); }
 
-  /* Accesibilidad foco */
+  /* ===== Accesibilidad foco ===== */
   .btn:focus-visible{
     outline: none;
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--c4) 38%, transparent);
   }
-</style>
 
-<script>
-  // Inicialización del cliente i18n para aboutus.astro
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('AboutUs: DOMContentLoaded');
-    
-    // Esperar a que i18n esté listo o inicializarlo
-    const initializeI18n = async () => {
-      if (window.i18nClient) {
-        console.log('AboutUs: i18nClient already available');
-        window.i18nClient.updateAllTranslations();
-      } else {
-        console.log('AboutUs: Waiting for i18nReady event');
-        window.addEventListener('i18nReady', () => {
-          console.log('AboutUs: i18nReady event received');
-          if (window.i18nClient) {
-            window.i18nClient.updateAllTranslations();
-          }
-        });
-      }
-    };
-    
-    initializeI18n();
-  });
-</script>
+  /* ========= Variables para consistencia del navbar ========= */
+  :root{
+    --topbar-h: 0px;
+    --navbar-h: 0px;
+  }
+</style>

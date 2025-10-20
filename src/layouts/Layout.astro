@@ -1,7 +1,7 @@
 ---
 /* Layout.astro – plantilla principal (sin TopBar, Nav arriba) */
 import Nav from '../components/Nav.astro';
-import FloatingButtons from '../components/FloatingButtons.astro';
+
 import CenterfyChat from '../components/CenterfyChat.astro';
 ---
 
@@ -18,36 +18,46 @@ import CenterfyChat from '../components/CenterfyChat.astro';
     />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=4&t=1760745600" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/Car-Injury-Clinic-White.png" />
-    <link rel="shortcut icon" href="/favicon.ico?v=2" />
+    <link rel="shortcut icon" href="/favicon.ico?v=4&t=1760745600" />
     <meta name="theme-color" content="#1e40af" />
 
     <!-- Estilos globales -->
-    <link rel="stylesheet" href="/src/styles/global.css" />
+    <style is:global>
+      @import '../styles/global.css';
+    </style>
 
-    <!-- OVERRIDES específicos del Nav: desbloquean el alto -->
+    <!-- OVERRIDES específicos del Nav: respetan --navbar-height -->
 <style is:global>
+  /* Definir --nav-h para que coincida con --navbar-height */
+  :root {
+    --nav-h: 85px; /* SINCRONIZADO - área expandida del navbar en Nav.astro */
+    --logo-h: 150px; /* SINCRONIZADO - logo extra grande con brand-img height en Nav.astro */
+  }
+  
   /* Si algún CSS global fijó alturas/line-height del nav/header, los anulamos aquí */
   #main-nav,
   #main-nav.navbar {
-    height: var(--nav-h, auto) !important;
-    min-height: var(--nav-h, auto) !important;
+    height: var(--navbar-height, var(--nav-h, 35px)) !important;
+    min-height: var(--navbar-height, var(--nav-h, 35px)) !important;
     line-height: normal !important;
   }
   #main-nav .nav-inner {
-    height: var(--nav-h, auto) !important;
-    min-height: var(--nav-h, auto) !important;
+    height: var(--navbar-height, var(--nav-h, 35px)) !important;
+    min-height: var(--navbar-height, var(--nav-h, 35px)) !important;
   }
   #main-nav .brand-img {
-    height: var(--logo-h, 200px) !important;
+    height: var(--logo-h, 24px) !important;
     width: auto !important;
     max-height: none !important;
   }
-  /* Por si global.css tenía algo agresivo tipo nav{height:56px!important} */
+  /* Permitir que el navbar use su altura definida, no forzar auto */
   header.navbar,
-  nav.navbar { height: auto !important; min-height: 0 !important; }
+  nav.navbar { 
+    height: var(--navbar-height, var(--nav-h, 35px)) !important; 
+    min-height: var(--navbar-height, var(--nav-h, 35px)) !important; 
+  }
 </style>
 
 
@@ -75,7 +85,6 @@ import CenterfyChat from '../components/CenterfyChat.astro';
 
     <!-- Contenido de cada página -->
     <slot />
-    <FloatingButtons />
     <CenterfyChat />
 
     <!-- Cargar traducciones globalmente -->
@@ -84,27 +93,47 @@ import CenterfyChat from '../components/CenterfyChat.astro';
     </script>
     
     <!-- Scripts opcionales -->
-    <script type="module" src="/src/utils/testimonials.js"></script>
-    <script type="module" src="/src/utils/dropdown.js"></script>
-    <script type="module" src="/src/utils/animations.js"></script>
+    <script type="module">
+      try {
+        await import('../utils/testimonials.js');
+        await import('../utils/dropdown.js');
+        await import('../utils/animations.js');
+      } catch (error) {
+        console.log('Some utility scripts could not be loaded:', error);
+      }
+    </script>
     
     <!-- Inicializar i18n client con mejor manejo -->
-    <script is:inline>
+    <script type="module">
       document.addEventListener('DOMContentLoaded', async () => {
         console.log('Layout: DOMContentLoaded, initializing i18n...');
         
         try {
-          // Cargar el módulo i18n-client dinámicamente
-          const module = await import('/src/utils/i18n-client.js');
-          const i18nClient = module.default;
-          
-          // Asignar a window para acceso global
-          window.i18nClient = i18nClient;
-          console.log('Layout: i18nClient assigned to window');
-          
-          // Inicializar el cliente
-          await i18nClient.init();
-          console.log('Layout: i18nClient initialized');
+          // Cargar el script directamente desde el DOM
+          const script = document.createElement('script');
+          script.src = '/utils/i18n-client.js';
+          script.onload = () => {
+            // El script ya crea window.i18nClient automáticamente
+            if (window.i18nClient) {
+              console.log('i18n client loaded successfully');
+              
+              // Inicializar el cliente
+              window.i18nClient.init();
+              
+              // Configurar el botón de idioma
+              setupLanguageButton();
+              
+              // Actualizar el texto del botón de idioma
+              updateLanguageButton();
+              
+              // Disparar evento de que i18n está listo
+              window.dispatchEvent(new CustomEvent('i18nReady'));
+            }
+          };
+          script.onerror = () => {
+            console.error('Failed to load i18n-client.js');
+          };
+          document.head.appendChild(script);
           
           // Función para actualizar el texto del botón de idioma
           const updateLanguageButton = () => {
@@ -116,8 +145,33 @@ import CenterfyChat from '../components/CenterfyChat.astro';
             }
           };
           
+          // Configurar el botón de idioma
+          const setupLanguageButton = () => {
+            const languageButton = document.getElementById('language-toggle');
+            if (languageButton && window.i18nClient) {
+              // Remover listeners existentes
+              languageButton.replaceWith(languageButton.cloneNode(true));
+              const newButton = document.getElementById('language-toggle');
+              
+              // Agregar nuevo listener
+              newButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Layout: Language button clicked');
+                if (window.i18nClient && window.i18nClient.toggleLanguage) {
+                  window.i18nClient.toggleLanguage();
+                  console.log('Layout: toggleLanguage called');
+                } else {
+                  console.error('Layout: i18nClient or toggleLanguage not available');
+                }
+              });
+              
+              console.log('Layout: Language button event listener added');
+            }
+          };
+          
           // Actualizar inmediatamente
           updateLanguageButton();
+          setupLanguageButton();
           
           // Escuchar cambios de idioma
           window.addEventListener('languageChange', () => {

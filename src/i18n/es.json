@@ -8,6 +8,7 @@
     "schedule": "Agendar",
     "phone": "Llamar Ahora",
     "language": "English",
+    "cta": "Agendar",
     "legal_assistance": "Asistencia legal",
     "patients": "Pacientes",
     "form": "Formulario",
@@ -341,7 +342,7 @@
     "services": {
       "insurance": {
         "title": "Reclamo a la aseguradora",
-        "description": "Gestionamos <strong>tu caso</strong> y mantenemos comunicación directa con tu aseguradora. Buscando la <strong>compensación</strong> más justa para ti.",
+        "description": "Gestionamos tu caso y mantenemos comunicación directa con tu aseguradora. Buscando la compensación más justa para ti.",
         "cta_label": "Reservar consulta para reclamo a la aseguradora",
         "features": {
           "complete_process": "Trámite completo del reclamo",
@@ -351,7 +352,7 @@
       },
       "legal": {
         "title": "Asistencia legal",
-        "description": "<strong>Trámites y documentos</strong> siempre en regla. Te guiamos en cada paso asegurando tus derechos y que obtengas justicia.",
+        "description": "Trámites y documentos siempre en regla. Te guiamos en cada paso asegurando tus derechos y que obtengas justicia.",
         "cta_label": "Reservar consulta para asistencia legal",
         "features": {
           "lawyer_catalog": "Amplio catálogo de abogados",
@@ -361,7 +362,7 @@
       },
       "representation": {
         "title": "Acuerdos y representación",
-        "description": "Representamos tus intereses en cada etapa para alcanzar <strong>acuerdos justos y sostenibles</strong>. Recibes acompañamiento estratégico y <strong>comunicación transparente</strong> en todo momento.",
+        "description": "Representamos tus intereses en cada etapa para alcanzar acuerdos justos y sostenibles. Recibes acompañamiento estratégico y comunicación transparente en todo momento.",
         "cta_label": "Reservar consulta para acuerdos y representación",
         "features": {
           "clear_negotiations": "Negociaciones claras y efectivas",
@@ -728,7 +729,8 @@
       "subtitle": "Doctores certificados con años de experiencia en el tratamiento de lesiones por accidentes automovilísticos",
       "stats": {
         "patients": "Pacientes Tratados",
-        "recovery": "Tasa de Recuperación"
+        "recovery": "Tasa de Recuperación",
+        "experience": "Años de Experiencia"
       }
     },
     "team": {
@@ -763,8 +765,8 @@
         "name": "Dr. Darwin Lee",
         "title": "Doctor Quiropráctico",
         "specialty": "Especialista en Terapia Física y Manejo del Dolor",
-        "bio": "Especialista en rehabilitación funcional y terapia física para víctimas de accidentes automovilísticos. Con más de 8 años de experiencia, se enfoca en técnicas de rehabilitación avanzada y manejo integral del dolor para una recuperación completa.",
-        "experience": "8 años de experiencia",
+        "bio": "Especialista en rehabilitación funcional y terapia física para víctimas de accidentes automovilísticos. Con más de 20 años de experiencia, se enfoca en técnicas de rehabilitación avanzada y manejo integral del dolor para una recuperación completa.",
+        "experience": "20+ años de experiencia",
         "cases": "Especialista en casos de lesiones laborales",
         "specialties": {
           "title": "Especialidades Clínicas:",
@@ -785,8 +787,8 @@
         "name": "Dr. Lance Rawlings",
         "title": "Doctor Quiropráctico",
         "specialty": "Especialista en Manejo del Dolor y Quiropráctica",
-        "bio": "Especialista en el tratamiento de lesiones cervicales y latigazo cervical causadas por accidentes automovilísticos. Con más de 12 años de experiencia, se enfoca en técnicas de quiropráctica avanzada y manejo integral del dolor cervical.",
-        "experience": "12 años de experiencia",
+        "bio": "Especialista en el tratamiento de lesiones cervicales y latigazo cervical causadas por accidentes automovilísticos. Con más de 30 años de experiencia, se enfoca en técnicas de quiropráctica avanzada y manejo integral del dolor cervical.",
+        "experience": "30+ años de experiencia",
         "cases": "Más de 2,500 casos de accidentes tratados",
         "specialties": {
           "title": "Especialidades Clínicas:",

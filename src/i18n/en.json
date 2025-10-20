@@ -8,6 +8,7 @@
     "schedule": "Schedule",
     "phone": "Call Now",
     "language": "Español",
+    "cta": "Schedule",
     "legal_assistance": "Legal Assistance",
     "patients": "Patients",
     "form": "Form",
@@ -341,7 +342,7 @@
     "services": {
       "insurance": {
         "title": "Insurance Claim",
-        "description": "We manage <strong>your case</strong> and maintain direct communication with your insurance company. Seeking the <strong>fairest compensation</strong> for you.",
+        "description": "We manage your case and maintain direct communication with your insurance company. Seeking the fairest compensation for you.",
         "cta_label": "Book consultation for insurance claim",
         "features": {
           "complete_process": "Complete claim processing",
@@ -351,7 +352,7 @@
       },
       "legal": {
         "title": "Legal Assistance",
-        "description": "<strong>Procedures and documents</strong> always in order. We guide you through every step ensuring your rights and that you get justice.",
+        "description": "Procedures and documents always in order. We guide you through every step ensuring your rights and that you get justice.",
         "cta_label": "Book consultation for legal assistance",
         "features": {
           "lawyer_catalog": "Extensive lawyer catalog",
@@ -361,7 +362,7 @@
       },
       "representation": {
         "title": "Agreements and Representation",
-        "description": "We represent your interests at every stage to achieve <strong>fair and sustainable agreements</strong>. You receive strategic support and <strong>transparent communication</strong> at all times.",
+        "description": "We represent your interests at every stage to achieve fair and sustainable agreements. You receive strategic support and transparent communication at all times.",
         "cta_label": "Book consultation for agreements and representation",
         "features": {
           "clear_negotiations": "Clear and effective negotiations",
@@ -728,7 +729,8 @@
       "subtitle": "Certified doctors with years of experience treating car accident injuries",
       "stats": {
         "patients": "Patients Treated",
-        "recovery": "Recovery Rate"
+        "recovery": "Recovery Rate",
+        "experience": "Years of Experience"
       }
     },
     "team": {
@@ -763,8 +765,8 @@
         "name": "Dr. Darwin Lee",
         "title": "Chiropractor",
         "specialty": "Physical Therapy and Pain Management Specialist",
-        "bio": "Specialist in functional rehabilitation and physical therapy for car accident victims. With over 8 years of experience, he focuses on advanced rehabilitation techniques and comprehensive pain management for complete recovery.",
-        "experience": "8 years of experience",
+        "bio": "Specialist in functional rehabilitation and physical therapy for car accident victims. With over 20 years of experience, he focuses on advanced rehabilitation techniques and comprehensive pain management for complete recovery.",
+        "experience": "20+ years of experience",
         "cases": "Specialist in workplace injury cases",
         "specialties": {
           "title": "Clinical Specialties:",
@@ -785,8 +787,8 @@
         "name": "Dr. Lance Rawlings",
         "title": "Chiropractor",
         "specialty": "Pain Management and Chiropractic Specialist",
-        "bio": "Specialist in treating cervical injuries and whiplash caused by car accidents. With over 12 years of experience, she focuses on advanced chiropractic techniques and comprehensive cervical pain management.",
-        "experience": "12 years of experience",
+        "bio": "Specialist in treating cervical injuries and whiplash caused by car accidents. With over 30 years of experience, he focuses on advanced chiropractic techniques and comprehensive cervical pain management.",
+        "experience": "30+ years of experience",
         "cases": "Over 2,500 accident cases treated",
         "specialties": {
           "title": "Clinical Specialties:",

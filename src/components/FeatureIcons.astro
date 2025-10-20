@@ -5,114 +5,118 @@ const currentLang = getCurrentLanguage();
 ---
 
 <!-- src/components/FeatureIcons.astro -->
-<section 
-  class="feature-icons-section flex gap-6 lg:gap-8 items-stretch justify-start flex-nowrap overflow-x-auto pl-6 pr-4 py-6 lg:pl-8 lg:pr-8 lg:py-8 touch-pan-x snap-x snap-mandatory scrollbar-thin" 
-  style="scrollbar-width: thin;"
-  aria-label={t('feature_icons.aria_label', currentLang)}
->
-  <!-- 1 ▸ $0 de costo de consulta -->
-  <a 
-    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0s_forwards]"
-    style="grid-template-columns: var(--fi) 1fr;"
-    href="/formulario" 
-    aria-label={t('feature_icons.items.free_consultation.aria_label', currentLang)}
-    data-i18n-aria="feature_icons.items.free_consultation.aria_label"
+<div class="feature-icons-wrapper relative">
+  <!-- Gradiente izquierdo para indicar scroll -->
+  <div class="scroll-gradient-left absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none opacity-0 transition-opacity duration-300"></div>
+  
+  <!-- Gradiente derecho para indicar scroll -->
+  <div class="scroll-gradient-right absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none opacity-100 transition-opacity duration-300"></div>
+  
+  <section 
+    class="feature-icons-section flex gap-2 items-stretch px-4 py-6 overflow-x-auto overflow-y-hidden scrollbar-hide scroll-smooth" 
+    aria-label={t('feature_icons.aria_label', currentLang)}
+    style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;"
   >
-    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
+    <!-- 1 ▸ $0 de costo de consulta -->
+    <a 
+      class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0s_forwards] flex-shrink-0"
+      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
+      href="/formulario" 
+      aria-label={t('feature_icons.items.free_consultation.aria_label', currentLang)}
+      data-i18n-aria="feature_icons.items.free_consultation.aria_label"
+    >
+    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
       <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/consulta-cero.png" alt="" />
     </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.free_consultation.title">{t('feature_icons.items.free_consultation.title', currentLang)}</h3>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.free_consultation.title">{t('feature_icons.items.free_consultation.title', currentLang)}</h3>
   </a>
 
-  <!-- 2 ▸ Transporte GRATIS -->
-  <a 
-    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.1s_forwards]"
-    style="grid-template-columns: var(--fi) 1fr;"
-    href="/services#transporte-gratis" 
-    aria-label={t('feature_icons.items.free_transport.aria_label', currentLang)}
-    data-i18n-aria="feature_icons.items.free_transport.aria_label"
-  >
-    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
+    <!-- 2 ▸ Transporte GRATIS -->
+    <a 
+      class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.1s_forwards] flex-shrink-0"
+      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
+      href="/services#transporte-gratis" 
+      aria-label={t('feature_icons.items.free_transport.aria_label', currentLang)}
+      data-i18n-aria="feature_icons.items.free_transport.aria_label"
+    >
+    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
       <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/transporte.png" alt="" />
     </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.free_transport.title">{t('feature_icons.items.free_transport.title', currentLang)}</h3>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.free_transport.title">{t('feature_icons.items.free_transport.title', currentLang)}</h3>
   </a>
 
-  <!-- 3 ▸ Cita el mismo día -->
-  <a 
-    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.2s_forwards]"
-    style="grid-template-columns: var(--fi) 1fr;"
+    <!-- 3 ▸ Cita el mismo día -->
+    <a 
+      class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.2s_forwards] flex-shrink-0"
+    style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
     href="/schedule" 
     aria-label={t('feature_icons.items.same_day.aria_label', currentLang)}
     data-i18n-aria="feature_icons.items.same_day.aria_label"
   >
-    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
+    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
       <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/mismo-dia.png" alt="" />
     </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.same_day.title">{t('feature_icons.items.same_day.title', currentLang)}</h3>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.same_day.title">{t('feature_icons.items.same_day.title', currentLang)}</h3>
   </a>
 
-  <!-- 4 ▸ X-ray el mismo día -->
+  <!-- 4 ▸ Orientación legal sin costo -->
   <a 
-    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.3s_forwards]"
-    style="grid-template-columns: var(--fi) 1fr;"
-    href="/services#radiografias" 
-    aria-label={t('feature_icons.items.xray.aria_label', currentLang)}
-    data-i18n-aria="feature_icons.items.xray.aria_label"
-  >
-    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
-      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/xray.png" alt="" />
-    </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.xray.title">{t('feature_icons.items.xray.title', currentLang)}</h3>
-  </a>
-
-  <!-- 5 ▸ Hablamos idiomas -->
-  <a 
-    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.4s_forwards]"
-    style="grid-template-columns: var(--fi) 1fr;"
-    href="/services#bilingue" 
-    aria-label={t('feature_icons.items.languages.aria_label', currentLang)}
-    data-i18n-aria="feature_icons.items.languages.aria_label"
-  >
-    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
-      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/idiomas.png" alt="" />
-    </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.languages.title">{t('feature_icons.items.languages.title', currentLang)}</h3>
-  </a>
-
-  <!-- 6 ▸ Orientación legal gratuita -->
-  <a 
-    class="feature-border feature-shine feature-focus feature-card-bg snap-start flex-none w-20 sm:w-24 md:w-60 lg:w-64 min-w-0 grid items-center gap-3 p-4 rounded-2xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.5s_forwards]"
-    style="grid-template-columns: var(--fi) 1fr;"
+    class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.3s_forwards] flex-shrink-0"
+    style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
     href="/lawyer-approved" 
     aria-label={t('feature_icons.items.legal_guidance.aria_label', currentLang)}
     data-i18n-aria="feature_icons.items.legal_guidance.aria_label"
   >
-    <div class="icon-orbit rounded-2xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 10px 22px rgba(122,46,135,.28);" aria-hidden="true">
+    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
       <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/legal.png" alt="" />
     </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-extrabold text-base lg:text-lg leading-tight font-manrope no-underline whitespace-normal overflow-visible hidden md:block" data-i18n="feature_icons.items.legal_guidance.title">{t('feature_icons.items.legal_guidance.title', currentLang)}</h3>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.legal_guidance.title">{t('feature_icons.items.legal_guidance.title', currentLang)}</h3>
+  </a>
+
+  <!-- 5 ▸ X-ray el mismo día -->
+  <a 
+    class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.4s_forwards] flex-shrink-0"
+    style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
+    href="/services#radiografias" 
+    aria-label={t('feature_icons.items.xray.aria_label', currentLang)}
+    data-i18n-aria="feature_icons.items.xray.aria_label"
+  >
+    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
+      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/xray.png" alt="" />
+    </div>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.xray.title">{t('feature_icons.items.xray.title', currentLang)}</h3>
+  </a>
+
+  <!-- 6 ▸ Hablamos idiomas -->
+  <a 
+    class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.5s_forwards] flex-shrink-0"
+    style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
+    href="/services#bilingue" 
+    aria-label={t('feature_icons.items.languages.aria_label', currentLang)}
+    data-i18n-aria="feature_icons.items.languages.aria_label"
+  >
+    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
+      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/idiomas.png" alt="" />
+    </div>
+    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.languages.title">{t('feature_icons.items.languages.title', currentLang)}</h3>
   </a>
 </section>
 
 <style>
-
-
   /* ========= Variables CSS ========= */
-  :root{
-    --c1:#CEC6E2;  /* light */
-    --c2:#806AAA;  /* mid */
-    --c3:#7A2E87;  /* dark */
-    --c4:#BA93C2;  /* brand */
-    --ink:#1A1D2A;
-    --fi: 72px;    /* tamaño del ícono */
+  :root {
+    --c1: #CEC6E2;  /* light */
+    --c2: #806AAA;  /* mid */
+    --c3: #7A2E87;  /* dark */
+    --c4: #BA93C2;  /* brand */
+    --ink: #1A1D2A;
+    --fi: 64px;     /* tamaño base del ícono */
   }
 
   /* ========= Fondo morado para la sección ========= */
   .feature-icons-section {
     background: linear-gradient(180deg, #4a1c5a, #59216f);
     position: relative;
-    padding: 4rem 0;
     overflow: hidden;
   }
 
@@ -124,99 +128,320 @@ const currentLang = getCurrentLanguage();
     pointer-events: none;
   }
 
-  /* ========= Responsive Grid Layout ========= */
-  /* Mobile: 480px and below */
+  /* ========= Estilos base para las tarjetas ========= */
+  .feature-card {
+    min-width: 280px;
+    width: 280px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+  
+  /* ========= Prevenir overflow horizontal ========= */
+  .feature-icons-section {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .feature-icons-section section {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ========= RESPONSIVE DESIGN OPTIMIZADO ========= */
+  
+  /* Mobile Extra Small: 320px - 480px */
   @media (max-width: 480px) {
-    .feature-border {
-      grid-template-columns: 1fr !important;
-      grid-template-rows: auto auto !important;
-      justify-items: center;
-      width: 8.5rem !important; /* 136px fijo */
-      padding: 0.5rem !important; /* Padding reducido */
-      gap: 0.5rem !important; /* Gap entre icono y texto */
+    :root {
+      --fi: 36px;
+    }
+    
+    .feature-icons-section {
+      padding: 1.5rem 0;
     }
     
     section {
-      gap: 0.5rem !important; /* Gap entre tarjetas reducido */
-      padding: 0.5rem !important; /* Padding vertical */
-      padding-left: 1rem !important; /* Margen izquierdo para móvil */
-      padding-right: 0.75rem !important; /* Margen derecho para móvil */
+      gap: 0.5rem !important;
+      padding: 0.75rem 0.5rem !important;
+      justify-content: flex-start !important;
     }
     
-    :root {
-      --fi: 40px !important; /* Iconos más pequeños: 40px */
+    .feature-card {
+      min-width: 120px !important;
+      width: 120px !important;
+      padding: 0.5rem 0.375rem !important;
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto auto !important;
+      text-align: center !important;
+      justify-items: center !important;
+      gap: 0.375rem !important;
     }
     
     .feature-title {
-      display: block !important;
-      font-size: 0.7rem !important; /* Texto más pequeño */
+      font-size: 0.625rem !important;
       line-height: 1.1 !important;
-      text-align: center !important;
-      margin-top: 0.25rem !important;
-      font-weight: 700 !important; /* Mantener legibilidad */
+      font-weight: 600 !important;
+      margin-top: 0.125rem !important;
+    }
+    
+    .scroll-gradient-right {
+      opacity: 1 !important;
     }
   }
-  
-  /* Tablet: 481px to 768px */
+
+  /* Mobile: 481px - 768px */
   @media (min-width: 481px) and (max-width: 768px) {
-    .feature-border {
-      grid-template-columns: 1fr !important;
-      grid-template-rows: auto auto !important;
-      justify-items: center;
-      width: 10rem !important; /* 160px fijo */
-      padding: 0.75rem !important; /* Padding optimizado */
-      gap: 0.75rem !important; /* Gap entre icono y texto */
+    :root {
+      --fi: 42px;
+    }
+    
+    .feature-icons-section {
+      padding: 2rem 0;
     }
     
     section {
-      gap: 0.75rem !important; /* Gap entre tarjetas optimizado */
-      padding: 0.75rem !important; /* Padding vertical */
-      padding-left: 1.5rem !important; /* Margen izquierdo para tablet */
-      padding-right: 1rem !important; /* Margen derecho para tablet */
+      gap: 0.75rem !important;
+      padding: 1rem 0.75rem !important;
+      justify-content: flex-start !important;
     }
     
-    :root {
-      --fi: 52px !important; /* Iconos 52px */
+    .feature-card {
+      min-width: 140px !important;
+      width: 140px !important;
+      padding: 0.625rem 0.5rem !important;
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto auto !important;
+      text-align: center !important;
+      justify-items: center !important;
+      gap: 0.5rem !important;
     }
     
     .feature-title {
-      display: block !important;
-      font-size: 0.8rem !important; /* Texto optimizado */
-      text-align: center !important;
-      margin-top: 0.5rem !important;
-      line-height: 1.2 !important;
-      font-weight: 700 !important; /* Mantener legibilidad */
+      font-size: 0.7rem !important;
+      line-height: 1.15 !important;
+      font-weight: 600 !important;
+    }
+    
+    .scroll-gradient-right {
+      opacity: 1 !important;
     }
   }
-  
-  /* Desktop Small: 769px to 980px */
-  @media (min-width: 769px) and (max-width: 980px) {
-    .feature-border {
-      width: 15rem !important; /* w-60 equivalent */
+
+  /* Tablet: 769px - 1023px */
+  @media (min-width: 769px) and (max-width: 1023px) {
+    :root {
+      --fi: 48px;
+    }
+    
+    .feature-icons-section {
+      padding: 2.5rem 0;
+    }
+    
+    section {
+      gap: 0.75rem !important;
+      padding: 1.25rem 1rem !important;
+      justify-content: flex-start !important;
+    }
+    
+    .feature-card {
+      min-width: 150px !important;
+      width: 150px !important;
+      padding: 0.75rem !important;
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto auto !important;
+      text-align: center !important;
+      justify-items: center !important;
+      gap: 0.5rem !important;
+    }
+    
+    .feature-title {
+      font-size: 0.75rem !important;
+      line-height: 1.2 !important;
+      font-weight: 600 !important;
+    }
+    
+    .scroll-gradient-right {
+      opacity: 1 !important;
+    }
+  }
+
+  /* Desktop Small: 1024px - 1279px */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    :root {
+      --fi: 54px;
+    }
+    
+    .feature-icons-section {
+      padding: 3rem 0;
+    }
+    
+    section {
+      gap: 0.75rem !important;
+      padding: 1.5rem 1.25rem !important;
+      justify-content: center !important;
+    }
+    
+    .feature-card {
+      min-width: 160px !important;
+      width: 160px !important;
+      padding: 0.875rem !important;
+    }
+    
+    .feature-title {
+      font-size: 0.8rem !important;
+      line-height: 1.25 !important;
+      font-weight: 600 !important;
+    }
+    
+    .scroll-gradient-left,
+    .scroll-gradient-right {
+      opacity: 0 !important;
+    }
+  }
+
+  /* Desktop Medium: 1280px - 1439px */
+  @media (min-width: 1280px) and (max-width: 1439px) {
+    :root {
+      --fi: 58px;
+    }
+    
+    .feature-icons-section {
+      padding: 3.5rem 0;
+    }
+    
+    section {
+      gap: 0.875rem !important;
+      padding: 1.75rem 1.5rem !important;
+      justify-content: center !important;
+    }
+    
+    .feature-card {
+      min-width: 190px !important;
+      width: 190px !important;
       padding: 1rem !important;
     }
     
+    .feature-title {
+      font-size: 0.85rem !important;
+      line-height: 1.3 !important;
+      font-weight: 600 !important;
+    }
+    
+    .scroll-gradient-left,
+    .scroll-gradient-right {
+      opacity: 0 !important;
+    }
+  }
+
+  /* Desktop Large: 1440px - 1919px */
+  @media (min-width: 1440px) and (max-width: 1919px) {
+    :root {
+      --fi: 62px;
+    }
+    
+    .feature-icons-section {
+      padding: 4rem 0;
+    }
+    
     section {
-      gap: 1.5rem !important;
-      padding: 1.5rem 2rem !important;
+      gap: 1rem !important;
+      padding: 2rem 1.75rem !important;
+      justify-content: center !important;
+    }
+    
+    .feature-card {
+      min-width: 220px !important;
+      width: 220px !important;
+      padding: 1.125rem !important;
+    }
+    
+    .feature-title {
+      font-size: 0.9rem !important;
+      line-height: 1.35 !important;
+      font-weight: 600 !important;
+    }
+    
+    .scroll-gradient-left,
+    .scroll-gradient-right {
+      opacity: 0 !important;
+    }
+  }
+
+  /* Desktop Extra Large: 1920px - 2559px */
+  @media (min-width: 1920px) and (max-width: 2559px) {
+    :root {
+      --fi: 64px;
+    }
+    
+    .feature-icons-section {
+      padding: 4rem 0;
+    }
+    
+    section {
+      gap: 1.125rem !important;
+      padding: 2rem 2rem !important;
+      justify-content: center !important;
+    }
+    
+    .feature-card {
+      min-width: 280px !important;
+      width: 280px !important;
+      padding: 1.25rem !important;
     }
     
     .feature-title {
       font-size: 0.95rem !important;
-      line-height: 1.3 !important;
+      line-height: 1.35 !important;
+      font-weight: 600 !important;
+    }
+    
+    .scroll-gradient-left,
+    .scroll-gradient-right {
+      opacity: 0 !important;
+    }
+  }
+
+  /* Desktop Ultra Wide: 2560px+ */
+  @media (min-width: 2560px) {
+    :root {
+      --fi: 72px;
+    }
+    
+    .feature-icons-section {
+      padding: 4.5rem 0;
+    }
+    
+    section {
+      gap: 1.5rem !important;
+      padding: 2.25rem 2rem !important;
+      justify-content: center !important;
+    }
+    
+    .feature-card {
+      min-width: 320px !important;
+      width: 320px !important;
+      padding: 1.5rem !important;
+    }
+    
+    .feature-title {
+      font-size: 1rem !important;
+      line-height: 1.4 !important;
+      font-weight: 600 !important;
+    }
+    
+    .scroll-gradient-left,
+    .scroll-gradient-right {
+      opacity: 0 !important;
     }
   }
   
-  /* Desktop Large: 981px and above */
-  @media (min-width: 981px) {
-    section {
-      gap: 2rem !important;
-      padding: 2rem !important;
-    }
-    
-    .feature-border {
-      width: 16rem !important; /* w-64 equivalent */
-    }
+  /* ========= Estilos para scroll horizontal ========= */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 
   /* ========= Animaciones personalizadas ========= */
@@ -255,8 +480,6 @@ const currentLang = getCurrentLanguage();
     backdrop-filter: blur(10px);
     border: 1px solid rgba(206, 198, 226, 0.2);
   }
-  
-  /* .feature-mask removido - causaba difuminado en el primer icono */
 
   /* ========= Efectos especiales para cards ========= */
   .feature-border::before {

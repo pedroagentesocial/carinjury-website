@@ -11,7 +11,7 @@ interface Props {
 const {
   phoneDisplay = '385-242-8571',
   phoneTel = '+13852428571',
-  heroImg = '/assets/img/fondoNuevoHero.jpeg',
+  heroImg = '/assets/img/NewHero.jpeg',
 } = Astro.props;
 
 const currentLang = getCurrentLanguage();
@@ -142,12 +142,25 @@ const currentLang = getCurrentLanguage();
             <textarea name="message" rows="3" placeholder={t('hero_lawyer.form.fields.message_placeholder', currentLang)} data-i18n-placeholder="hero_lawyer.form.fields.message_placeholder"></textarea>
           </label>
 
-          <button type="submit" class="btn btn-primary btn-lg btn-fill cta-arrow">
+          <button type="submit" class="btn btn-primary btn-lg btn-fill cta-arrow" id="submit-btn">
             <span data-i18n="hero_lawyer.form.submit_button">{t('hero_lawyer.form.submit_button', currentLang)}</span>
             <svg class="ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
               <path d="M5 12h12m0 0l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
+
+          <!-- Mensaje de agradecimiento (inicialmente oculto) -->
+          <div class="thank-you-message" id="thank-you-message" style="display: none;">
+            <div class="thank-you-content">
+              <svg class="thank-you-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div class="thank-you-text">
+                <h4>¡Gracias!</h4>
+                <p>Hemos recibido tu solicitud. Te contactaremos pronto.</p>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </aside>
@@ -170,6 +183,23 @@ const currentLang = getCurrentLanguage();
       }
       discovery.addEventListener('change', sync);
       sync();
+
+      // Funcionalidad del mensaje de agradecimiento
+      const form = document.querySelector('.mini');
+      const submitBtn = document.getElementById('submit-btn');
+      const thankYouMessage = document.getElementById('thank-you-message');
+
+      if (form && submitBtn && thankYouMessage) {
+        form.addEventListener('submit', function(e) {
+          // Permitir que el formulario se envíe normalmente
+          // Después de un breve delay, mostrar el mensaje de agradecimiento
+          setTimeout(() => {
+            submitBtn.style.display = 'none';
+            thankYouMessage.style.display = 'block';
+            thankYouMessage.classList.add('show');
+          }, 100);
+        });
+      }
     })();
   </script>
 
@@ -200,9 +230,9 @@ const currentLang = getCurrentLanguage();
     }
     .hl-bg{
       position:absolute; inset:0; z-index:0; pointer-events:none;
-      background: url('/assets/img/fondoNuevoHero.jpeg');
+      background: url('/assets/img/NewHero.jpeg');
       background-size: cover;
-      background-position: center;
+      background-position: center top;
       background-repeat: no-repeat;
     }
     .hl-bg img{
@@ -461,9 +491,93 @@ const currentLang = getCurrentLanguage();
       clip: rect(1px, 1px, 1px, 1px); white-space:nowrap;
     }
 
+    /* Estilos para el mensaje de agradecimiento */
+    .thank-you-message {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border: 2px solid #28a745;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .thank-you-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .thank-you-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .thank-you-icon {
+      color: #28a745;
+      animation: checkmark 0.6s ease-out 0.2s both;
+    }
+
+    @keyframes checkmark {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-45deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1) rotate(0deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    .thank-you-text h4 {
+      margin: 0 0 8px 0;
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-weight: 900;
+      color: #28a745;
+      font-size: 1.2rem;
+      animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+
+    .thank-you-text p {
+      margin: 0;
+      color: #495057;
+      font-weight: 600;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      animation: fadeInUp 0.6s ease-out 0.6s both;
+    }
+
+    /* Animación de desvanecimiento del botón */
+    .btn.fade-out {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+
     @media (max-width: 980px){
       .hero-lawyer{ padding: 100px 0 32px; }
       .hl-card{ max-width: 100%; }
+      
+      .thank-you-content {
+        flex-direction: row;
+        text-align: left;
+      }
+      
+      .thank-you-text h4 {
+        font-size: 1.1rem;
+      }
+      
+      .thank-you-text p {
+        font-size: 0.9rem;
+      }
     }
 
     /* Scroll animations */
