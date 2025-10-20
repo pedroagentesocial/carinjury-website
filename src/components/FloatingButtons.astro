@@ -1,386 +1,351 @@
 ---
-// FloatingButtons.astro - Botones flotantes tipo stickers
-import { t, getCurrentLanguage } from '../i18n/index.ts';
+import { t, getCurrentLanguage } from '../i18n';
 
 const currentLang = getCurrentLanguage();
+
+const PHONE_NUMBER = '+13852428571';
+const PHONE_DISPLAY = '+1 (385) 242-8571';
 ---
 
-<div class="floating-buttons">
-  <!-- Botón de Teléfono -->
-  <a href="tel:+13852428571" class="floating-btn phone-btn" 
-     aria-label={t('floating_buttons.phone.aria_label', currentLang)} 
-     data-tooltip={t('floating_buttons.phone.tooltip', currentLang)}
-     data-i18n-aria-label="floating_buttons.phone.aria_label"
-     data-i18n-tooltip="floating_buttons.phone.tooltip">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" fill="currentColor"/>
+<div class="floating-buttons" aria-label="Botones de acción rápida">
+  <!-- Botón de llamar -->
+  <a 
+    href={`tel:${PHONE_NUMBER}`} 
+    class="floating-btn phone-btn"
+    aria-label={t('floating_buttons.phone.aria_label', currentLang)}
+    title={t('floating_buttons.phone.tooltip', currentLang)}
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22 16.92v2a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 3.8 2 2 0 0 1 4.11 2h2a2 2 0 0 1 2 1.72c.12.9.31 1.78.57 2.63a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.45-1.17a2 2 0 0 1 2.11-.45c.85.26 1.73.45 2.63.57A2 2 0 0 1 22 16.92Z" fill="currentColor"/>
     </svg>
+    <span class="btn-tooltip" data-i18n="floating_buttons.phone.tooltip">{t('floating_buttons.phone.tooltip', currentLang)}</span>
   </a>
 
-  <!-- Botón de Agenda -->
-  <a href="/schedule" class="floating-btn calendar-btn" 
-     aria-label={t('floating_buttons.schedule.aria_label', currentLang)} 
-     data-tooltip={t('floating_buttons.schedule.tooltip', currentLang)}
-     data-i18n-aria-label="floating_buttons.schedule.aria_label"
-     data-i18n-tooltip="floating_buttons.schedule.tooltip">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/>
-      <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
-      <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
-      <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+  <!-- Botón de agendar -->
+  <a 
+    href="/schedule" 
+    class="floating-btn schedule-btn"
+    aria-label={t('floating_buttons.schedule.aria_label', currentLang)}
+    title={t('floating_buttons.schedule.tooltip', currentLang)}
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" fill="currentColor"/>
     </svg>
+    <span class="btn-tooltip" data-i18n="floating_buttons.schedule.tooltip">{t('floating_buttons.schedule.tooltip', currentLang)}</span>
   </a>
 
-  <!-- Botón de Ayuda -->
-  <a href="/faq" class="floating-btn help-btn" 
-     aria-label={t('floating_buttons.help.aria_label', currentLang)} 
-     data-tooltip={t('floating_buttons.help.tooltip', currentLang)}
-     data-i18n-aria-label="floating_buttons.help.aria_label"
-     data-i18n-tooltip="floating_buttons.help.tooltip">
-    <img src="/assets/icons/informacion.png" alt="Información" width="24" height="24" class="help-icon" />
+  <!-- Botón de ayuda -->
+  <a 
+    href="/faq" 
+    class="floating-btn help-btn"
+    aria-label={t('floating_buttons.help.aria_label', currentLang)}
+    title={t('floating_buttons.help.tooltip', currentLang)}
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" fill="currentColor"/>
+    </svg>
+    <span class="btn-tooltip" data-i18n="floating_buttons.help.tooltip">{t('floating_buttons.help.tooltip', currentLang)}</span>
   </a>
 </div>
 
 <style>
-  .floating-buttons {
-    position: fixed;
-    left: 0;
-    top: 35%;
-    transform: translateY(-50%);
-    z-index: 9999;
-    display: flex; /* Restaurar los botones flotantes */
-    flex-direction: column;
-    gap: 12px;
-    padding: 0;
-    margin: 0;
-  }
+/* ==========================================================================
+   FLOATING BUTTONS — Botones flotantes en el lado izquierdo
+   ========================================================================== */
 
-  .floating-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    background: #7A2E87;
-    color: white;
-    border: none;
-    border-radius: 0 28px 28px 0;
-    box-shadow: 
-      0 4px 12px rgba(122, 46, 135, 0.3),
-      0 2px 6px rgba(0, 0, 0, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    transform: translateX(-8px);
-    backdrop-filter: blur(8px);
-    border-left: 3px solid rgba(255, 255, 255, 0.2);
-    position: relative;
-  }
+:root {
+  --floating-primary: #7A2E87;
+  --floating-primary-hover: #8b3494;
+  --floating-shadow: rgba(122, 46, 135, 0.3);
+  --floating-shadow-hover: rgba(122, 46, 135, 0.5);
+}
 
-  /* Tooltips */
-  .floating-btn::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
+.floating-buttons {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.floating-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: var(--floating-primary);
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 4px 20px var(--floating-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+  position: relative;
+  overflow: visible;
+}
+
+.floating-btn:hover {
+  background: var(--floating-primary-hover);
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px var(--floating-shadow-hover);
+}
+
+.floating-btn:active {
+  transform: scale(0.95);
+}
+
+.floating-btn svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.floating-btn:hover svg {
+  transform: scale(1.1);
+}
+
+/* Tooltips */
+.btn-tooltip {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 1001;
+}
+
+.btn-tooltip::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-right-color: rgba(0, 0, 0, 0.9);
+}
+
+.floating-btn:hover .btn-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(4px);
+}
+
+/* Animaciones de entrada */
+.floating-btn {
+  animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.floating-btn:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.floating-btn:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.floating-btn:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes slideInLeft {
+  from {
     opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    margin-left: 12px;
-    z-index: 10000;
-    pointer-events: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateX(-100px) translateY(-50%);
   }
-
-  .floating-btn::before {
-    content: '';
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 6px solid transparent;
-    border-right-color: rgba(0, 0, 0, 0.9);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    margin-left: 6px;
-    z-index: 10000;
-    pointer-events: none;
-  }
-
-  .floating-btn:hover::after,
-  .floating-btn:hover::before {
+  to {
     opacity: 1;
-    visibility: visible;
+    transform: translateX(0) translateY(-50%);
   }
+}
 
-  .floating-btn:hover {
-    background: #BA93C2;
-    transform: translateX(0) scale(1.05);
-    box-shadow: 
-      0 6px 20px rgba(186, 147, 194, 0.4),
-      0 4px 12px rgba(0, 0, 0, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  }
-
-  .floating-btn:active {
-    transform: translateX(0) scale(0.95);
-    box-shadow: 
-      0 2px 8px rgba(122, 46, 135, 0.4),
-      0 1px 4px rgba(0, 0, 0, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-
-  .floating-btn svg {
-    width: 24px;
-    height: 24px;
-    transition: transform 0.2s ease;
-  }
-
-  .floating-btn:hover svg {
-    transform: scale(1.1);
-  }
-
-  .help-icon {
-    width: 24px;
-    height: 24px;
-    filter: brightness(0) invert(1);
-    transition: transform 0.2s ease;
-  }
-
-  .floating-btn:hover .help-icon {
-    transform: scale(1.1);
-  }
-
-  /* Efectos específicos por botón */
-  .phone-btn:hover {
-    background: linear-gradient(135deg, #BA93C2, #9B7BA8);
-  }
-
-  .calendar-btn:hover {
-    background: linear-gradient(135deg, #BA93C2, #A584B5);
-  }
-
-  .help-btn:hover {
-    background: linear-gradient(135deg, #BA93C2, #B08CC0);
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .floating-buttons {
-      top: auto;
-      bottom: 20px;
-      transform: none;
-      flex-direction: row;
-      justify-content: center;
-      left: 50%;
-      transform: translateX(-50%);
-      gap: 8px;
-    }
-
-    .floating-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 24px;
-      transform: none;
-      border-left: none;
-      box-shadow: 
-        0 3px 10px rgba(122, 46, 135, 0.3),
-        0 1px 4px rgba(0, 0, 0, 0.15);
-    }
-
-    .floating-btn:hover {
-      transform: scale(1.05);
-    }
-
-    .floating-btn svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .help-icon {
-      width: 20px;
-      height: 20px;
-    }
-
-    /* Tooltips en móvil - aparecen arriba */
-    .floating-btn::after {
-      left: 50%;
-      top: auto;
-      bottom: 100%;
-      transform: translateX(-50%);
-      margin-left: 0;
-      margin-bottom: 12px;
-    }
-
-    .floating-btn::before {
-      left: 50%;
-      top: auto;
-      bottom: 100%;
-      transform: translateX(-50%);
-      border: 6px solid transparent;
-      border-top-color: rgba(0, 0, 0, 0.9);
-      border-right-color: transparent;
-      margin-left: 0;
-      margin-bottom: 6px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .floating-btn {
-      width: 44px;
-      height: 44px;
-    }
-
-    .floating-btn svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .help-icon {
-      width: 18px;
-      height: 18px;
-    }
-  }
-
-  /* Animación de entrada */
-  @keyframes slideInLeft {
-    from {
-      transform: translateX(-100%) translateY(-50%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(-8px) translateY(-50%);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideInBottom {
-    from {
-      transform: translateX(-50%) translateY(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-  }
-
+/* Responsive */
+@media (max-width: 768px) {
   .floating-buttons {
-    animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+    left: 15px;
+    gap: 10px;
   }
+  
+  .floating-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .floating-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .btn-tooltip {
+    font-size: 12px;
+    padding: 6px 10px;
+    left: calc(100% + 8px);
+  }
+}
 
-  @media (max-width: 768px) {
-    .floating-buttons {
-      animation: slideInBottom 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
-    }
+@media (max-width: 480px) {
+  .floating-buttons {
+    left: 10px;
   }
+  
+  .floating-btn {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .floating-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+}
 
-  /* Stagger animation para los botones individuales */
-  .floating-btn:nth-child(1) {
-    animation-delay: 0.6s;
+/* Evitar interferencia con otros elementos */
+@media (max-width: 1024px) {
+  .floating-buttons {
+    left: 15px;
   }
+}
 
-  .floating-btn:nth-child(2) {
-    animation-delay: 0.7s;
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .floating-btn {
+    animation: none;
+    transition: none;
   }
+  
+  .floating-btn:hover {
+    transform: none;
+  }
+  
+  .btn-tooltip {
+    transition: opacity 0.2s ease;
+  }
+}
 
-  .floating-btn:nth-child(3) {
-    animation-delay: 0.8s;
-  }
+/* Focus states para accesibilidad */
+.floating-btn:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
 
-  /* ========= Transparencia para fondos morados similares ========= */
-  .floating-buttons.on-purple .floating-btn {
-    background: rgba(122, 46, 135, 0.3); /* Transparente sobre morado */
-    backdrop-filter: blur(12px);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-  }
-
-  .floating-buttons.on-purple .floating-btn:hover {
-    background: rgba(186, 147, 194, 0.4);
-    border: 2px solid rgba(255, 255, 255, 0.6);
-  }
-
-  .floating-buttons.on-purple .phone-btn:hover {
-    background: rgba(186, 147, 194, 0.4);
-  }
-
-  .floating-buttons.on-purple .calendar-btn:hover {
-    background: rgba(186, 147, 194, 0.4);
-  }
-
-  .floating-buttons.on-purple .help-btn:hover {
-    background: rgba(186, 147, 194, 0.4);
-  }
+.floating-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
 </style>
 
 <script>
-  // Sistema simplificado para detectar fondos morados y aplicar transparencia
-  function detectPurpleBackground() {
-    const floatingButtons = document.querySelector('.floating-buttons');
-    if (!floatingButtons) return;
+// ==========================================================================
+// FLOATING BUTTONS JAVASCRIPT — Funcionalidad mejorada
+// ==========================================================================
 
-    function updateButtonTransparency() {
-      try {
-        const rect = floatingButtons.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        // Temporalmente ocultar los botones para detectar el fondo
-        floatingButtons.style.visibility = 'hidden';
-        const elementBehind = document.elementFromPoint(centerX, centerY);
-        floatingButtons.style.visibility = 'visible';
-        
-        if (!elementBehind) return;
-
-        // Obtener el color de fondo computado
-        const computedStyle = window.getComputedStyle(elementBehind);
-        const backgroundColor = computedStyle.backgroundColor;
-        const backgroundImage = computedStyle.backgroundImage;
-        
-        // Remover clase existente
-        floatingButtons.classList.remove('on-purple');
-        
-        // Detectar si el fondo es púrpura/morado
-        if (backgroundColor && (backgroundColor.includes('122, 46, 135') || // #7A2E87
-            backgroundColor.includes('186, 147, 194'))) { // #BA93C2
-          floatingButtons.classList.add('on-purple');
-        } else if (backgroundImage && (backgroundImage.includes('7A2E87') ||
-                   backgroundImage.includes('BA93C2'))) {
-          floatingButtons.classList.add('on-purple');
-        }
-      } catch (error) {
-        console.warn('Error detecting background color:', error);
-      }
-    }
-
-    // Ejecutar al cargar la página
-    updateButtonTransparency();
-    
-    // Ejecutar cuando se hace scroll (con throttling)
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-      if (scrollTimeout) clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(updateButtonTransparency, 100);
+document.addEventListener('DOMContentLoaded', function() {
+  const floatingButtons = document.querySelector('.floating-buttons');
+  
+  if (!floatingButtons) return;
+  
+  // Mejorar la experiencia en dispositivos táctiles
+  const buttons = floatingButtons.querySelectorAll('.floating-btn');
+  
+  buttons.forEach(button => {
+    // Agregar efecto de ripple en dispositivos táctiles
+    button.addEventListener('touchstart', function(e) {
+      const ripple = document.createElement('div');
+      ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      `;
+      
+      const rect = button.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.touches[0].clientX - rect.left - size / 2) + 'px';
+      ripple.style.top = (e.touches[0].clientY - rect.top - size / 2) + 'px';
+      
+      button.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
     });
     
-    // Ejecutar cuando cambia el tamaño de la ventana
-    window.addEventListener('resize', updateButtonTransparency);
+    // Mejorar tooltips en dispositivos móviles
+    let tooltipTimeout;
+    
+    button.addEventListener('touchstart', function() {
+      const tooltip = button.querySelector('.btn-tooltip');
+      if (tooltip && window.innerWidth <= 768) {
+        clearTimeout(tooltipTimeout);
+        tooltip.style.opacity = '1';
+        tooltip.style.visibility = 'visible';
+        
+        tooltipTimeout = setTimeout(() => {
+          tooltip.style.opacity = '0';
+          tooltip.style.visibility = 'hidden';
+        }, 2000);
+      }
+    });
+  });
+  
+  // Ocultar botones cuando se hace scroll hacia abajo rápidamente (opcional)
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  
+  function updateButtonsVisibility() {
+    const currentScrollY = window.scrollY;
+    const scrollDifference = Math.abs(currentScrollY - lastScrollY);
+    
+    // Solo ocultar si el scroll es muy rápido (más de 100px)
+    if (scrollDifference > 100) {
+      if (currentScrollY > lastScrollY) {
+        // Scrolling down - mantener visible (no ocultar)
+        floatingButtons.style.transform = 'translateY(-50%)';
+      } else {
+        // Scrolling up - asegurar que esté visible
+        floatingButtons.style.transform = 'translateY(-50%)';
+      }
+    }
+    
+    lastScrollY = currentScrollY;
+    ticking = false;
   }
+  
+  function requestTick() {
+    if (!ticking) {
+      requestAnimationFrame(updateButtonsVisibility);
+      ticking = true;
+    }
+  }
+  
+  window.addEventListener('scroll', requestTick, { passive: true });
+});
 
-  // Inicializar cuando el DOM esté listo
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', detectPurpleBackground);
-  } else {
-    detectPurpleBackground();
+// Agregar estilos para el efecto ripple
+const rippleStyles = document.createElement('style');
+rippleStyles.textContent = `
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
   }
+`;
+document.head.appendChild(rippleStyles);
 </script>

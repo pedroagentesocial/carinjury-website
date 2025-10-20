@@ -1,7 +1,7 @@
 ---
 /* Layout.astro – plantilla principal (sin TopBar, Nav arriba) */
 import Nav from '../components/Nav.astro';
-
+import FloatingButtons from '../components/FloatingButtons.astro';
 import CenterfyChat from '../components/CenterfyChat.astro';
 ---
 
@@ -85,6 +85,10 @@ import CenterfyChat from '../components/CenterfyChat.astro';
 
     <!-- Contenido de cada página -->
     <slot />
+    
+    <!-- Botones flotantes -->
+    <FloatingButtons />
+    
     <CenterfyChat />
 
     <!-- Cargar traducciones globalmente -->

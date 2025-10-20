@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import MapContact from '../components/MapContact.astro';
 import HeroServices from '../components/HeroServices.astro';
+
 import { t, getCurrentLanguage } from '../i18n/index.ts';
 
 const currentLang = getCurrentLanguage();
@@ -128,6 +129,7 @@ const items = [
 
   <MapContact />
   <Footer />
+
 </Layout>
 
 <script>

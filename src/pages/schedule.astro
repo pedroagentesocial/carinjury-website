@@ -185,23 +185,6 @@ const currentLang = getCurrentLanguage();
     <MapContact />
   </div>
   <Footer />
-
-  <!-- Modal de éxito -->
-  <dialog id="success-dialog" class="success-modal">
-    <div class="modal-content">
-      <div class="modal-icon">
-        <svg viewBox="0 0 24 24" width="48" height="48">
-          <circle cx="12" cy="12" r="10" fill="#7A2E87"/>
-          <path d="M7 12.5l3 3.2 7-7.4" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <h3 data-i18n="schedule_page.modal.title">{t('schedule_page.modal.title', currentLang)}</h3>
-      <p data-i18n="schedule_page.modal.message">{t('schedule_page.modal.message', currentLang)}</p>
-      <form method="dialog">
-        <button class="btn-modal" data-i18n="schedule_page.modal.close">{t('schedule_page.modal.close', currentLang)}</button>
-      </form>
-    </div>
-  </dialog>
 </Layout>
 
 <style>

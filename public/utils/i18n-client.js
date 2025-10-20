@@ -207,35 +207,12 @@ class I18nClient {
 
   toggleLanguage() {
     const newLang = this.currentLang === 'es' ? 'en' : 'es';
+    console.log('Toggling language from', this.currentLang, 'to', newLang);
     this.setLanguage(newLang);
     
-    // Actualizar la URL si es necesario
-    if (typeof window !== 'undefined') {
-      const currentPath = window.location.pathname;
-      let newPath;
-      
-      if (newLang === 'en') {
-        // Cambiar a inglés
-        if (currentPath === '/' || currentPath === '/index.html') {
-          newPath = '/en/';
-        } else if (!currentPath.startsWith('/en/')) {
-          newPath = '/en' + currentPath;
-        } else {
-          newPath = currentPath;
-        }
-      } else {
-        // Cambiar a español
-        if (currentPath.startsWith('/en/')) {
-          newPath = currentPath.replace('/en', '') || '/';
-        } else {
-          newPath = currentPath;
-        }
-      }
-      
-      if (newPath !== currentPath) {
-        window.location.href = newPath;
-      }
-    }
+    // NO cambiar la URL - mantener traducción dinámica en la misma página
+    // El cambio de idioma debe ser instantáneo sin redirección
+    console.log('Language changed to:', newLang, '- staying on same page');
   }
 
   init() {

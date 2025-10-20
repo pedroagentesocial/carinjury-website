@@ -218,12 +218,12 @@ class I18nClient {
     }
   }
 
-  toggleLanguage() {
+  toggleLanguage(forceNoRedirect = false) {
     const newLang = this.currentLang === 'es' ? 'en' : 'es';
     this.setLanguage(newLang);
     
-    // Actualizar la URL si es necesario
-    if (typeof window !== 'undefined') {
+    // Solo actualizar la URL si no se fuerza el no-redirect
+    if (typeof window !== 'undefined' && !forceNoRedirect) {
       const currentPath = window.location.pathname;
       let newPath;
       
