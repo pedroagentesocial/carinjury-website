@@ -250,10 +250,11 @@ const currentLang = getCurrentLanguage();
   }
   .social-icon{ width:22px; height:22px; color: #fff; }
 
-  /* Logo morado con máscara, más a la derecha y más abajo */
+  /* Logo morado con máscara, centrado mejor */
   .contact-logo{
     position: absolute;
-    left: 14rem;                /* ⬅ más a la derecha */
+    left: 50%;                    /* ⬅ centrado horizontalmente */
+    transform: translateX(-50%);  /* ⬅ centrado perfecto */
     bottom: -42px;                /* ⬅ más abajo */
     width: 220px;
     height: 220px;

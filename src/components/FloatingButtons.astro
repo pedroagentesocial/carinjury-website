@@ -175,13 +175,21 @@ const PHONE_DISPLAY = '+1 (385) 242-8571';
 /* Responsive */
 @media (max-width: 768px) {
   .floating-buttons {
-    left: 15px;
+    left: 50%;
+    top: auto;
+    bottom: 30px;
+    transform: translateX(-50%);
+    flex-direction: row;
     gap: 10px;
+    padding: 0 10px;
+    max-width: calc(100vw - 20px);
+    justify-content: center;
   }
   
   .floating-btn {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
   }
   
   .floating-btn svg {
@@ -192,18 +200,29 @@ const PHONE_DISPLAY = '+1 (385) 242-8571';
   .btn-tooltip {
     font-size: 12px;
     padding: 6px 10px;
-    left: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(100% + 8px);
+    top: auto;
   }
 }
 
 @media (max-width: 480px) {
   .floating-buttons {
-    left: 10px;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 8px;
+    padding: 0 8px;
+    max-width: calc(100vw - 16px);
+    justify-content: center;
   }
   
   .floating-btn {
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
   }
   
   .floating-btn svg {
@@ -212,8 +231,8 @@ const PHONE_DISPLAY = '+1 (385) 242-8571';
   }
 }
 
-/* Evitar interferencia con otros elementos */
-@media (max-width: 1024px) {
+/* Evitar interferencia con otros elementos - Solo para tablets y desktop */
+@media (min-width: 769px) and (max-width: 1024px) {
   .floating-buttons {
     left: 15px;
   }
@@ -312,15 +331,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentScrollY = window.scrollY;
     const scrollDifference = Math.abs(currentScrollY - lastScrollY);
     
-    // Solo ocultar si el scroll es muy rápido (más de 100px)
-    if (scrollDifference > 100) {
-      if (currentScrollY > lastScrollY) {
-        // Scrolling down - mantener visible (no ocultar)
-        floatingButtons.style.transform = 'translateY(-50%)';
-      } else {
-        // Scrolling up - asegurar que esté visible
-        floatingButtons.style.transform = 'translateY(-50%)';
+    // Solo aplicar transform en desktop (no en móviles)
+    if (window.innerWidth > 768) {
+      // Solo ocultar si el scroll es muy rápido (más de 100px)
+      if (scrollDifference > 100) {
+        if (currentScrollY > lastScrollY) {
+          // Scrolling down - mantener visible (no ocultar)
+          floatingButtons.style.transform = 'translateY(-50%)';
+        } else {
+          // Scrolling up - asegurar que esté visible
+          floatingButtons.style.transform = 'translateY(-50%)';
+        }
       }
+    } else {
+      // En móviles, no aplicar ningún transform para mantener posición bottom fija
+      floatingButtons.style.transform = '';
     }
     
     lastScrollY = currentScrollY;

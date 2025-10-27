@@ -12,15 +12,32 @@ const currentLang = getCurrentLanguage();
   <!-- Gradiente derecho para indicar scroll -->
   <div class="scroll-gradient-right absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none opacity-100 transition-opacity duration-300"></div>
   
+  <!-- Botón de scroll izquierdo (móviles) -->
+  <button 
+    class="scroll-btn-left absolute left-2 top-1/2 transform -translate-y-1/2 z-20 bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 transition-all duration-300 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 md:hidden"
+    aria-label="Scroll hacia la izquierda"
+    style="display: none;"
+  >
+    ←
+  </button>
+  
+  <!-- Botón de scroll derecho (móviles) -->
+  <button 
+    class="scroll-btn-right absolute right-2 top-1/2 transform -translate-y-1/2 z-20 bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-80 transition-all duration-300 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 md:hidden"
+    aria-label="Scroll hacia la derecha"
+  >
+    →
+  </button>
+
   <section 
-    class="feature-icons-section flex gap-2 items-stretch px-4 py-6 overflow-x-auto overflow-y-hidden scrollbar-hide scroll-smooth" 
+    class="feature-icons-section flex gap-2 items-stretch py-6 overflow-x-auto overflow-y-hidden scrollbar-hide scroll-smooth" 
     aria-label={t('feature_icons.aria_label', currentLang)}
-    style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;"
+    style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-left: 1rem; padding-right: 1rem;"
   >
     <!-- 1 ▸ $0 de costo de consulta -->
     <a 
       class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0s_forwards] flex-shrink-0"
-      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
+      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: center;"
       href="/formulario" 
       aria-label={t('feature_icons.items.free_consultation.aria_label', currentLang)}
       data-i18n-aria="feature_icons.items.free_consultation.aria_label"
@@ -34,7 +51,7 @@ const currentLang = getCurrentLanguage();
     <!-- 2 ▸ Transporte GRATIS -->
     <a 
       class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.1s_forwards] flex-shrink-0"
-      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
+      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: center;"
       href="/services#transporte-gratis" 
       aria-label={t('feature_icons.items.free_transport.aria_label', currentLang)}
       data-i18n-aria="feature_icons.items.free_transport.aria_label"
@@ -48,7 +65,7 @@ const currentLang = getCurrentLanguage();
     <!-- 3 ▸ Cita el mismo día -->
     <a 
       class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.2s_forwards] flex-shrink-0"
-    style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
+      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: center;"
     href="/schedule" 
     aria-label={t('feature_icons.items.same_day.aria_label', currentLang)}
     data-i18n-aria="feature_icons.items.same_day.aria_label"
@@ -61,8 +78,8 @@ const currentLang = getCurrentLanguage();
 
   <!-- 4 ▸ Orientación legal sin costo -->
   <a 
-    class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.3s_forwards] flex-shrink-0"
-    style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
+      class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.3s_forwards] flex-shrink-0"
+      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: center;"
     href="/lawyer-approved" 
     aria-label={t('feature_icons.items.legal_guidance.aria_label', currentLang)}
     data-i18n-aria="feature_icons.items.legal_guidance.aria_label"
@@ -75,8 +92,8 @@ const currentLang = getCurrentLanguage();
 
   <!-- 5 ▸ X-ray el mismo día -->
   <a 
-    class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.4s_forwards] flex-shrink-0"
-    style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
+      class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.4s_forwards] flex-shrink-0"
+      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: center;"
     href="/services#radiografias" 
     aria-label={t('feature_icons.items.xray.aria_label', currentLang)}
     data-i18n-aria="feature_icons.items.xray.aria_label"
@@ -185,6 +202,8 @@ const currentLang = getCurrentLanguage();
     
     .scroll-gradient-right {
       opacity: 1 !important;
+      background: linear-gradient(to left, rgba(74, 28, 90, 0.9), transparent) !important;
+      width: 40px !important;
     }
   }
 
@@ -223,6 +242,8 @@ const currentLang = getCurrentLanguage();
     
     .scroll-gradient-right {
       opacity: 1 !important;
+      background: linear-gradient(to left, rgba(74, 28, 90, 0.9), transparent) !important;
+      width: 40px !important;
     }
   }
 
@@ -261,6 +282,8 @@ const currentLang = getCurrentLanguage();
     
     .scroll-gradient-right {
       opacity: 1 !important;
+      background: linear-gradient(to left, rgba(74, 28, 90, 0.9), transparent) !important;
+      width: 40px !important;
     }
   }
 
@@ -550,8 +573,106 @@ const currentLang = getCurrentLanguage();
   /* ========= Configuración de movimiento reducido ========= */
   @media (prefers-reduced-motion: reduce) {
     * {
-      animation: none !important;
-      transition: none !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
   }
+
+  /* ========= Indicador de scroll mejorado para móviles ========= */
+  @media (max-width: 768px) {
+    /* Remover la flecha CSS ya que ahora usamos botones */
+    .scroll-gradient-right::after {
+      display: none;
+    }
+    
+    /* Estilos para los botones de scroll */
+    .scroll-btn-left,
+    .scroll-btn-right {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(4px);
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .scroll-btn-left:active,
+    .scroll-btn-right:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const scrollContainer = document.querySelector('.feature-icons-section');
+    const leftBtn = document.querySelector('.scroll-btn-left');
+    const rightBtn = document.querySelector('.scroll-btn-right');
+    const leftGradient = document.querySelector('.scroll-gradient-left');
+    const rightGradient = document.querySelector('.scroll-gradient-right');
+    
+    if (!scrollContainer || !leftBtn || !rightBtn) return;
+    
+    // Función para actualizar la visibilidad de los botones
+    function updateScrollButtons() {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
+      const maxScroll = scrollWidth - clientWidth;
+      
+      // Mostrar/ocultar botón izquierdo
+      if (scrollLeft > 10) {
+        leftBtn.style.display = 'flex';
+        leftBtn.style.opacity = '0.8';
+        leftGradient.style.opacity = '1';
+      } else {
+        leftBtn.style.display = 'none';
+        leftBtn.style.opacity = '0';
+        leftGradient.style.opacity = '0';
+      }
+      
+      // Mostrar/ocultar botón derecho
+      if (scrollLeft < maxScroll - 10) {
+        rightBtn.style.display = 'flex';
+        rightBtn.style.opacity = '0.8';
+        rightGradient.style.opacity = '1';
+      } else {
+        rightBtn.style.display = 'none';
+        rightBtn.style.opacity = '0';
+        rightGradient.style.opacity = '0';
+      }
+    }
+    
+    // Función para hacer scroll suave
+    function smoothScroll(direction) {
+      const cardWidth = 280; // Ancho de cada tarjeta
+      const gap = 8; // Gap entre tarjetas (0.5rem = 8px)
+      const scrollAmount = cardWidth + gap;
+      
+      const currentScroll = scrollContainer.scrollLeft;
+      const targetScroll = direction === 'left' 
+        ? Math.max(0, currentScroll - scrollAmount)
+        : Math.min(scrollContainer.scrollWidth - scrollContainer.clientWidth, currentScroll + scrollAmount);
+      
+      scrollContainer.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      });
+    }
+    
+    // Event listeners para los botones
+    leftBtn.addEventListener('click', () => smoothScroll('left'));
+    rightBtn.addEventListener('click', () => smoothScroll('right'));
+    
+    // Event listener para el scroll
+    scrollContainer.addEventListener('scroll', updateScrollButtons);
+    
+    // Inicializar estado de los botones
+    updateScrollButtons();
+    
+    // Actualizar cuando cambie el tamaño de la ventana
+    window.addEventListener('resize', updateScrollButtons);
+  });
+</script>

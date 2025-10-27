@@ -87,7 +87,8 @@ const PHONE_TEL = '+13852428571';
         type="button"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" class="language-icon" aria-hidden="true">
-          <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" fill="currentColor"/>
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2" fill="none"/>
         </svg>
         <span id="language-button-text">{currentLang === 'es' ? 'English' : 'Español'}</span>
       </button>
@@ -117,26 +118,26 @@ const PHONE_TEL = '+13852428571';
   <!-- Panel móvil (overlay) -->
   <div class="mobile-panel" data-panel hidden>
     <div class="mobile-inner">
-      <a class="m-link" href="/">Home</a>
+      <a class="m-link" href="/" data-i18n="nav.home">{t('nav.home', currentLang)}</a>
 
       <details class="mobile-dropdown">
-        <summary class="mobile-summary">Servicios</summary>
+        <summary class="mobile-summary" data-i18n="nav.services">{t('nav.services', currentLang)}</summary>
         <div class="m-dd">
-          {SERVICES.map((s) => (<a class="m-dd-item" href={s.href}>{s.label}</a>))}
+          {SERVICES.map((s) => (<a class="m-dd-item" href={s.href} data-i18n={s.key}>{s.label}</a>))}
         </div>
       </details>
 
-      <a class="m-link" href="/lawyer-approved">Asistencia legal</a>
+      <a class="m-link" href="/lawyer-approved" data-i18n="nav.legal_assistance">{t('nav.legal_assistance', currentLang)}</a>
 
       <details class="mobile-dropdown">
-        <summary class="mobile-summary">Pacientes</summary>
+        <summary class="mobile-summary" data-i18n="nav.patients">{t('nav.patients', currentLang)}</summary>
         <div class="m-dd">
-          <a class="m-dd-item" href="/formulario">Formulario</a>
-          <a class="m-dd-item" href="/faq">Preguntas frecuentes</a>
+          <a class="m-dd-item" href="/formulario" data-i18n="nav.form">{t('nav.form', currentLang)}</a>
+          <a class="m-dd-item" href="/faq" data-i18n="nav.frequent_questions">{t('nav.frequent_questions', currentLang)}</a>
         </div>
       </details>
 
-      <a class="m-link" href="/aboutus">Sobre nosotros</a>
+      <a class="m-link" href="/aboutus" data-i18n="nav.about">{t('nav.about', currentLang)}</a>
     </div>
   </div>
 </nav>
@@ -882,6 +883,18 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Actualizar todas las traducciones en la página
             window.i18nClient.updateAllTranslations();
+            
+            // Actualizar específicamente los elementos del menú móvil
+            const mobileElements = document.querySelectorAll('.mobile-panel [data-i18n]');
+            mobileElements.forEach(element => {
+              const key = element.getAttribute('data-i18n');
+              if (key && window.i18nClient.translations[newLang]) {
+                const translation = window.i18nClient.getNestedValue(window.i18nClient.translations[newLang], key);
+                if (translation) {
+                  element.textContent = translation;
+                }
+              }
+            });
           } else {
             // Para otras páginas, usar el comportamiento normal con redirección
             window.i18nClient.toggleLanguage();
