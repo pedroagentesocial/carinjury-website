@@ -87,6 +87,7 @@ const phone = '+1 (385) 242-8571';
       <div class="appt-body form-body">
         <!-- Formulario -->
         <form
+          id="contact-form"
           action="https://formsubmit.co/info@carinjuryclinics.com"
           method="POST"
           accept-charset="UTF-8"
@@ -96,14 +97,13 @@ const phone = '+1 (385) 242-8571';
           <!-- Honeypot anti-spam (oculto) -->
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
 
-          <!-- Desactivar captcha de FormSubmit (opcional) -->
+          <!-- Campos ocultos para FormSubmit -->
           <input type="hidden" name="_captcha" value="false" />
-
-          <!-- Redirección tras enviar -->
-          <input type="hidden" name="_next" value="http://localhost:4321/gracias" />
-
-          <input type="hidden" name="_subject" value="Nuevo lead desde el sitio" />
+          <input type="hidden" name="_next" value="https://carinjuryclinics.com/gracias" />
+          <input type="hidden" name="_subject" value="Nuevo contacto desde Car Injury Clinics" />
           <input type="hidden" name="_template" value="table" />
+
+          <!-- Campos ocultos para tracking -->
           <input type="hidden" name="page" value="Formulario principal" />
 
           <div class="lg:flex-1 lg:flex lg:flex-col lg:justify-between">
@@ -165,6 +165,19 @@ const phone = '+1 (385) 242-8571';
                 <path d="m6 12 13 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
+
+            <!-- Mensaje de confirmación profesional -->
+            <div id="success-message" class="hidden w-full py-4 px-6 rounded-lg text-center transition-all duration-500 ease-in-out transform" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; font-family: 'Poppins', sans-serif; font-weight: 600; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); margin-top: 2rem;">
+              <div class="flex items-center justify-center gap-3">
+                <svg class="success-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M9 12l2 2 4-4"/>
+                  <circle cx="12" cy="12" r="10"/>
+                </svg>
+                <span id="success-text" data-i18n="form.success_message">
+                  {t('form.success_message', currentLang)}
+                </span>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -255,55 +268,133 @@ const phone = '+1 (385) 242-8571';
       }
     });
 
-    // Form submission with modal
+    // Sistema Híbrido: FormSubmit + Make.com con mensaje de éxito
     if (form && submitBtn) {
+      const successMessage = document.getElementById('success-message');
+      
       form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Show loading state
-        submitText?.classList.add('hidden');
-        loadingText?.classList.remove('hidden');
-        submitBtn.disabled = true;
+        // Verificar honeypot anti-spam
+        const honeypot = form.querySelector('input[name="_honey"]');
+        if (honeypot && honeypot.value) {
+          console.log('Spam detectado, ignorando envío');
+          return;
+        }
         
+        // 1. OCULTAR BOTÓN Y MOSTRAR MENSAJE DE ÉXITO
+        submitBtn.style.display = 'none';
+        if (successMessage) {
+          successMessage.classList.remove('hidden');
+          successMessage.style.transform = 'scale(0.95)';
+          successMessage.style.opacity = '0';
+          
+          // Animación de entrada
+          setTimeout(() => {
+            successMessage.style.transform = 'scale(1)';
+            successMessage.style.opacity = '1';
+          }, 50);
+        }
+        
+        // Preparar datos del formulario
+        const formData = new FormData(form);
+        
+        // 2. ENVIAR A MAKE.COM EN PARALELO (no bloquea FormSubmit)
         try {
-          // Submit form data to FormSubmit
-          const formData = new FormData(form);
-          const response = await fetch(form.action, {
+          const webhookData = {
+            nombre: formData.get('name') || '',
+            email: formData.get('email') || '',
+            telefono: formData.get('phone') || '',
+            mensaje: formData.get('message') || '',
+            como_nos_encontro: formData.get('discovery_source') || '',
+            referido_por: formData.get('referral_name') || '',
+            pagina_origen: formData.get('page') || 'Formulario principal',
+            fecha_envio: new Date().toISOString(),
+            lead_source: 'website_form',
+            form_type: 'contact_form',
+            priority: 'normal'
+          };
+          
+          // Envío asíncrono a Make.com (no esperamos respuesta para no bloquear)
+          fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', {
             method: 'POST',
-            body: formData
+            headers: {
+              'Content-Type': 'application/json',
+              'User-Agent': 'CarInjuryClinic-Website/1.0'
+            },
+            body: JSON.stringify(webhookData)
+          }).catch(error => {
+            console.log('Make.com webhook error (no afecta FormSubmit):', error);
           });
           
-          // Show success modal regardless of response
-          // (FormSubmit might redirect, but we'll show our modal)
-          setTimeout(() => {
-            // Reset button state
-            submitText?.classList.remove('hidden');
-            loadingText?.classList.add('hidden');
-            submitBtn.disabled = false;
-            
-            // Show modal
-            showModal();
-            
-            // Reset form
-            form.reset();
-            
-            // Reset referral field visibility
-            sync();
-          }, 1000);
-          
         } catch (error) {
-          console.error('Error submitting form:', error);
-          
-          // Still show success modal for better UX
-          setTimeout(() => {
-            submitText?.classList.remove('hidden');
-            loadingText?.classList.add('hidden');
-            submitBtn.disabled = false;
-            showModal();
-            form.reset();
-            sync();
-          }, 1000);
+          console.log('Error preparando datos para Make.com (no afecta FormSubmit):', error);
         }
+        
+        // 3. DESPUÉS DE 3 SEGUNDOS: MOSTRAR MODAL Y ENVIAR A FORMSUBMIT
+        setTimeout(() => {
+          // Mostrar modal de agradecimiento
+          showModal();
+          
+          // Reset form para preparar nuevo envío
+          form.reset();
+          sync();
+          
+          // Restaurar botón y ocultar mensaje de éxito
+          if (successMessage) {
+            successMessage.classList.add('hidden');
+          }
+          submitBtn.style.display = 'flex';
+          
+          // Enviar a FormSubmit después del modal (envío real)
+          setTimeout(() => {
+            // Crear formulario temporal para envío a FormSubmit
+            const tempForm = document.createElement('form');
+            tempForm.action = form.action;
+            tempForm.method = form.method;
+            tempForm.style.display = 'none';
+            
+            // Copiar todos los datos del formulario original
+            for (let [key, value] of formData.entries()) {
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = key;
+              input.value = value;
+              tempForm.appendChild(input);
+            }
+            
+            // Agregar campos ocultos de FormSubmit
+            const captchaInput = document.createElement('input');
+            captchaInput.type = 'hidden';
+            captchaInput.name = '_captcha';
+            captchaInput.value = 'false';
+            tempForm.appendChild(captchaInput);
+            
+            const nextInput = document.createElement('input');
+            nextInput.type = 'hidden';
+            nextInput.name = '_next';
+            nextInput.value = 'https://carinjuryclinics.com/gracias';
+            tempForm.appendChild(nextInput);
+            
+            const subjectInput = document.createElement('input');
+            subjectInput.type = 'hidden';
+            subjectInput.name = '_subject';
+            subjectInput.value = 'Nuevo contacto desde Car Injury Clinics';
+            tempForm.appendChild(subjectInput);
+            
+            const templateInput = document.createElement('input');
+            templateInput.type = 'hidden';
+            templateInput.name = '_template';
+            templateInput.value = 'table';
+            tempForm.appendChild(templateInput);
+            
+            // Enviar a FormSubmit
+            document.body.appendChild(tempForm);
+            tempForm.submit();
+            
+          }, 500); // Pequeño delay para que el usuario vea el modal
+          
+        }, 3000); // 3 segundos mostrando el mensaje de éxito
       });
     }
   })();

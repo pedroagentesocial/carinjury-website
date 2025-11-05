@@ -665,6 +665,7 @@
     },
     "submit_button": "Send request",
     "sending": "Sending...",
+    "success_message": "✅ Your request has been sent successfully. We will contact you within the next 24 hours.",
     "thank_you": {
       "title": "Thank you for contacting us!",
       "message": "We have received your message and will contact you very soon.",

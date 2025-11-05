@@ -665,6 +665,7 @@
     },
     "submit_button": "Enviar solicitud",
     "sending": "Enviando...",
+    "success_message": "✅ Su solicitud ha sido enviada exitosamente. Nos pondremos en contacto con usted en las próximas 24 horas.",
     "thank_you": {
       "title": "¡Gracias por contactarnos!",
       "message": "Hemos recibido tu mensaje y nos pondremos en contacto contigo muy pronto.",

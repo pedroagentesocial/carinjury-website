@@ -83,7 +83,7 @@ const currentLang = getCurrentLanguage();
           <input type="hidden" name="_next" value="http://localhost:4321/gracias" />
           <input type="hidden" name="_subject" value="Nuevo lead desde el sitio" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="page" value="Formulario principal (Hero)" />
+          <input type="hidden" name="page" value="Formulario Hero Lawyer" />
 
           <label class="field">
             <span data-i18n="hero_lawyer.form.fields.name">{t('hero_lawyer.form.fields.name', currentLang)}</span>
@@ -191,13 +191,84 @@ const currentLang = getCurrentLanguage();
 
       if (form && submitBtn && thankYouMessage) {
         form.addEventListener('submit', function(e) {
-          // Permitir que el formulario se envíe normalmente
-          // Después de un breve delay, mostrar el mensaje de agradecimiento
+          e.preventDefault();
+
+          // Honeypot anti-spam
+          const honeypot = form.querySelector('input[name="_honey"]');
+          if (honeypot && honeypot.value) {
+            console.log('Spam detectado, bloqueo envío.');
+            return;
+          }
+
+          // UX: ocultar botón y mostrar mensaje de agradecimiento
+          submitBtn.classList.add('fade-out');
           setTimeout(() => {
             submitBtn.style.display = 'none';
             thankYouMessage.style.display = 'block';
             thankYouMessage.classList.add('show');
           }, 100);
+
+          // Preparar datos para Make.com
+          const fd = new FormData(form);
+          const payload = {
+            name: fd.get('name') || '',
+            email: fd.get('email') || '',
+            phone: fd.get('phone') || '',
+            discovery_source: fd.get('discovery_source') || '',
+            referral_name: fd.get('referral_name') || '',
+            message: fd.get('message') || '',
+            page: 'Formulario Hero Lawyer',
+            ts: new Date().toISOString(),
+          };
+
+          try {
+            fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'User-Agent': 'CarInjuryClinic-Website/1.0'
+              },
+              body: JSON.stringify(payload)
+            }).catch(err => console.log('Webhook Make.com error (continuando con FormSubmit):', err));
+          } catch (err) {
+            console.log('Error preparando envío a Make.com:', err);
+          }
+
+          // Enviar a FormSubmit tras breve delay (fallback garantizado)
+          setTimeout(() => {
+            try {
+              form.submit();
+            } catch (err) {
+              // Fallback: crear formulario temporal y enviar
+              const tempForm = document.createElement('form');
+              tempForm.action = form.action;
+              tempForm.method = form.method;
+              tempForm.style.display = 'none';
+
+              for (let [key, value] of fd.entries()) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = String(value);
+                tempForm.appendChild(input);
+              }
+
+              const ensureHidden = (name, value) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = value;
+                tempForm.appendChild(input);
+              };
+              ensureHidden('_captcha', 'false');
+              ensureHidden('_next', 'http://localhost:4321/gracias');
+              ensureHidden('_subject', 'Nuevo lead desde el sitio');
+              ensureHidden('_template', 'table');
+
+              document.body.appendChild(tempForm);
+              tempForm.submit();
+            }
+          }, 1200);
         });
       }
     })();
