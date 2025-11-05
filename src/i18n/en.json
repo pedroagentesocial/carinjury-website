@@ -179,7 +179,15 @@
       "message_placeholder": "Tell us about your accident: date, location, type of injuries, etc.",
       "submit": "Send Request",
       "or": "or",
-      "call_now": "Call Now"
+      "call_now": "Call Now",
+      "accept_terms": "I accept the terms of use and privacy policy",
+      "terms_link": "terms of use",
+      "privacy_link": "privacy policy",
+      "and": "and",
+      "accept_terms_required": "You must accept the terms and conditions to continue",
+      "receive_info": "Yes, I would like to receive relevant information about health and wellness services",
+      "receive_info_short": "I wish to receive information about services and updates",
+      "opt_in_consent": "Consent for communications"
     },
     "modal": {
       "title": "Request Sent!",
@@ -670,7 +678,12 @@
       "title": "Thank you for contacting us!",
       "message": "We have received your message and will contact you very soon.",
       "close": "Close"
-    }
+    },
+    "accept_terms": "I accept the terms of use and privacy policy",
+    "terms_link": "terms of use",
+    "privacy_link": "privacy policy",
+    "and": "and",
+    "receive_info_short": "I wish to receive information about services and updates"
   },
   "footer": {
     "copyright": "All rights reserved.",

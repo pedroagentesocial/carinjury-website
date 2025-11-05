@@ -142,6 +142,29 @@ const currentLang = getCurrentLanguage();
             <textarea name="message" rows="3" placeholder={t('hero_lawyer.form.fields.message_placeholder', currentLang)} data-i18n-placeholder="hero_lawyer.form.fields.message_placeholder"></textarea>
           </label>
 
+          <!-- Checkboxes ultra-compactos: términos (requerido) y opt-in (opcional) -->
+          <div class="terms-group">
+            <label class="terms-label">
+              <input id="accept-terms" name="accept_terms" type="checkbox" required class="terms-checkbox" />
+              <span class="terms-text">
+                <span data-i18n="form.accept_terms">{t('form.accept_terms', currentLang)}</span>
+                <span class="links-paren">
+                  (<a href="/privacy#terms" target="_blank" rel="noopener" class="terms-link" data-i18n="form.terms_link">{t('form.terms_link', currentLang)}</a>
+                  <span class="mx-1" data-i18n="form.and">{t('form.and', currentLang)}</span>
+                  <a href="/privacy" target="_blank" rel="noopener" class="terms-link" data-i18n="form.privacy_link">{t('form.privacy_link', currentLang)}</a>)
+                </span>
+              </span>
+            </label>
+            <p class="terms-error" id="terms-error" aria-live="polite">Debe aceptar los términos</p>
+          </div>
+
+          <div class="consent-group">
+            <label class="consent-label">
+              <input id="opt-in" name="marketing_opt_in" type="checkbox" class="consent-checkbox" />
+              <span data-i18n="form.receive_info_short">{t('form.receive_info_short', currentLang)}</span>
+            </label>
+          </div>
+
           <button type="submit" class="btn btn-primary btn-lg btn-fill cta-arrow" id="submit-btn">
             <span data-i18n="hero_lawyer.form.submit_button">{t('hero_lawyer.form.submit_button', currentLang)}</span>
             <svg class="ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
@@ -188,10 +211,37 @@ const currentLang = getCurrentLanguage();
       const form = document.querySelector('.mini');
       const submitBtn = document.getElementById('submit-btn');
       const thankYouMessage = document.getElementById('thank-you-message');
+      const termsBlock = document.querySelector('.terms-group');
+      const consentBlock = document.querySelector('.consent-group');
+      const accept = document.getElementById('accept-terms');
+      const optIn = document.getElementById('opt-in');
+
+      // Validación en tiempo real para el checkbox de términos
+      accept?.addEventListener('change', () => {
+        if (accept.checked) {
+          termsBlock?.classList.remove('error');
+        } else {
+          termsBlock?.classList.add('error');
+        }
+      });
 
       if (form && submitBtn && thankYouMessage) {
         form.addEventListener('submit', function(e) {
           e.preventDefault();
+
+          // Limpiar estado visual previo
+          termsBlock?.classList.remove('error');
+          consentBlock?.classList.remove('error');
+
+          // Validación: términos requerido
+          if (accept && !accept.checked) {
+            termsBlock?.classList.add('error');
+            return; // No continuar si no acepta términos
+          }
+          // Marcar opt-in en rojo si está desmarcado (no bloquea envío)
+          if (optIn && !optIn.checked) {
+            consentBlock?.classList.add('error');
+          }
 
           // Honeypot anti-spam
           const honeypot = form.querySelector('input[name="_honey"]');
@@ -555,6 +605,40 @@ const currentLang = getCurrentLanguage();
 
     /* Oculta fila “¿Quién te recomendó?” cuando no aplica */
     #row-referral.is-hidden{ display:none !important; }
+
+    /* Checkboxes ultra-compactos (8px) */
+    .terms-group,
+    .consent-group{
+      padding: 0.08rem 0.16rem;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background: rgba(255,255,255,0.08);
+      margin-top: 0.12rem;
+    }
+    
+    /* El rectángulo del consent se ajusta al ancho del texto */
+    .consent-group{ display:inline-block; width: fit-content; }
+    
+    /* Checkboxes ultra-compactos (ajustados para mejor legibilidad) */
+    .terms-checkbox,
+    .consent-checkbox{ width:12px; height:12px; margin-top:0; vertical-align:middle; }
+    
+    /* Mensaje de error de términos */
+    .terms-error{
+      display:none;
+      color:#dc2626;
+      font-size:0.75rem; /* ~12px */
+      line-height:1.2;
+      margin-top:0.25rem;
+    }
+    .terms-group.error .terms-error{ display:block; }
+    .terms-text{ display:inline; flex: 1; min-width: 0; }
+    .links-paren{ color: var(--muted); opacity: 0.9; font-size: 0.62rem; margin-left: 0.15rem; }
+    .terms-checkbox,
+    .consent-checkbox{ width:8px; height:8px; margin-top:0; vertical-align:middle; }
+    .terms-link{ color: var(--brand-700); text-decoration: underline; }
+    .terms-group.error,
+    .consent-group.error{ border-color:#dc2626; background: rgba(220,38,38,0.12); }
 
     /* Accesibilidad visual-only helpers */
     .visually-hidden{

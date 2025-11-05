@@ -179,7 +179,15 @@
       "message_placeholder": "Cuéntanos sobre tu accidente: fecha, ubicación, tipo de lesiones, etc.",
       "submit": "Enviar Solicitud",
       "or": "o",
-      "call_now": "Llamar Ahora"
+      "call_now": "Llamar Ahora",
+      "accept_terms": "Acepto los términos de uso y la política de privacidad",
+      "terms_link": "términos de uso",
+      "privacy_link": "política de privacidad",
+      "and": "y",
+      "accept_terms_required": "Debe aceptar los términos y condiciones para continuar",
+      "receive_info": "Sí, me gustaría recibir información relevante sobre servicios de salud y bienestar",
+      "receive_info_short": "Deseo recibir información sobre servicios y novedades",
+      "opt_in_consent": "Consentimiento para comunicaciones"
     },
     "modal": {
       "title": "¡Solicitud Enviada!",
@@ -670,7 +678,12 @@
       "title": "¡Gracias por contactarnos!",
       "message": "Hemos recibido tu mensaje y nos pondremos en contacto contigo muy pronto.",
       "close": "Cerrar"
-    }
+    },
+    "accept_terms": "Acepto los términos de uso y la política de privacidad",
+    "terms_link": "términos de uso",
+    "privacy_link": "política de privacidad",
+    "and": "y",
+    "receive_info_short": "Deseo recibir información sobre servicios y novedades"
   },
   "footer": {
     "copyright": "Todos los derechos reservados.",

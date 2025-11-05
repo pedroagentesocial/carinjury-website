@@ -108,6 +108,7 @@ const currentLang = getCurrentLanguage();
                 accept-charset="UTF-8"
                 autocomplete="on"
                 novalidate
+                data-msg-terms-required={t('schedule_page.form.accept_terms_required', currentLang)}
               >
                 <!-- honeypot anti-spam -->
                 <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" />
@@ -149,6 +150,27 @@ const currentLang = getCurrentLanguage();
                   <label for="message" class="form-label" data-i18n="schedule_page.form.message">{t('schedule_page.form.message', currentLang)} *</label>
                   <textarea id="message" name="message" rows="4" class="form-textarea" required
                     data-i18n-placeholder="schedule_page.form.message_placeholder" placeholder={t('schedule_page.form.message_placeholder', currentLang)}></textarea>
+                </div>
+
+                <div class="form-group form-group-full terms-group">
+                  <label class="terms-label">
+                    <input id="accept-terms" name="accept_terms" type="checkbox" required class="terms-checkbox" />
+                    <span>
+                      {t('schedule_page.form.accept_terms', currentLang)}
+                      (
+                      <a href="/privacy#terms" target="_blank" rel="noopener" class="terms-link">{t('schedule_page.form.terms_link', currentLang)}</a>
+                      {" "}{t('schedule_page.form.and', currentLang)}{" "}
+                      <a href="/privacy" target="_blank" rel="noopener" class="terms-link">{t('schedule_page.form.privacy_link', currentLang)}</a>
+                      )
+                    </span>
+                  </label>
+                </div>
+
+                <div class="form-group form-group-full consent-group">
+                  <label class="consent-label">
+                    <input id="opt-in" name="marketing_opt_in" type="checkbox" class="consent-checkbox" />
+                    <span>{t('schedule_page.form.receive_info_short', currentLang)}</span>
+                  </label>
                 </div>
 
                 <div class="form-actions">
@@ -540,6 +562,57 @@ const currentLang = getCurrentLanguage();
     min-height: 120px;
   }
 
+  .terms-group,
+   .consent-group {
+     padding: 0.22rem 0.35rem;
+     border: 1px solid var(--gray-200);
+     border-radius: 6px;
+     background: var(--gray-50);
+     margin-top: 0.22rem;
+   }
+ 
+   .terms-label,
+   .consent-label {
+     display: flex;
+     align-items: flex-start;
+     gap: 0.38rem;
+     font-size: 0.72rem;
+     color: var(--gray-700);
+     line-height: 1.28;
+   }
+ 
+   .terms-checkbox,
+   .consent-checkbox {
+     width: 11px;
+     height: 11px;
+     margin-top: 0.1rem;
+   }
+
+  .terms-link {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+
+  /* Estado de error visual */
+  .terms-group.error,
+  .consent-group.error {
+    border-color: #dc2626; /* rojo */
+    background: #fef2f2;
+  }
+
+  .consent-hint {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--gray-500);
+  }
+
+  .terms-error {
+    margin-top: 0.5rem;
+    color: #991b1b;
+    font-weight: 600;
+    display: none;
+  }
+
   .form-actions {
     margin-top: 1rem;
     display: flex;
@@ -796,6 +869,28 @@ const currentLang = getCurrentLanguage();
     const dialog = document.getElementById('success-dialog');
 
     async function handleSubmit(ev) {
+      // Validación de aceptación de términos
+      const accept = document.getElementById('accept-terms');
+      const optIn = document.getElementById('opt-in');
+      const termsBlock = form.querySelector('.terms-group');
+      const consentBlock = form.querySelector('.consent-group');
+      // limpiar estado visual
+      if (termsBlock) termsBlock.classList.remove('error');
+      if (consentBlock) consentBlock.classList.remove('error');
+      // validar requerido
+      if (accept && !accept.checked) {
+        ev.preventDefault();
+        // estado rojo visual
+        if (termsBlock) termsBlock.classList.add('error');
+        msg.textContent = form.getAttribute('data-msg-terms-required') || 'You must accept terms to continue.';
+        msg.className = 'form-message error';
+        msg.style.display = 'block';
+        return;
+      }
+      // marcar visualmente opt-in si está desmarcado (no bloquea envío)
+      if (optIn && !optIn.checked && consentBlock) {
+        consentBlock.classList.add('error');
+      }
       ev.preventDefault();
       if (!form.reportValidity()) return;
 
