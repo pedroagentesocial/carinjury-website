@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          PUBLIC_WEBHOOK_URL: ${{ secrets.PUBLIC_WEBHOOK_URL }}
+          PUBLIC_WEBHOOK_URL: https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
