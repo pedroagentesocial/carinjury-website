@@ -1,0 +1,713 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "about": "Nosotros",
+    "faq": "FAQ",
+    "contact": "Contacto",
+    "schedule": "Agendar",
+    "phone": "Llamar Ahora",
+    "language": "English",
+    "cta": "Agendar",
+    "legal_assistance": "Asistencia legal",
+    "patients": "Pacientes",
+    "form": "Formulario",
+    "frequent_questions": "Preguntas frecuentes",
+    "schedule_online": "Agenda en línea",
+    "services_dropdown": {
+      "chiropractic": "Quiropráctica",
+      "rehabilitation": "Rehabilitación de Lesiones",
+      "physical_therapy": "Terapia Física",
+      "hot_cold_therapy": "Terapia Frío/Calor",
+      "massage": "Terapia de Masaje",
+      "ultrasound": "Terapia de Ultrasonido",
+      "tens": "Estimulación eléctrica (TENS)",
+      "second_opinions": "Segundas opiniones",
+      "xray": "Radiografías digitales (X-Ray)",
+      "mri": "Solicitud de MRI y lectura de resultados",
+      "pain_management": "Especialista en manejo del dolor",
+      "surgical_consultations": "Consultas quirúrgicas con especialista",
+      "concussion": "Diagnóstico de conmoción",
+      "free_transport": "Transporte sin costo",
+      "trilingual": "Atención Trilingüe"
+    }
+  },
+  "formulario_page": {
+    "hero": {
+      "title": "Formulario de Referencia de Paciente",
+      "subtitle": "Complete la información del paciente para su referencia médica"
+    },
+    "patient_info": {
+      "title": "Información del Paciente",
+      "first_name": "Nombre",
+      "middle_name": "Segundo Nombre",
+      "last_name": "Apellido",
+      "date_of_birth": "Fecha de Nacimiento",
+      "gender": "Género",
+      "gender_select": "Seleccionar género",
+      "gender_male": "Masculino",
+      "gender_female": "Femenino",
+      "gender_other": "Otro",
+      "age": "Edad"
+    },
+    "address": {
+      "title": "Dirección",
+      "address": "Dirección",
+      "address2": "Dirección 2 (Opcional)",
+      "city": "Ciudad",
+      "state": "Estado/Condado",
+      "zip": "Código Postal"
+    },
+    "patient_contact": {
+      "title": "Información de Contacto del Paciente",
+      "home_phone": "Número de Casa",
+      "cell_phone": "Número de Celular",
+      "work_phone": "Número de Trabajo",
+      "email": "Correo Electrónico"
+    },
+    "incident_info": {
+      "title": "Información del Incidente",
+      "accident_type": "¿Cómo ocurrió el accidente?",
+      "type_car": "Auto",
+      "type_bicycle": "Bicicleta",
+      "type_motorcycle": "Motocicleta",
+      "type_pedestrian": "Peatón",
+      "type_other": "Otro",
+      "other_specify": "Especifique el tipo de accidente:",
+      "legal_representation": "¿Tiene representación legal?",
+      "legal_specify": "Especifique cuál:",
+      "accident_date": "Fecha del Accidente",
+      "additional_notes": "Notas Adicionales"
+    },
+    "referral_info": {
+      "title": "Información del Referido",
+      "first_name": "Nombre",
+      "last_name": "Apellido",
+      "cell_phone": "Número de Celular",
+      "email": "Correo Electrónico"
+    },
+    "authenticity": {
+      "title": "Declaración de Autenticidad",
+      "statement": "Afirmo que he completado este formulario con la mejor de mis habilidades y reconozco que lo he hecho honestamente. Al aplicar mi nombre escrito digitalmente bajo pena de perjurio, afirmo que fui yo quien completó la información y no lo hice en un intento de defraudar a Car Injury Clinic® o sus compañías afiliadas y compañías de seguros.",
+      "consent_checkbox_new": "Entiendo que mis datos personales serán tratados de forma segura y confidencial, y acepto la",
+      "privacy_policy": "política de privacidad"
+    },
+    "signature": {
+      "signature_canvas": "Firma Digital",
+      "signature_placeholder": "Firme aquí con su dedo o mouse",
+      "clear": "Limpiar",
+      "signature_required": "La firma es requerida para enviar el formulario"
+    },
+    "submit": {
+      "button": "Enviar Formulario",
+      "success": "Formulario enviado exitosamente. Nos pondremos en contacto pronto.",
+      "error": "Error al enviar el formulario. Por favor, inténtelo de nuevo."
+    }
+  },
+  "hero": {
+    "slides": {
+      "slide1": {
+        "title": "¿Accidente de auto? Tu salud es primero",
+        "subtitle": "Aceptamos todos los seguros. Clínica especializada en rehabilitación. Citas el mismo día.",
+        "cta": "Llama Ahora"
+      },
+      "slide2": {
+        "title": "No estás solo después de un accidente",
+        "subtitle": "Especialistas certificados, bilingües y comprometidos con tu bienestar.",
+        "cta": "Hablar con un Especialista"
+      },
+      "slide3": {
+        "title": "Top-rated en Utah para recuperación post-accidente",
+        "subtitle": "Seguimiento clínico continuo y terapia enfocada en resultados.",
+        "cta": "Agendar Evaluación"
+      }
+    },
+    "controls": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "toggle_sound": "Alternar sonido",
+      "mute": "Silenciar",
+      "unmute": "Activar sonido"
+    }
+  },
+  "gracias_page": {
+    "title": "¡Gracias!",
+    "message": "Hemos recibido tu mensaje y te contactaremos a la brevedad.",
+    "back_home": "Volver al inicio",
+    "call_now": "Llamar ahora"
+  },
+  "schedule_page": {
+    "hero": {
+      "badge": "Agenda Hoy Mismo",
+      "title": "Consulta Gratuita",
+      "subtitle": "Sin Compromiso",
+      "description": "Evaluación profesional de tu caso • Respuesta en minutos • Equipo bilingüe"
+    },
+    "clinic": {
+      "badge": "Clínica Especializada"
+    },
+    "benefits": {
+      "free_consultation": {
+        "title": "Consulta Gratuita",
+        "description": "Sin costo inicial ni compromiso"
+      },
+      "same_day": {
+        "title": "Cita el Mismo Día",
+        "description": "Atención inmediata disponible"
+      },
+      "bilingual": {
+        "title": "Equipo Bilingüe",
+        "description": "Atención en español e inglés"
+      },
+      "experience": {
+        "title": "Experiencia Comprobada",
+        "description": "Miles de casos exitosos"
+      }
+    },
+    "form": {
+      "title": "Agenda tu Consulta",
+      "subtitle": "Completa el formulario y te contactaremos en minutos",
+      "name": "Nombre",
+      "name_placeholder": "Tu nombre",
+      "lastname": "Apellido",
+      "lastname_placeholder": "Tu apellido",
+      "email": "Email",
+      "email_placeholder": "tu@email.com",
+      "phone": "Teléfono",
+      "phone_title": "Usa un número válido de 10 dígitos",
+      "message": "¿En qué necesitas ayuda?",
+      "message_placeholder": "Cuéntanos sobre tu accidente: fecha, ubicación, tipo de lesiones, etc.",
+      "submit": "Enviar Solicitud",
+      "or": "o",
+      "call_now": "Llamar Ahora"
+    },
+    "modal": {
+      "title": "¡Solicitud Enviada!",
+      "message": "Recibimos tu mensaje. Te contactaremos en minutos.",
+      "close": "Cerrar"
+    }
+  },
+  "services": {
+    "left": {
+      "title": "Terapia Física & Quiropráctica",
+      "description": "Programas personalizados con terapeutas y quiroprácticos certificados para aliviar el dolor y recuperar tu movilidad."
+    },
+    "right": {
+      "title": "Asistencia Legal & Reclamo",
+      "description": "Gestionamos todos los trámites y tratamos con tu aseguradora para que recibas una compensación adecuada, sin estrés."
+    },
+    "cta": {
+      "badge": "¡Nuevo paciente!",
+      "subtitle": "Primera consulta sin costo",
+      "button": "Agenda tu cita"
+    }
+  },
+  "form": {
+    "title": {
+      "line1": "Clínica Líder",
+      "line2": "en Rehabilitación",
+      "line3": "en Salt Lake City"
+    },
+    "description": {
+      "main": "Recupera tu bienestar con tratamientos especializados y tecnología médica avanzada.",
+      "highlight": "Tu salud es nuestra prioridad."
+    },
+    "why_choose_us": "¿Por qué elegirnos?",
+    "benefits": {
+      "xray": "X-Ray el mismo día",
+      "same_day": "Consulta el Mismo Día",
+      "experienced_team": "Equipo de doctores con amplia experiencia",
+      "lawyer_support": "Trabajamos con tu abogado o te recomendamos uno si lo necesitas",
+      "insurance_process": "Llevamos el proceso con tu aseguradora",
+      "advanced_treatments": "Tratamientos avanzados con equipos modernos",
+      "free_transport": "Transporte sin costo de ida y vuelta a la clínica",
+      "multilingual": "Hablamos español, inglés y portugués"
+    },
+    "schedule_button": "Agenda tu cita",
+    "form_title": "Agenda Tu Cita",
+    "form_subtitle": "Llama ahora o completa el formulario para programar tu visita.",
+    "call_label": "Llama",
+    "fields": {
+      "name": "Nombre",
+      "email": "Email",
+      "phone": "Teléfono",
+      "how_found": "¿Cómo nos encontraste?",
+      "select_option": "Selecciona…",
+      "who_referred": "¿Quién te recomendó?",
+      "referral_placeholder": "Nombre de la persona / abogado / clínica",
+      "message": "¿Algo que debamos saber?",
+      "message_placeholder": "Dolor de cuello / espalda, latigazo, etc."
+    },
+    "submit_button": "Solicitar Cita",
+    "sending": "Enviando..."
+  },
+  "hero_services": {
+    "badge": "Servicios Especializados",
+    "title": "Atención Médica Integral para Víctimas de Accidentes",
+    "subtitle": "Tecnología de vanguardia y terapias especializadas para tu recuperación completa. Sin costo de bolsillo con cobertura de seguro calificada."
+  },
+  "hero_lawyer": {
+    "badge": "Aprobado por Abogados",
+    "title": "Tu guía del accidente a la recuperación",
+    "subtitle": {
+      "main": "Comienza tu tratamiento con una",
+      "highlight": "evaluación gratuita",
+      "end": "para las lesiones por accidente de auto. Diagnóstico preciso y coordinación legal."
+    },
+    "benefits_label": "Beneficios clave",
+    "benefits": {
+      "free_evaluation": "Evaluación gratuita con nuestros profesionales",
+      "insurance_handling": "Llevamos el caso con tu aseguradora",
+      "legal_support": "Te acompañamos en el proceso legal",
+      "specialist_referral": "Derivación a especialistas de acuerdo a tu tratamiento"
+    },
+    "actions_label": "Acción principal",
+    "schedule_button": "Agenda tu consulta con un especialista",
+    "call_now": "Llamar ahora al",
+    "form": {
+      "title": "Reserva tu consulta",
+      "subtitle": "Evaluación gratuita en menos de 24 h",
+      "free_badge": "Sin costo",
+      "fields": {
+        "name": "Nombre",
+        "email": "Email",
+        "phone": "Teléfono",
+        "how_found": "¿Cómo nos encontraste?",
+        "select_option": "Selecciona…",
+        "who_referred": "¿Quién te recomendó?",
+        "referral_placeholder": "Nombre de la persona / abogado / clínica",
+        "message": "¿Algo que debamos saber?",
+        "message_placeholder": "Dolor de cuello / espalda, latigazo, etc."
+      },
+      "submit_button": "¡Quiero empezar mi recuperación!"
+    }
+  },
+  "testimonials": {
+    "title": {
+      "main": "Historias de",
+      "accent": "Éxito"
+    },
+    "subtitle": "Testimonios reales de pacientes que recuperaron su calidad de vida",
+    "view_more": "Ver más reseñas"
+  },
+  "map_contact": {
+    "info_label": "Información",
+    "hours_label": "Horarios de atención",
+    "days": {
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    },
+    "closed": "Cerrado",
+    "phone_label": "Tel",
+    "email_label": "E-mail",
+    "call_now": "Llamar ahora",
+    "social_label": "Redes sociales"
+  },
+  "process_steps": {
+    "section_label": "Sección",
+    "subtitle": "Nuestro Proceso",
+    "title": "Cómo Te Ayudamos",
+    "description": "Seguimos un proceso estructurado para asegurar que obtengas la compensación que mereces",
+    "steps_label": "Pasos del proceso legal",
+    "step_label": "Paso número",
+    "steps": {
+      "step1": {
+        "title": "Consulta Gratuita",
+        "description": "Evaluamos tu caso sin costo alguno. Analizamos los detalles del accidente y determinamos la viabilidad de tu reclamo."
+      },
+      "step2": {
+        "title": "Investigación Completa",
+        "description": "Recopilamos evidencia, revisamos reportes médicos y policiales, y construimos un caso sólido para maximizar tu compensación."
+      },
+      "step3": {
+        "title": "Negociación Experta",
+        "description": "Negociamos agresivamente con las compañías de seguros para obtener el mejor acuerdo posible para tu caso."
+      },
+      "step4": {
+        "title": "Compensación Justa",
+        "description": "Te ayudamos a obtener la compensación completa que mereces por tus lesiones, gastos médicos y pérdida de ingresos."
+      }
+    }
+  },
+  "legal_services": {
+    "badge": "Servicios legales",
+    "title": "Aprobado por Abogados",
+    "description": "En Car Injury Clinic, nos distinguimos por ser la opción de confianza para los defensores de tus derechos que buscan atención médica segura y profesional para sus clientes involucrados en un accidente de auto.",
+    "cta_text": "Reservar consulta",
+    "services": {
+      "insurance": {
+        "title": "Reclamo a la aseguradora",
+        "description": "Gestionamos tu caso y mantenemos comunicación directa con tu aseguradora. Buscando la compensación más justa para ti.",
+        "cta_label": "Reservar consulta para reclamo a la aseguradora",
+        "features": {
+          "complete_process": "Trámite completo del reclamo",
+          "evidence_monitoring": "Monitoreo de evidencias y respuestas",
+          "real_time_updates": "Actualización de tu caso en tiempo real"
+        }
+      },
+      "legal": {
+        "title": "Asistencia legal",
+        "description": "Trámites y documentos siempre en regla. Te guiamos en cada paso asegurando tus derechos y que obtengas justicia.",
+        "cta_label": "Reservar consulta para asistencia legal",
+        "features": {
+          "lawyer_catalog": "Amplio catálogo de abogados",
+          "direct_communication": "Comunicación directa",
+          "rights_defense": "Defensa firme de tus derechos"
+        }
+      },
+      "representation": {
+        "title": "Acuerdos y representación",
+        "description": "Representamos tus intereses en cada etapa para alcanzar acuerdos justos y sostenibles. Recibes acompañamiento estratégico y comunicación transparente en todo momento.",
+        "cta_label": "Reservar consulta para acuerdos y representación",
+        "features": {
+          "clear_negotiations": "Negociaciones claras y efectivas",
+          "adequate_treatment": "Tratamiento adecuado a tus necesidades",
+          "professional_guidance": "Orientación profesional en decisiones claves"
+        }
+      }
+    }
+  },
+  "stats": {
+    "badge": "Nuestros Resultados",
+    "title": "Resultados que respaldan",
+    "subtitle": "Experiencia, eficacia y seguimiento real de casos.",
+    "cases": {
+      "label": "Casos atendidos con éxito"
+    },
+    "compensation": {
+      "label": "Máxima compensación reclamada"
+    },
+    "experience": {
+      "label": "Años de experiencia"
+    }
+  },
+  "final_cta": {
+    "title": "Tu caso avanza. Tú descansas.",
+    "subtitle": "Agenda tu consulta gratuita y empecemos hoy mismo.",
+    "schedule_button": "Reservar consulta",
+    "schedule_label": "Reservar consulta gratuita",
+    "phone_number": "+1 (385) 242-8571"
+  },
+  "floating_buttons": {
+    "phone": {
+      "aria_label": "Llamar ahora",
+      "tooltip": "Llamar ahora"
+    },
+    "schedule": {
+      "aria_label": "Agendar cita",
+      "tooltip": "Agenda en línea"
+    },
+    "help": {
+      "aria_label": "Preguntas frecuentes",
+      "tooltip": "Ayuda"
+    }
+  },
+  "about_video": {
+    "title": "Clínica de Accidentes\nMejor Calificada\nen Salt Lake City",
+    "tagline": "Alivia tu dolor y recupérate con terapias y tecnología de élite.",
+    "contact_button": "Contáctanos"
+  },
+  "faq_page": {
+    "meta_title": "Preguntas Frecuentes - Car Injury Clinic",
+    "hero": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "Encuentra respuestas a las preguntas más comunes sobre accidentes de auto y lesiones personales"
+    },
+    "intro": {
+      "title": "¿Tienes preguntas sobre tu caso?",
+      "description": "Aquí encontrarás respuestas a las preguntas más frecuentes sobre accidentes de auto, lesiones personales y el proceso legal. Si no encuentras la respuesta que buscas, no dudes en contactarnos directamente."
+    },
+    "questions": {
+      "q1": {
+        "question": "¿Cuánto tiempo tengo para presentar una demanda por accidente de auto?",
+        "answer": "En la mayoría de los estados, tienes entre 2 y 3 años desde la fecha del accidente para presentar una demanda por lesiones personales. Sin embargo, este plazo puede variar según el estado y las circunstancias específicas de tu caso. Es importante consultar con un abogado lo antes posible para proteger tus derechos."
+      },
+      "q2": {
+        "question": "¿Qué debo hacer inmediatamente después de un accidente de auto?",
+        "answer": "Después de un accidente, es crucial: 1) Verificar si hay heridos y llamar al 911 si es necesario, 2) Documentar la escena con fotos, 3) Intercambiar información con el otro conductor, 4) Obtener información de testigos, 5) Reportar el accidente a tu compañía de seguros, y 6) Buscar atención médica incluso si no sientes dolor inmediatamente."
+      },
+      "q3": {
+        "question": "¿Cuánto puede valer mi caso de accidente de auto?",
+        "answer": "El valor de tu caso depende de varios factores: la gravedad de tus lesiones, gastos médicos, pérdida de ingresos, dolor y sufrimiento, y el grado de culpa del otro conductor. Cada caso es único, y un abogado experimentado puede evaluar tu situación específica para darte una estimación más precisa."
+      },
+      "q4": {
+        "question": "¿Necesito un abogado para mi caso de accidente de auto?",
+        "answer": "Aunque no es obligatorio, es altamente recomendable contratar un abogado, especialmente si hay lesiones significativas, disputas sobre la culpa, o si la compañía de seguros ofrece un acuerdo bajo. Un abogado puede maximizar tu compensación y manejar las complejidades legales mientras te recuperas."
+      },
+      "q5": {
+        "question": "¿Qué pasa si el otro conductor no tiene seguro?",
+        "answer": "Si el otro conductor no tiene seguro, aún tienes opciones: puedes usar tu cobertura de motorista sin seguro (si la tienes), presentar una demanda directamente contra el conductor, o explorar otras fuentes de compensación. Un abogado puede ayudarte a identificar todas las opciones disponibles en tu situación."
+      },
+      "q6": {
+        "question": "¿Cuánto cuesta contratar un abogado de accidentes de auto?",
+        "answer": "La mayoría de los abogados de accidentes de auto trabajan con honorarios de contingencia, lo que significa que solo cobran si ganan tu caso. Típicamente, esto representa entre el 33% y 40% del acuerdo final. No pagas nada por adelantado, y si no hay recuperación, no hay honorarios."
+      },
+      "q7": {
+        "question": "¿Qué tipos de daños puedo reclamar después de un accidente de auto?",
+        "answer": "Puedes reclamar daños económicos (gastos médicos, pérdida de ingresos, daños a la propiedad) y daños no económicos (dolor y sufrimiento, angustia emocional, pérdida de disfrute de la vida). En casos de negligencia grave, también podrían aplicar daños punitivos."
+      },
+      "q8": {
+        "question": "¿Qué pasa si fui parcialmente culpable del accidente?",
+        "answer": "Dependiendo de las leyes de tu estado, aún podrías tener derecho a compensación. Algunos estados siguen la regla de negligencia comparativa, donde tu compensación se reduce por tu porcentaje de culpa. Otros estados tienen reglas de negligencia contributiva más estrictas."
+      },
+      "q9": {
+        "question": "¿Cuánto tiempo toma resolver un caso de accidente de auto?",
+        "answer": "El tiempo varía significativamente dependiendo de la complejidad del caso. Los casos simples pueden resolverse en unos pocos meses, mientras que los casos complejos con lesiones graves pueden tomar de 1 a 3 años o más. Tu abogado puede darte una estimación más específica basada en tu situación particular."
+      }
+    },
+    "contact": {
+      "table_label": "Información de contacto y horarios",
+      "hours_label": "Horarios:",
+      "weekdays": "Lunes - Viernes:",
+      "saturday": "Sábado:",
+      "sunday": "Domingo:",
+      "monday": "Lunes:",
+      "tuesday": "Martes:",
+      "wednesday": "Miércoles:",
+      "thursday": "Jueves:",
+      "friday": "Viernes:",
+      "closed": "Cerrado"
+    }
+  },
+  "services_page": {
+    "service_label": "Servicio",
+    "schedule_evaluation": "Agendar evaluación",
+    "items": {
+      "chiropractic": {
+        "title": "Terapia Quiropráctica",
+        "description": "Ajustes y manipulaciones espinales para aliviar el dolor y mejorar la movilidad después de accidentes de auto.",
+        "benefits": [
+          "Alivio del dolor sin medicamentos",
+          "Mejora de la alineación espinal",
+          "Aumento del rango de movimiento",
+          "Aceleración de la curación natural"
+        ]
+      },
+      "rehabilitation": {
+        "title": "Rehabilitación de Lesiones",
+        "description": "Programas de rehabilitación integral diseñados específicamente para lesiones por accidentes de auto.",
+        "benefits": [
+          "Planes de tratamiento personalizados",
+          "Recuperación gradual de la fuerza",
+          "Restauración del movimiento funcional",
+          "Prevención de complicaciones crónicas"
+        ]
+      },
+      "physical_therapy": {
+        "title": "Terapia Física",
+        "description": "Ejercicios terapéuticos y técnicas para restaurar la fuerza, flexibilidad y función.",
+        "benefits": [
+          "Fortalecimiento muscular",
+          "Mejora de la flexibilidad",
+          "Equilibrio y coordinación",
+          "Reducción del dolor"
+        ]
+      },
+      "hot_cold_therapy": {
+        "title": "Terapia Frío/Calor",
+        "description": "Tratamientos térmicos que ayudan a reducir la inflamación y aliviar el dolor muscular.",
+        "benefits": [
+          "Reducción de la inflamación",
+          "Relajación muscular",
+          "Mejora de la circulación",
+          "Alivio natural del dolor"
+        ]
+      },
+      "massage": {
+        "title": "Terapia de Masaje",
+        "description": "Masajes terapéuticos para aliviar la tensión muscular y mejorar la circulación.",
+        "benefits": [
+          "Alivio de la tensión muscular",
+          "Reducción del estrés",
+          "Mejora de la circulación",
+          "Aceleración de la recuperación"
+        ]
+      },
+      "ultrasound": {
+        "title": "Terapia de Ultrasonido",
+        "description": "Ondas sonoras que penetran en los tejidos profundos para promover la curación y reducir el dolor.",
+        "benefits": [
+          "Curación de tejidos profundos",
+          "Reducción de la inflamación",
+          "Mejora del flujo sanguíneo",
+          "Tratamiento no invasivo"
+        ]
+      },
+      "tens": {
+        "title": "Estimulación Eléctrica (TENS)",
+        "description": "Impulsos eléctricos que ayudan a controlar el dolor y estimular la recuperación muscular.",
+        "benefits": [
+          "Control efectivo del dolor",
+          "Estimulación muscular",
+          "Mejora de la función",
+          "Tratamiento libre de medicamentos"
+        ]
+      },
+      "second_opinions": {
+        "title": "Segundas Opiniones",
+        "description": "Evaluaciones médicas adicionales para asegurar que recibas el tratamiento más apropiado.",
+        "benefits": [
+          "Confirmación del tratamiento",
+          "Opciones alternativas",
+          "Tranquilidad mental",
+          "Decisiones informadas"
+        ]
+      },
+      "xray": {
+        "title": "Radiografías Digitales",
+        "description": "Tecnología de imagen avanzada para el diagnóstico preciso de lesiones óseas y articulares.",
+        "benefits": [
+          "Diagnóstico preciso",
+          "Resultados el mismo día",
+          "Menor radiación",
+          "Almacenamiento digital"
+        ]
+      },
+      "mri": {
+        "title": "Solicitud de MRI y Lectura de Resultados",
+        "description": "Coordinación de resonancia magnética e interpretación profesional de los resultados.",
+        "benefits": [
+          "Imagen detallada de tejidos blandos",
+          "Interpretación experta",
+          "Planificación del tratamiento",
+          "Monitoreo del progreso"
+        ]
+      },
+      "pain_management": {
+        "title": "Especialista en Manejo del Dolor",
+        "description": "Atención médica especializada para el manejo del dolor crónico y tratamientos avanzados.",
+        "benefits": [
+          "Control del dolor crónico",
+          "Técnicas avanzadas",
+          "Mejora de la calidad de vida",
+          "Enfoque multidisciplinario"
+        ]
+      },
+      "surgical_consultations": {
+        "title": "Consultas Quirúrgicas con Especialista",
+        "description": "Evaluaciones con especialistas quirúrgicos cuando el tratamiento conservador no es suficiente.",
+        "benefits": [
+          "Evaluación quirúrgica experta",
+          "Opciones de tratamiento",
+          "Decisiones informadas",
+          "Atención especializada"
+        ]
+      },
+      "concussion": {
+        "title": "Diagnóstico de Conmoción",
+        "description": "Evaluación y tratamiento especializado para lesiones cerebrales traumáticas por accidentes de auto.",
+        "benefits": [
+          "Diagnóstico preciso",
+          "Evaluación cognitiva",
+          "Monitoreo de la recuperación",
+          "Tratamiento especializado"
+        ]
+      },
+      "free_transport": {
+        "title": "Transporte Sin Costo",
+        "description": "Servicio de transporte de ida y vuelta para asegurar que puedas asistir a todas tus citas.",
+        "benefits": [
+          "Sin preocupaciones de transporte",
+          "Servicio puntual",
+          "Vehículos cómodos",
+          "Sin costo adicional"
+        ]
+      },
+      "trilingual": {
+        "title": "Atención Trilingüe",
+        "description": "Atención médica en español, inglés y portugués para una mejor comunicación.",
+        "benefits": [
+          "Comunicación clara",
+          "Comprensión cultural",
+          "Comodidad y confianza",
+          "Sin barreras del idioma"
+        ]
+      }
+    }
+  },
+  "aboutus_page": {
+    "meta_title": "Nosotros - Car Injury Clinic",
+    "hero": {
+      "title": "Acerca de Car Injury Clinic",
+      "subtitle": "Tu socio de confianza en la recuperación después de accidentes de auto"
+    },
+    "intro": {
+      "title": "Quiénes Somos",
+      "description": "Car Injury Clinic es un centro médico especializado dedicado al tratamiento de lesiones resultantes de accidentes de auto. Con años de experiencia y un equipo multidisciplinario, brindamos atención integral desde la evaluación inicial hasta la recuperación completa."
+    },
+    "mission": {
+      "title": "Nuestra Misión",
+      "description": "Brindar atención médica excepcional a las víctimas de accidentes de auto, ayudándoles a recuperar su salud y calidad de vida a través de tratamientos personalizados y tecnología de vanguardia."
+    },
+    "values": {
+      "title": "Nuestros Valores",
+      "items": {
+        "excellence": {
+          "title": "Excelencia Médica",
+          "description": "Mantenemos los más altos estándares de atención médica con profesionales certificados y tecnología avanzada."
+        },
+        "compassion": {
+          "title": "Compasión",
+          "description": "Entendemos el impacto físico y emocional de los accidentes y brindamos atención con empatía y comprensión."
+        },
+        "integrity": {
+          "title": "Integridad",
+          "description": "Actuamos con honestidad y transparencia en todas nuestras interacciones con pacientes y sus familias."
+        },
+        "innovation": {
+          "title": "Innovación",
+          "description": "Incorporamos continuamente los últimos avances en medicina y tecnología para mejorar nuestros tratamientos."
+        }
+      }
+    },
+    "team": {
+      "title": "Nuestro Equipo",
+      "description": "Nuestro equipo multidisciplinario está compuesto por médicos, quiroprácticos, fisioterapeutas y personal de apoyo, todos especializados en el tratamiento de lesiones por accidentes de auto."
+    },
+    "facilities": {
+      "title": "Nuestras Instalaciones",
+      "description": "Contamos con instalaciones modernas equipadas con la última tecnología para diagnóstico y tratamiento, diseñadas para brindar un ambiente cómodo y seguro para nuestros pacientes."
+    }
+  },
+  "feature_icons": {
+    "title": "¿Por qué elegir Car Injury Clinic?",
+    "subtitle": "Ofrecemos atención integral con los más altos estándares de calidad",
+    "items": {
+      "same_day": {
+        "title": "Citas el Mismo Día",
+        "description": "Atención inmediata cuando más la necesitas"
+      },
+      "insurance": {
+        "title": "Aceptamos Todos los Seguros",
+        "description": "Manejamos el papeleo con tu compañía de seguros"
+      },
+      "bilingual": {
+        "title": "Equipo Bilingüe",
+        "description": "Atención en español e inglés"
+      },
+      "experience": {
+        "title": "Experiencia Comprobada",
+        "description": "Miles de casos exitosos"
+      },
+      "technology": {
+        "title": "Tecnología Avanzada",
+        "description": "Equipos modernos para diagnóstico preciso"
+      },
+      "transport": {
+        "title": "Transporte Gratuito",
+        "description": "Te recogemos y te llevamos de vuelta a casa"
+      }
+    }
+  },
+  "legal_video": {
+    "title": "Apoyo Legal",
+    "subtitle": "Trabajamos con tu abogado para asegurar que recibas una compensación justa",
+    "description": "Nuestro equipo se coordina con profesionales legales para documentar tus lesiones y tratamiento, brindando el apoyo necesario para tu caso legal.",
+    "cta": "Saber Más"
+  }
+}

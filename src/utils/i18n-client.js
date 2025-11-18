@@ -100,6 +100,7 @@ class I18nClient {
   updateAllTranslations() {
     // Actualizar todos los elementos con data-i18n
     document.querySelectorAll('[data-i18n]').forEach(element => {
+      if (element.id === 'form-submit-text') return;
       const key = element.getAttribute('data-i18n');
       const translation = this.t(key);
       
@@ -199,12 +200,12 @@ class I18nClient {
 
   updateFormTexts() {
     // Actualizar textos específicos del botón de envío
-    const submitBtn = document.getElementById('submit-btn');
-    const submitText = document.getElementById('submit-text');
+    const submitText = document.getElementById('form-submit-text');
     const loadingText = document.getElementById('loading-text');
     
     if (submitText) {
-      submitText.textContent = this.t('form.submit_button');
+      const txt = this.t('form.submit');
+      submitText.textContent = typeof txt === 'string' && !txt.includes('.') ? txt : (this.currentLang === 'en' ? 'Send' : 'Enviar');
     }
     
     if (loadingText) {

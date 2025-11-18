@@ -76,6 +76,13 @@
       "other_specify": "Especifique el tipo de accidente:",
       "legal_representation": "¿Tiene representación legal?",
       "legal_specify": "Especifique cuál:",
+      "legal_yes": "Sí",
+      "legal_no": "No",
+      "lawyer_firm_name": "Nombre firma de abogados",
+      "lawyer_phone": "Teléfono del abogado",
+      "paralegal_name": "Nombre paralegal",
+      "paralegal_phone": "Teléfono paralegal",
+      "paralegal_email": "Correo paralegal",
       "accident_date": "Fecha del Accidente",
       "additional_notes": "Notas Adicionales"
     },
@@ -85,6 +92,16 @@
       "last_name": "Apellido",
       "cell_phone": "Número de Celular",
       "email": "Correo Electrónico"
+    },
+    "insurance_info": {
+      "title": "Información del seguro",
+      "insurance_name": "Nombre del seguro",
+      "policy_number": "Número de póliza",
+      "insurance_phone": "Número del seguro",
+      "adjuster_name": "Nombre del ajustador",
+      "adjuster_phone": "Número del ajustador",
+      "adjuster_email": "Correo electrónico del ajustador",
+      "claim_number": "Número de caso/reclamo"
     },
     "authenticity": {
       "title": "Declaración de Autenticidad",
@@ -99,7 +116,7 @@
       "signature_required": "La firma es requerida para enviar el formulario"
     },
     "submit": {
-      "button": "Enviar Formulario",
+      "button": "Enviar",
       "success": "Formulario enviado exitosamente. Nos pondremos en contacto pronto.",
       "error": "Error al enviar el formulario. Por favor, inténtelo de nuevo."
     }
@@ -246,8 +263,13 @@
       "message": "¿Algo que debamos saber?",
       "message_placeholder": "Dolor de cuello / espalda, latigazo, etc."
     },
-    "submit_button": "Solicitar Cita",
+    "submit_button": "Enviar",
+    "submit": "Enviar",
     "sending": "Enviando..."
+  },
+  "formulario": {
+    "submit": "Enviar",
+    "required_legend": "Los campos marcados con * son obligatorios para enviar el formulario."
   },
   "hero_services": {
     "badge": "Servicios Especializados",
@@ -287,7 +309,7 @@
         "message": "¿Algo que debamos saber?",
         "message_placeholder": "Dolor de cuello / espalda, latigazo, etc."
       },
-      "submit_button": "¡Quiero empezar mi recuperación!"
+      "submit_button": "Enviar"
     }
   },
   "testimonials": {
@@ -609,7 +631,7 @@
         "message": "Cuéntanos sobre tu caso",
         "message_placeholder": "Describe brevemente tu situación..."
       },
-      "submit_button": "Enviar solicitud"
+      "submit_button": "Enviar"
     }
   },
   "services": {
@@ -671,7 +693,7 @@
       "message": "Cuéntanos sobre tu caso",
       "message_placeholder": "Describe brevemente tu situación, tipo de accidente, lesiones, etc."
     },
-    "submit_button": "Enviar solicitud",
+    "submit_button": "Enviar",
     "sending": "Enviando...",
     "success_message": "✅ Su solicitud ha sido enviada exitosamente. Nos pondremos en contacto con usted en las próximas 24 horas.",
     "thank_you": {

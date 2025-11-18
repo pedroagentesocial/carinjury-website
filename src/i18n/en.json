@@ -76,6 +76,13 @@
       "other_specify": "Specify the type of accident:",
       "legal_representation": "Do you have legal representation?",
       "legal_specify": "Specify which:",
+      "legal_yes": "Yes",
+      "legal_no": "No",
+      "lawyer_firm_name": "Law firm name",
+      "lawyer_phone": "Lawyer phone",
+      "paralegal_name": "Paralegal name",
+      "paralegal_phone": "Paralegal phone",
+      "paralegal_email": "Paralegal email",
       "accident_date": "Accident Date",
       "additional_notes": "Additional Notes"
     },
@@ -85,6 +92,16 @@
       "last_name": "Last Name",
       "cell_phone": "Cell Phone",
       "email": "Email"
+    },
+    "insurance_info": {
+      "title": "Insurance Information",
+      "insurance_name": "Insurance name",
+      "policy_number": "Policy number",
+      "insurance_phone": "Insurance phone",
+      "adjuster_name": "Adjuster name",
+      "adjuster_phone": "Adjuster phone",
+      "adjuster_email": "Adjuster email",
+      "claim_number": "Claim number"
     },
     "authenticity": {
       "title": "Statement of Authenticity",
@@ -99,7 +116,7 @@
       "signature_required": "Signature is required to submit the form"
     },
     "submit": {
-      "button": "Submit Form",
+      "button": "Send",
       "success": "Form submitted successfully. We will contact you soon.",
       "error": "Error submitting form. Please try again."
     }
@@ -246,8 +263,13 @@
       "message": "Anything we should know?",
       "message_placeholder": "Neck / back pain, whiplash, etc."
     },
-    "submit_button": "Request Appointment",
+    "submit_button": "Send",
+    "submit": "Send",
     "sending": "Sending..."
+  },
+  "formulario": {
+    "submit": "Send",
+    "required_legend": "Fields marked with * are required to submit the form."
   },
   "hero_services": {
     "badge": "Specialized Services",
@@ -287,7 +309,7 @@
         "message": "Anything we should know?",
         "message_placeholder": "Neck / back pain, whiplash, etc."
       },
-      "submit_button": "I want to start my recovery!"
+      "submit_button": "Send"
     }
   },
   "testimonials": {
@@ -609,7 +631,7 @@
         "message": "Tell us about your case",
         "message_placeholder": "Briefly describe your situation..."
       },
-      "submit_button": "Send request"
+      "submit_button": "Send"
     }
   },
   "services": {
@@ -671,7 +693,7 @@
       "message": "Tell us about your case",
       "message_placeholder": "Briefly describe your situation, type of accident, injuries, etc."
     },
-    "submit_button": "Send request",
+    "submit_button": "Send",
     "sending": "Sending...",
     "success_message": "✅ Your request has been sent successfully. We will contact you within the next 24 hours.",
     "thank_you": {

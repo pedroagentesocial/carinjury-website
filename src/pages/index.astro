@@ -13,6 +13,8 @@ import MapContact from '../components/MapContact.astro';
 import AboutVideo from '../components/AboutVideo.astro';
 import Form from '../components/Form.astro';
 import LegalVideo from '../components/LegalVideo.astro';
+import esTranslations from '../i18n/es.json';
+import enTranslations from '../i18n/en.json';
 
 ---
 
@@ -31,6 +33,15 @@ import LegalVideo from '../components/LegalVideo.astro';
 
 
 
+<script define:vars={{ esTranslations, enTranslations }}>
+  if (typeof window !== 'undefined') {
+    window.translations = {
+      es: esTranslations,
+      en: enTranslations
+    };
+  }
+</script>
+<script src="/src/utils/i18n-client.js"></script>
 <script>
   // Inicialización del cliente i18n para index.astro
   document.addEventListener('DOMContentLoaded', () => {
@@ -40,13 +51,13 @@ import LegalVideo from '../components/LegalVideo.astro';
     const initializeI18n = async () => {
       if (window.i18nClient) {
         console.log('Index: i18nClient already available');
-        window.i18nClient.updateAllTranslations();
+        window.i18nClient.init();
       } else {
         console.log('Index: Waiting for i18nReady event');
         window.addEventListener('i18nReady', () => {
           console.log('Index: i18nReady event received');
           if (window.i18nClient) {
-            window.i18nClient.updateAllTranslations();
+            window.i18nClient.init();
           }
         });
       }

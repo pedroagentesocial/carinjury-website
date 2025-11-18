@@ -55,6 +55,7 @@ import enTranslations from '../i18n/en.json';
 
 
 
+
         <!-- ===== Información del Paciente (Simplificada) ===== -->
         <fieldset>
           <legend data-i18n="formulario_page.patient_info.title">{t('formulario_page.patient_info.title', currentLang)}</legend>
@@ -94,6 +95,7 @@ import enTranslations from '../i18n/en.json';
             </div>
           </div>
         </fieldset>
+
 
         <!-- ===== Dirección (Simplificada) ===== -->
         <fieldset>
@@ -192,18 +194,40 @@ import enTranslations from '../i18n/en.json';
             <div class="radio-group">
               <label class="radio-option">
                 <input type="radio" name="has_legal_representation" value="no" required />
-                <span>No</span>
+                <span data-i18n="formulario_page.incident_info.legal_no">{t('formulario_page.incident_info.legal_no', currentLang)}</span>
               </label>
               <label class="radio-option">
                 <input type="radio" name="has_legal_representation" value="yes" required />
-                <span>Sí</span>
+                <span data-i18n="formulario_page.incident_info.legal_yes">{t('formulario_page.incident_info.legal_yes', currentLang)}</span>
               </label>
             </div>
           </div>
 
           <div class="form-group" id="legal_representation_details" style="display: none;">
-            <label for="legal_representation_specify" data-i18n="formulario_page.incident_info.legal_specify">{t('formulario_page.incident_info.legal_specify', currentLang)}</label>
-            <input type="text" id="legal_representation_specify" name="legal_representation_specify" />
+            <label for="lawyer_firm_name" data-i18n="formulario_page.incident_info.lawyer_firm_name">{t('formulario_page.incident_info.lawyer_firm_name', currentLang)}</label>
+            <input type="text" id="lawyer_firm_name" name="lawyer_firm_name" />
+          </div>
+
+          <div class="form-row" id="legal_representation_more" style="display: none;">
+            <div class="form-group">
+              <label for="lawyer_phone" data-i18n="formulario_page.incident_info.lawyer_phone">{t('formulario_page.incident_info.lawyer_phone', currentLang)}</label>
+              <input type="tel" id="lawyer_phone" name="lawyer_phone" />
+            </div>
+            <div class="form-group">
+              <label for="paralegal_name" data-i18n="formulario_page.incident_info.paralegal_name">{t('formulario_page.incident_info.paralegal_name', currentLang)}</label>
+              <input type="text" id="paralegal_name" name="paralegal_name" />
+            </div>
+          </div>
+
+          <div class="form-row" id="legal_representation_contacts" style="display: none;">
+            <div class="form-group">
+              <label for="paralegal_phone" data-i18n="formulario_page.incident_info.paralegal_phone">{t('formulario_page.incident_info.paralegal_phone', currentLang)}</label>
+              <input type="tel" id="paralegal_phone" name="paralegal_phone" />
+            </div>
+            <div class="form-group">
+              <label for="paralegal_email" data-i18n="formulario_page.incident_info.paralegal_email">{t('formulario_page.incident_info.paralegal_email', currentLang)}</label>
+              <input type="email" id="paralegal_email" name="paralegal_email" />
+            </div>
           </div>
 
           <div class="form-group">
@@ -214,6 +238,44 @@ import enTranslations from '../i18n/en.json';
           <div class="form-group">
             <label for="additional_notes" data-i18n="formulario_page.incident_info.additional_notes">{t('formulario_page.incident_info.additional_notes', currentLang)}</label>
             <textarea id="additional_notes" name="additional_notes" rows="4"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend data-i18n="formulario_page.insurance_info.title">{t('formulario_page.insurance_info.title', currentLang)}</legend>
+          <div class="form-group">
+            <label for="insurance_name" data-i18n="formulario_page.insurance_info.insurance_name">{t('formulario_page.insurance_info.insurance_name', currentLang)}</label>
+            <input type="text" id="insurance_name" name="insurance_name" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="insurance_policy_number" data-i18n="formulario_page.insurance_info.policy_number">{t('formulario_page.insurance_info.policy_number', currentLang)}</label>
+              <input type="text" id="insurance_policy_number" name="insurance_policy_number" />
+            </div>
+            <div class="form-group">
+              <label for="insurance_phone" data-i18n="formulario_page.insurance_info.insurance_phone">{t('formulario_page.insurance_info.insurance_phone', currentLang)}</label>
+              <input type="tel" id="insurance_phone" name="insurance_phone" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="adjuster_name" data-i18n="formulario_page.insurance_info.adjuster_name">{t('formulario_page.insurance_info.adjuster_name', currentLang)}</label>
+              <input type="text" id="adjuster_name" name="adjuster_name" />
+            </div>
+            <div class="form-group">
+              <label for="adjuster_phone" data-i18n="formulario_page.insurance_info.adjuster_phone">{t('formulario_page.insurance_info.adjuster_phone', currentLang)}</label>
+              <input type="tel" id="adjuster_phone" name="adjuster_phone" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="adjuster_email" data-i18n="formulario_page.insurance_info.adjuster_email">{t('formulario_page.insurance_info.adjuster_email', currentLang)}</label>
+              <input type="email" id="adjuster_email" name="adjuster_email" />
+            </div>
+            <div class="form-group">
+              <label for="claim_number" data-i18n="formulario_page.insurance_info.claim_number">{t('formulario_page.insurance_info.claim_number', currentLang)}</label>
+              <input type="text" id="claim_number" name="claim_number" />
+            </div>
           </div>
         </fieldset>
 
@@ -269,7 +331,7 @@ import enTranslations from '../i18n/en.json';
 
           <!-- Checkbox de Consentimiento -->
           <div class="form-group">
-            <div class="checkbox-group">
+            <div class="checkbox-group compact">
               <input type="checkbox" id="privacy_consent" name="privacy_consent" required />
               <label for="privacy_consent">
                 <span data-i18n="formulario_page.authenticity.consent_checkbox_new">{t('formulario_page.authenticity.consent_checkbox_new', currentLang)}</span>
@@ -279,9 +341,11 @@ import enTranslations from '../i18n/en.json';
           </div>
         </fieldset>
 
+        <p id="required-legend" class="required-legend" data-i18n="formulario.required_legend">{t('formulario.required_legend', currentLang)}</p>
+
         <!-- ===== Botón de Envío ===== -->
         <div class="form-actions">
-          <input type="submit" value={t('formulario_page.submit.button', currentLang)} data-i18n="formulario_page.submit.button" class="btn btn-primary" />
+          <button id="ref-submit" type="submit" class="btn btn-primary">{t('formulario.submit', currentLang)}</button>
         </div>
 
         <!-- ===== Mensajes de Estado ===== -->
@@ -302,28 +366,13 @@ import enTranslations from '../i18n/en.json';
 
   <!-- Script para internacionalización dinámica -->
   <script define:vars={{ esTranslations, enTranslations }}>
-    // Embebemos las traducciones en el cliente
-    window.translations = {
-      es: esTranslations,
-      en: enTranslations
-    };
+    window.translations = { es: esTranslations, en: enTranslations };
   </script>
   
-  <script define:vars={{ esTranslations, enTranslations }}>
-    // Embebido de traducciones para el cliente
-    window.translations = {
-      es: esTranslations,
-      en: enTranslations
-    };
-  </script>
-  <script src="/src/utils/i18n-client.js"></script>
   <script>
     // Inicializar sistema de internacionalización
     document.addEventListener('DOMContentLoaded', function() {
-      // Inicializar i18n client
-      if (window.i18nClient) {
-        window.i18nClient.init();
-      }
+      
       
       // Funcionalidad para mostrar/ocultar campos condicionales
       const accidentTypeRadios = document.querySelectorAll('input[name="accident_type"]');
@@ -346,11 +395,117 @@ import enTranslations from '../i18n/en.json';
         radio.addEventListener('change', function() {
           if (this.value === 'yes') {
             legalRepDetails.style.display = 'block';
+            document.getElementById('legal_representation_more').style.display = 'grid';
+            document.getElementById('legal_representation_contacts').style.display = 'grid';
+            document.getElementById('lawyer_firm_name')?.setAttribute('required', '');
+            document.getElementById('lawyer_phone')?.setAttribute('required', '');
           } else {
             legalRepDetails.style.display = 'none';
+            document.getElementById('legal_representation_more').style.display = 'none';
+            document.getElementById('legal_representation_contacts').style.display = 'none';
+            document.getElementById('lawyer_firm_name')?.removeAttribute('required');
+            document.getElementById('lawyer_phone')?.removeAttribute('required');
           }
         });
       });
+
+      
+
+      function addStarsToRequiredLabels() {
+        const reqFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+        reqFields.forEach(el => {
+          const id = el.getAttribute('id');
+          if (!id) return;
+          const lbl = document.querySelector(`label[for="${id}"]`);
+          if (lbl && !lbl.classList.contains('required')) {
+            lbl.classList.add('required');
+          }
+        });
+      }
+
+      addStarsToRequiredLabels();
+
+      function isVisible(el) { return !!(el && el.offsetParent !== null); }
+      function markError(el, on) {
+        const group = el.closest('.form-group');
+        if (group) group.classList.toggle('error', on);
+      }
+
+      const formMessages = document.getElementById('form-messages');
+      const errorMsg = formMessages?.querySelector('.error-message');
+      const successMsg = formMessages?.querySelector('.success-message');
+
+
+      const formEl = document.getElementById('referral-form');
+      if (formEl) {
+        formEl.addEventListener('submit', function(e) {
+          let firstInvalid = null;
+          const requiredEls = Array.from(document.querySelectorAll('input[required], select[required], textarea[required]'));
+          const radioGroups = new Set(requiredEls.filter(el => el instanceof HTMLInputElement && el.type === 'radio').map(el => el.name));
+          radioGroups.forEach(name => {
+            const group = document.querySelectorAll(`input[type="radio"][name="${name}"]`);
+            const anyChecked = Array.from(group).some(r => r.checked);
+            group.forEach(r => markError(r, !anyChecked && isVisible(r)));
+            if (!anyChecked && !firstInvalid) firstInvalid = group[0];
+          });
+          requiredEls.forEach(el => {
+            if (el instanceof HTMLInputElement && el.type === 'radio') return;
+            const empty = !el.value;
+            const vis = isVisible(el);
+            markError(el, empty && vis);
+            if (empty && vis && !firstInvalid) firstInvalid = el;
+          });
+          if (firstInvalid) {
+            e.preventDefault();
+            if (formMessages && errorMsg) {
+              formMessages.style.display = 'block';
+              successMsg?.classList.add('hidden');
+              errorMsg.classList.remove('hidden');
+            }
+            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return false;
+          }
+
+          try {
+            const fd = new FormData(formEl);
+            fetch('/api/form-webhook', { method: 'POST', body: fd }).catch(() => {});
+          } catch {}
+        });
+      }
+
+      const requiredLegend = document.getElementById('required-legend');
+      function updateRequiredLegend() {
+        if (!requiredLegend) return;
+        const lang = (typeof window !== 'undefined' && localStorage.getItem('language')) || 'es';
+        let label = '';
+        try {
+          const dict = window.translations?.[lang];
+          label = dict?.formulario?.required_legend || '';
+        } catch {}
+        if (!label || label.includes('.')) {
+          label = lang === 'en' ? 'Fields marked with * are required to submit the form.' : 'Los campos marcados con * son obligatorios para enviar el formulario.';
+        }
+        requiredLegend.textContent = label;
+      }
+      updateRequiredLegend();
+      window.addEventListener('languageChange', updateRequiredLegend);
+
+      const refSubmit = document.getElementById('ref-submit');
+      function updateSubmitLabel() {
+        if (!refSubmit) return;
+        const lang = (typeof window !== 'undefined' && localStorage.getItem('language')) || 'es';
+        let label = '';
+        try {
+          const dict = window.translations?.[lang];
+          label = dict?.formulario?.submit || '';
+        } catch {}
+        if (!label || label.includes('.')) label = lang === 'en' ? 'Send' : 'Enviar';
+        refSubmit.textContent = label;
+      }
+      updateSubmitLabel();
+      window.addEventListener('languageChange', updateSubmitLabel);
+
+      
     });
   </script>
 
@@ -628,6 +783,50 @@ import enTranslations from '../i18n/en.json';
     .checkbox-group label a:hover {
       color: var(--primary-dark);
     }
+
+    label.required::after {
+      content: ' *';
+      color: #dc2626;
+      font-weight: 700;
+    }
+
+    .form-group.error input,
+    .form-group.error select,
+    .form-group.error textarea {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+    }
+
+    .required-legend {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      margin: 0.25rem 0 0.75rem;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .checkbox-group.compact {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 0.1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      background: #f9fafb;
+      margin-top: 0.12rem;
+    }
+
+    .checkbox-group.compact input[type="checkbox"] {
+      width: 12px;
+      height: 12px;
+      transform: none;
+    }
+
+    .checkbox-group.compact label {
+      font-size: 0.85rem;
+      line-height: 1;
+    }
+
 
     /* ===== FORM ACTIONS ===== */
     .form-actions {

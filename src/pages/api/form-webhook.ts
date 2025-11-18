@@ -2,35 +2,73 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // Obtener los datos del formulario
-    const formData = await request.formData();
-    
-    // Extraer todos los campos del formulario
-    const data = {
-      name: formData.get('name')?.toString() || '',
-      email: formData.get('email')?.toString() || '',
-      phone: formData.get('phone')?.toString() || '',
-      discovery_source: formData.get('discovery_source')?.toString() || '',
-      referral_name: formData.get('referral_name')?.toString() || '',
-      message: formData.get('message')?.toString() || '',
-      page: formData.get('page')?.toString() || 'Formulario principal',
-      timestamp: new Date().toISOString(),
-      user_agent: request.headers.get('user-agent') || '',
-      ip_address: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
+    let data: {
+      name: string;
+      email: string;
+      phone: string;
+      discovery_source: string;
+      referral_name: string;
+      message: string;
+      page: string;
+      timestamp: string;
+      user_agent: string;
+      ip_address: string;
     };
 
-    // Validar campos requeridos
-    if (!data.name || !data.phone) {
-      return new Response(JSON.stringify({ 
-        success: false, 
-        error: 'Nombre y teléfono son campos requeridos' 
-      }), {
-        status: 400,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+    try {
+      const json = await request.clone().json();
+      data = {
+        name: (json.name || json.nombre || '').toString(),
+        email: (json.email || '').toString(),
+        phone: (json.phone || json.telefono || '').toString(),
+        discovery_source: (json.discovery_source || json.como_nos_encontro || '').toString(),
+        referral_name: (json.referral_name || json.referido_por || '').toString(),
+        message: (json.message || json.mensaje || '').toString(),
+        page: (json.page || json.pagina_origen || 'Formulario principal').toString(),
+        timestamp: new Date().toISOString(),
+        user_agent: '',
+        ip_address: 'unknown'
+      };
+    } catch {
+      try {
+        const formData = await request.clone().formData();
+        data = {
+          name: formData.get('name')?.toString() || '',
+          email: formData.get('email')?.toString() || '',
+          phone: formData.get('phone')?.toString() || '',
+          discovery_source: formData.get('discovery_source')?.toString() || '',
+          referral_name: formData.get('referral_name')?.toString() || '',
+          message: formData.get('message')?.toString() || '',
+          page: formData.get('page')?.toString() || 'Formulario principal',
+          timestamp: new Date().toISOString(),
+          user_agent: '',
+          ip_address: 'unknown'
+        };
+      } catch {
+        const text = await request.clone().text();
+        let parsed: any = {};
+        try {
+          parsed = JSON.parse(text);
+        } catch {
+          const params = new URLSearchParams(text);
+          parsed = Object.fromEntries(params.entries());
+        }
+        data = {
+          name: (parsed.name || parsed.nombre || '').toString(),
+          email: (parsed.email || '').toString(),
+          phone: (parsed.phone || parsed.telefono || '').toString(),
+          discovery_source: (parsed.discovery_source || parsed.como_nos_encontro || '').toString(),
+          referral_name: (parsed.referral_name || parsed.referido_por || '').toString(),
+          message: (parsed.message || parsed.mensaje || '').toString(),
+          page: (parsed.page || parsed.pagina_origen || 'Formulario principal').toString(),
+          timestamp: new Date().toISOString(),
+          user_agent: '',
+          ip_address: 'unknown'
+        };
+      }
     }
+
+    // Aceptar envío incluso si faltan campos para no bloquear la entrega
 
     // Preparar los datos para Make.com
     const webhookData = {
@@ -39,12 +77,28 @@ export const POST: APIRoute = async ({ request }) => {
       email: data.email,
       telefono: data.phone,
       mensaje: data.message,
-      
+
       // Información de origen
       como_nos_encontro: data.discovery_source,
       referido_por: data.referral_name,
       pagina_origen: data.page,
-      
+
+      // Información del seguro (si existe)
+      seguro_nombre: (typeof (globalThis as any).FormData !== 'undefined' ? '' : ''),
+      seguro_numero_poliza: '',
+      seguro_telefono: '',
+      ajustador_nombre: '',
+      ajustador_telefono: '',
+      ajustador_email: '',
+      numero_reclamo: '',
+
+      // Información legal (si existe)
+      abogado_firma: '',
+      abogado_telefono: '',
+      paralegal_nombre: '',
+      paralegal_telefono: '',
+      paralegal_email: '',
+
       // Metadatos
       fecha_envio: data.timestamp,
       user_agent: data.user_agent,
@@ -55,6 +109,56 @@ export const POST: APIRoute = async ({ request }) => {
       form_type: 'contact_form',
       priority: 'normal'
     };
+
+    try {
+      const f = await request.clone().formData();
+      webhookData.seguro_nombre = f.get('insurance_name')?.toString() || '';
+      webhookData.seguro_numero_poliza = f.get('insurance_policy_number')?.toString() || '';
+      webhookData.seguro_telefono = f.get('insurance_phone')?.toString() || '';
+      webhookData.ajustador_nombre = f.get('adjuster_name')?.toString() || '';
+      webhookData.ajustador_telefono = f.get('adjuster_phone')?.toString() || '';
+      webhookData.ajustador_email = f.get('adjuster_email')?.toString() || '';
+      webhookData.numero_reclamo = f.get('claim_number')?.toString() || '';
+
+      webhookData.abogado_firma = f.get('lawyer_firm_name')?.toString() || '';
+      webhookData.abogado_telefono = f.get('lawyer_phone')?.toString() || '';
+      webhookData.paralegal_nombre = f.get('paralegal_name')?.toString() || '';
+      webhookData.paralegal_telefono = f.get('paralegal_phone')?.toString() || '';
+      webhookData.paralegal_email = f.get('paralegal_email')?.toString() || '';
+    } catch {
+      try {
+        const j = await request.clone().json();
+        webhookData.seguro_nombre = (j.insurance_name || '').toString();
+        webhookData.seguro_numero_poliza = (j.insurance_policy_number || '').toString();
+        webhookData.seguro_telefono = (j.insurance_phone || '').toString();
+        webhookData.ajustador_nombre = (j.adjuster_name || '').toString();
+        webhookData.ajustador_telefono = (j.adjuster_phone || '').toString();
+        webhookData.ajustador_email = (j.adjuster_email || '').toString();
+        webhookData.numero_reclamo = (j.claim_number || '').toString();
+
+        webhookData.abogado_firma = (j.lawyer_firm_name || '').toString();
+        webhookData.abogado_telefono = (j.lawyer_phone || '').toString();
+        webhookData.paralegal_nombre = (j.paralegal_name || '').toString();
+        webhookData.paralegal_telefono = (j.paralegal_phone || '').toString();
+        webhookData.paralegal_email = (j.paralegal_email || '').toString();
+      } catch {
+        const t = await request.clone().text();
+        const params = new URLSearchParams(t);
+        webhookData.seguro_nombre = params.get('insurance_name') || '';
+        webhookData.seguro_numero_poliza = params.get('insurance_policy_number') || '';
+        webhookData.seguro_telefono = params.get('insurance_phone') || '';
+        webhookData.ajustador_nombre = params.get('adjuster_name') || '';
+        webhookData.ajustador_telefono = params.get('adjuster_phone') || '';
+        webhookData.ajustador_email = params.get('adjuster_email') || '';
+        webhookData.numero_reclamo = params.get('claim_number') || '';
+
+        webhookData.abogado_firma = params.get('lawyer_firm_name') || '';
+        webhookData.abogado_telefono = params.get('lawyer_phone') || '';
+        webhookData.paralegal_nombre = params.get('paralegal_name') || '';
+        webhookData.paralegal_telefono = params.get('paralegal_phone') || '';
+        webhookData.paralegal_email = params.get('paralegal_email') || '';
+      }
+    }
 
     // Enviar datos al webhook de Make.com
     const webhookUrl = 'https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k';

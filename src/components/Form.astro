@@ -179,8 +179,8 @@ const phone = '+1 (385) 242-8571';
             </div>
 
             <!-- Botón de envío con icono -->
-            <button type="submit" id="submit-btn" class="w-full py-4 px-6 rounded-lg text-white text-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-3 lg:mt-auto min-h-[3.5rem]" style="background: var(--c3); font-family: 'Poppins', sans-serif; font-weight: 600; box-shadow: 0 4px 12px rgba(122, 46, 135, 0.25); opacity: 1 !important; visibility: visible !important; display: flex !important; margin-top: 2rem;">
-              <span id="submit-text" data-i18n="form.submit_button">{t('form.submit_button', currentLang)}</span>
+            <button type="submit" id="form-submit-btn" class="w-full py-4 px-6 rounded-lg text-white text-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-3 lg:mt-auto min-h-[3.5rem]" style="background: var(--c3); font-family: 'Poppins', sans-serif; font-weight: 600; box-shadow: 0 4px 12px rgba(122, 46, 135, 0.25); opacity: 1 !important; visibility: visible !important; display: flex !important; margin-top: 2rem;">
+              <span id="form-submit-text">{currentLang === 'es' ? 'Enviar' : 'Send'}</span>
               <span id="loading-text" class="hidden" data-i18n="form.sending">{t('form.sending', currentLang)}</span>
               <svg class="send-icon transition-all duration-300 ease-out" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                 <path d="m3 3 3 9-3 9 19-9Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -233,6 +233,21 @@ const phone = '+1 (385) 242-8571';
 
 <script is:inline>
   (function(){
+    const btnText = document.getElementById('form-submit-text');
+    function fixBtn() {
+      const lang = (typeof window !== 'undefined' && localStorage.getItem('language')) || 'es';
+      if (!btnText) return;
+      const val = btnText.textContent || '';
+      if (val.includes('.') || val.startsWith('form')) {
+        btnText.textContent = lang === 'en' ? 'Send' : 'Enviar';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', fixBtn);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('languageChange', fixBtn);
+      const mo = new MutationObserver(() => fixBtn());
+      if (btnText) mo.observe(btnText, { childList: true, subtree: true });
+    }
     const discovery     = document.getElementById('discovery');
     const rowReferral   = document.getElementById('row-referral');
     const referralInput = document.getElementById('referral_name');
