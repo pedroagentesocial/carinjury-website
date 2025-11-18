@@ -33,5 +33,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist
-          server-dir: ${{ secrets.FTP_TARGET }}
-          protocol: ftps
+          server-dir: /domains/carinjuryclinics.com/public_html/
+          protocol: ftp
