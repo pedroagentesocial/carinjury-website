@@ -468,13 +468,7 @@ import enTranslations from '../i18n/en.json';
 
           try {
             const fd = new FormData(formEl);
-            const obj = {};
-            fd.forEach((v, k) => { if (!k.startsWith('_')) obj[k] = v; });
-            fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(obj)
-            }).catch(() => {});
+            fetch('/api/form-webhook', { method: 'POST', body: fd }).catch(() => {});
           } catch {}
         });
       }
