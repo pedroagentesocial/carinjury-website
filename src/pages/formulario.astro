@@ -369,7 +369,7 @@ import enTranslations from '../i18n/en.json';
     window.translations = { es: esTranslations, en: enTranslations };
   </script>
   
-  <script>
+  <script define:vars={{ WEBHOOK_URL: import.meta.env.PUBLIC_WEBHOOK_URL }}>
     // Inicializar sistema de internacionalización
     document.addEventListener('DOMContentLoaded', function() {
       
@@ -468,7 +468,25 @@ import enTranslations from '../i18n/en.json';
 
           try {
             const fd = new FormData(formEl);
-            fetch('/api/form-webhook', { method: 'POST', body: fd }).catch(() => {});
+            const payload = Object.fromEntries(fd.entries());
+            payload.page = 'Formulario de referencia';
+            payload.timestamp = new Date().toISOString();
+            const PRIMARY_WEBHOOK = (typeof window !== 'undefined' && location.hostname.includes('localhost')) ? '/api/form-webhook' : '/webhook.php';
+            if (PRIMARY_WEBHOOK) {
+              fetch(PRIMARY_WEBHOOK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              }).catch(() => {
+                fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', {
+                  method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+                }).catch(() => {});
+              });
+            } else {
+              fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+              }).catch(() => {});
+            }
           } catch {}
         });
       }

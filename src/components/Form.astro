@@ -231,7 +231,7 @@ const phone = '+1 (385) 242-8571';
   </div>
 </div>
 
-<script is:inline>
+<script is:inline define:vars={{ WEBHOOK_URL: import.meta.env.PUBLIC_WEBHOOK_URL }}>
   (function(){
     const btnText = document.getElementById('form-submit-text');
     function fixBtn() {
@@ -361,34 +361,23 @@ const phone = '+1 (385) 242-8571';
         // Preparar datos del formulario
         const formData = new FormData(form);
         
-        // 2. ENVIAR A MAKE.COM EN PARALELO (no bloquea FormSubmit)
+        // 2. ENVIAR WEBHOOK DINÁMICO EN PARALELO (no bloquea FormSubmit)
         try {
-          const webhookData = {
-            nombre: formData.get('name') || '',
-            email: formData.get('email') || '',
-            telefono: formData.get('phone') || '',
-            mensaje: formData.get('message') || '',
-            como_nos_encontro: formData.get('discovery_source') || '',
-            referido_por: formData.get('referral_name') || '',
-            pagina_origen: formData.get('page') || 'Formulario principal',
-            fecha_envio: new Date().toISOString(),
-            lead_source: 'website_form',
-            form_type: 'contact_form',
-            priority: 'normal',
-            accept_terms: accept?.checked ? 'on' : 'off',
-            marketing_opt_in: optIn?.checked ? 'on' : 'off'
-          };
-          
-          fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'User-Agent': 'CarInjuryClinic-Website/1.0'
-            },
-            body: JSON.stringify(webhookData)
-          }).catch(error => {
-            console.log('Make.com webhook error (no afecta FormSubmit):', error);
-          });
+          const webhookData = Object.fromEntries(formData.entries());
+          webhookData.pagina_origen = webhookData.page || 'Formulario principal';
+          webhookData.fecha_envio = new Date().toISOString();
+          webhookData.lead_source = 'website_form';
+          webhookData.form_type = 'contact_form';
+          webhookData.priority = 'normal';
+          const primary = (typeof window !== 'undefined' && location.hostname.includes('localhost')) ? '/api/form-webhook' : '/webhook.php';
+          if (primary) {
+            fetch(primary, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(webhookData) })
+              .catch(() => {
+                fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(webhookData) }).catch(() => {});
+              });
+          } else {
+            fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(webhookData) }).catch(() => {});
+          }
           
         } catch (error) {
           console.log('Error preparando datos para Make.com (no afecta FormSubmit):', error);
