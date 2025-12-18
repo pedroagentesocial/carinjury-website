@@ -33,5 +33,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist
-          server-dir: /home/u193371499/domains/carinjuryclinics.com/public_html
-          protocol: ftp
+          server-dir: domains/carinjuryclinics.com/public_html
+          protocol: ftps
+          log-level: verbose
