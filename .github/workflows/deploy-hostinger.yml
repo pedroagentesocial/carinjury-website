@@ -1,9 +1,10 @@
-name: deploy-hostinger
+name: build-and-deploy
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -29,7 +30,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: 31.170.166.253
-          username: ${{ secrets.FTP_USERNAME }}
+          username: u193371499.carinjuryclinics.com
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           local-dir: dist
