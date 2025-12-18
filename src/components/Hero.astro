@@ -79,6 +79,7 @@ const hasMany = slides.length > 1;
           preload="metadata"
           controls={i === 0 ? true : false}
           controlslist="nodownload"
+          onerror="this.remove()"
         >
           {s.subs && (
             <track kind="subtitles" src={s.subs} srclang="es" label="Español" default />

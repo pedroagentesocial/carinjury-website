@@ -435,6 +435,13 @@
     "help": {
       "aria_label": "Frequently asked questions",
       "tooltip": "Help"
+    },
+    "booking": {
+      "aria_label": "Book appointment",
+      "tooltip": "Book now",
+      "title": "Book Appointment",
+      "close": "Close",
+      "iframe_title": "Booking widget"
     }
   },
   "about_video": {

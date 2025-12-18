@@ -113,31 +113,13 @@ import CenterfyChat from '../components/CenterfyChat.astro';
         console.log('Layout: DOMContentLoaded, initializing i18n...');
         
         try {
-          // Cargar el script directamente desde el DOM
-          const script = document.createElement('script');
-          script.src = '/utils/i18n-client.js';
-          script.onload = () => {
-            // El script ya crea window.i18nClient automáticamente
-            if (window.i18nClient) {
-              console.log('i18n client loaded successfully');
-              
-              // Inicializar el cliente
-              window.i18nClient.init();
-              
-              // Configurar el botón de idioma
-              setupLanguageButton();
-              
-              // Actualizar el texto del botón de idioma
-              updateLanguageButton();
-              
-              // Disparar evento de que i18n está listo
-              window.dispatchEvent(new CustomEvent('i18nReady'));
-            }
-          };
-          script.onerror = () => {
-            console.error('Failed to load i18n-client.js');
-          };
-          document.head.appendChild(script);
+          const mod = await import('../utils/i18n-client.js');
+          if (window.i18nClient) {
+            window.i18nClient.init();
+            setupLanguageButton();
+            updateLanguageButton();
+            window.dispatchEvent(new CustomEvent('i18nReady'));
+          }
           
           // Función para actualizar el texto del botón de idioma
           const updateLanguageButton = () => {

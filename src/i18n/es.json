@@ -435,6 +435,13 @@
     "help": {
       "aria_label": "Preguntas frecuentes",
       "tooltip": "Ayuda"
+    },
+    "booking": {
+      "aria_label": "Reservar cita",
+      "tooltip": "Agendar cita",
+      "title": "Agendar Cita",
+      "close": "Cerrar",
+      "iframe_title": "Widget de agendado"
     }
   },
   "about_video": {
