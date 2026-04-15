@@ -5,16 +5,14 @@ import MapContact from '../components/MapContact.astro';
 import { t, getCurrentLanguage } from '../i18n/index.ts';
 
 const currentLang = getCurrentLanguage();
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
 ---
 
 <Layout>
   <main class="schedule-page">
     <!-- Hero Section Moderno -->
     <section class="hero-modern">
-      <div class="hero-bg">
-        <img src="/assets/img/NewHero.jpeg" alt="Car Injury Clinic Hero" class="w-full h-full object-cover" style="object-position: center top;" />
-        <div class="hero-overlay"></div>
-      </div>
+      <div class="hero-bg" aria-hidden="true"></div>
       <div class="hero-content">
         <div class="hero-badge" data-i18n="schedule_page.hero.badge">{t('schedule_page.hero.badge', currentLang)}</div>
         <h1 class="hero-title" data-i18n="schedule_page.hero.title">{t('schedule_page.hero.title', currentLang)}<br><span class="accent" data-i18n="schedule_page.hero.subtitle">{t('schedule_page.hero.subtitle', currentLang)}</span></h1>
@@ -102,7 +100,7 @@ const currentLang = getCurrentLanguage();
                 id="schedule-form"
                 class="modern-form"
                 method="POST"
-                action="https://formsubmit.co/info@carinjuryclinics.com"
+                action="/api/form-webhook"
                 enctype="multipart/form-data"
                 name="schedule"
                 accept-charset="UTF-8"
@@ -113,10 +111,6 @@ const currentLang = getCurrentLanguage();
                 <!-- honeypot anti-spam -->
                 <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" />
 
-                <!-- FormSubmit hidden fields -->
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_subject" value="Nueva solicitud de agenda" />
-                <input type="hidden" name="_template" value="table" />
                 <input type="hidden" name="page" value="Agenda de consulta" />
 
                 <div class="form-grid">
@@ -152,25 +146,18 @@ const currentLang = getCurrentLanguage();
                     data-i18n-placeholder="schedule_page.form.message_placeholder" placeholder={t('schedule_page.form.message_placeholder', currentLang)}></textarea>
                 </div>
 
-                <div class="form-group form-group-full terms-group">
-                  <label class="terms-label">
-                    <input id="accept-terms" name="accept_terms" type="checkbox" required class="terms-checkbox" />
-                    <span>
-                      {t('schedule_page.form.accept_terms', currentLang)}
-                      (
-                      <a href="/privacy#terms" target="_blank" rel="noopener" class="terms-link">{t('schedule_page.form.terms_link', currentLang)}</a>
-                      {" "}{t('schedule_page.form.and', currentLang)}{" "}
-                      <a href="/privacy" target="_blank" rel="noopener" class="terms-link">{t('schedule_page.form.privacy_link', currentLang)}</a>
-                      )
+                <div class="form-group form-group-full sms-consent-group">
+                  <label class="sms-consent-label">
+                    <input id="sms-consent" name="sms_consent" type="checkbox" required class="sms-consent-checkbox" />
+                    <span id="sms-consent-text" class="sms-consent-text" data-i18n="schedule_page.form.sms_consent">
+                      {t('schedule_page.form.sms_consent', currentLang)}
                     </span>
                   </label>
                 </div>
 
-                <div class="form-group form-group-full consent-group">
-                  <label class="consent-label">
-                    <input id="opt-in" name="marketing_opt_in" type="checkbox" class="consent-checkbox" />
-                    <span>{t('schedule_page.form.receive_info_short', currentLang)}</span>
-                  </label>
+                <div class="form-group form-group-full recaptcha-group">
+                  <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="light"></div>
+                  <p id="recaptcha-error" class="recaptcha-error" aria-live="polite"></p>
                 </div>
 
                 <div class="form-actions">
@@ -260,24 +247,7 @@ const currentLang = getCurrentLanguage();
     position: absolute;
     inset: 0;
     z-index: 1;
-  }
-
-  .hero-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.4) contrast(1.1);
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(122, 46, 135, 0.3) 0%,
-      rgba(97, 30, 108, 0.2) 50%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
+    background: var(--primary);
   }
 
   .hero-content {
@@ -562,40 +532,43 @@ const currentLang = getCurrentLanguage();
     min-height: 120px;
   }
 
-  .terms-group,
-   .consent-group {
-     padding: 0.22rem 0.35rem;
-     border: 1px solid var(--gray-200);
-     border-radius: 6px;
-     background: var(--gray-50);
-     margin-top: 0.22rem;
-   }
- 
-   .terms-label,
-   .consent-label {
-     display: flex;
-     align-items: flex-start;
-     gap: 0.38rem;
-     font-size: 0.72rem;
-     color: var(--gray-700);
-     line-height: 1.28;
-   }
- 
-   .terms-checkbox,
-   .consent-checkbox {
-     width: 11px;
-     height: 11px;
-     margin-top: 0.1rem;
-   }
+  .sms-consent-group {
+    padding: 0.55rem 0.65rem;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    background: var(--gray-50);
+    margin-top: 0.22rem;
+  }
 
-  .terms-link {
-    color: var(--primary);
-    text-decoration: underline;
+  .sms-consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--gray-700);
+    line-height: 1.35;
+  }
+
+  .sms-consent-checkbox {
+    width: 16px;
+    height: 16px;
+    margin-top: 0.1rem;
+    flex: 0 0 auto;
+  }
+
+  .recaptcha-group {
+    margin-top: 0.5rem;
+  }
+
+  .recaptcha-error {
+    margin-top: 0.35rem;
+    min-height: 1rem;
+    font-size: 0.8rem;
+    color: #b91c1c;
   }
 
   /* Estado de error visual */
-  .terms-group.error,
-  .consent-group.error {
+  .sms-consent-group.error {
     border-color: #dc2626; /* rojo */
     background: #fef2f2;
   }
@@ -846,6 +819,7 @@ const currentLang = getCurrentLanguage();
   }
 </style>
 
+<script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script is:inline>
   (function() {
     // Smooth scroll para enlaces internos
@@ -867,29 +841,42 @@ const currentLang = getCurrentLanguage();
     const msg = document.getElementById('form-msg');
     const submit = document.getElementById('submit-btn');
     const dialog = document.getElementById('success-dialog');
+    const recaptchaError = document.getElementById('recaptcha-error');
+    const getLang = () => ((typeof window !== 'undefined' && localStorage.getItem('language')) || 'es');
+    const tr = (key, fallback) => {
+      const lang = getLang();
+      const value = window.i18nClient?.t?.(key, lang);
+      return (typeof value === 'string' && !value.includes('.')) ? value : fallback;
+    };
+    const smsConsent = document.getElementById('sms-consent');
+    const smsConsentBlock = form ? form.querySelector('.sms-consent-group') : null;
 
     async function handleSubmit(ev) {
-      // Validación de aceptación de términos
-      const accept = document.getElementById('accept-terms');
-      const optIn = document.getElementById('opt-in');
-      const termsBlock = form.querySelector('.terms-group');
-      const consentBlock = form.querySelector('.consent-group');
-      // limpiar estado visual
-      if (termsBlock) termsBlock.classList.remove('error');
-      if (consentBlock) consentBlock.classList.remove('error');
-      // validar requerido
-      if (accept && !accept.checked) {
+      if (smsConsentBlock) smsConsentBlock.classList.remove('error');
+      if (smsConsent && !smsConsent.checked) {
         ev.preventDefault();
-        // estado rojo visual
-        if (termsBlock) termsBlock.classList.add('error');
-        msg.textContent = form.getAttribute('data-msg-terms-required') || 'You must accept terms to continue.';
+        if (smsConsentBlock) smsConsentBlock.classList.add('error');
+        msg.textContent = tr('schedule_page.form.sms_consent_required', 'Debes aceptar el consentimiento SMS para continuar.');
         msg.className = 'form-message error';
         msg.style.display = 'block';
         return;
       }
-      // marcar visualmente opt-in si está desmarcado (no bloquea envío)
-      if (optIn && !optIn.checked && consentBlock) {
-        consentBlock.classList.add('error');
+      if (recaptchaError) recaptchaError.textContent = '';
+
+      const grecaptchaApi = window.grecaptcha;
+      if (typeof grecaptchaApi !== 'undefined') {
+        const captchaResponse = grecaptchaApi.getResponse();
+        if (!captchaResponse) {
+          if (recaptchaError) {
+            recaptchaError.textContent = tr('schedule_page.form.captcha_required', 'Por favor confirma que no eres un robot.');
+          }
+          return;
+        }
+      } else {
+        if (recaptchaError) {
+          recaptchaError.textContent = tr('schedule_page.form.captcha_missing_key', 'Configura PUBLIC_RECAPTCHA_SITE_KEY para habilitar reCAPTCHA.');
+        }
+        return;
       }
       ev.preventDefault();
       if (!form.reportValidity()) return;
@@ -899,7 +886,7 @@ const currentLang = getCurrentLanguage();
       if (hp && hp.value.trim()) return;
 
       // Mostrar estado de carga
-      msg.textContent = 'Enviando mensaje...';
+      msg.textContent = tr('schedule_page.form.sending_message', 'Enviando mensaje...');
       msg.className = 'form-message';
       msg.style.display = 'block';
       submit.disabled = true;
@@ -908,11 +895,14 @@ const currentLang = getCurrentLanguage();
           <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
           <path d="M12 2a10 10 0 0 1 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        Enviando...
+        ${tr('schedule_page.form.sending', 'Enviando...')}
       `;
 
       try {
         const formData = new FormData(form);
+        if (window.grecaptcha && !formData.get('g-recaptcha-response')) {
+          formData.append('g-recaptcha-response', window.grecaptcha.getResponse());
+        }
         const response = await fetch(form.action, {
           method: 'POST',
           body: formData,
@@ -923,9 +913,10 @@ const currentLang = getCurrentLanguage();
 
         if (response.ok) {
           // Éxito
-          msg.textContent = '¡Mensaje enviado correctamente!';
+          msg.textContent = tr('schedule_page.form.success_message_inline', 'Se mandó correctamente la información.');
           msg.className = 'form-message success';
           form.reset();
+          if (window.grecaptcha) window.grecaptcha.reset();
           
           // Mostrar modal después de un breve delay
           setTimeout(() => {
@@ -936,7 +927,7 @@ const currentLang = getCurrentLanguage();
         }
       } catch (error) {
         // Error
-        msg.textContent = 'Error al enviar el mensaje. Por favor, intenta de nuevo.';
+        msg.textContent = tr('schedule_page.form.error_message_inline', 'Error al enviar el mensaje. Por favor, intenta de nuevo.');
         msg.className = 'form-message error';
       } finally {
         // Restaurar botón
@@ -946,7 +937,7 @@ const currentLang = getCurrentLanguage();
             <path d="M22 2L11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M22 2L15 22L11 13L2 9L22 2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          Enviar Solicitud
+          ${tr('schedule_page.form.submit', 'Enviar Solicitud')}
         `;
       }
     }

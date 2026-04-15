@@ -1,0 +1,13 @@
+---
+interface Props { clinicName: string; disclaimer?: string; logoSrc?: string }
+const { clinicName, disclaimer = 'Aviso médico: La información provista no sustituye un diagnóstico profesional. Consulte a un especialista para evaluación y tratamiento apropiado.', logoSrc = '/assets/img/Car-Injury-Clinic-White.png' } = Astro.props as Props;
+---
+<footer class="bg-slate-900 text-slate-300">
+  <div class="max-w-6xl mx-auto px-4 py-8 text-sm">
+    <div class="flex items-center gap-3">
+      <img src={logoSrc} alt={clinicName} class="h-8 w-auto object-contain" />
+      <p>&copy; {new Date().getFullYear()} {clinicName}. Todos los derechos reservados.</p>
+    </div>
+    <p class="mt-2 text-slate-400">{disclaimer}</p>
+  </div>
+</footer>

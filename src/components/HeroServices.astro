@@ -14,7 +14,6 @@ const currentLang = getCurrentLanguage();
 
     </div>
   </div>
-  <div class="hero-services-overlay"></div>
 </section>
 
 <style>
@@ -41,28 +40,7 @@ const currentLang = getCurrentLanguage();
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    
-    /* Imagen de fondo */
-    background: url('/assets/img/NewHero.jpeg');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    
-    /* Fallback si no carga la imagen */
-    background-color: var(--c-purple);
-  }
-
-  .hero-services-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(122, 46, 135, 0.5) 0%,
-      rgba(97, 30, 108, 0.4) 50%,
-      rgba(0, 0, 0, 0.3) 100%
-    );
-    z-index: 1;
+    background: var(--c-purple);
   }
 
   .hero-services-content {
@@ -174,7 +152,6 @@ const currentLang = getCurrentLanguage();
   @media (max-width: 768px) {
     .hero-services {
       min-height: 60vh;
-      background-attachment: scroll;
     }
 
 

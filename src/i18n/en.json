@@ -195,8 +195,16 @@
       "message": "How can we help you?",
       "message_placeholder": "Tell us about your accident: date, location, type of injuries, etc.",
       "submit": "Send Request",
+      "sending": "Sending...",
+      "sending_message": "Sending message...",
+      "success_message_inline": "Your information was sent successfully.",
+      "error_message_inline": "Error sending your message. Please try again.",
       "or": "or",
       "call_now": "Call Now",
+      "sms_consent": "By submitting this form, I agree to receive SMS messages from Car Injury Clinic regarding my accident assistance request, case updates, and appointment coordination. Message frequency may vary. Message and data rates may apply. Reply STOP to opt out.",
+      "sms_consent_required": "Please accept SMS consent to continue.",
+      "captcha_required": "Please confirm you are not a robot.",
+      "captcha_missing_key": "Set PUBLIC_RECAPTCHA_SITE_KEY to enable reCAPTCHA.",
       "accept_terms": "I accept the terms of use and privacy policy",
       "terms_link": "terms of use",
       "privacy_link": "privacy policy",
@@ -275,42 +283,6 @@
     "badge": "Specialized Services",
     "title": "Comprehensive Medical Care for Accident Victims",
     "subtitle": "Cutting-edge technology and specialized therapies for your complete recovery. No out-of-pocket cost with qualified insurance coverage."
-  },
-  "hero_lawyer": {
-    "badge": "Lawyer Approved",
-    "title": "Your guide from accident to recovery",
-    "subtitle": {
-      "main": "Start your treatment with a",
-      "highlight": "free evaluation",
-      "end": "for auto accident injuries. Accurate diagnosis and legal coordination."
-    },
-    "benefits_label": "Key benefits",
-    "benefits": {
-      "free_evaluation": "Free evaluation with our professionals",
-      "insurance_handling": "We handle your insurance case",
-      "legal_support": "We accompany you through the legal process",
-      "specialist_referral": "Referral to specialists according to your treatment"
-    },
-    "actions_label": "Main action",
-    "schedule_button": "Schedule your consultation with a specialist",
-    "call_now": "Call now at",
-    "form": {
-      "title": "Book your consultation",
-      "subtitle": "Free evaluation in less than 24 hours",
-      "free_badge": "No cost",
-      "fields": {
-        "name": "Name",
-        "email": "Email",
-        "phone": "Phone",
-        "how_found": "How did you find us?",
-        "select_option": "Select…",
-        "who_referred": "Who referred you?",
-        "referral_placeholder": "Name of person / lawyer / clinic",
-        "message": "Anything we should know?",
-        "message_placeholder": "Neck / back pain, whiplash, etc."
-      },
-      "submit_button": "Send"
-    }
   },
   "testimonials": {
     "title": {
@@ -638,7 +610,8 @@
         "message": "Tell us about your case",
         "message_placeholder": "Briefly describe your situation..."
       },
-      "submit_button": "Send"
+      "submit_button": "Send",
+      "sms_consent": "By submitting this form, I agree to receive SMS messages from Car Injury Clinic regarding my accident assistance request, case updates, and appointment coordination. Message frequency may vary. Message and data rates may apply. Reply STOP to opt out."
     }
   },
   "services": {
@@ -712,7 +685,8 @@
     "terms_link": "terms of use",
     "privacy_link": "privacy policy",
     "and": "and",
-    "receive_info_short": "I wish to receive information about services and updates"
+    "receive_info_short": "I wish to receive information about services and updates",
+    "sms_consent": "By submitting this form, I agree to receive SMS messages from Car Injury Clinic regarding my accident assistance request, case updates, and appointment coordination. Message frequency may vary. Message and data rates may apply. Reply STOP to opt out."
   },
   "footer": {
     "copyright": "All rights reserved.",

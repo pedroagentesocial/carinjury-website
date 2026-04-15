@@ -3,31 +3,22 @@
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import { t, getServerLanguage } from '../i18n/index.ts';
+import esTranslations from '../i18n/es.json';
+import enTranslations from '../i18n/en.json';
 
 const currentLang = 'es'; // Forzar español por defecto
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
 
 // Teléfono (para el botón auxiliar)
 const PHONE_DISPLAY = '385-242-8571';
 
-// Correo a donde llegarán los envíos (FormSubmit verificado)
-const FORMSUBMIT_TO = 'info@carinjuryclinics.com';
-
-// Imagen opcional para encabezado
-const HERO_IMG = '/assets/img/NewHero.jpeg';
-
-// Cargar traducciones para el cliente
-import esTranslations from '../i18n/es.json';
-import enTranslations from '../i18n/en.json';
 ---
 
 <Layout>
   <main class="ref page">
     <!-- ===== Encabezado ===== -->
     <header class="hero-min">
-      <div class="hero-min__bg" aria-hidden="true">
-        <img src={HERO_IMG} alt="" loading="lazy" decoding="async" />
-        <div class="veil" aria-hidden="true"></div>
-      </div>
+      <div class="hero-min__bg" aria-hidden="true"></div>
       <div class="container hero-min__content">
         <h1 data-i18n="formulario_page.hero.title">{t('formulario_page.hero.title', currentLang)}</h1>
         <p class="w-full text-nowrap" data-i18n="formulario_page.hero.subtitle">{t('formulario_page.hero.subtitle', currentLang)}</p>
@@ -39,18 +30,15 @@ import enTranslations from '../i18n/en.json';
       <form
         id="referral-form"
         class="card"
-        action={`https://formsubmit.co/info@carinjuryclinics.com`}
+        action="/api/form-webhook"
         method="POST"
         accept-charset="UTF-8"
         autocomplete="on"
         enctype="multipart/form-data"
         novalidate
       >
-        <!-- ===== Ocultos FormSubmit ===== -->
+        <!-- ===== Ocultos técnicos ===== -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_subject" value="Nueva referencia de paciente" />
-        <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="page" value="Formulario de referencia" />
 
 
@@ -343,6 +331,11 @@ import enTranslations from '../i18n/en.json';
 
         <p id="required-legend" class="required-legend" data-i18n="formulario.required_legend">{t('formulario.required_legend', currentLang)}</p>
 
+        <div class="form-group recaptcha-group">
+          <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="light"></div>
+          <p id="recaptcha-error" class="recaptcha-error" aria-live="polite"></p>
+        </div>
+
         <!-- ===== Botón de Envío ===== -->
         <div class="form-actions">
           <button id="ref-submit" type="submit" class="btn btn-primary">{t('formulario.submit', currentLang)}</button>
@@ -368,6 +361,7 @@ import enTranslations from '../i18n/en.json';
   <script define:vars={{ esTranslations, enTranslations }}>
     window.translations = { es: esTranslations, en: enTranslations };
   </script>
+  <script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script>
   
   <script define:vars={{ WEBHOOK_URL: import.meta.env.PUBLIC_WEBHOOK_URL }}>
     // Inicializar sistema de internacionalización
@@ -434,11 +428,14 @@ import enTranslations from '../i18n/en.json';
       const formMessages = document.getElementById('form-messages');
       const errorMsg = formMessages?.querySelector('.error-message');
       const successMsg = formMessages?.querySelector('.success-message');
+      const recaptchaError = document.getElementById('recaptcha-error');
+      const getLang = () => ((typeof window !== 'undefined' && localStorage.getItem('language')) || 'es');
 
 
       const formEl = document.getElementById('referral-form');
       if (formEl) {
-        formEl.addEventListener('submit', function(e) {
+        formEl.addEventListener('submit', async function(e) {
+          e.preventDefault();
           let firstInvalid = null;
           const requiredEls = Array.from(document.querySelectorAll('input[required], select[required], textarea[required]'));
           const radioGroups = new Set(requiredEls.filter(el => el instanceof HTMLInputElement && el.type === 'radio').map(el => el.name));
@@ -456,38 +453,52 @@ import enTranslations from '../i18n/en.json';
             if (empty && vis && !firstInvalid) firstInvalid = el;
           });
           if (firstInvalid) {
-            e.preventDefault();
             if (formMessages && errorMsg) {
               formMessages.style.display = 'block';
-              successMsg?.classList.add('hidden');
-              errorMsg.classList.remove('hidden');
+              if (successMsg) successMsg.style.display = 'none';
+              errorMsg.style.display = 'block';
             }
             firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return false;
+          }
+
+          if (recaptchaError) recaptchaError.textContent = '';
+          const grecaptchaApi = window.grecaptcha;
+          if (!grecaptchaApi || !grecaptchaApi.getResponse || !grecaptchaApi.getResponse()) {
+            if (recaptchaError) {
+              recaptchaError.textContent = getLang() === 'en'
+                ? 'Please confirm you are not a robot.'
+                : 'Por favor confirma que no eres un robot.';
+            }
             return false;
           }
 
           try {
             const fd = new FormData(formEl);
             const payload = Object.fromEntries(fd.entries());
+            payload['g-recaptcha-response'] = grecaptchaApi.getResponse();
             payload.page = 'Formulario de referencia';
             payload.timestamp = new Date().toISOString();
-            const PRIMARY_WEBHOOK = (typeof window !== 'undefined' && location.hostname.includes('localhost')) ? '/api/form-webhook' : '/webhook.php';
-            if (PRIMARY_WEBHOOK) {
-              fetch(PRIMARY_WEBHOOK, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-              }).catch(() => {
-                fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', {
-                  method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
-                }).catch(() => {});
-              });
-            } else {
-              fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', {
-                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
-              }).catch(() => {});
+            await fetch('/api/form-webhook', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            if (formMessages && successMsg) {
+              formMessages.style.display = 'block';
+              successMsg.textContent = 'Se mandó correctamente la información.';
+              successMsg.style.display = 'block';
+              if (errorMsg) errorMsg.style.display = 'none';
             }
-          } catch {}
+            formEl.reset();
+            grecaptchaApi.reset();
+          } catch {
+            if (formMessages && errorMsg) {
+              formMessages.style.display = 'block';
+              errorMsg.style.display = 'block';
+              if (successMsg) successMsg.style.display = 'none';
+            }
+          }
         });
       }
 
@@ -567,25 +578,7 @@ import enTranslations from '../i18n/en.json';
       position: absolute;
       inset: 0;
       z-index: 0;
-      background: url('/assets/img/NewHero.jpeg');
-      background-size: cover;
-      background-position: center top;
-      background-repeat: no-repeat;
-    }
-
-    .hero-min__bg .veil {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(122, 46, 135, 0.5) 0%, rgba(97, 30, 108, 0.4) 50%, rgba(0, 0, 0, 0.3) 100%);
-    }
-
-    .hero-min__bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      opacity: 0.4;
-      display: block;
+      background: var(--primary-color);
     }
 
     .hero-min__content {
@@ -821,6 +814,22 @@ import enTranslations from '../i18n/en.json';
       margin: 0.25rem 0 0.75rem;
       text-align: center;
       line-height: 1.4;
+    }
+
+    .recaptcha-group {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .recaptcha-error {
+      margin: 0;
+      min-height: 1rem;
+      font-size: 0.82rem;
+      color: #b91c1c;
+      text-align: center;
     }
 
     .checkbox-group.compact {

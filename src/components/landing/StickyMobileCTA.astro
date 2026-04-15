@@ -1,0 +1,22 @@
+---
+interface Props { phoneNumber: string; whatsappNumber: string; labelCall?: string; labelWhatsApp?: string }
+const { phoneNumber, whatsappNumber, labelCall = 'Llamar', labelWhatsApp = 'WhatsApp' } = Astro.props as Props;
+const telHref = `tel:${phoneNumber}`;
+const waHref = `https://wa.me/${whatsappNumber.replace('+','')}`;
+---
+<div class="fixed z-50 bottom-0 inset-x-0 md:hidden">
+  <div class="mx-auto max-w-md">
+    <div class="m-3 rounded-2xl shadow-lg bg-white border border-slate-200 overflow-hidden">
+      <div class="grid grid-cols-2">
+        <a href={telHref} class="flex items-center justify-center gap-2 py-3 text-purple-800 font-bold" data-event="phone_call">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v2a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 3.8 2 2 0 0 1 4.11 2h2a2 2 0 0 1 2 1.72c.12.9.31 1.78.57 2.63a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.45-1.17a2 2 0 0 1 2.11-.45c.85.26 1.73.45 2.63.57A2 2 0 0 1 22 16.92Z" stroke="currentColor" stroke-width="2"/></svg>
+          {labelCall}
+        </a>
+        <a href={waHref} target="_blank" rel="noopener" class="flex items-center justify-center gap-2 py-3 bg-purple-700 text-white font-bold" data-event="schedule_click">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20 12.04c0 4.42-3.58 8-8 8-1.41 0-2.73-.36-3.88-1l-4.12 1.12 1.12-4.12c-.64-1.15-1-2.47-1-3.88 0-4.42 3.58-8 8-8s8 3.58 8 8zm-11.43-1.27c.2.51.61 1.2 1.13 1.93.7.98 1.51 1.8 2.38 2.36.7.44 1.31.72 1.79.85.41.12.77.1 1.06-.12.22-.16.48-.42.71-.63.23-.21.39-.39.45-.66.07-.26.02-.52-.2-.76l-.62-.7c-.18-.2-.41-.25-.66-.17-.21.07-.44.16-.68.26-.19.08-.35.15-.47.26-.15.14-.29.36-.41.51-.11.14-.2.25-.31.26-.11.01-.27-.07-.49-.22-.27-.18-.54-.39-.83-.64-.29-.25-.55-.51-.8-.78-.25-.27-.46-.54-.64-.81-.15-.22-.27-.4-.33-.54-.07-.17-.08-.3-.01-.42.07-.12.21-.26.38-.43.18-.18.33-.34.45-.49.12-.15.22-.28.27-.42.09-.26.05-.49-.1-.69l-.58-.83c-.16-.23-.39-.33-.65-.31-.15.02-.32.07-.51.15-.19.08-.38.18-.58.31-.22.14-.43.31-.62.51-.19.2-.35.41-.48.62-.17.26-.29.5-.34.72-.06.26-.04.53.08.81z"/></svg>
+          {labelWhatsApp}
+        </a>
+      </div>
+    </div>
+  </div>
+ </div>

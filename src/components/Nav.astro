@@ -90,7 +90,7 @@ const PHONE_TEL = '+13852428571';
           <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
           <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2" fill="none"/>
         </svg>
-        <span id="language-button-text">{currentLang === 'es' ? 'English' : 'Español'}</span>
+        <span id="language-button-text">{currentLang === 'en' ? 'Spanish' : 'Ingles'}</span>
       </button>
 
       <a class="btn-phone" href={`tel:${PHONE_TEL}`} aria-label={`Llamar al ${PHONE_DISPLAY}`}>
@@ -794,6 +794,154 @@ const PHONE_TEL = '+13852428571';
     padding: 0.75rem 1rem;
   }
 }
+
+/* ==========================================================================
+   OVERWRITES FINALES — Mobile First y consistentes
+   ========================================================================== */
+#main-nav {
+  --nav-current-h: 76px;
+  --logo-current-h: 46px;
+}
+
+#main-nav.navbar {
+  height: var(--nav-current-h) !important;
+  min-height: var(--nav-current-h) !important;
+}
+
+#main-nav .navbar-container {
+  height: var(--nav-current-h) !important;
+  min-height: var(--nav-current-h) !important;
+  padding: 0.5rem max(0.75rem, env(safe-area-inset-left)) 0.5rem max(0.75rem, env(safe-area-inset-right)) !important;
+}
+
+#main-nav .navbar-logo {
+  margin-top: 0 !important;
+  margin-right: 0.5rem !important;
+}
+
+#main-nav .brand-img {
+  height: var(--logo-current-h) !important;
+  max-width: 170px !important;
+}
+
+#main-nav .navbar-actions {
+  gap: 0.35rem !important;
+}
+
+#main-nav .btn-language {
+  padding: 0.35rem 0.5rem !important;
+  min-width: 38px;
+  justify-content: center;
+}
+
+#main-nav .btn-language span {
+  display: none;
+}
+
+#main-nav .btn-cta {
+  display: none;
+}
+
+#main-nav .mobile-toggle {
+  width: 38px;
+  height: 38px;
+}
+
+#main-nav .mobile-panel {
+  top: var(--nav-current-h) !important;
+  height: calc(100dvh - var(--nav-current-h));
+}
+
+@media (min-width: 768px) {
+  #main-nav {
+    --nav-current-h: 90px;
+    --logo-current-h: 56px;
+  }
+
+  #main-nav .navbar-container {
+    padding: 0.75rem 1rem !important;
+  }
+
+  #main-nav .brand-img {
+    max-width: 210px !important;
+  }
+
+  #main-nav .btn-language span {
+    display: inline;
+  }
+
+  #main-nav .btn-cta {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  #main-nav {
+    --nav-current-h: 108px;
+    --logo-current-h: 70px;
+  }
+
+  #main-nav .navbar-container {
+    padding: 0.9rem 1.5rem !important;
+  }
+
+  #main-nav .brand-img {
+    max-width: 260px !important;
+  }
+
+  #main-nav .btn-cta {
+    display: inline-block;
+    padding: 0.7rem 1.25rem;
+    font-size: 0.96rem;
+  }
+}
+
+@media (max-width: 390px) {
+  #main-nav {
+    --nav-current-h: 72px;
+    --logo-current-h: 38px;
+  }
+
+  #main-nav .navbar-container {
+    padding: 0.45rem max(0.55rem, env(safe-area-inset-left)) 0.45rem max(0.55rem, env(safe-area-inset-right)) !important;
+  }
+
+  #main-nav .brand-img {
+    max-width: 146px !important;
+  }
+
+  #main-nav .btn-language {
+    padding: 0.3rem 0.4rem !important;
+    min-width: 34px;
+  }
+
+  #main-nav .mobile-toggle {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  #main-nav {
+    --nav-current-h: 66px;
+    --logo-current-h: 36px;
+  }
+
+  #main-nav .mobile-panel {
+    overflow-y: auto;
+  }
+
+  #main-nav .mobile-inner {
+    padding: 0.75rem;
+    gap: 0.4rem;
+  }
+
+  #main-nav .m-link,
+  #main-nav .mobile-summary {
+    padding: 0.55rem;
+    font-size: 0.9rem;
+  }
+}
 </style>
 
 <script>
@@ -804,9 +952,26 @@ const PHONE_TEL = '+13852428571';
 document.addEventListener('DOMContentLoaded', function() {
   // Elementos
   const languageToggle = document.getElementById('language-toggle');
+  const languageButtonText = document.getElementById('language-button-text');
   const mobileToggle = document.querySelector('[data-mobile]');
   const mobilePanel = document.querySelector('[data-panel]');
   const dropdowns = document.querySelectorAll('.has-dropdown');
+
+  const resolveCurrentLang = () => {
+    if (typeof window !== 'undefined' && window.i18nClient?.currentLang) return window.i18nClient.currentLang;
+    if (typeof window !== 'undefined') return localStorage.getItem('language') || (window.location.pathname.startsWith('/en') ? 'en' : 'es');
+    return 'es';
+  };
+
+  const updateLanguageButtonText = (lang) => {
+    if (!languageButtonText) return;
+    languageButtonText.textContent = lang === 'en' ? 'Spanish' : 'Ingles';
+  };
+
+  updateLanguageButtonText(resolveCurrentLang());
+  window.addEventListener('languageChange', (event) => {
+    updateLanguageButtonText(event.detail || resolveCurrentLang());
+  });
   
   // Mejorar comportamiento de dropdowns
   dropdowns.forEach(dropdown => {
@@ -875,11 +1040,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.i18nClient.setLanguage(newLang);
             
             // Actualizar el texto del botón inmediatamente
-            const buttonText = document.getElementById('language-button-text');
-            if (buttonText) {
-              buttonText.textContent = newLang === 'es' ? 'English' : 'Español';
-              console.log('Button text updated to:', buttonText.textContent);
-            }
+            updateLanguageButtonText(newLang);
             
             // Actualizar todas las traducciones en la página
             window.i18nClient.updateAllTranslations();

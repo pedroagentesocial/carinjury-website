@@ -5,24 +5,20 @@ import { t, getCurrentLanguage } from '../i18n/index.ts';
 interface Props {
   phoneDisplay?: string;
   phoneTel?: string;
-  heroImg?: string;
 }
 
 const {
   phoneDisplay = '385-242-8571',
   phoneTel = '+13852428571',
-  heroImg = '/assets/img/NewHero.jpeg',
 } = Astro.props;
 
 const currentLang = getCurrentLanguage();
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
 ---
 
 <section class="hero-lawyer" aria-labelledby="hl-title">
   <!-- Fondo -->
-  <div class="hl-bg" aria-hidden="true">
-    <img src={heroImg} alt="" loading="eager" decoding="async" />
-    <div class="hl-veil"></div>
-  </div>
+  <div class="hl-bg" aria-hidden="true"></div>
 
   <div class="hl-grid container">
     <!-- Izquierda -->
@@ -69,7 +65,7 @@ const currentLang = getCurrentLanguage();
 
       <div class="card-body">
         <form
-          action="https://formsubmit.co/info@carinjuryclinics.com"
+      action="/api/form-webhook"
           method="POST"
           accept-charset="UTF-8"
           autocomplete="on"
@@ -78,91 +74,79 @@ const currentLang = getCurrentLanguage();
           <!-- Honeypot anti-spam -->
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
 
-          <!-- Opciones FormSubmit -->
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_next" value="http://localhost:4321/gracias" />
-          <input type="hidden" name="_subject" value="Nuevo lead desde el sitio" />
-          <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="page" value="Formulario Hero Lawyer" />
 
-          <label class="field">
-            <span data-i18n="hero_lawyer.form.fields.name">{t('hero_lawyer.form.fields.name', currentLang)}</span>
-            <input type="text" name="name" autocomplete="name" required />
-          </label>
-
-          <label class="field">
-            <span data-i18n="hero_lawyer.form.fields.email">{t('hero_lawyer.form.fields.email', currentLang)}</span>
-            <input type="email" name="email" autocomplete="email" />
-          </label>
-
-          <label class="field">
-            <span data-i18n="hero_lawyer.form.fields.phone">{t('hero_lawyer.form.fields.phone', currentLang)}</span>
-            <input type="tel" name="phone" inputmode="tel" placeholder="+1 (___) ___-____" required />
-          </label>
-
-          <!-- Select con flecha custom accesible -->
-          <label class="field" id="row-discovery">
-            <span data-i18n="hero_lawyer.form.fields.how_found">{t('hero_lawyer.form.fields.how_found', currentLang)}</span>
-            <span class="select">
-              <select name="discovery_source" id="discovery" required aria-describedby="discoveryHint">
-                <option value="" data-i18n="hero_lawyer.form.fields.select_option">{t('hero_lawyer.form.fields.select_option', currentLang)}</option>
-                <option value="google_search">Google (búsqueda)</option>
-                <option value="google_maps">Google Maps</option>
-                <option value="facebook">Facebook</option>
-                <option value="instagram">Instagram</option>
-                <option value="tiktok">TikTok</option>
-                <option value="x_twitter">X (Twitter)</option>
-                <option value="youtube">YouTube</option>
-                <option value="ads">Anuncio (Google / Facebook / Instagram)</option>
-                <option value="ref_amigo">Referido: amigo o familiar</option>
-                <option value="ref_abogado">Referido: abogado</option>
-                <option value="ref_medico">Referido: médico / clínica</option>
-                <option value="letrero">Vine por el letrero / pasé por la clínica</option>
-                <option value="evento">Evento / comunidad</option>
-                <option value="radio_tv">Radio / TV</option>
-                <option value="otro">Otro</option>
-              </select>
-            </span>
-            <span id="discoveryHint" class="visually-hidden">Abre el menú con Enter o flecha abajo</span>
-          </label>
-
-          <label class="field is-hidden" id="row-referral" hidden>
-            <span data-i18n="hero_lawyer.form.fields.who_referred">{t('hero_lawyer.form.fields.who_referred', currentLang)}</span>
-            <input
-              type="text"
-              name="referral_name"
-              id="referral_name"
-              placeholder={t('hero_lawyer.form.fields.referral_placeholder', currentLang)}
-              data-i18n-placeholder="hero_lawyer.form.fields.referral_placeholder"
-            />
-          </label>
-
-          <label class="field">
-            <span data-i18n="hero_lawyer.form.fields.message">{t('hero_lawyer.form.fields.message', currentLang)}</span>
-            <textarea name="message" rows="3" placeholder={t('hero_lawyer.form.fields.message_placeholder', currentLang)} data-i18n-placeholder="hero_lawyer.form.fields.message_placeholder"></textarea>
-          </label>
-
-          <!-- Checkboxes ultra-compactos: términos (requerido) y opt-in (opcional) -->
-          <div class="terms-group">
-            <label class="terms-label">
-              <input id="accept-terms" name="accept_terms" type="checkbox" required class="terms-checkbox" />
-              <span class="terms-text">
-                <span data-i18n="form.accept_terms">{t('form.accept_terms', currentLang)}</span>
-                <span class="links-paren">
-                  (<a href="/privacy#terms" target="_blank" rel="noopener" class="terms-link" data-i18n="form.terms_link">{t('form.terms_link', currentLang)}</a>
-                  <span class="mx-1" data-i18n="form.and">{t('form.and', currentLang)}</span>
-                  <a href="/privacy" target="_blank" rel="noopener" class="terms-link" data-i18n="form.privacy_link">{t('form.privacy_link', currentLang)}</a>)
-                </span>
-              </span>
+          <div class="mini-grid">
+            <label class="field">
+              <span data-i18n="hero_lawyer.form.fields.name">{t('hero_lawyer.form.fields.name', currentLang)}</span>
+              <input type="text" name="name" autocomplete="name" required />
             </label>
-            <p class="terms-error" id="terms-error" aria-live="polite">Debe aceptar los términos</p>
+
+            <label class="field">
+              <span data-i18n="hero_lawyer.form.fields.email">{t('hero_lawyer.form.fields.email', currentLang)}</span>
+              <input type="email" name="email" autocomplete="email" />
+            </label>
+
+            <label class="field">
+              <span data-i18n="hero_lawyer.form.fields.phone">{t('hero_lawyer.form.fields.phone', currentLang)}</span>
+              <input type="tel" name="phone" inputmode="tel" placeholder="+1 (___) ___-____" required />
+            </label>
+
+            <!-- Select con flecha custom accesible -->
+            <label class="field" id="row-discovery">
+              <span data-i18n="hero_lawyer.form.fields.how_found">{t('hero_lawyer.form.fields.how_found', currentLang)}</span>
+              <span class="select">
+                <select name="discovery_source" id="discovery" required aria-describedby="discoveryHint">
+                  <option value="" data-i18n="hero_lawyer.form.fields.select_option">{t('hero_lawyer.form.fields.select_option', currentLang)}</option>
+                  <option value="google_search">Google (búsqueda)</option>
+                  <option value="google_maps">Google Maps</option>
+                  <option value="facebook">Facebook</option>
+                  <option value="instagram">Instagram</option>
+                  <option value="tiktok">TikTok</option>
+                  <option value="x_twitter">X (Twitter)</option>
+                  <option value="youtube">YouTube</option>
+                  <option value="ads">Anuncio (Google / Facebook / Instagram)</option>
+                  <option value="ref_amigo">Referido: amigo o familiar</option>
+                  <option value="ref_abogado">Referido: abogado</option>
+                  <option value="ref_medico">Referido: médico / clínica</option>
+                  <option value="letrero">Vine por el letrero / pasé por la clínica</option>
+                  <option value="evento">Evento / comunidad</option>
+                  <option value="radio_tv">Radio / TV</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </span>
+              <span id="discoveryHint" class="visually-hidden">Abre el menú con Enter o flecha abajo</span>
+            </label>
+
+            <label class="field field-full is-hidden" id="row-referral" hidden>
+              <span data-i18n="hero_lawyer.form.fields.who_referred">{t('hero_lawyer.form.fields.who_referred', currentLang)}</span>
+              <input
+                type="text"
+                name="referral_name"
+                id="referral_name"
+                placeholder={t('hero_lawyer.form.fields.referral_placeholder', currentLang)}
+                data-i18n-placeholder="hero_lawyer.form.fields.referral_placeholder"
+              />
+            </label>
+
+            <label class="field field-full">
+              <span data-i18n="hero_lawyer.form.fields.message">{t('hero_lawyer.form.fields.message', currentLang)}</span>
+              <textarea name="message" rows="2" placeholder={t('hero_lawyer.form.fields.message_placeholder', currentLang)} data-i18n-placeholder="hero_lawyer.form.fields.message_placeholder"></textarea>
+            </label>
           </div>
 
-          <div class="consent-group">
-            <label class="consent-label">
-              <input id="opt-in" name="marketing_opt_in" type="checkbox" class="consent-checkbox" />
-              <span data-i18n="form.receive_info_short">{t('form.receive_info_short', currentLang)}</span>
+          <div class="sms-consent-group">
+            <label class="sms-consent-label">
+              <input id="sms-consent" name="sms_consent" type="checkbox" required class="sms-consent-checkbox" />
+              <span id="sms-consent-text" class="sms-consent-text" data-i18n="hero_lawyer.form.sms_consent">
+                {t('hero_lawyer.form.sms_consent', currentLang)}
+              </span>
             </label>
+          </div>
+
+          <div class="recaptcha-group">
+            <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="light"></div>
+            <p id="recaptcha-error" class="recaptcha-error" aria-live="polite"></p>
           </div>
 
           <button type="submit" class="btn btn-primary btn-lg btn-fill cta-arrow" id="submit-btn">
@@ -180,7 +164,7 @@ const currentLang = getCurrentLanguage();
               </svg>
               <div class="thank-you-text">
                 <h4>¡Gracias!</h4>
-                <p>Hemos recibido tu solicitud. Te contactaremos pronto.</p>
+                <p id="thank-you-copy">{currentLang === 'en' ? 'Your information was sent successfully.' : 'Se mandó correctamente la información.'}</p>
               </div>
             </div>
           </div>
@@ -189,6 +173,7 @@ const currentLang = getCurrentLanguage();
     </aside>
   </div>
 
+  <script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script is:inline>
     (function(){
       const discovery     = document.getElementById('discovery');
@@ -211,36 +196,51 @@ const currentLang = getCurrentLanguage();
       const form = document.querySelector('.mini');
       const submitBtn = document.getElementById('submit-btn');
       const thankYouMessage = document.getElementById('thank-you-message');
-      const termsBlock = document.querySelector('.terms-group');
-      const consentBlock = document.querySelector('.consent-group');
-      const accept = document.getElementById('accept-terms');
-      const optIn = document.getElementById('opt-in');
+      const thankYouCopy = document.getElementById('thank-you-copy');
+      const smsConsentBlock = document.querySelector('.sms-consent-group');
+      const smsConsent = document.getElementById('sms-consent');
+      const recaptchaError = document.getElementById('recaptcha-error');
+      const getLang = () => ((typeof window !== 'undefined' && localStorage.getItem('language')) || 'es');
 
-      // Validación en tiempo real para el checkbox de términos
-      accept?.addEventListener('change', () => {
-        if (accept.checked) {
-          termsBlock?.classList.remove('error');
+      smsConsent?.addEventListener('change', () => {
+        if (smsConsent.checked) {
+          smsConsentBlock?.classList.remove('error');
         } else {
-          termsBlock?.classList.add('error');
+          smsConsentBlock?.classList.add('error');
         }
       });
 
       if (form && submitBtn && thankYouMessage) {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
           e.preventDefault();
 
           // Limpiar estado visual previo
-          termsBlock?.classList.remove('error');
-          consentBlock?.classList.remove('error');
+          smsConsentBlock?.classList.remove('error');
+          if (recaptchaError) recaptchaError.textContent = '';
 
-          // Validación: términos requerido
-          if (accept && !accept.checked) {
-            termsBlock?.classList.add('error');
-            return; // No continuar si no acepta términos
+          if (smsConsent && !smsConsent.checked) {
+            smsConsentBlock?.classList.add('error');
+            return;
           }
-          // Marcar opt-in en rojo si está desmarcado (no bloquea envío)
-          if (optIn && !optIn.checked) {
-            consentBlock?.classList.add('error');
+
+          const grecaptchaApi = (window).grecaptcha;
+          if (typeof grecaptchaApi !== 'undefined') {
+            const captchaResponse = grecaptchaApi.getResponse();
+            if (!captchaResponse) {
+              if (recaptchaError) {
+                recaptchaError.textContent = getLang() === 'en'
+                  ? 'Please confirm you are not a robot.'
+                  : 'Por favor confirma que no eres un robot.';
+              }
+              return;
+            }
+          } else {
+            if (recaptchaError) {
+              recaptchaError.textContent = getLang() === 'en'
+                ? 'Set PUBLIC_RECAPTCHA_SITE_KEY to enable reCAPTCHA.'
+                : 'Configura PUBLIC_RECAPTCHA_SITE_KEY para habilitar reCAPTCHA.';
+            }
+            return;
           }
 
           // Honeypot anti-spam
@@ -256,6 +256,11 @@ const currentLang = getCurrentLanguage();
             submitBtn.style.display = 'none';
             thankYouMessage.style.display = 'block';
             thankYouMessage.classList.add('show');
+            if (thankYouCopy) {
+              thankYouCopy.textContent = getLang() === 'en'
+                ? 'Your information was sent successfully.'
+                : 'Se mandó correctamente la información.';
+            }
           }, 100);
 
           // Preparar datos para Make.com
@@ -267,58 +272,24 @@ const currentLang = getCurrentLanguage();
             discovery_source: fd.get('discovery_source') || '',
             referral_name: fd.get('referral_name') || '',
             message: fd.get('message') || '',
+            'g-recaptcha-response': (window).grecaptcha ? (window).grecaptcha.getResponse() : '',
             page: 'Formulario Hero Lawyer',
             ts: new Date().toISOString(),
           };
 
           try {
-            fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', {
+            await fetch('/api/form-webhook', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 'User-Agent': 'CarInjuryClinic-Website/1.0'
               },
               body: JSON.stringify(payload)
-            }).catch(err => console.log('Webhook Make.com error (continuando con FormSubmit):', err));
+            });
           } catch (err) {
-            console.log('Error preparando envío a Make.com:', err);
+            console.log('Error enviando formulario:', err);
           }
-
-          // Enviar a FormSubmit tras breve delay (fallback garantizado)
-          setTimeout(() => {
-            try {
-              form.submit();
-            } catch (err) {
-              // Fallback: crear formulario temporal y enviar
-              const tempForm = document.createElement('form');
-              tempForm.action = form.action;
-              tempForm.method = form.method;
-              tempForm.style.display = 'none';
-
-              for (let [key, value] of fd.entries()) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = String(value);
-                tempForm.appendChild(input);
-              }
-
-              const ensureHidden = (name, value) => {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = name;
-                input.value = value;
-                tempForm.appendChild(input);
-              };
-              ensureHidden('_captcha', 'false');
-              ensureHidden('_next', 'http://localhost:4321/gracias');
-              ensureHidden('_subject', 'Nuevo lead desde el sitio');
-              ensureHidden('_template', 'table');
-
-              document.body.appendChild(tempForm);
-              tempForm.submit();
-            }
-          }, 1200);
+          if ((window).grecaptcha) (window).grecaptcha.reset();
         });
       }
     })();
@@ -351,22 +322,7 @@ const currentLang = getCurrentLanguage();
     }
     .hl-bg{
       position:absolute; inset:0; z-index:0; pointer-events:none;
-      background: url('/assets/img/NewHero.jpeg');
-      background-size: cover;
-      background-position: center top;
-      background-repeat: no-repeat;
-    }
-    .hl-bg img{
-      display: none;
-    }
-    .hl-bg .hl-veil{ 
-      position:absolute; inset:0; 
-      background: linear-gradient(
-        135deg,
-        rgba(122, 46, 135, 0.5) 0%,
-        rgba(97, 30, 108, 0.4) 50%,
-        rgba(0, 0, 0, 0.3) 100%
-      );
+      background: #7A2E87;
     }
 
     .hl-grid{
@@ -542,6 +498,14 @@ const currentLang = getCurrentLanguage();
       width: 100%;
       max-width: 100%;
     }
+    .mini-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 12px;
+    }
+    .field-full{
+      grid-column: 1 / -1;
+    }
 
     .field{
       display:grid; gap:.4rem; margin:0;
@@ -601,44 +565,46 @@ const currentLang = getCurrentLanguage();
       border-color: var(--brand-700);
     }
 
-    .field textarea{ resize: vertical; min-height: 96px; }
+    .field textarea{ resize: none; min-height: 72px; }
 
     /* Oculta fila “¿Quién te recomendó?” cuando no aplica */
     #row-referral.is-hidden{ display:none !important; }
 
-    /* Checkboxes ultra-compactos (8px) */
-    .terms-group,
-    .consent-group{
-      padding: 0.08rem 0.16rem;
+    .sms-consent-group{
+      margin-top: 8px;
+      padding: 10px;
       border: 1px solid var(--line);
-      border-radius: 3px;
+      border-radius: 8px;
       background: rgba(255,255,255,0.08);
-      margin-top: 0.12rem;
     }
-    
-    /* El rectángulo del consent se ajusta al ancho del texto */
-    .consent-group{ display:inline-block; width: fit-content; }
-    
-    /* Checkboxes ultra-compactos (ajustados para mejor legibilidad) */
-    .terms-checkbox,
-    .consent-checkbox{ width:12px; height:12px; margin-top:0; vertical-align:middle; }
-    
-    /* Mensaje de error de términos */
-    .terms-error{
-      display:none;
+    .sms-consent-label{
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--ink);
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+    .sms-consent-checkbox{
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      flex: 0 0 auto;
+    }
+    .sms-consent-group.error{
+      border-color:#dc2626;
+      background: rgba(220,38,38,0.12);
+    }
+
+    .recaptcha-group{
+      margin-top: 10px;
+    }
+    .recaptcha-error{
+      margin-top: 6px;
+      font-size: 0.8rem;
       color:#dc2626;
-      font-size:0.75rem; /* ~12px */
-      line-height:1.2;
-      margin-top:0.25rem;
+      min-height: 1rem;
     }
-    .terms-group.error .terms-error{ display:block; }
-    .terms-text{ display:inline; flex: 1; min-width: 0; }
-    .links-paren{ color: var(--muted); opacity: 0.9; font-size: 0.62rem; margin-left: 0.15rem; }
-    .terms-checkbox,
-    .consent-checkbox{ width:8px; height:8px; margin-top:0; vertical-align:middle; }
-    .terms-link{ color: var(--brand-700); text-decoration: underline; }
-    .terms-group.error,
-    .consent-group.error{ border-color:#dc2626; background: rgba(220,38,38,0.12); }
 
     /* Accesibilidad visual-only helpers */
     .visually-hidden{
@@ -720,6 +686,8 @@ const currentLang = getCurrentLanguage();
     @media (max-width: 980px){
       .hero-lawyer{ padding: 100px 0 32px; }
       .hl-card{ max-width: 100%; }
+      .mini-grid{ grid-template-columns: 1fr; }
+      .field-full{ grid-column: auto; }
       
       .thank-you-content {
         flex-direction: row;

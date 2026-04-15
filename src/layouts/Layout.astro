@@ -2,7 +2,6 @@
 /* Layout.astro – plantilla principal (sin TopBar, Nav arriba) */
 import Nav from '../components/Nav.astro';
 import FloatingButtons from '../components/FloatingButtons.astro';
-import CenterfyChat from '../components/CenterfyChat.astro';
 ---
 
 <!DOCTYPE html>
@@ -32,8 +31,20 @@ import CenterfyChat from '../components/CenterfyChat.astro';
 <style is:global>
   /* Definir --nav-h para que coincida con --navbar-height */
   :root {
-    --nav-h: 85px; /* SINCRONIZADO - área expandida del navbar en Nav.astro */
-    --logo-h: 150px; /* SINCRONIZADO - logo extra grande con brand-img height en Nav.astro */
+    --nav-h: 72px; /* SINCRONIZADO con enfoque mobile-first */
+    --logo-h: 34px; /* SINCRONIZADO con Nav.astro */
+  }
+  @media (min-width: 768px) {
+    :root {
+      --nav-h: 84px;
+      --logo-h: 42px;
+    }
+  }
+  @media (min-width: 1024px) {
+    :root {
+      --nav-h: 96px;
+      --logo-h: 50px;
+    }
   }
   
   /* Si algún CSS global fijó alturas/line-height del nav/header, los anulamos aquí */
@@ -89,7 +100,13 @@ import CenterfyChat from '../components/CenterfyChat.astro';
     <!-- Botones flotantes -->
     <FloatingButtons />
     
-    <CenterfyChat />
+    <script
+      is:inline
+      src="https://widgets.leadconnectorhq.com/loader.js"
+      data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+      data-widget-id="69cc5bc9af4d3484b4c4f464"
+      defer
+    ></script>
 
     <!-- Cargar traducciones globalmente -->
     <script is:inline define:vars={{ translations: { es: await import('../i18n/es.json'), en: await import('../i18n/en.json') } }}>
@@ -98,13 +115,9 @@ import CenterfyChat from '../components/CenterfyChat.astro';
     
     <!-- Scripts opcionales -->
     <script type="module">
-      try {
-        await import('../utils/testimonials.js');
-        await import('../utils/dropdown.js');
-        await import('../utils/animations.js');
-      } catch (error) {
-        console.log('Some utility scripts could not be loaded:', error);
-      }
+      import '/utils/testimonials.js';
+      import '/utils/dropdown.js';
+      import '/utils/animations.js';
     </script>
     
     <!-- Inicializar i18n client con mejor manejo -->
@@ -114,19 +127,15 @@ import CenterfyChat from '../components/CenterfyChat.astro';
         
         try {
           const mod = await import('../utils/i18n-client.js');
-          if (window.i18nClient) {
-            window.i18nClient.init();
-            setupLanguageButton();
-            updateLanguageButton();
-            window.dispatchEvent(new CustomEvent('i18nReady'));
-          }
+          // Evitar warning de variable no usada
+          void mod;
           
           // Función para actualizar el texto del botón de idioma
           const updateLanguageButton = () => {
             const buttonText = document.getElementById('language-button-text');
             if (buttonText && window.i18nClient) {
               const currentLang = window.i18nClient.currentLang;
-              buttonText.textContent = currentLang === 'es' ? 'English' : 'Español';
+              buttonText.textContent = currentLang === 'en' ? 'Spanish' : 'Ingles';
               console.log('Layout: Button text updated to:', buttonText.textContent);
             }
           };
@@ -154,6 +163,13 @@ import CenterfyChat from '../components/CenterfyChat.astro';
               console.log('Layout: Language button event listener added');
             }
           };
+
+          if (window.i18nClient) {
+            window.i18nClient.init();
+            setupLanguageButton();
+            updateLanguageButton();
+            window.dispatchEvent(new CustomEvent('i18nReady'));
+          }
           
           // Actualizar inmediatamente
           updateLanguageButton();

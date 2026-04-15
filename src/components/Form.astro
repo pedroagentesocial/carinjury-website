@@ -3,6 +3,7 @@ import { t, getCurrentLanguage } from '../i18n/index.ts';
 
 const currentLang = getCurrentLanguage();
 const phone = '+1 (385) 242-8571';
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
 ---
 
 <section id="top-rated" class="form-section py-16 px-4">
@@ -88,7 +89,7 @@ const phone = '+1 (385) 242-8571';
         <!-- Formulario -->
         <form
           id="contact-form"
-          action="https://formsubmit.co/info@carinjuryclinics.com"
+          action="/api/form-webhook"
           method="POST"
           accept-charset="UTF-8"
           autocomplete="on"
@@ -97,35 +98,29 @@ const phone = '+1 (385) 242-8571';
           <!-- Honeypot anti-spam (oculto) -->
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
 
-          <!-- Campos ocultos para FormSubmit -->
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_next" value="https://carinjuryclinics.com/gracias" />
-          <input type="hidden" name="_subject" value="Nuevo contacto desde Car Injury Clinics" />
-          <input type="hidden" name="_template" value="table" />
-
           <!-- Campos ocultos para tracking -->
           <input type="hidden" name="page" value="Formulario principal" />
 
           <div class="lg:flex-1 lg:flex lg:flex-col lg:justify-between">
-            <div class="lg:space-y-6">
-              <label class="field grid gap-2 mb-6">
+            <div class="lg:space-y-2">
+              <label class="field grid gap-1 mb-2">
                 <span class="ml-1 text-base" style="color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 600;" data-i18n="form.fields.name">{t('form.fields.name', currentLang)}</span>
-                <input type="text" name="name" autocomplete="name" required class="w-full px-6 py-5 rounded-lg bg-white text-lg outline-none transition-all duration-200 min-h-[4rem]" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;" />
+                <input type="text" name="name" autocomplete="name" required class="w-full px-4 py-2.5 rounded-lg bg-white text-base outline-none transition-all duration-200 min-h-[2.5rem]" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;" />
               </label>
 
-              <label class="field grid gap-2 mb-6">
+              <label class="field grid gap-1 mb-2">
                 <span class="ml-1 text-base" style="color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 600;" data-i18n="form.fields.email">{t('form.fields.email', currentLang)}</span>
-                <input type="email" name="email" autocomplete="email" class="w-full px-6 py-5 rounded-lg bg-white text-lg outline-none transition-all duration-200 min-h-[4rem]" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;" />
+                <input type="email" name="email" autocomplete="email" class="w-full px-4 py-2.5 rounded-lg bg-white text-base outline-none transition-all duration-200 min-h-[2.5rem]" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;" />
               </label>
 
-              <label class="field grid gap-2 mb-6">
+              <label class="field grid gap-1 mb-2">
                 <span class="ml-1 text-base" style="color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 600;" data-i18n="form.fields.phone">{t('form.fields.phone', currentLang)}</span>
-                <input type="tel" name="phone" inputmode="tel" placeholder="+1 (___) ___-____" required class="w-full px-6 py-5 rounded-lg bg-white text-lg outline-none transition-all duration-200 min-h-[4rem]" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;" />
+                <input type="tel" name="phone" inputmode="tel" placeholder="+1 (___) ___-____" required class="w-full px-4 py-2.5 rounded-lg bg-white text-base outline-none transition-all duration-200 min-h-[2.5rem]" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;" />
               </label>
 
-              <label class="field grid gap-2 mb-6" id="row-discovery">
+              <label class="field grid gap-1 mb-2" id="row-discovery">
                 <span class="ml-1 text-base" style="color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 600;" data-i18n="form.fields.how_found">{t('form.fields.how_found', currentLang)}</span>
-                <select name="discovery_source" id="discovery" required class="w-full px-6 py-5 rounded-lg bg-white text-lg outline-none transition-all duration-200 min-h-[4rem]" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;">
+                <select name="discovery_source" id="discovery" required class="w-full px-4 py-2.5 rounded-lg bg-white text-base outline-none transition-all duration-200 min-h-[2.5rem]" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;">
                   <option value="">{t('form.fields.select_option', currentLang)}</option>
                   <option value="google_search">{currentLang === 'es' ? 'Google (búsqueda)' : 'Google (search)'}</option>
                   <option value="google_maps">Google Maps</option>
@@ -145,41 +140,38 @@ const phone = '+1 (385) 242-8571';
                 </select>
               </label>
 
-              <label class="field grid gap-2 mb-6 is-hidden" id="row-referral" hidden>
+              <label class="field grid gap-1 mb-2 is-hidden" id="row-referral" hidden>
                 <span class="ml-1 text-base" style="color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 600;" data-i18n="form.fields.who_referred">{t('form.fields.who_referred', currentLang)}</span>
-                <input type="text" name="referral_name" id="referral_name" placeholder={t('form.fields.referral_placeholder', currentLang)} class="w-full px-6 py-5 rounded-lg bg-white text-lg outline-none transition-all duration-200 min-h-[4rem]" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;"/>
+                <input type="text" name="referral_name" id="referral_name" placeholder={t('form.fields.referral_placeholder', currentLang)} class="w-full px-4 py-2.5 rounded-lg bg-white text-base outline-none transition-all duration-200 min-h-[2.5rem]" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;"/>
               </label>
 
-              <label class="field grid gap-2 mb-8">
+              <label class="field grid gap-1 mb-2">
                 <span class="ml-1 text-base" style="color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 600;" data-i18n="form.fields.message">{t('form.fields.message', currentLang)}</span>
-                <textarea name="message" rows="6" placeholder={t('form.fields.message_placeholder', currentLang)} class="w-full px-6 py-5 rounded-lg bg-white text-lg outline-none resize-vertical min-h-[8rem] transition-all duration-200" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;"></textarea>
+                <textarea name="message" rows="2" data-i18n="form.fields.message_placeholder" placeholder={t('form.fields.message_placeholder', currentLang)} class="w-full px-4 py-2 rounded-lg bg-white text-sm outline-none resize-none min-h-[3.75rem] transition-all duration-200" style="border: 1px solid var(--border); color: var(--text-primary); font-family: 'Poppins', sans-serif; font-weight: 400;"></textarea>
               </label>
 
-              <!-- Checkboxes ultra-compactos: términos (requerido) y opt-in (opcional) -->
-              <div class="form-group form-group-full terms-group">
-                <label class="terms-label">
-                  <input id="accept-terms" name="accept_terms" type="checkbox" required class="terms-checkbox" />
-                  <span class="terms-text">
-                    <span data-i18n="form.accept_terms">{t('form.accept_terms', currentLang)}</span>
-                    <span class="links-paren">
-                      (<a href="/privacy#terms" target="_blank" rel="noopener" class="terms-link" data-i18n="form.terms_link">{t('form.terms_link', currentLang)}</a>
-                      <span class="mx-1" data-i18n="form.and">{t('form.and', currentLang)}</span>
-                      <a href="/privacy" target="_blank" rel="noopener" class="terms-link" data-i18n="form.privacy_link">{t('form.privacy_link', currentLang)}</a>)
-                    </span>
+              <div class="form-group form-group-full sms-consent-group">
+                <label class="sms-consent-label">
+                  <input id="sms-consent" name="sms_consent" type="checkbox" required class="sms-consent-checkbox" />
+                  <span id="sms-consent-text" class="sms-consent-text" data-i18n="form.sms_consent">
+                    {t('form.sms_consent', currentLang)}
                   </span>
                 </label>
               </div>
 
-              <div class="form-group form-group-full consent-group">
-                <label class="consent-label">
-                  <input id="opt-in" name="marketing_opt_in" type="checkbox" class="consent-checkbox" />
-                  <span data-i18n="form.receive_info_short">{t('form.receive_info_short', currentLang)}</span>
-                </label>
+              <div class="form-group form-group-full recaptcha-group">
+                <div
+                  id="recaptcha-widget"
+                  class="g-recaptcha"
+                  data-sitekey={recaptchaSiteKey}
+                  data-theme="light"
+                ></div>
+                <p id="recaptcha-error" class="recaptcha-error" aria-live="polite"></p>
               </div>
             </div>
 
             <!-- Botón de envío con icono -->
-            <button type="submit" id="form-submit-btn" class="w-full py-4 px-6 rounded-lg text-white text-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-3 lg:mt-auto min-h-[3.5rem]" style="background: var(--c3); font-family: 'Poppins', sans-serif; font-weight: 600; box-shadow: 0 4px 12px rgba(122, 46, 135, 0.25); opacity: 1 !important; visibility: visible !important; display: flex !important; margin-top: 2rem;">
+            <button type="submit" id="form-submit-btn" class="w-full py-3 px-5 rounded-lg text-white text-base transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-3 lg:mt-auto min-h-[3rem]" style="background: var(--c3); font-family: 'Poppins', sans-serif; font-weight: 600; box-shadow: 0 4px 12px rgba(122, 46, 135, 0.25); opacity: 1 !important; visibility: visible !important; display: flex !important; margin-top: 1rem;">
               <span id="form-submit-text">{currentLang === 'es' ? 'Enviar' : 'Send'}</span>
               <span id="loading-text" class="hidden" data-i18n="form.sending">{t('form.sending', currentLang)}</span>
               <svg class="send-icon transition-all duration-300 ease-out" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
@@ -231,6 +223,7 @@ const phone = '+1 (385) 242-8571';
   </div>
 </div>
 
+<script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script is:inline define:vars={{ WEBHOOK_URL: import.meta.env.PUBLIC_WEBHOOK_URL }}>
   (function(){
     const btnText = document.getElementById('form-submit-text');
@@ -268,10 +261,11 @@ const phone = '+1 (385) 242-8571';
     const modal = document.getElementById('thank-you-modal');
     const modalCloseBtn = modal?.querySelector('.modal-close');
     const modalButton = modal?.querySelector('.modal-button');
-    const form = document.querySelector('form');
-    const submitBtn = document.getElementById('submit-btn');
-    const submitText = document.getElementById('submit-text');
-    const loadingText = document.getElementById('loading-text');
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('form-submit-btn');
+    const smsConsentBlock = document.querySelector('.sms-consent-group');
+    const smsConsent = document.getElementById('sms-consent');
+    const recaptchaError = document.getElementById('recaptcha-error');
 
     function showModal() {
       if (modal) {
@@ -308,17 +302,15 @@ const phone = '+1 (385) 242-8571';
     // Sistema Híbrido: FormSubmit + Make.com con mensaje de éxito
     if (form && submitBtn) {
       const successMessage = document.getElementById('success-message');
-      const termsBlock = form.querySelector('.terms-group');
-      const consentBlock = form.querySelector('.consent-group');
-      const accept = document.getElementById('accept-terms');
-      const optIn = document.getElementById('opt-in');
+      const successText = document.getElementById('success-text');
 
-      // Validación en tiempo real para el checkbox de términos
-      accept?.addEventListener('change', () => {
-        if (accept.checked) {
-          termsBlock?.classList.remove('error');
+      const getLang = () => ((typeof window !== 'undefined' && localStorage.getItem('language')) || 'es');
+
+      smsConsent?.addEventListener('change', () => {
+        if (smsConsent.checked) {
+          smsConsentBlock?.classList.remove('error');
         } else {
-          termsBlock?.classList.add('error');
+          smsConsentBlock?.classList.add('error');
         }
       });
 
@@ -326,17 +318,32 @@ const phone = '+1 (385) 242-8571';
         e.preventDefault();
 
         // Limpiar estado visual previo
-        termsBlock?.classList.remove('error');
-        consentBlock?.classList.remove('error');
+        smsConsentBlock?.classList.remove('error');
+        if (recaptchaError) recaptchaError.textContent = '';
 
-        // Validación: términos requerido
-        if (accept && !accept.checked) {
-          termsBlock?.classList.add('error');
-          return; // No continuar si no acepta términos
+        if (smsConsent && !smsConsent.checked) {
+          smsConsentBlock?.classList.add('error');
+          return;
         }
-        // Marcar opt-in en rojo si está desmarcado (no bloquea el envío)
-        if (optIn && !optIn.checked) {
-          consentBlock?.classList.add('error');
+
+        const grecaptchaApi = window.grecaptcha;
+        if (typeof grecaptchaApi !== 'undefined') {
+          const captchaResponse = grecaptchaApi.getResponse();
+          if (!captchaResponse) {
+            if (recaptchaError) {
+              recaptchaError.textContent = getLang() === 'en'
+                ? 'Please confirm you are not a robot.'
+                : 'Por favor confirma que no eres un robot.';
+            }
+            return;
+          }
+        } else {
+          if (recaptchaError) {
+            recaptchaError.textContent = getLang() === 'en'
+              ? 'Set PUBLIC_RECAPTCHA_SITE_KEY to enable reCAPTCHA.'
+              : 'Configura PUBLIC_RECAPTCHA_SITE_KEY para habilitar reCAPTCHA.';
+          }
+          return;
         }
         
         // Verificar honeypot anti-spam
@@ -350,6 +357,11 @@ const phone = '+1 (385) 242-8571';
         submitBtn.style.display = 'none';
         if (successMessage) {
           successMessage.classList.remove('hidden');
+          if (successText) {
+            successText.textContent = getLang() === 'en'
+              ? 'Your information was sent successfully.'
+              : 'Se mandó correctamente la información.';
+          }
           successMessage.style.transform = 'scale(0.95)';
           successMessage.style.opacity = '0';
           setTimeout(() => {
@@ -361,7 +373,7 @@ const phone = '+1 (385) 242-8571';
         // Preparar datos del formulario
         const formData = new FormData(form);
         
-        // 2. ENVIAR WEBHOOK DINÁMICO EN PARALELO (no bloquea FormSubmit)
+        
         try {
           const webhookData = Object.fromEntries(formData.entries());
           webhookData.pagina_origen = webhookData.page || 'Formulario principal';
@@ -369,73 +381,27 @@ const phone = '+1 (385) 242-8571';
           webhookData.lead_source = 'website_form';
           webhookData.form_type = 'contact_form';
           webhookData.priority = 'normal';
-          const primary = (typeof window !== 'undefined' && location.hostname.includes('localhost')) ? '/api/form-webhook' : '/webhook.php';
-          if (primary) {
-            fetch(primary, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(webhookData) })
-              .catch(() => {
-                fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(webhookData) }).catch(() => {});
-              });
-          } else {
-            fetch('https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(webhookData) }).catch(() => {});
-          }
+          await fetch('/api/form-webhook', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(webhookData)
+          });
           
         } catch (error) {
-          console.log('Error preparando datos para Make.com (no afecta FormSubmit):', error);
+          console.log('Error enviando formulario:', error);
         }
-        
-        // 3. DESPUÉS DE 3 SEGUNDOS: MOSTRAR MODAL Y ENVIAR A FORMSUBMIT
+
         setTimeout(() => {
-          showModal();
           form.reset();
+          const grecaptchaApi = window.grecaptcha;
+          if (typeof grecaptchaApi !== 'undefined') {
+            grecaptchaApi.reset();
+          }
           sync();
           if (successMessage) {
             successMessage.classList.add('hidden');
           }
           submitBtn.style.display = 'flex';
-          
-          setTimeout(() => {
-            const tempForm = document.createElement('form');
-            tempForm.action = form.action;
-            tempForm.method = form.method;
-            tempForm.style.display = 'none';
-            
-            for (let [key, value] of formData.entries()) {
-              const input = document.createElement('input');
-              input.type = 'hidden';
-              input.name = key;
-              input.value = String(value);
-              tempForm.appendChild(input);
-            }
-            
-            const captchaInput = document.createElement('input');
-            captchaInput.type = 'hidden';
-            captchaInput.name = '_captcha';
-            captchaInput.value = 'false';
-            tempForm.appendChild(captchaInput);
-            
-            const nextInput = document.createElement('input');
-            nextInput.type = 'hidden';
-            nextInput.name = '_next';
-            nextInput.value = 'https://carinjuryclinics.com/gracias';
-            tempForm.appendChild(nextInput);
-            
-            const subjectInput = document.createElement('input');
-            subjectInput.type = 'hidden';
-            subjectInput.name = '_subject';
-            subjectInput.value = 'Nuevo contacto desde Car Injury Clinics';
-            tempForm.appendChild(subjectInput);
-            
-            const templateInput = document.createElement('input');
-            templateInput.type = 'hidden';
-            templateInput.name = '_template';
-            templateInput.value = 'table';
-            tempForm.appendChild(templateInput);
-            
-            document.body.appendChild(tempForm);
-            tempForm.submit();
-            
-          }, 500);
-          
         }, 3000);
       });
     }
@@ -737,62 +703,48 @@ button[type="submit"]:hover .send-icon {
   display: none !important;
 }
 
-/* ===== CHECKBOXES ULTRA-COMPACTOS ===== */
-.terms-group,
-.consent-group {
-  padding: 0.08rem 0.16rem;
+/* ===== CONSENT + RECAPTCHA ===== */
+.sms-consent-group {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: 8px;
   background: #f9fafb;
-  margin-top: 0.12rem;
 }
 
-/* Consent ultra-compact, igual alto que texto */
-.consent-group {
-  display: inline-flex;
-  align-items: center;
-  padding: 0 0.10rem; /* sin padding vertical para igualar a la línea de texto */
-}
-
-.terms-label,
-.consent-label {
+.sms-consent-label {
   display: flex;
-  align-items: center;
-  gap: 0.20rem;
-  font-size: 0.64rem;
+  align-items: flex-start;
+  gap: 0.65rem;
   color: var(--text-secondary);
-  line-height: 1.2;
-  flex-wrap: nowrap;
-  white-space: nowrap;
+  line-height: 1.35;
 }
 
-/* Texto del consent de 8px exactos */
-.consent-label {
-  font-size: 0.5rem; /* 8px si base 16px */
-  line-height: 1;    /* alto ~8px */
-  gap: 0.15rem;
+.sms-consent-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 0.15rem;
+  flex: 0 0 auto;
 }
 
-.terms-text { display: inline; }
-.links-paren { color: var(--text-secondary); opacity: 0.9; font-size: 0.62rem; margin-left: 0.15rem; }
-
-.terms-checkbox,
-.consent-checkbox {
-  width: 8px;
-  height: 8px;
-  margin-top: 0;
-  vertical-align: middle;
+.sms-consent-text {
+  font-size: 0.82rem;
 }
 
-.terms-link {
-  color: var(--primary-color);
-  text-decoration: underline;
-}
-
-.terms-group.error,
-.consent-group.error {
+.sms-consent-group.error {
   border-color: #dc2626;
   background: #fef2f2;
+}
+
+.recaptcha-group {
+  margin-top: 0.75rem;
+}
+
+.recaptcha-error {
+  margin: 0.4rem 0 0;
+  color: #b91c1c;
+  font-size: 0.82rem;
+  min-height: 1rem;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */

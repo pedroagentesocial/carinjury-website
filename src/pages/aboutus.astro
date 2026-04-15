@@ -7,9 +7,6 @@ import { t, getServerLanguage } from '../i18n/index.ts';
 
 const currentLang = 'es'; // Forzar español por defecto
 
-// Imagen del hero
-const HERO_IMG = '/assets/img/NewHero.jpeg';
-
 // Cargar traducciones para el servidor
 const esTranslations = await import('../i18n/es.json');
 const enTranslations = await import('../i18n/en.json');
@@ -19,10 +16,7 @@ const enTranslations = await import('../i18n/en.json');
   <main class="about page">
     <!-- ===== Hero Section - Quiroprácticos Especializados ===== -->
     <header class="hero-chiro">
-      <div class="hero-chiro__bg" aria-hidden="true">
-        <img src={HERO_IMG} alt="" loading="lazy" decoding="async" />
-        <div class="veil" aria-hidden="true"></div>
-      </div>
+      <div class="hero-chiro__bg" aria-hidden="true"></div>
       <div class="container hero-chiro__content">
         <div class="hero-badge">
           <span class="badge-icon">●</span>
@@ -524,9 +518,7 @@ const enTranslations = await import('../i18n/en.json');
 
   /* ===== HERO CHIRO ===== */
   .hero-chiro{ position:relative; color:#fff; isolation:isolate; overflow:hidden; }
-  .hero-chiro__bg{ position:absolute; inset:0; z-index:0; }
-  .hero-chiro__bg img{ width:100%; height:100%; object-fit:cover; object-position: center top; opacity:.4; display:block; }
-  .hero-chiro__bg .veil{ position:absolute; inset:0; background: linear-gradient(135deg, rgba(107, 30, 117, 0.7) 0%, rgba(90, 20, 95, 0.6) 50%, rgba(70, 15, 80, 0.5) 100%); }
+  .hero-chiro__bg{ position:absolute; inset:0; z-index:0; background: var(--c3); }
   .hero-chiro__content{ position:relative; z-index:1; padding: 80px 0 48px 0; text-align:center; }
   .hero-chiro__content h1{
     font-family:'Manrope',system-ui,sans-serif; font-weight:900;

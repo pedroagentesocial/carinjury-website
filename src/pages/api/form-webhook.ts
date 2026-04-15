@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    let recaptchaToken = '';
     let data: {
       name: string;
       email: string;
@@ -17,6 +18,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     try {
       const json = await request.clone().json();
+      recaptchaToken = (json['g-recaptcha-response'] || json.recaptcha_token || '').toString();
       data = {
         name: (json.name || json.nombre || '').toString(),
         email: (json.email || '').toString(),
@@ -32,6 +34,7 @@ export const POST: APIRoute = async ({ request }) => {
     } catch {
       try {
         const formData = await request.clone().formData();
+        recaptchaToken = formData.get('g-recaptcha-response')?.toString() || formData.get('recaptcha_token')?.toString() || '';
         data = {
           name: formData.get('name')?.toString() || '',
           email: formData.get('email')?.toString() || '',
@@ -53,6 +56,7 @@ export const POST: APIRoute = async ({ request }) => {
           const params = new URLSearchParams(text);
           parsed = Object.fromEntries(params.entries());
         }
+        recaptchaToken = (parsed['g-recaptcha-response'] || parsed.recaptcha_token || '').toString();
         data = {
           name: (parsed.name || parsed.nombre || '').toString(),
           email: (parsed.email || '').toString(),
@@ -68,7 +72,65 @@ export const POST: APIRoute = async ({ request }) => {
       }
     }
 
-    // Aceptar envío incluso si faltan campos para no bloquear la entrega
+    // Bloqueo silencioso por honeypot (evita ruido de bots)
+    try {
+      const hp = await request.clone().formData();
+      const honey = (hp.get('_honey') || hp.get('company') || '').toString().trim();
+      if (honey) {
+        return new Response(JSON.stringify({ success: true, ignored: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+    } catch {
+      // Si no viene como form-data seguimos con validación normal.
+    }
+
+    // reCAPTCHA SIEMPRE obligatorio en backend
+    const recaptchaSecret = (import.meta.env.RECAPTCHA_SECRET_KEY || '').toString();
+    if (!recaptchaSecret) {
+      return new Response(JSON.stringify({
+        success: false,
+        error: 'Captcha backend no configurado'
+      }), { status: 503, headers: { 'Content-Type': 'application/json' } });
+    }
+    if (!recaptchaToken) {
+      return new Response(JSON.stringify({
+        success: false,
+        error: 'Captcha requerido'
+      }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+    }
+
+    const verifyBody = new URLSearchParams({
+      secret: recaptchaSecret,
+      response: recaptchaToken
+    });
+    const verifyResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: verifyBody.toString()
+    });
+    const verifyData: any = await verifyResponse.json();
+    if (!verifyData?.success) {
+      return new Response(JSON.stringify({
+        success: false,
+        error: 'Captcha inválido'
+      }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+    }
+
+    // Validar hostname reportado por Google para mitigar tokens reutilizados
+    const requestHost = new URL(request.url).hostname;
+    const configuredHost = (import.meta.env.PUBLIC_SITE_HOST || '').toString().trim();
+    const allowedHosts = [requestHost, configuredHost].filter(Boolean);
+    if (verifyData.hostname && allowedHosts.length > 0) {
+      const okHost = allowedHosts.some((h) => verifyData.hostname === h || verifyData.hostname.endsWith(`.${h}`));
+      if (!okHost) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Captcha hostname inválido'
+        }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+      }
+    }
 
     // Preparar los datos para Make.com
     const webhookData = {
@@ -160,8 +222,7 @@ export const POST: APIRoute = async ({ request }) => {
       }
     }
 
-    // Enviar datos al webhook de Make.com
-    const webhookUrl = 'https://hook.us1.make.com/j3f0pfymobfhtpsldmlw6hn3plmb9p5k';
+    const webhookUrl = 'https://services.leadconnectorhq.com/hooks/FrwO37FXAUYfoOh92uWG/webhook-trigger/82ea1b33-b09f-47a0-91c7-f18036c6d359';
     
     const webhookResponse = await fetch(webhookUrl, {
       method: 'POST',

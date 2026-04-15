@@ -1,0 +1,124 @@
+---
+interface Content {
+  heroTitle: string;
+  heroSubtitle: string;
+  bullets: string[];
+  btnCall: string;
+  btnSchedule: string;
+  formTitle: string;
+  formSubtitle: string;
+  labelName: string;
+  labelPhone: string;
+  labelMessage: string;
+  placeholderMessage: string;
+  submitText: string;
+  successText: string;
+  errorText: string;
+}
+interface Props { clinicName: string; phoneNumber: string; whatsappNumber: string; content: Content }
+const { clinicName, phoneNumber, whatsappNumber, content } = Astro.props as Props;
+const telHref = `tel:${phoneNumber}`;
+const waHref = `https://wa.me/${whatsappNumber.replace('+','')}`;
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
+---
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 bg-white"></div>
+  <div class="relative max-w-6xl mx-auto px-4 py-8 md:py-16 grid md:grid-cols-2 gap-8 items-start">
+    <div>
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900">{content.heroTitle}</h1>
+      <p class="mt-4 text-lg text-slate-700">{content.heroSubtitle}</p>
+      <ul class="mt-6 space-y-2">
+        {content.bullets.map((b) => (
+        <li class="flex items-center gap-2 text-slate-800">
+          <svg class="w-5 h-5 text-purple-700" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {b}
+        </li>
+        ))}
+      </ul>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={telHref} class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-purple-700 text-white font-bold shadow hover:bg-purple-800 transition" data-event="phone_call">{content.btnCall}</a>
+        <a href="#lead-form" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border-2 border-purple-700 text-purple-700 font-bold hover:bg-purple-50 transition" data-event="schedule_click">{content.btnSchedule}</a>
+      </div>
+    </div>
+    <div>
+      <div class="rounded-2xl border border-slate-200 bg-white shadow-lg p-6 md:p-8">
+        <h3 class="text-2xl font-extrabold">{content.formTitle}</h3>
+        <p class="mt-1 text-slate-600 text-sm">{content.formSubtitle}</p>
+        <form id="lead-form" class="mt-6 space-y-4" data-event="lead_submit" novalidate data-success={content.successText} data-error={content.errorText} data-submit={content.submitText} action="/api/form-webhook" method="POST">
+          <div>
+            <label for="name" class="block text-sm font-semibold text-slate-700">{content.labelName}</label>
+            <input id="name" name="name" type="text" required class="mt-0 w-full rounded-lg border-slate-300 focus:border-purple-700 focus:ring-purple-700" placeholder="" />
+          </div>
+          <div>
+            <label for="phone" class="block text-sm font-semibold text-slate-700">{content.labelPhone}</label>
+            <input id="phone" name="phone" type="tel" required inputmode="tel" pattern="\\d{10,}" class="mt-0 w-full rounded-lg border-slate-300 focus:border-purple-700 focus:ring-purple-700" placeholder="" />
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-semibold text-slate-700">{content.labelMessage}</label>
+            <textarea id="message" name="message" rows="1" class="mt-0 w-full h-8 py-1 text-sm rounded-lg border-slate-300 focus:border-purple-700 focus:ring-purple-700 resize-none" placeholder={content.placeholderMessage}></textarea>
+          </div>
+          <div>
+            <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="light"></div>
+            <p id="lead-recaptcha-error" class="mt-1 text-xs text-red-700" aria-live="polite"></p>
+          </div>
+          <button type="submit" class="w-full px-5 py-3 rounded-xl bg-purple-700 text-white font-bold shadow hover:bg-purple-800 transition">{content.submitText}</button>
+          <div id="form-status" class="mt-2 text-sm"></div>
+          <div class="mt-4 grid grid-cols-2 gap-3">
+            <a href={telHref} class="inline-flex justify-center items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 text-slate-800 hover:bg-slate-50 transition" data-event="phone_call">{content.btnCall}</a>
+            <a href={waHref} target="_blank" rel="noopener" class="inline-flex justify-center items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 text-slate-800 hover:bg-slate-50 transition">WhatsApp</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('lead-form');
+  const status = document.getElementById('form-status');
+  const recaptchaError = document.getElementById('lead-recaptcha-error');
+  if (!form || !status) return;
+  const getLang = () => ((typeof window !== 'undefined' && localStorage.getItem('language')) || (location.pathname.startsWith('/en') ? 'en' : 'es'));
+  const successText = form.dataset.success || 'Se mandó correctamente la información.';
+  const errorText = form.dataset.error || 'No se pudo enviar. Inténtalo nuevamente.';
+  const submitText = form.dataset.submit || 'Enviar solicitud';
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const fd = new FormData(form);
+    const payload = Object.fromEntries(fd.entries());
+    const grecaptchaApi = window.grecaptcha;
+    if (!grecaptchaApi || !grecaptchaApi.getResponse || !grecaptchaApi.getResponse()) {
+      if (recaptchaError) {
+        recaptchaError.textContent = getLang() === 'en'
+          ? 'Please confirm you are not a robot.'
+          : 'Por favor confirma que no eres un robot.';
+      }
+      return;
+    }
+    if (recaptchaError) recaptchaError.textContent = '';
+
+    try {
+      if (btn) { btn.disabled = true; btn.textContent = 'Enviando…'; }
+      status.textContent = '';
+      payload['g-recaptcha-response'] = grecaptchaApi.getResponse();
+      const res = await fetch('/api/form-webhook', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      if (res.ok) {
+        status.textContent = successText;
+        status.className = 'mt-2 text-sm text-green-700';
+        form.reset();
+        grecaptchaApi.reset();
+      } else {
+        throw new Error('Error al enviar');
+      }
+    } catch {
+      status.textContent = errorText;
+      status.className = 'mt-2 text-sm text-red-700';
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = submitText; }
+    }
+  });
+});
+</script>

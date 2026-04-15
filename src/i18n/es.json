@@ -195,8 +195,16 @@
       "message": "¿En qué necesitas ayuda?",
       "message_placeholder": "Cuéntanos sobre tu accidente: fecha, ubicación, tipo de lesiones, etc.",
       "submit": "Enviar Solicitud",
+      "sending": "Enviando...",
+      "sending_message": "Enviando mensaje...",
+      "success_message_inline": "Se mandó correctamente la información.",
+      "error_message_inline": "Error al enviar el mensaje. Por favor, intenta de nuevo.",
       "or": "o",
       "call_now": "Llamar Ahora",
+      "sms_consent": "Al enviar este formulario, acepto recibir mensajes SMS de Car Injury Clinic sobre mi solicitud de asistencia por accidente, actualizaciones de mi caso y coordinación de citas. La frecuencia de mensajes puede variar. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja.",
+      "sms_consent_required": "Debes aceptar el consentimiento SMS para continuar.",
+      "captcha_required": "Por favor confirma que no eres un robot.",
+      "captcha_missing_key": "Configura PUBLIC_RECAPTCHA_SITE_KEY para habilitar reCAPTCHA.",
       "accept_terms": "Acepto los términos de uso y la política de privacidad",
       "terms_link": "términos de uso",
       "privacy_link": "política de privacidad",
@@ -275,42 +283,6 @@
     "badge": "Servicios Especializados",
     "title": "Atención Médica Integral para Víctimas de Accidentes",
     "subtitle": "Tecnología de vanguardia y terapias especializadas para tu recuperación completa. Sin costo de bolsillo con cobertura de seguro calificada."
-  },
-  "hero_lawyer": {
-    "badge": "Aprobado por Abogados",
-    "title": "Tu guía del accidente a la recuperación",
-    "subtitle": {
-      "main": "Comienza tu tratamiento con una",
-      "highlight": "evaluación gratuita",
-      "end": "para las lesiones por accidente de auto. Diagnóstico preciso y coordinación legal."
-    },
-    "benefits_label": "Beneficios clave",
-    "benefits": {
-      "free_evaluation": "Evaluación gratuita con nuestros profesionales",
-      "insurance_handling": "Llevamos el caso con tu aseguradora",
-      "legal_support": "Te acompañamos en el proceso legal",
-      "specialist_referral": "Derivación a especialistas de acuerdo a tu tratamiento"
-    },
-    "actions_label": "Acción principal",
-    "schedule_button": "Agenda tu consulta con un especialista",
-    "call_now": "Llamar ahora al",
-    "form": {
-      "title": "Reserva tu consulta",
-      "subtitle": "Evaluación gratuita en menos de 24 h",
-      "free_badge": "Sin costo",
-      "fields": {
-        "name": "Nombre",
-        "email": "Email",
-        "phone": "Teléfono",
-        "how_found": "¿Cómo nos encontraste?",
-        "select_option": "Selecciona…",
-        "who_referred": "¿Quién te recomendó?",
-        "referral_placeholder": "Nombre de la persona / abogado / clínica",
-        "message": "¿Algo que debamos saber?",
-        "message_placeholder": "Dolor de cuello / espalda, latigazo, etc."
-      },
-      "submit_button": "Enviar"
-    }
   },
   "testimonials": {
     "title": {
@@ -638,7 +610,8 @@
         "message": "Cuéntanos sobre tu caso",
         "message_placeholder": "Describe brevemente tu situación..."
       },
-      "submit_button": "Enviar"
+      "submit_button": "Enviar",
+      "sms_consent": "Al enviar este formulario, acepto recibir mensajes SMS de Car Injury Clinic sobre mi solicitud de asistencia por accidente, actualizaciones de mi caso y coordinación de citas. La frecuencia de mensajes puede variar. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja."
     }
   },
   "services": {
@@ -712,7 +685,8 @@
     "terms_link": "términos de uso",
     "privacy_link": "política de privacidad",
     "and": "y",
-    "receive_info_short": "Deseo recibir información sobre servicios y novedades"
+    "receive_info_short": "Deseo recibir información sobre servicios y novedades",
+    "sms_consent": "Al enviar este formulario, acepto recibir mensajes SMS de Car Injury Clinic sobre mi solicitud de asistencia por accidente, actualizaciones de mi caso y coordinación de citas. La frecuencia de mensajes puede variar. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja."
   },
   "footer": {
     "copyright": "Todos los derechos reservados.",

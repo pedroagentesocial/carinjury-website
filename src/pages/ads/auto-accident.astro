@@ -1,0 +1,155 @@
+---
+import BenefitBar from '../../components/landing/BenefitBar.astro';
+import HeroWithForm from '../../components/landing/HeroWithForm.astro';
+import SymptomsGrid from '../../components/landing/SymptomsGrid.astro';
+import ThreeStepProcess from '../../components/landing/ThreeStepProcess.astro';
+import Testimonials from '../../components/landing/Testimonials.astro';
+import FAQ from '../../components/landing/FAQ.astro';
+import FinalCTA from '../../components/landing/FinalCTA.astro';
+import StickyMobileCTA from '../../components/landing/StickyMobileCTA.astro';
+import FooterMinimal from '../../components/landing/FooterMinimal.astro';
+
+// Edita estos valores para personalizar la landing (clínica, contacto y ubicación)
+const clinicName = 'Car Injury Clinic';
+const phoneNumber = '+13852428571'; // Teléfono (formato +1...)
+const whatsappNumber = '+13852428571'; // WhatsApp (formato +1...)
+const city = 'Salt Lake City';
+const address = '123 Main St, Salt Lake City, UT';
+const hours = 'Lunes a Sábado: 9am - 8pm';
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{clinicName} • Atención inmediata por accidente de auto</title>
+    <meta name="description" content="Clínica de lesiones por accidente de auto en {city}. Citas el mismo día, sin costo inicial y equipo bilingüe. Agenda hoy tu evaluación gratuita." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  </head>
+<body class="bg-white text-slate-900 antialiased">
+    {
+      (() => {
+        const isEn = Astro.url.pathname.includes('/en/');
+        const topBenefits = isEn ? ['Same-day appointments', 'No upfront cost', 'We work with attorneys'] : ['Citas el mismo día', 'Sin costo inicial', 'Trabajamos con abogados'];
+        return <BenefitBar items={topBenefits} />;
+      })()
+    }
+    <header class="bg-white">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-center">
+        <div
+          role="img"
+          aria-label={clinicName}
+          style="
+            width: 520px;
+            height: 140px;
+            background-color: #7A2E87;
+            -webkit-mask: url('/assets/img/Car-Injury-Clinic-White.png') center / contain no-repeat;
+            mask: url('/assets/img/Car-Injury-Clinic-White.png') center / contain no-repeat;
+          "
+        ></div>
+      </div>
+    </header>
+    {
+      (() => {
+        // lenguaje básico: 'es' por defecto, 'en' si la URL contiene '/en/' (se puede adaptar a tu i18n global)
+        const isEn = Astro.url.pathname.includes('/en/');
+        const benefits = isEn ? ['Same-day appointments', 'No upfront cost', 'We work with attorneys'] : ['Citas el mismo día', 'Sin costo inicial', 'Trabajamos con abogados'];
+        const symptoms = isEn ? ['Neck Pain', 'Back Pain', 'Whiplash', 'Headaches'] : ['Dolor de cuello', 'Dolor de espalda', 'Latigazo cervical', 'Dolores de cabeza'];
+        const steps = isEn ? ['Evaluate', 'Treat', 'Recover'] : ['Evaluar', 'Tratar', 'Recuperar'];
+        const testimonialsTitle = isEn ? 'What patients say' : 'Lo que dicen nuestros pacientes';
+        const faqTitle = isEn ? 'Frequently asked questions' : 'Preguntas frecuentes';
+        const faqItems = isEn ? [
+          { q: 'How fast can treatment start?', a: 'We can see you the same day. Our team prepares your initial evaluation in minutes.' },
+          { q: 'Do you work with my attorney?', a: 'Yes, we coordinate treatment and medical documentation with your legal representation.' },
+          { q: 'Is there an upfront cost?', a: 'No. We start with no upfront cost and guide you through the process based on your case.' },
+        ] : [
+          { q: '¿Cuánto tarda en comenzar el tratamiento?', a: 'Podemos atenderte el mismo día. Nuestro equipo prepara tu evaluación inicial en minutos.' },
+          { q: '¿Trabajan con mi abogado?', a: 'Sí, coordinamos el tratamiento y la documentación médica con tu representación legal.' },
+          { q: '¿Tiene costo inicial?', a: 'No. Empezamos sin costo inicial y te guiamos en el proceso según tu caso.' },
+        ];
+        const finalTitle = isEn ? 'Take the next step today' : 'Da el siguiente paso hoy mismo';
+        const finalSub = isEn ? 'Book your appointment and start your recovery' : 'Agenda tu cita y comienza tu recuperación';
+        const scheduleLabel = isEn ? 'Book appointment' : 'Agendar tu cita';
+        const callLabel = isEn ? 'Call now' : 'Llamar ahora';
+        const disclaimer = isEn ? 'Medical notice: The information provided does not replace a professional diagnosis. Consult a specialist for proper evaluation and treatment.' : 'Aviso médico: La información provista no sustituye un diagnóstico profesional. Consulte a un especialista para evaluación y tratamiento apropiado.';
+        const content = isEn ? {
+          heroTitle: 'Immediate care after a car accident',
+          heroSubtitle: `${clinicName} • Bilingual clinical team • Free evaluation`,
+          bullets: ['Same-day appointments', 'No upfront cost', 'We work with attorneys'],
+          btnCall: 'Call now',
+          btnSchedule: 'Book appointment',
+          formTitle: 'Get help today',
+          formSubtitle: 'Fill the form and we will contact you in minutes',
+          labelName: 'Name',
+          labelPhone: 'Phone',
+          labelMessage: 'What happened?',
+          placeholderMessage: 'Briefly describe your case',
+          submitText: 'Submit request',
+          successText: 'Thank you! We will contact you very soon.',
+          errorText: 'Could not submit. Please try again.',
+        } : {
+          heroTitle: 'Atención inmediata tras accidente de auto',
+          heroSubtitle: `${clinicName} • Equipo clínico bilingüe • Evaluación gratuita`,
+          bullets: ['Citas el mismo día', 'Sin costo inicial', 'Trabajamos con abogados'],
+          btnCall: 'Llamar ahora',
+          btnSchedule: 'Agendar cita',
+          formTitle: 'Obtén ayuda hoy',
+          formSubtitle: 'Completa el formulario y te contactamos en minutos',
+          labelName: 'Nombre',
+          labelPhone: 'Teléfono',
+          labelMessage: '¿Qué pasó?',
+          placeholderMessage: 'Describe brevemente tu caso',
+          submitText: 'Enviar solicitud',
+          successText: '¡Gracias! Te contactaremos muy pronto.',
+          errorText: 'No se pudo enviar. Inténtalo nuevamente.',
+        };
+        return (
+          <>
+            <HeroWithForm clinicName={clinicName} phoneNumber={phoneNumber} whatsappNumber={whatsappNumber} content={content} />
+            <SymptomsGrid symptoms={symptoms} />
+            <ThreeStepProcess steps={steps} />
+            <Testimonials title={testimonialsTitle} />
+            <section class="max-w-6xl mx-auto px-4 py-12">
+              <div class="grid md:grid-cols-2 gap-6 items-start">
+                <div class="rounded-2xl border border-slate-200 p-6 shadow-sm bg-white">
+                  <h3 class="text-2xl font-extrabold">{isEn ? 'Convenient locations' : 'Ubicaciones convenientes'}</h3>
+                  <p class="mt-2 text-slate-700">{isEn ? 'Open late' : 'Abierto hasta tarde'} • Taylorsville, UT 84129</p>
+                  <p class="mt-1 text-slate-700">2997 W 4700 S</p>
+                  <table class="mt-4 w-full border border-slate-200 rounded-lg overflow-hidden text-sm">
+                    <tbody>
+                      <tr class="bg-slate-50"><td class="px-3 py-2 font-bold text-purple-700">{isEn ? 'Monday' : 'Lunes'}</td><td class="px-3 py-2">11:00 am – 7:00 pm</td></tr>
+                      <tr><td class="px-3 py-2 font-bold text-purple-700">{isEn ? 'Tuesday' : 'Martes'}</td><td class="px-3 py-2">11:00 am – 8:00 pm</td></tr>
+                      <tr class="bg-slate-50"><td class="px-3 py-2 font-bold text-purple-700">{isEn ? 'Wednesday' : 'Miércoles'}</td><td class="px-3 py-2">11:00 am – 7:00 pm</td></tr>
+                      <tr><td class="px-3 py-2 font-bold text-purple-700">{isEn ? 'Thursday' : 'Jueves'}</td><td class="px-3 py-2">12:00 pm – 8:00 pm</td></tr>
+                      <tr class="bg-slate-50"><td class="px-3 py-2 font-bold text-purple-700">{isEn ? 'Friday' : 'Viernes'}</td><td class="px-3 py-2">11:00 am – 6:30 pm</td></tr>
+                      <tr><td class="px-3 py-2 font-bold text-purple-700">{isEn ? 'Saturday' : 'Sábado'}</td><td class="px-3 py-2">11:00 am – 2:00 pm</td></tr>
+                      <tr class="bg-slate-50"><td class="px-3 py-2 font-bold text-purple-700">{isEn ? 'Sunday' : 'Domingo'}</td><td class="px-3 py-2">{isEn ? 'Closed' : 'Cerrado'}</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-sm h-64">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3025.8234567890123!2d-111.96241732440677!3d40.6621170713987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f17!3m3!1m2!1s0x87528b0c0c0c0c0c%3A0x0!2s2997%20W%204700%20S%2C%20Taylorsville%2C%20UT%2084129!5e0!3m2!1sen!2sus!4v1640995200000!5m2!1sen!2sus"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title={isEn ? 'Car Injury Clinic - 2997 W 4700 S, Taylorsville, UT 84129' : 'Car Injury Clinic - 2997 W 4700 S, Taylorsville, UT 84129'}>
+                  </iframe>
+                </div>
+              </div>
+            </section>
+            <FinalCTA phoneNumber={phoneNumber} title={finalTitle} subtext={finalSub} scheduleLabel={scheduleLabel} callLabel={callLabel} />
+            <StickyMobileCTA phoneNumber={phoneNumber} whatsappNumber={whatsappNumber} labelCall={callLabel} labelWhatsApp="WhatsApp" />
+            <FAQ title={faqTitle} items={faqItems} />
+            <FooterMinimal clinicName={clinicName} disclaimer={disclaimer} logoSrc="/assets/img/Car-Injury-Clinic-White.png" />
+          </>
+        );
+      })()
+    }
+  </body>
+</html>

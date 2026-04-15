@@ -12,12 +12,11 @@ import FinalCTA from '../components/FinalCTA.astro';
 
 const PHONE_DISPLAY = '385-242-8571';
 const PHONE_TEL = '+13852428571';
-const HERO_IMG = '/assets/img/utah.jpg';
 ---
 
 <Layout>
   <main class="lawyer page">
-    <HeroLawyer phoneDisplay={PHONE_DISPLAY} phoneTel={PHONE_TEL} heroImg={HERO_IMG} />
+    <HeroLawyer phoneDisplay={PHONE_DISPLAY} phoneTel={PHONE_TEL} />
 
     <div class="scroll-animate">
       <LegalServices />

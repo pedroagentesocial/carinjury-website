@@ -22,9 +22,10 @@ const PHONE_DISPLAY = '+1 (385) 242-8571';
   </a>
 
   <!-- Botón de agendar -->
-  <a 
-    href="/schedule" 
+  <button 
+    type="button"
     class="floating-btn schedule-btn"
+    data-open-booking-modal
     aria-label={t('floating_buttons.schedule.aria_label', currentLang)}
     title={t('floating_buttons.schedule.tooltip', currentLang)}
   >
@@ -32,7 +33,7 @@ const PHONE_DISPLAY = '+1 (385) 242-8571';
       <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" fill="currentColor"/>
     </svg>
     <span class="btn-tooltip" data-i18n="floating_buttons.schedule.tooltip">{t('floating_buttons.schedule.tooltip', currentLang)}</span>
-  </a>
+  </button>
 
   <!-- Botón de ayuda -->
   <a 
@@ -70,13 +71,17 @@ const PHONE_DISPLAY = '+1 (385) 242-8571';
     <div class="booking-body">
       <iframe
         class="booking-frame"
-        src="https://api.agentesocial.com/widget/booking/u9HuUvesEkKmXMuUaBZA"
+        src="about:blank"
+        data-src="https://api.leadconnectorhq.com/widget/booking/CnL8Bv0AP9Fdqw6xYZji"
         title={t('floating_buttons.booking.iframe_title', currentLang)}
+        scrolling="yes"
+        id="CnL8Bv0AP9Fdqw6xYZji_1775680792513"
         loading="lazy"
       ></iframe>
     </div>
   </div>
 </div>
+<script is:inline src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 
 <style>
 /* ==========================================================================
@@ -297,14 +302,36 @@ const PHONE_DISPLAY = '+1 (385) 242-8571';
   .booking-modal.hidden { display: none; }
   .booking-modal { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; }
   .booking-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(2px); }
-  .booking-dialog { position: relative; width: min(900px, 92vw); height: min(700px, 86vh); background: #fff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.35); overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+  .booking-dialog { position: relative; width: min(940px, 94vw); height: min(760px, calc(100dvh - 24px)); background: #fff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.35); overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
   .booking-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--floating-primary); color: #fff; }
   .booking-header h3 { margin: 0; font-size: 1rem; font-weight: 700; letter-spacing: 0.2px; }
   .booking-close { background: rgba(255,255,255,0.2); color: #fff; border: none; border-radius: 8px; width: 32px; height: 32px; font-size: 20px; line-height: 1; cursor: pointer; transition: background 0.2s ease; }
   .booking-close:hover { background: rgba(255,255,255,0.3); }
-  .booking-body { height: 100%; }
-  .booking-frame { width: 100%; height: 100%; border: 0; }
-  @media (max-width: 768px) { .booking-dialog { width: 96vw; height: 80vh; border-radius: 14px; } .booking-header h3 { font-size: 0.95rem; } }
+  .booking-body { height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .booking-frame { width: 100%; height: 100%; min-height: 640px; border: 0; overflow: auto; }
+  @media (max-width: 768px) {
+    .booking-modal { place-items: end center; }
+    .booking-dialog { width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; }
+    .booking-header { position: absolute; inset: 0 auto auto 0; width: 100%; padding: 0; background: transparent; pointer-events: none; z-index: 5; }
+    .booking-header h3 { display: none; }
+    .booking-close {
+      position: absolute;
+      top: max(10px, env(safe-area-inset-top));
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+      pointer-events: auto;
+    }
+    .booking-body { overflow-y: auto; }
+    .booking-frame { min-height: 100dvh; }
+  }
+  @media (max-width: 420px) {
+    .booking-close { width: 38px; height: 38px; }
+    .booking-frame { min-height: 100dvh; }
+  }
 </style>
 
 <script>
@@ -422,8 +449,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const modal = document.getElementById('booking-modal');
   const closeBtn = modal ? modal.querySelector('.booking-close') : null;
   const backdrop = modal ? modal.querySelector('.booking-backdrop') : null;
+  const bookingFrame = modal ? modal.querySelector('.booking-frame') : null;
   if (openBtn && modal) {
     function open() {
+      if (bookingFrame && bookingFrame.dataset.src && bookingFrame.src === 'about:blank') {
+        bookingFrame.src = bookingFrame.dataset.src;
+      }
       modal.classList.remove('hidden');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
