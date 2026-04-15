@@ -6,3 +6,6 @@ releases/
 *.log
 *.zip
 .env
+
+.vercel
+.env*.local

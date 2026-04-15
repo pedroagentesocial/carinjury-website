@@ -1,0 +1,8 @@
+*.zip
+releases/
+dist-release.zip
+dist.zip
+carinjury-v1.5.1-hostinger.zip
+__MACOSX/
+.git/
+node_modules/
