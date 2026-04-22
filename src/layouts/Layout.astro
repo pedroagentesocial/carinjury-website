@@ -1,7 +1,12 @@
 ---
-/* Layout.astro – plantilla principal (sin TopBar, Nav arriba) */
+// Layout.astro – plantilla principal (sin TopBar, Nav arriba)
 import Nav from '../components/Nav.astro';
 import FloatingButtons from '../components/FloatingButtons.astro';
+import ScriptJsonLd from '../components/ScriptJsonLd.astro';
+const defaultTitle = 'Car Injury Clinic | Chiropractic & Legal Services';
+const defaultDescription = 'Somos especialistas en accidentes de auto. Ofrecemos atención quiropráctica y servicios legales para víctimas de accidentes.';
+const pageTitle = Astro.props.title ?? defaultTitle;
+const pageDescription = Astro.props.description ?? defaultDescription;
 ---
 
 <!DOCTYPE html>
@@ -10,11 +15,9 @@ import FloatingButtons from '../components/FloatingButtons.astro';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Car Injury Clinic – Utah | Atención y rehabilitacion integral</title>
-    <meta
-      name="description"
-      content="Tratamientos naturales y sin costo de tu bolsillo (con cobertura de auto calificada) para víctimas de accidentes en Utah. Protegemos tu salud y tus derechos legales."
-    />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="robots" content="index, follow" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico?v=4&t=1760745600" />
@@ -87,6 +90,12 @@ import FloatingButtons from '../components/FloatingButtons.astro';
       integrity="sha512-+3rtQyIyTPqf2V1bAliMI/xPyWaT2b8V0IcSCSm7ygyK73Apw63Tuyg9+LRHnjU3HCMYv6GS+JVB3HEUFq2T1g=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
+    />
+
+    <!-- JSON-LD para LocalBusiness -->
+    <ScriptJsonLd 
+      address="3365 S 700 E, Salt Lake City, UT 84106, USA"
+      telephone="+1-801-999-8888"
     />
   </head>
 

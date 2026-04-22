@@ -1,0 +1,25 @@
+---
+// ScriptJsonLd.astro
+export interface Props {
+  name?: string;
+  url?: string;
+  address?: string;
+  telephone?: string;
+}
+const {
+  name = 'Car Injury Clinic',
+  url = 'https://carinjuryclinics.com',
+  address = '',
+  telephone = '',
+} = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name,
+  url,
+  address,
+  telephone,
+};
+---
+<script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
