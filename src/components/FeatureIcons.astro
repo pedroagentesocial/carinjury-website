@@ -2,677 +2,279 @@
 import { t, getCurrentLanguage } from '../i18n/index.ts';
 
 const currentLang = getCurrentLanguage();
+
+const FEATURES = [
+  { key: 'free_consultation', href: '/formulario',                 icon: '/assets/icons/consulta-cero.png' },
+  { key: 'free_transport',    href: '/services#transporte-gratis', icon: '/assets/icons/transporte.png' },
+  { key: 'same_day',          href: '/schedule',                   icon: '/assets/icons/mismo-dia.png' },
+  { key: 'legal_guidance',    href: '/lawyer-approved',            icon: '/assets/icons/legal.png' },
+  { key: 'xray',              href: '/services#radiografias',      icon: '/assets/icons/xray.png' },
+  { key: 'languages',         href: '/services#bilingue',          icon: '/assets/icons/idiomas.png' },
+];
 ---
 
-<!-- src/components/FeatureIcons.astro -->
-<div class="feature-icons-wrapper relative">
-  <!-- Gradiente izquierdo para indicar scroll -->
-  <div class="scroll-gradient-left absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none opacity-0 transition-opacity duration-300"></div>
-  
-  <!-- Gradiente derecho para indicar scroll -->
-  <div class="scroll-gradient-right absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none opacity-100 transition-opacity duration-300"></div>
-  
-  <!-- Botón de scroll izquierdo (móviles) -->
-  <button 
-    class="scroll-btn-left absolute left-2 top-1/2 transform -translate-y-1/2 z-20 bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 transition-all duration-300 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 md:hidden"
-    aria-label="Scroll hacia la izquierda"
-    style="display: none;"
-  >
-    ←
-  </button>
-  
-  <!-- Botón de scroll derecho (móviles) -->
-  <button 
-    class="scroll-btn-right absolute right-2 top-1/2 transform -translate-y-1/2 z-20 bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-80 transition-all duration-300 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 md:hidden"
-    aria-label="Scroll hacia la derecha"
-  >
-    →
-  </button>
+<section class="feat" aria-label={t('feature_icons.aria_label', currentLang)} data-feat>
+  <div class="feat-inner">
+    <header class="feat-head">
+      <span class="feat-eyebrow" data-i18n="feature_icons.eyebrow">{t('feature_icons.eyebrow', currentLang)}</span>
+      <h2 class="feat-title" data-i18n="feature_icons.title">{t('feature_icons.title', currentLang)}</h2>
+    </header>
 
-  <section 
-    class="feature-icons-section flex gap-2 items-stretch py-6 overflow-x-auto overflow-y-hidden scrollbar-hide scroll-smooth" 
-    aria-label={t('feature_icons.aria_label', currentLang)}
-    style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-left: 1rem; padding-right: 1rem;"
-  >
-    <!-- 1 ▸ $0 de costo de consulta -->
-    <a 
-      class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0s_forwards] flex-shrink-0"
-      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: center;"
-      href="/formulario" 
-      aria-label={t('feature_icons.items.free_consultation.aria_label', currentLang)}
-      data-i18n-aria="feature_icons.items.free_consultation.aria_label"
-    >
-    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
-      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/consulta-cero.png" alt="" />
+    <div class="feat-grid" role="list">
+      {FEATURES.map((f) => (
+        <a
+          class="feat-card"
+          href={f.href}
+          role="listitem"
+          data-i18n-aria-label={`feature_icons.items.${f.key}.aria_label`}
+          aria-label={t(`feature_icons.items.${f.key}.aria_label`, currentLang)}
+        >
+          <span class="feat-icon" aria-hidden="true">
+            <img src={f.icon} alt="" loading="lazy" decoding="async" />
+          </span>
+          <span class="feat-text" data-i18n={`feature_icons.items.${f.key}.title`}>
+            {t(`feature_icons.items.${f.key}.title`, currentLang)}
+          </span>
+          <svg class="feat-arrow" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+            <path d="M5 12h14m0 0l-5-5m5 5l-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      ))}
     </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.free_consultation.title">{t('feature_icons.items.free_consultation.title', currentLang)}</h3>
-  </a>
-
-    <!-- 2 ▸ Transporte GRATIS -->
-    <a 
-      class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.1s_forwards] flex-shrink-0"
-      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: center;"
-      href="/services#transporte-gratis" 
-      aria-label={t('feature_icons.items.free_transport.aria_label', currentLang)}
-      data-i18n-aria="feature_icons.items.free_transport.aria_label"
-    >
-    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
-      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/transporte.png" alt="" />
-    </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.free_transport.title">{t('feature_icons.items.free_transport.title', currentLang)}</h3>
-  </a>
-
-    <!-- 3 ▸ Cita el mismo día -->
-    <a 
-      class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.2s_forwards] flex-shrink-0"
-      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: center;"
-    href="/schedule" 
-    aria-label={t('feature_icons.items.same_day.aria_label', currentLang)}
-    data-i18n-aria="feature_icons.items.same_day.aria_label"
-  >
-    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
-      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/mismo-dia.png" alt="" />
-    </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.same_day.title">{t('feature_icons.items.same_day.title', currentLang)}</h3>
-  </a>
-
-  <!-- 4 ▸ Orientación legal sin costo -->
-  <a 
-      class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.3s_forwards] flex-shrink-0"
-      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: center;"
-    href="/lawyer-approved" 
-    aria-label={t('feature_icons.items.legal_guidance.aria_label', currentLang)}
-    data-i18n-aria="feature_icons.items.legal_guidance.aria_label"
-  >
-    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
-      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/legal.png" alt="" />
-    </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.legal_guidance.title">{t('feature_icons.items.legal_guidance.title', currentLang)}</h3>
-  </a>
-
-  <!-- 5 ▸ X-ray el mismo día -->
-  <a 
-      class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.4s_forwards] flex-shrink-0"
-      style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: center;"
-    href="/services#radiografias" 
-    aria-label={t('feature_icons.items.xray.aria_label', currentLang)}
-    data-i18n-aria="feature_icons.items.xray.aria_label"
-  >
-    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
-      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/xray.png" alt="" />
-    </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.xray.title">{t('feature_icons.items.xray.title', currentLang)}</h3>
-  </a>
-
-  <!-- 6 ▸ Hablamos idiomas -->
-  <a 
-    class="feature-border feature-shine feature-focus feature-card-bg feature-card grid items-center gap-2 p-3 rounded-xl relative overflow-hidden transform-gpu shadow-lg no-underline text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl opacity-0 animate-[slideInUp_0.8s_cubic-bezier(0.25,0.46,0.45,0.94)_0.5s_forwards] flex-shrink-0"
-    style="grid-template-columns: var(--fi) 1fr; scroll-snap-align: start;"
-    href="/services#bilingue" 
-    aria-label={t('feature_icons.items.languages.aria_label', currentLang)}
-    data-i18n-aria="feature_icons.items.languages.aria_label"
-  >
-    <div class="icon-orbit rounded-xl grid place-items-center relative overflow-hidden transform-gpu z-0 shadow-lg" style="width: var(--fi); height: var(--fi); background: var(--c3); box-shadow: 0 8px 16px rgba(122,46,135,.28);" aria-hidden="true">
-      <img class="w-[58%] h-[58%] object-contain brightness-0 invert transform-gpu transition-transform duration-300 ease-out hover:scale-105" src="/assets/icons/idiomas.png" alt="" />
-    </div>
-    <h3 class="feature-title m-0 min-w-0 relative z-10 font-bold text-sm leading-tight font-manrope no-underline whitespace-normal overflow-visible" data-i18n="feature_icons.items.languages.title">{t('feature_icons.items.languages.title', currentLang)}</h3>
-  </a>
+  </div>
 </section>
 
 <style>
-  /* ========= Variables CSS ========= */
-  :root {
-    --c1: #CEC6E2;  /* light */
-    --c2: #806AAA;  /* mid */
-    --c3: #7A2E87;  /* dark */
-    --c4: #BA93C2;  /* brand */
-    --ink: #1A1D2A;
-    --fi: 64px;     /* tamaño base del ícono */
-  }
-
-  /* ========= Fondo morado para la sección ========= */
-  .feature-icons-section {
-    background: linear-gradient(180deg, #4a1c5a, #59216f);
+  /* ==========================================================================
+     FEATURE ICONS — mobile-first | scroll horizontal en mobile | grid en desktop
+     ========================================================================== */
+  .feat {
+    background: var(--c-purple-900);
+    padding: clamp(2.5rem, 6vw, 4rem) 0;
+    color: #fff;
     position: relative;
-    overflow: hidden;
   }
 
-  .feature-icons-section::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(74, 28, 90, 0.9), rgba(89, 33, 111, 0.8));
-    pointer-events: none;
+  .feat-inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
   }
 
-  /* ========= Estilos base para las tarjetas ========= */
-  .feature-card {
-    min-width: 280px;
-    width: 280px;
-    flex-shrink: 0;
-    box-sizing: border-box;
+  /* === Header === */
+  .feat-head {
+    text-align: center;
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+    padding: 0 1rem;
   }
-  
-  /* ========= Prevenir overflow horizontal ========= */
-  .feature-icons-section {
-    width: 100%;
-    box-sizing: border-box;
+  .feat-eyebrow {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--c-rose);
+    margin-bottom: 0.5rem;
   }
-  
-  .feature-icons-section section {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* ========= RESPONSIVE DESIGN OPTIMIZADO ========= */
-  
-  /* Mobile Extra Small: 320px - 480px */
-  @media (max-width: 480px) {
-    :root {
-      --fi: 36px;
-    }
-    
-    .feature-icons-section {
-      padding: 1.5rem 0;
-    }
-    
-    section {
-      gap: 0.5rem !important;
-      padding: 0.75rem 0.5rem !important;
-      justify-content: flex-start !important;
-    }
-    
-    .feature-card {
-      min-width: 120px !important;
-      width: 120px !important;
-      padding: 0.5rem 0.375rem !important;
-      grid-template-columns: 1fr !important;
-      grid-template-rows: auto auto !important;
-      text-align: center !important;
-      justify-items: center !important;
-      gap: 0.375rem !important;
-    }
-    
-    .feature-title {
-      font-size: 0.625rem !important;
-      line-height: 1.1 !important;
-      font-weight: 600 !important;
-      margin-top: 0.125rem !important;
-    }
-    
-    .scroll-gradient-right {
-      opacity: 1 !important;
-      background: linear-gradient(to left, rgba(74, 28, 90, 0.9), transparent) !important;
-      width: 40px !important;
-    }
+  .feat-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    line-height: 1.2;
+    margin: 0;
+    color: #fff;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
   }
 
-  /* Mobile: 481px - 768px */
-  @media (min-width: 481px) and (max-width: 768px) {
-    :root {
-      --fi: 42px;
-    }
-    
-    .feature-icons-section {
-      padding: 2rem 0;
-    }
-    
-    section {
-      gap: 0.75rem !important;
-      padding: 1rem 0.75rem !important;
-      justify-content: flex-start !important;
-    }
-    
-    .feature-card {
-      min-width: 140px !important;
-      width: 140px !important;
-      padding: 0.625rem 0.5rem !important;
-      grid-template-columns: 1fr !important;
-      grid-template-rows: auto auto !important;
-      text-align: center !important;
-      justify-items: center !important;
-      gap: 0.5rem !important;
-    }
-    
-    .feature-title {
-      font-size: 0.7rem !important;
-      line-height: 1.15 !important;
-      font-weight: 600 !important;
-    }
-    
-    .scroll-gradient-right {
-      opacity: 1 !important;
-      background: linear-gradient(to left, rgba(74, 28, 90, 0.9), transparent) !important;
-      width: 40px !important;
-    }
-  }
-
-  /* Tablet: 769px - 1023px */
-  @media (min-width: 769px) and (max-width: 1023px) {
-    :root {
-      --fi: 48px;
-    }
-    
-    .feature-icons-section {
-      padding: 2.5rem 0;
-    }
-    
-    section {
-      gap: 0.75rem !important;
-      padding: 1.25rem 1rem !important;
-      justify-content: flex-start !important;
-    }
-    
-    .feature-card {
-      min-width: 150px !important;
-      width: 150px !important;
-      padding: 0.75rem !important;
-      grid-template-columns: 1fr !important;
-      grid-template-rows: auto auto !important;
-      text-align: center !important;
-      justify-items: center !important;
-      gap: 0.5rem !important;
-    }
-    
-    .feature-title {
-      font-size: 0.75rem !important;
-      line-height: 1.2 !important;
-      font-weight: 600 !important;
-    }
-    
-    .scroll-gradient-right {
-      opacity: 1 !important;
-      background: linear-gradient(to left, rgba(74, 28, 90, 0.9), transparent) !important;
-      width: 40px !important;
-    }
-  }
-
-  /* Desktop Small: 1024px - 1279px */
-  @media (min-width: 1024px) and (max-width: 1279px) {
-    :root {
-      --fi: 54px;
-    }
-    
-    .feature-icons-section {
-      padding: 3rem 0;
-    }
-    
-    section {
-      gap: 0.75rem !important;
-      padding: 1.5rem 1.25rem !important;
-      justify-content: center !important;
-    }
-    
-    .feature-card {
-      min-width: 160px !important;
-      width: 160px !important;
-      padding: 0.875rem !important;
-    }
-    
-    .feature-title {
-      font-size: 0.8rem !important;
-      line-height: 1.25 !important;
-      font-weight: 600 !important;
-    }
-    
-    .scroll-gradient-left,
-    .scroll-gradient-right {
-      opacity: 0 !important;
-    }
-  }
-
-  /* Desktop Medium: 1280px - 1439px */
-  @media (min-width: 1280px) and (max-width: 1439px) {
-    :root {
-      --fi: 58px;
-    }
-    
-    .feature-icons-section {
-      padding: 3.5rem 0;
-    }
-    
-    section {
-      gap: 0.875rem !important;
-      padding: 1.75rem 1.5rem !important;
-      justify-content: center !important;
-    }
-    
-    .feature-card {
-      min-width: 190px !important;
-      width: 190px !important;
-      padding: 1rem !important;
-    }
-    
-    .feature-title {
-      font-size: 0.85rem !important;
-      line-height: 1.3 !important;
-      font-weight: 600 !important;
-    }
-    
-    .scroll-gradient-left,
-    .scroll-gradient-right {
-      opacity: 0 !important;
-    }
-  }
-
-  /* Desktop Large: 1440px - 1919px */
-  @media (min-width: 1440px) and (max-width: 1919px) {
-    :root {
-      --fi: 62px;
-    }
-    
-    .feature-icons-section {
-      padding: 4rem 0;
-    }
-    
-    section {
-      gap: 1rem !important;
-      padding: 2rem 1.75rem !important;
-      justify-content: center !important;
-    }
-    
-    .feature-card {
-      min-width: 220px !important;
-      width: 220px !important;
-      padding: 1.125rem !important;
-    }
-    
-    .feature-title {
-      font-size: 0.9rem !important;
-      line-height: 1.35 !important;
-      font-weight: 600 !important;
-    }
-    
-    .scroll-gradient-left,
-    .scroll-gradient-right {
-      opacity: 0 !important;
-    }
-  }
-
-  /* Desktop Extra Large: 1920px - 2559px */
-  @media (min-width: 1920px) and (max-width: 2559px) {
-    :root {
-      --fi: 64px;
-    }
-    
-    .feature-icons-section {
-      padding: 4rem 0;
-    }
-    
-    section {
-      gap: 1.125rem !important;
-      padding: 2rem 2rem !important;
-      justify-content: center !important;
-    }
-    
-    .feature-card {
-      min-width: 280px !important;
-      width: 280px !important;
-      padding: 1.25rem !important;
-    }
-    
-    .feature-title {
-      font-size: 0.95rem !important;
-      line-height: 1.35 !important;
-      font-weight: 600 !important;
-    }
-    
-    .scroll-gradient-left,
-    .scroll-gradient-right {
-      opacity: 0 !important;
-    }
-  }
-
-  /* Desktop Ultra Wide: 2560px+ */
-  @media (min-width: 2560px) {
-    :root {
-      --fi: 72px;
-    }
-    
-    .feature-icons-section {
-      padding: 4.5rem 0;
-    }
-    
-    section {
-      gap: 1.5rem !important;
-      padding: 2.25rem 2rem !important;
-      justify-content: center !important;
-    }
-    
-    .feature-card {
-      min-width: 320px !important;
-      width: 320px !important;
-      padding: 1.5rem !important;
-    }
-    
-    .feature-title {
-      font-size: 1rem !important;
-      line-height: 1.4 !important;
-      font-weight: 600 !important;
-    }
-    
-    .scroll-gradient-left,
-    .scroll-gradient-right {
-      opacity: 0 !important;
-    }
-  }
-  
-  /* ========= Estilos para scroll horizontal ========= */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
+  /* === Grid / Track ===
+     Mobile: scroll horizontal con snap (2.4 cards visibles)
+     Tablet+ : grid real
+  */
+  .feat-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 42%;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    padding: 0.5rem clamp(0.85rem, 4vw, 1.5rem);
   }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  .feat-grid::-webkit-scrollbar { display: none; }
+
+  /* === Card === */
+  .feat-card {
+    position: relative;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.85rem;
+    padding: 1.25rem 0.85rem 1.1rem;
+    background: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--text-primary);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.25s ease;
+    will-change: transform;
+    overflow: hidden;
+    min-height: 158px;
   }
 
-  /* ========= Animaciones personalizadas ========= */
-  @keyframes slideInUp {
-    from { 
-      opacity: 0; 
-      transform: translateY(20px) scale(0.95); 
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0) scale(1); 
-    }
-  }
-  
-  @keyframes spinBorder { 
-    to { transform: rotate(360deg); } 
-  }
-  
-  @keyframes cardShine { 
-    to { left: 120%; } 
-  }
-  
-  @keyframes orbit {
-    0%   { transform: rotate(0deg) translate3d(0,0,0); }
-    50%  { transform: rotate(180deg) translate3d(0,0,0); }
-    100% { transform: rotate(360deg) translate3d(0,0,0); }
-  }
-
-  /* ========= Estilos específicos que requieren CSS ========= */
-  .features::-webkit-scrollbar { height: 8px; }
-  .features::-webkit-scrollbar-thumb { background: var(--c3); border-radius: 8px; }
-
-  /* ========= Estilos específicos para cards ========= */
-  .feature-card-bg {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(206, 198, 226, 0.2);
-  }
-
-  /* ========= Efectos especiales para cards ========= */
-  .feature-border::before {
+  /* Accent superior animado (línea rosa de marca) */
+  .feat-card::before {
     content: "";
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(206, 198, 226, 0.3), rgba(186, 147, 194, 0.2));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.6;
-    transition: opacity 0.25s ease;
-  }
-  
-  .feature-border:hover::before {
-    animation: spinBorder 2s linear infinite;
-  }
-  
-  .feature-shine::after {
-    content: "";
-    position: absolute;
-    top: -10%;
-    left: -60%;
-    width: 50%;
-    height: 120%;
-    pointer-events: none;
-    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.7) 50%, transparent 100%);
-    transform: skewX(-22deg) translateZ(0);
-    opacity: 0;
-  }
-  
-  .feature-shine:hover::after {
-    opacity: 1;
-    animation: cardShine 0.9s ease forwards;
-  }
-
-  /* ========= Efectos específicos para iconos ========= */
-  .icon-orbit::before {
-    content: "";
-    position: absolute;
-    width: 140%;
-    height: 140%;
-    background: radial-gradient(closest-side, rgba(255,255,255,.25), transparent 10%);
-    top: -20%;
-    left: -20%;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--c-rose);
+    transform: scaleX(0);
     transform-origin: center;
-    animation: orbit 4.2s linear infinite;
-    mix-blend-mode: screen;
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .feat-card:hover::before,
+  .feat-card:focus-visible::before { transform: scaleX(1); }
+
+  .feat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25);
+    border-color: rgba(186, 147, 194, 0.5);
   }
 
-  /* ========= Estilos específicos para títulos ========= */
-  .feature-title {
-    background: linear-gradient(180deg, #261b33, #3a2a4b);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  /* === Icono === */
+  .feat-icon {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: var(--c-purple);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(122, 46, 135, 0.32);
+    transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease;
   }
-  
-  /* ========= Estilos de accesibilidad ========= */
-  .feature-focus:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(186, 147, 194, 0.38),
-                0 10px 26px rgba(10,14,30,.14) !important;
+  .feat-icon img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    pointer-events: none;
+    transition: transform 0.3s ease;
+  }
+  .feat-card:hover .feat-icon {
+    background: var(--c-purple-700);
+    transform: scale(1.06) rotate(-4deg);
+  }
+  .feat-card:hover .feat-icon img { transform: scale(1.05); }
+
+  /* === Texto === */
+  .feat-text {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.88rem;
+    line-height: 1.3;
+    color: var(--text-primary);
+    text-wrap: balance;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
   }
 
-  /* ========= Configuración de movimiento reducido ========= */
+  /* === Flecha (visible en hover) === */
+  .feat-arrow {
+    color: var(--c-purple);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.22s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .feat-card:hover .feat-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* === Entrance (Motion lo dispara, este es estado inicial) === */
+  .feat-card { opacity: 1; }
+  .feat[data-feat]:not(.in-view) .feat-card {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  /* ============== BREAKPOINTS ============== */
+  @media (min-width: 480px) {
+    .feat-grid { grid-auto-columns: 32%; }
+  }
+  @media (min-width: 640px) {
+    .feat-grid {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-columns: auto;
+      overflow: visible;
+      padding: 0 1rem;
+      gap: 1rem;
+    }
+    .feat-card { min-height: 170px; }
+  }
+  @media (min-width: 1024px) {
+    .feat-grid {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.85rem;
+      padding: 0 1.25rem;
+    }
+    .feat-card { padding: 1.4rem 0.9rem 1.2rem; min-height: 190px; }
+    .feat-icon { width: 60px; height: 60px; }
+    .feat-text { font-size: 0.92rem; }
+  }
+  @media (min-width: 1280px) {
+    .feat-grid { gap: 1rem; padding: 0 1.5rem; }
+    .feat-card { padding: 1.5rem 1rem 1.25rem; }
+    .feat-icon { width: 64px; height: 64px; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
+    .feat-card, .feat-icon, .feat-arrow, .feat-card::before {
+      transition: none !important;
     }
-  }
-
-  /* ========= Indicador de scroll mejorado para móviles ========= */
-  @media (max-width: 768px) {
-    /* Remover la flecha CSS ya que ahora usamos botones */
-    .scroll-gradient-right::after {
-      display: none;
-    }
-    
-    /* Estilos para los botones de scroll */
-    .scroll-btn-left,
-    .scroll-btn-right {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      backdrop-filter: blur(4px);
-      font-size: 16px;
-      font-weight: bold;
-    }
-    
-    .scroll-btn-left:active,
-    .scroll-btn-right:active {
-      transform: translateY(-50%) scale(0.95);
-    }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const scrollContainer = document.querySelector('.feature-icons-section');
-    const leftBtn = document.querySelector('.scroll-btn-left');
-    const rightBtn = document.querySelector('.scroll-btn-right');
-    const leftGradient = document.querySelector('.scroll-gradient-left');
-    const rightGradient = document.querySelector('.scroll-gradient-right');
-    
-    if (!scrollContainer || !leftBtn || !rightBtn) return;
-    
-    // Función para actualizar la visibilidad de los botones
-    function updateScrollButtons() {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
-      const maxScroll = scrollWidth - clientWidth;
-      
-      // Mostrar/ocultar botón izquierdo
-      if (scrollLeft > 10) {
-        leftBtn.style.display = 'flex';
-        leftBtn.style.opacity = '0.8';
-        leftGradient.style.opacity = '1';
-      } else {
-        leftBtn.style.display = 'none';
-        leftBtn.style.opacity = '0';
-        leftGradient.style.opacity = '0';
-      }
-      
-      // Mostrar/ocultar botón derecho
-      if (scrollLeft < maxScroll - 10) {
-        rightBtn.style.display = 'flex';
-        rightBtn.style.opacity = '0.8';
-        rightGradient.style.opacity = '1';
-      } else {
-        rightBtn.style.display = 'none';
-        rightBtn.style.opacity = '0';
-        rightGradient.style.opacity = '0';
-      }
+  import { animate, inView, stagger } from 'motion';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector<HTMLElement>('[data-feat]');
+    if (!section) return;
+
+    const cards = Array.from(section.querySelectorAll<HTMLElement>('.feat-card'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const animateAny = animate as unknown as (...args: any[]) => any;
+
+    if (reducedMotion) {
+      section.classList.add('in-view');
+      return;
     }
-    
-    // Función para hacer scroll suave
-    function smoothScroll(direction) {
-      const cardWidth = 280; // Ancho de cada tarjeta
-      const gap = 8; // Gap entre tarjetas (0.5rem = 8px)
-      const scrollAmount = cardWidth + gap;
-      
-      const currentScroll = scrollContainer.scrollLeft;
-      const targetScroll = direction === 'left' 
-        ? Math.max(0, currentScroll - scrollAmount)
-        : Math.min(scrollContainer.scrollWidth - scrollContainer.clientWidth, currentScroll + scrollAmount);
-      
-      scrollContainer.scrollTo({
-        left: targetScroll,
-        behavior: 'smooth'
-      });
-    }
-    
-    // Event listeners para los botones
-    leftBtn.addEventListener('click', () => smoothScroll('left'));
-    rightBtn.addEventListener('click', () => smoothScroll('right'));
-    
-    // Event listener para el scroll
-    scrollContainer.addEventListener('scroll', updateScrollButtons);
-    
-    // Inicializar estado de los botones
-    updateScrollButtons();
-    
-    // Actualizar cuando cambie el tamaño de la ventana
-    window.addEventListener('resize', updateScrollButtons);
+
+    /* Reveal staggered cuando la sección entra al viewport */
+    inView(
+      section,
+      () => {
+        section.classList.add('in-view');
+        try {
+          animateAny(
+            cards,
+            { opacity: [0, 1], y: [20, 0] },
+            { duration: 0.5, delay: stagger(0.07), easing: [0.22, 1, 0.36, 1] }
+          );
+        } catch {
+          cards.forEach((c) => { c.style.opacity = '1'; c.style.transform = 'none'; });
+        }
+      },
+      { amount: 0.15 }
+    );
   });
 </script>

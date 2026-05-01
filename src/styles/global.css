@@ -1,12 +1,145 @@
-/* ARCHIVO TEMPORAL - NEUTRALIZANDO CONFLICTOS DE DROPDOWN */
+/* ==========================================================================
+   GLOBAL STYLES — Paleta única, reset y utilidades base (mobile-first)
+   ========================================================================== */
 
-/* Todos los estilos de dropdown han sido temporalmente deshabilitados */
-/* para permitir que Nav.astro maneje los dropdowns sin conflictos */
+:root {
+  /* === PALETA CANÓNICA (única fuente de verdad) === */
+  --c-lilac:   #CEC6E2;   /* Lila claro */
+  --c-violet:  #806AAA;   /* Violeta medio */
+  --c-purple:  #7A2E87;   /* Púrpura primario */
+  --c-purple-700: #6a3f75;
+  --c-purple-800: #59216f;
+  --c-purple-900: #4a1c5a;
+  --c-rose:    #BA93C2;   /* Rosa brand */
+  --c-deep:    #611E6C;   /* Footer / fondos profundos */
 
-/* Los estilos originales se restaurarán después de implementar */
-/* la nueva solución de dropdowns en Nav.astro */
+  /* Aliases semánticos (compat con código existente) */
+  --c1: var(--c-lilac);
+  --c2: var(--c-violet);
+  --c3: var(--c-purple);
+  --c4: var(--c-rose);
+  --brand: var(--c-rose);
+  --brand-700: var(--c-purple-700);
+  --primary: var(--c-purple);
+  --secondary: var(--c-rose);
+  --accent: var(--c-violet);
 
-/* ========== RESTO DE ESTILOS GLOBALES ========== */
+  /* Texto */
+  --text-primary:   #1A1D2A;
+  --text-secondary: #4a5568;
+  --ink:            #1A1D2A;
+  --muted:          #6B6F85;
+  --text:           var(--text-primary);
 
-/* Aquí irán todos los demás estilos que no sean de dropdown */
+  /* Superficies */
+  --surface:   #ffffff;
+  --surface-2: #F7F2FA;
+  --bg:        var(--surface);
+  --background: var(--surface);
+  --border:    #e2e8f0;
+  --line:      rgba(15, 18, 35, 0.12);
 
+  /* Estados */
+  --success: #10b981;
+  --danger:  #dc2626;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.18);
+
+  /* Tipografía */
+  --font-heading: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-body:    'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout */
+  --radius:  12px;
+  --radius-lg: 16px;
+  --content-max: 1200px;
+  --topbar-h: 0px;
+
+  /* Navbar (mobile-first) — alturas balanceadas */
+  --nav-h: 64px;
+  --nav-h-scrolled: 56px;
+  --logo-h: 44px;
+  --logo-h-scrolled: 36px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --nav-h: 78px;
+    --nav-h-scrolled: 66px;
+    --logo-h: 56px;
+    --logo-h-scrolled: 46px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --nav-h: 88px;
+    --nav-h-scrolled: 72px;
+    --logo-h: 64px;
+    --logo-h-scrolled: 52px;
+  }
+}
+
+/* === RESET === */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg, video { max-width: 100%; height: auto; display: block; }
+button { font: inherit; cursor: pointer; }
+a { color: inherit; }
+
+/* Evitar scroll horizontal accidental en mobile.
+   Usamos `clip` (no `hidden`) para no romper position:sticky en descendientes. */
+html, body { overflow-x: clip; }
+@supports not (overflow-x: clip) {
+  html, body { overflow-x: hidden; }
+}
+
+/* Tipografía */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  margin: 0 0 0.5em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+p { line-height: 1.6; margin: 0 0 1em; }
+
+/* Anclas no quedan tapadas por el nav */
+html { scroll-padding-top: var(--nav-h); }
+
+/* === LIMPIEZA DE TOPBAR LEGACY === */
+.topbar, .top-bar, .site-topbar, .topbar-spacer,
+[data-topbar], [data-spacer="topbar"] {
+  display: none !important;
+}
+
+/* === UTILIDADES === */
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 32px);
+}
+
+/* Accesibilidad: respetar usuarios con motion reducido */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001s !important;
+    transition-duration: 0.001s !important;
+  }
+}

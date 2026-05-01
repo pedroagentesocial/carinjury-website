@@ -246,7 +246,6 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
           // Honeypot anti-spam
           const honeypot = form.querySelector('input[name="_honey"]');
           if (honeypot && honeypot.value) {
-            console.log('Spam detectado, bloqueo envío.');
             return;
           }
 
@@ -287,7 +286,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
               body: JSON.stringify(payload)
             });
           } catch (err) {
-            console.log('Error enviando formulario:', err);
+            /* webhook silencioso */
           }
           if ((window).grecaptcha) (window).grecaptcha.reset();
         });

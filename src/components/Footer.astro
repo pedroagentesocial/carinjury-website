@@ -1,152 +1,467 @@
 ---
 import { t, getCurrentLanguage } from '../i18n/index.ts';
 
-/* Footer.astro
-   - Año automático
-   - Centro: "Contáctanos" + número como link (sin fondo/borde; hover cambia color)
-   - Derecha: Política de privacidad + correo
-*/
 const currentLang = getCurrentLanguage();
 const year = new Date().getFullYear();
-const phone = '+1 (385) 242-8571';                 // ← cámbialo si es necesario
-const email = 'info@carinjuryclinic.com';          // ← tu correo público
-const privacyHref = '/privacy';                    // ← ruta a tu política
+
+const PHONE_DISPLAY = '+1 (385) 242-8571';
+const PHONE_TEL = '+13852428571';
+const EMAIL = 'info@carinjuryclinic.com';
+const ADDRESS_MAPS = 'https://maps.app.goo.gl/76gxBm8r9supmSYR9';
+const PLACE_ID = import.meta.env.PUBLIC_GOOGLE_PLACE_ID || '';
+const WRITE_REVIEW_URL = PLACE_ID
+  ? `https://search.google.com/local/writereview?placeid=${PLACE_ID}`
+  : ADDRESS_MAPS;
+
+const LOGO_SRC = '/assets/img/Car-Injury-Clinic-White.png';
+
+const TOP_SERVICES = [
+  { href: '/services#chiropractic',     key: 'nav.services_dropdown.chiropractic' },
+  { href: '/services#rehabilitation',   key: 'nav.services_dropdown.rehabilitation' },
+  { href: '/services#physical_therapy', key: 'nav.services_dropdown.physical_therapy' },
+  { href: '/services#massage',          key: 'nav.services_dropdown.massage' },
+  { href: '/services#xray',             key: 'nav.services_dropdown.xray' },
+  { href: '/services#pain_management',  key: 'nav.services_dropdown.pain_management' },
+];
+
+const QUICK_LINKS = [
+  { href: '/',                key: 'nav.home' },
+  { href: '/aboutus',         key: 'nav.about' },
+  { href: '/lawyer-approved', key: 'nav.legal_assistance' },
+  { href: '/formulario',      key: 'nav.form' },
+  { href: '/faq',             key: 'nav.frequent_questions' },
+  { href: '/schedule',        key: 'nav.schedule' },
+];
 ---
 
-<footer class="site-footer" aria-label="Pie de página">
-  <div class="footer-inner">
-    <!-- Izquierda: copyright -->
-    <div class="footer-left">
-      © {year} Car Injury Clinic. <span data-i18n="footer.copyright">{t('footer.copyright', currentLang)}</span>
+<footer class="ft" aria-label="Pie de página">
+  <!-- BANNER REVIEW -->
+  <div class="ft-review">
+    <div class="ft-review-inner">
+      <div class="ft-review-text">
+        <h3 class="ft-review-title" data-i18n="footer.review_title">{t('footer.review_title', currentLang)}</h3>
+        <p class="ft-review-sub" data-i18n="footer.review_subtitle">{t('footer.review_subtitle', currentLang)}</p>
+      </div>
+      <div class="ft-review-actions">
+        <a class="ft-review-btn ft-review-btn-primary" href={WRITE_REVIEW_URL} target="_blank" rel="noopener">
+          <svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true">
+            <path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          <span data-i18n="footer.review_cta">{t('footer.review_cta', currentLang)}</span>
+        </a>
+        <a class="ft-review-btn ft-review-btn-ghost" href="/schedule">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span data-i18n="footer.schedule_cta">{t('footer.schedule_cta', currentLang)}</span>
+        </a>
+      </div>
     </div>
+  </div>
 
-    <!-- Centro: contacto -->
-    <div class="footer-center">
-      <span class="cta-label" data-i18n="footer.contact_label">{t('footer.contact_label', currentLang)}</span>
-      <a
-        class="phone-link"
-        href={`tel:${phone.replace(/[^+\d]/g,'')}`}
-        aria-label="Llamar a Car Injury Clinic"
-      >
-        {phone}
-      </a>
+  <!-- BLOQUE PRINCIPAL -->
+  <div class="ft-main">
+    <div class="ft-grid">
+      <!-- Brand + tagline + redes -->
+      <div class="ft-col ft-brand">
+        <a href="/" class="ft-logo" aria-label="Car Injury Clinic">
+          <img src={LOGO_SRC} alt="Car Injury Clinic" loading="lazy" decoding="async" />
+        </a>
+        <p class="ft-tagline" data-i18n="footer.tagline">{t('footer.tagline', currentLang)}</p>
+
+        <div class="ft-social-wrap">
+          <span class="ft-eyebrow" data-i18n="footer.social_label">{t('footer.social_label', currentLang)}</span>
+          <div class="ft-social">
+            <a href="https://www.facebook.com/profile.php?id=100090183003470" target="_blank" rel="noopener" aria-label="Facebook" class="ft-social-btn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22.675 0H1.326C.593 0 0 .593 0 1.326v21.348C0 23.406.593 24 1.326 24h11.49v-9.294H9.691v-3.622h3.125V8.413c0-3.1 1.893-4.788 4.657-4.788 1.325 0 2.463.099 2.794.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.313h3.592l-.468 3.622h-3.124V24h6.116C23.406 24 24 23.407 24 22.674V1.326C24 .593 23.406 0 22.675 0z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/car.injuryclinic/" target="_blank" rel="noopener" aria-label="Instagram" class="ft-social-btn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.34 4.14.63a5.86 5.86 0 0 0-2.13 1.38A5.86 5.86 0 0 0 .63 4.14C.34 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.27 2.15.56 2.91.3.79.7 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.29 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.27 2.91-.56.79-.3 1.46-.7 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.29-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.27-2.15-.56-2.91a5.86 5.86 0 0 0-1.38-2.13A5.86 5.86 0 0 0 19.86.63C19.1.34 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-10.41a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
+            </a>
+            <a href="https://tiktok.com/@car.injuryclinic" target="_blank" rel="noopener" aria-label="TikTok" class="ft-social-btn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.83a8.16 8.16 0 0 0 4.77 1.52V6.93a4.85 4.85 0 0 1-1.84-.24z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Servicios -->
+      <nav class="ft-col ft-nav" aria-label="Servicios">
+        <h4 class="ft-heading" data-i18n="footer.services_label">{t('footer.services_label', currentLang)}</h4>
+        <ul>
+          {TOP_SERVICES.map((s) => (
+            <li><a href={s.href} data-i18n={s.key}>{t(s.key, currentLang)}</a></li>
+          ))}
+          <li>
+            <a href="/services" class="ft-link-all">
+              <span data-i18n="footer.all_services">{t('footer.all_services', currentLang)}</span>
+              <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Quick links -->
+      <nav class="ft-col ft-nav" aria-label="Enlaces rápidos">
+        <h4 class="ft-heading" data-i18n="footer.links_label">{t('footer.links_label', currentLang)}</h4>
+        <ul>
+          {QUICK_LINKS.map((l) => (
+            <li><a href={l.href} data-i18n={l.key}>{t(l.key, currentLang)}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Contacto -->
+      <div class="ft-col ft-contact">
+        <h4 class="ft-heading" data-i18n="footer.contact_section">{t('footer.contact_section', currentLang)}</h4>
+
+        <a class="ft-contact-row" href={ADDRESS_MAPS} target="_blank" rel="noopener">
+          <span class="ft-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </span>
+          <span data-i18n="footer.address_value">{t('footer.address_value', currentLang)}</span>
+        </a>
+
+        <a class="ft-contact-row" href={`tel:${PHONE_TEL}`} aria-label={`Llamar al ${PHONE_DISPLAY}`}>
+          <span class="ft-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M22 16.92v2a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 3.8 2 2 0 0 1 4.11 2h2a2 2 0 0 1 2 1.72c.12.9.31 1.78.57 2.63a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.45-1.17a2 2 0 0 1 2.11-.45c.85.26 1.73.45 2.63.57A2 2 0 0 1 22 16.92Z"/></svg>
+          </span>
+          <span>{PHONE_DISPLAY}</span>
+        </a>
+
+        <a class="ft-contact-row" href={`mailto:${EMAIL}`}>
+          <span class="ft-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6L12 13 2 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span>{EMAIL}</span>
+        </a>
+      </div>
     </div>
+  </div>
 
-    <!-- Derecha: privacidad + correo -->
-    <div class="footer-right">
-      <a class="policy-link" href={privacyHref} data-i18n="footer.privacy">{t('footer.privacy', currentLang)}</a>
-      <span class="sep" aria-hidden="true">·</span>
-      <a class="mail-link" href={`mailto:${email}`}>{email}</a>
+  <!-- BOTTOM BAR -->
+  <div class="ft-bottom">
+    <div class="ft-bottom-inner">
+      <span class="ft-copy">© {year} Car Injury Clinic. <span data-i18n="footer.copyright">{t('footer.copyright', currentLang)}</span></span>
+      <a class="ft-policy" href="/privacy" data-i18n="footer.privacy">{t('footer.privacy', currentLang)}</a>
     </div>
   </div>
 </footer>
 
 <style>
-  /* ====== Paleta con fallbacks (usa tus variables globales si existen) ====== */
-  :root{
-    --brand: var(--brand, #BA93C2);
-    --brand-700: var(--brand-700, #7f4b8a);
-    --ink: var(--ink, #0f1223);
-    --muted: var(--muted, #60657a);
-    --line: var(--line, rgba(15,18,35,.12));
-  }
-
-  .site-footer{
-    /* sin fondo para integrarse con tu layout; pon uno si lo necesitas */
-    background: #611E6C;
-    border-top: 1px solid var(--line);
+  /* ==========================================================================
+     FOOTER — multi-columna profesional, mobile-first
+     ========================================================================== */
+  .ft {
+    background: var(--c-purple-900);
     color: #fff;
-    font-weight: 700;
+    font-family: var(--font-body);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .footer-inner{
-    max-width: 1200px;
+  /* === BANNER REVIEW (arriba del footer) === */
+  .ft-review {
+    background: var(--c-purple-800);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.5rem 1rem;
+  }
+  .ft-review-inner {
+    max-width: var(--content-max);
     margin: 0 auto;
-    padding: 8px 16px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .footer-left{
-    flex: 1 1 auto;
-    min-width: 220px;
-  }
-
-  .footer-center{
-    flex: 0 1 auto;
-    display: inline-flex;
-    align-items: baseline;
-    gap: 10px;
-    justify-content: center;
     text-align: center;
-    min-width: 260px;
+    gap: 1rem;
   }
-
-  .cta-label{
+  .ft-review-text { display: flex; flex-direction: column; gap: 0.2rem; flex: 1 1 auto; }
+  .ft-review-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.15rem, 3vw, 1.4rem);
+    margin: 0;
     color: #fff;
-    font-weight: 900;
-    letter-spacing: .01em;
+    line-height: 1.2;
+  }
+  .ft-review-sub {
+    margin: 0;
+    color: var(--c-lilac);
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 
-  /* Número: “botón” visual sin fondo ni borde */
-  .phone-link{
-    display: inline-block;
-    font-weight: 900;
-    color: #fff;
-    text-decoration: none;
-    padding: 0;               /* sin padding de botón */
-    border: none;             /* sin borde */
-    background: none;         /* sin fondo */
-    transition: color .18s ease, transform .12s ease;
+  /* Wrap de los 2 botones */
+  .ft-review-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    flex: 0 0 auto;
   }
-  .phone-link:hover,
-  .phone-link:focus-visible{
-    color: #BA93C2;
-    text-decoration: none;
-    outline: none;
-  }
-  .phone-link:active{ transform: translateY(1px); }
-
-  .footer-right{
-    flex: 1 1 auto;
+  .ft-review-btn {
     display: inline-flex;
-    gap: 10px;
     align-items: center;
-    justify-content: flex-end;
-    min-width: 260px;
+    gap: 0.55rem;
+    padding: 0.8rem 1.25rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.92rem;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   }
-
-  .footer-right a{
+  .ft-review-btn-primary {
+    background: #fff;
+    color: var(--c-purple);
+    border: 2px solid #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  }
+  .ft-review-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+  }
+  .ft-review-btn-ghost {
+    background: transparent;
     color: #fff;
-    text-decoration: none;
-    transition: color .18s ease, text-decoration-color .18s ease;
+    border: 2px solid rgba(255, 255, 255, 0.4);
   }
-  .footer-right a:hover,
-  .footer-right a:focus-visible{
-    color: #BA93C2;
-    text-decoration: none;
-    outline: none;
+  .ft-review-btn-ghost:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: #fff;
   }
 
-  .sep{ opacity: .55; }
+  /* === BLOQUE PRINCIPAL === */
+  .ft-main {
+    padding: clamp(2.5rem, 6vw, 4rem) 1rem 2rem;
+  }
+  .ft-grid {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
 
-  /* ====== Responsive ====== */
-  @media (max-width: 720px){
-    .footer-inner{
-      padding: 12px 16px;
-      gap: 6px 10px;
+  .ft-col { min-width: 0; }
+
+  /* === BRAND === */
+  .ft-brand .ft-logo {
+    display: inline-block;
+    margin-bottom: 1rem;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ft-brand .ft-logo:hover { transform: scale(1.03); }
+  .ft-brand .ft-logo img {
+    height: 56px;
+    width: auto;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+  }
+  .ft-tagline {
+    margin: 0 0 1.5rem;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    max-width: 360px;
+  }
+
+  .ft-social-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .ft-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--c-lilac);
+  }
+  .ft-social { display: flex; gap: 0.55rem; }
+  .ft-social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease;
+  }
+  .ft-social-btn svg { width: 18px; height: 18px; }
+  .ft-social-btn:hover {
+    background: var(--c-rose);
+    border-color: var(--c-rose);
+    color: var(--c-purple-900);
+    transform: translateY(-3px);
+  }
+
+  /* === NAV columns (Servicios + Quick links) === */
+  .ft-heading {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+    margin: 0 0 1rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+  }
+  .ft-heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 32px;
+    height: 2px;
+    background: var(--c-rose);
+    border-radius: 2px;
+  }
+
+  .ft-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .ft-nav a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 600;
+    padding-left: 0;
+    transition: color 0.22s ease, padding-left 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ft-nav a::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: var(--c-rose);
+    font-weight: 800;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ft-nav a:hover {
+    color: #fff;
+    padding-left: 1rem;
+  }
+  .ft-nav a:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .ft-link-all {
+    color: var(--c-lilac) !important;
+    font-weight: 700 !important;
+    margin-top: 0.25rem;
+    gap: 0.3rem;
+  }
+  .ft-link-all svg { transition: transform 0.22s ease; }
+  .ft-link-all:hover svg { transform: translateX(3px); }
+
+  /* === CONTACTO === */
+  .ft-contact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 600;
+    padding: 0.55rem 0;
+    line-height: 1.45;
+    transition: color 0.25s ease, transform 0.2s ease;
+  }
+  .ft-contact-row:hover { color: var(--c-lilac); transform: translateX(2px); }
+  .ft-icon {
+    flex: 0 0 auto;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--c-rose);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s ease;
+  }
+  .ft-contact-row:hover .ft-icon {
+    background: var(--c-rose);
+    color: var(--c-purple-900);
+  }
+  .ft-icon svg { width: 16px; height: 16px; }
+
+  /* === BOTTOM BAR === */
+  .ft-bottom {
+    background: rgba(0, 0, 0, 0.25);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 1rem;
+  }
+  .ft-bottom-inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  .ft-copy {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .ft-policy {
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+    transition: color 0.22s ease;
+  }
+  .ft-policy:hover { color: var(--c-rose); }
+
+  /* ============== BREAKPOINTS ============== */
+  @media (min-width: 640px) {
+    .ft-review-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
     }
-    .footer-left,
-    .footer-center,
-    .footer-right{
-      flex: 1 1 100%;
-      min-width: 0;
-      justify-content: center;
-      text-align: center;
+    .ft-bottom-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
     }
-    .footer-right{ gap: 6px; }
+  }
+
+  @media (min-width: 768px) {
+    .ft-grid {
+      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ft-grid {
+      gap: 3rem;
+    }
+    .ft-main { padding: 4rem 1rem 2.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ft-review-btn, .ft-social-btn, .ft-nav a, .ft-contact-row, .ft-link-all svg {
+      transition: none !important;
+    }
   }
 </style>

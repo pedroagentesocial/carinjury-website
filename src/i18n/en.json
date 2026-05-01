@@ -12,7 +12,9 @@
     "legal_assistance": "Legal Assistance",
     "patients": "Patients",
     "form": "Form",
+    "form_desc": "Tell us about your case",
     "frequent_questions": "Frequently Asked Questions",
+    "frequent_questions_desc": "Common questions answered",
     "schedule_online": "Schedule Online",
     "services_dropdown": {
       "chiropractic": "Chiropractic",
@@ -686,12 +688,25 @@
     "privacy_link": "privacy policy",
     "and": "and",
     "receive_info_short": "I wish to receive information about services and updates",
-    "sms_consent": "By submitting this form, I agree to receive SMS messages from Car Injury Clinic regarding my accident assistance request, case updates, and appointment coordination. Message frequency may vary. Message and data rates may apply. Reply STOP to opt out."
+    "sms_consent": "By submitting this form, I agree to receive SMS messages from Car Injury Clinic regarding my accident assistance request, case updates, and appointment coordination. Message frequency may vary. Message and data rates may apply. Reply STOP to opt out.",
+    "captcha_hint": "Last step: confirm you are not a robot"
   },
   "footer": {
     "copyright": "All rights reserved.",
     "contact_label": "Contact us:",
-    "privacy": "Privacy policy"
+    "privacy": "Privacy Policy",
+    "tagline": "Chiropractic care and complete legal support for car accident victims in Utah.",
+    "services_label": "Services",
+    "links_label": "Quick links",
+    "contact_section": "Contact",
+    "social_label": "Follow us",
+    "review_title": "How was your visit?",
+    "review_subtitle": "Your review helps other patients find us.",
+    "review_cta": "Leave your review on Google",
+    "schedule_cta": "Schedule your appointment",
+    "address_value": "2997 W 4700 S, Taylorsville, UT 84129",
+    "hours_short": "Mon-Fri · 11am-8pm  |  Sat · 10am-2pm",
+    "all_services": "View all services"
   },
   "privacy": {
     "title": "Privacy Policy",
@@ -868,6 +883,8 @@
   },
   "feature_icons": {
     "aria_label": "Main features of our services",
+    "eyebrow": "What your visit includes",
+    "title": "Real benefits for our patients",
     "items": {
       "free_consultation": {
         "title": "Free initial evaluation",
@@ -902,11 +919,20 @@
   },
   "testimonials": {
     "title": {
-      "main": "What our",
-      "accent": "patients say"
+      "main": "The voice of our",
+      "accent": "patients"
     },
-    "subtitle": "Real testimonials from people who have recovered their well-being with us",
-    "view_more": "View more reviews on Google"
+    "subtitle": "Real stories from people who trusted us with their recovery",
+    "view_more": "View all on Google",
+    "badge": "Verified reviews from",
+    "average_rating": "Average rating",
+    "same_day": "Same-day care",
+    "verified": "100% verified",
+    "posted_on": "Posted on Google",
+    "read_more": "Read full review",
+    "write_review": "Leave your review",
+    "visit": "How was your visit? Help others find us",
+    "close": "Close"
   },
   "map_contact": {
     "info_label": "Contact Information",

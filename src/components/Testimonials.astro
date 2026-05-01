@@ -4,955 +4,699 @@ import { t, getCurrentLanguage } from '../i18n/index.ts';
 
 const currentLang = getCurrentLanguage();
 
-// Reseñas (5 base + inventadas)
+/* Reseñas: 2 locales + 4 complementarias = 6 */
 const items = [
   ...localReviews,
   {
     author_name: 'Carlos García',
     rating: 5,
     text: 'Excelente atención, me ayudaron a recuperar la movilidad en mi espalda después de un accidente. ¡Muy recomendados!',
-    date: 'Hace 2 meses',
-    author_url: '',
-    profile_photo_url: '/assets/img/client2.webp',
+    date: '2025-03-12',
+    profile_photo_url: 'https://randomuser.me/api/portraits/men/45.jpg',
   },
   {
     author_name: 'María Rodríguez',
     rating: 5,
-    text: 'Atención profesional y muy amable. La clínica cuenta con tecnología avanzada y el personal es increíble. ¡Gracias!',
-    date: 'Hace 1 mes',
-    author_url: '',
-    profile_photo_url: '/assets/img/client1.webp',
+    text: 'Atención profesional y muy amable. La clínica cuenta con tecnología avanzada y el personal es increíble. Desde la primera cita me sentí escuchada y bien cuidada por todo el equipo. ¡Gracias por todo el seguimiento durante mi recuperación!',
+    date: '2025-04-02',
+    profile_photo_url: 'https://randomuser.me/api/portraits/women/68.jpg',
   },
   {
     author_name: 'José López',
     rating: 5,
     text: 'Tuve un accidente de auto y me trataron con mucho cuidado. El servicio fue rápido y efectivo. ¡Muy satisfecho!',
-    date: 'Hace 3 semanas',
-    author_url: '',
-    profile_photo_url: '/assets/img/client3.webp',
+    date: '2025-04-18',
+    profile_photo_url: 'https://randomuser.me/api/portraits/men/76.jpg',
   },
   {
     author_name: 'Laura Jiménez',
     rating: 5,
-    text: 'Una atención de primera. Me sentí muy apoyada durante todo el proceso de recuperación. ¡Altamente recomendados!',
-    date: 'Hace 1 semana',
-    author_url: '',
-    profile_photo_url: '/assets/img/client4.jpeg',
+    text: 'Una atención de primera. Me sentí muy apoyada durante todo el proceso de recuperación. El equipo bilingüe hizo todo más fácil, especialmente para coordinar con mi abogado y la aseguradora. Altamente recomendados para quien haya tenido un accidente.',
+    date: '2025-05-04',
+    profile_photo_url: 'https://randomuser.me/api/portraits/women/65.jpg',
   },
-  {
-    author_name: 'Alejandro García',
-    rating: 5,
-    text: 'El personal es muy atento y los tratamientos son efectivos. Me ayudaron a recuperarme rápidamente después de mi accidente.',
-    date: 'Hace 5 días',
-    author_url: '',
-    profile_photo_url: '/assets/img/client5.jpg',
-  }
 ];
 
-// Crear grupos de 3 cards para el carrusel
-const createGroups = (items: any[], groupSize = 3) => {
-  const groups = [];
-  for (let i = 0; i < items.length; i += groupSize) {
-    groups.push(items.slice(i, i + groupSize));
-  }
-  return groups;
-};
+const totalReviews = items.length;
+const avgRating = (items.reduce((s, r) => s + (Number(r.rating) || 0), 0) / totalReviews).toFixed(1);
 
-const testimonialGroups = createGroups(items, 3);
+const PLACE_ID = import.meta.env.PUBLIC_GOOGLE_PLACE_ID || '';
+const MAPS_URL = 'https://maps.app.goo.gl/76gxBm8r9supmSYR9';
+const WRITE_REVIEW_URL = PLACE_ID
+  ? `https://search.google.com/local/writereview?placeid=${PLACE_ID}`
+  : MAPS_URL;
 
-// Tomamos 5 para el bloque base (consistencia visual)
-const base = items.slice(0, 5);
-
-// Place ID (opcional)
-const placeId = import.meta.env.PUBLIC_GOOGLE_PLACE_ID || '';
+const TEXT_LIMIT = 180;
 ---
 
-<section class="testimonials" aria-label="Opiniones de Google">
-  <div class="decorative-particles">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-  </div>
-  <h2 class="testimonials__title">
-    <span class="title-main" data-i18n="testimonials.title.main">{t('testimonials.title.main', currentLang)}</span>
-    <span class="title-accent" data-i18n="testimonials.title.accent">{t('testimonials.title.accent', currentLang)}</span>
-  </h2>
-  <p class="testimonials__subtitle" data-i18n="testimonials.subtitle">{t('testimonials.subtitle', currentLang)}</p>
+<section class="t" aria-label="Google Reviews" id="testimonials">
+  <div class="t-inner">
+    <header class="t-head">
+      <a class="g-badge" href={MAPS_URL} target="_blank" rel="noopener" aria-label="Google Reviews">
+        <span class="g-badge-text" data-i18n="testimonials.badge">{t('testimonials.badge', currentLang)}</span>
+        <svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span class="g-name">Google</span>
+      </a>
 
-  <!-- Nuevo carrusel estático con grupos -->
-  <div class="carousel-container" aria-live="polite">
-    <div class="carousel-wrapper">
-      {testimonialGroups.map((group, groupIndex) => (
-        <div class={`testimonial-group ${groupIndex === 0 ? 'active' : ''}`} data-group={groupIndex} role="list">
-          {group.map((r, i) => (
-            <article class="card" role="listitem" aria-label={`Reseña de ${r.author_name}`} key={`group-${groupIndex}-card-${i}`}>
-              <img
-                class="avatar"
-                src={r.profile_photo_url || '/assets/img/avatar-default.png'}
-                alt={`Foto de ${r.author_name}`}
-                loading="lazy"
-                decoding="async"
-                onload="this.dataset.loaded=1"
-              />
-              <blockquote>
-                {(r.text || '').length > 200 ? (r.text || '').slice(0, 200) + '…' : (r.text || '')}
-              </blockquote>
-              <div class="stars" aria-label={`Calificación ${r.rating} de 5`}>
-                {Array.from({ length: Number(r.rating) || 0 }).map((_, idx) => (
-                  <svg viewBox="0 0 24 24" aria-hidden="true" key={`star-${groupIndex}-${i}-${idx}`}>
-                    <path d="M12 17.27l6.18 3.73-1.64-7.03 5.46-4.73-7.19-.61L12 2 9.19 8.63l-7.19.61 5.46 4.73-1.64 7.03z" />
-                  </svg>
-                ))}
-              </div>
-              <span class="meta">
-                <strong>{r.author_name}</strong>{r.date ? ` · ${r.date}` : ''}
-              </span>
-            </article>
-          ))}
+      <h2 class="t-title">
+        <span class="title-main" data-i18n="testimonials.title.main">{t('testimonials.title.main', currentLang)}</span>{' '}
+        <span class="title-accent" data-i18n="testimonials.title.accent">{t('testimonials.title.accent', currentLang)}</span>
+      </h2>
+      <p class="t-sub" data-i18n="testimonials.subtitle">{t('testimonials.subtitle', currentLang)}</p>
+
+      <div class="t-stats" role="group" data-i18n-aria-label="testimonials.average_rating">
+        <div class="stat">
+          <span class="stat-num">{avgRating}</span>
+          <div class="stat-stars" aria-hidden="true">
+            {Array.from({ length: 5 }).map(() => (
+              <svg viewBox="0 0 24 24"><path d="M12 17.27l6.18 3.73-1.64-7.03 5.46-4.73-7.19-.61L12 2 9.19 8.63l-7.19.61 5.46 4.73-1.64 7.03z"/></svg>
+            ))}
+          </div>
         </div>
-      ))}
+        <span class="stat-sep" aria-hidden="true"></span>
+        <div class="stat">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+          </span>
+          <span class="stat-label" data-i18n="testimonials.same_day">{t('testimonials.same_day', currentLang)}</span>
+        </div>
+        <span class="stat-sep" aria-hidden="true"></span>
+        <div class="stat">
+          <span class="stat-check" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </span>
+          <span class="stat-label" data-i18n="testimonials.verified">{t('testimonials.verified', currentLang)}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="carousel" data-autoplay="5000">
+      <div class="track" role="list">
+        {items.map((r, i) => {
+          const text = r.text || '';
+          const isLong = text.length > TEXT_LIMIT;
+          const preview = isLong ? text.slice(0, TEXT_LIMIT).trim() + '…' : text;
+          return (
+            <article
+              class="card"
+              role="listitem"
+              data-index={i}
+              data-full-text={text}
+              data-name={r.author_name}
+              data-rating={r.rating}
+              data-photo={r.profile_photo_url || ''}
+              aria-label={`${r.author_name} — ${r.rating}`}
+            >
+              <span class="quote-big" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M7.17 11.17C5.4 11.17 4 9.77 4 8s1.4-3.17 3.17-3.17S10.34 6.23 10.34 8c0 4.07-3.17 7.66-7.34 8v-2.5c2.05-.39 3.66-1.86 4.17-2.33zm9.66 0c-1.77 0-3.17-1.4-3.17-3.17s1.4-3.17 3.17-3.17S20 6.23 20 8c0 4.07-3.17 7.66-7.34 8v-2.5c2.05-.39 3.66-1.86 4.17-2.33z" fill="currentColor"/></svg>
+              </span>
+
+              <div class="card-rating">
+                <div class="stars" aria-label={`${r.rating} stars`}>
+                  {Array.from({ length: Number(r.rating) || 0 }).map(() => (
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27l6.18 3.73-1.64-7.03 5.46-4.73-7.19-.61L12 2 9.19 8.63l-7.19.61 5.46 4.73-1.64 7.03z"/></svg>
+                  ))}
+                </div>
+                <span class="card-time" data-time={r.date}></span>
+              </div>
+
+              <blockquote class="card-text">{preview}</blockquote>
+
+              {isLong && (
+                <button class="card-expand" type="button" data-expand>
+                  <span data-i18n="testimonials.read_more">{t('testimonials.read_more', currentLang)}</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              )}
+
+              <footer class="card-foot">
+                <div class="avatar-wrap">
+                  <img class="avatar" src={r.profile_photo_url || '/assets/img/avatar-default.png'} alt={r.author_name} loading="lazy" decoding="async" />
+                  <span class="verified" aria-label="Verified" title="Verified">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                </div>
+                <div class="card-author">
+                  <strong class="card-name">{r.author_name}</strong>
+                  <a class="card-source" href={MAPS_URL} target="_blank" rel="noopener" data-i18n-aria-label="testimonials.posted_on">
+                    <svg viewBox="0 0 48 48" aria-hidden="true">
+                      <path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                      <path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                      <path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                    </svg>
+                    <span data-i18n="testimonials.posted_on">{t('testimonials.posted_on', currentLang)}</span>
+                  </a>
+                </div>
+              </footer>
+            </article>
+          );
+        })}
+      </div>
     </div>
-    
-    <!-- Indicadores de grupo -->
-    <div class="carousel-indicators">
-      {testimonialGroups.map((_, index) => (
-        <button 
-          class={`indicator ${index === 0 ? 'active' : ''}`} 
-          data-group={index}
-          aria-label={`Ver grupo ${index + 1} de testimonios`}
-        ></button>
-      ))}
+
+    <div class="dots" role="tablist" aria-label="Pagination"></div>
+
+    <div class="cta">
+      <p class="cta-text" data-i18n="testimonials.visit">{t('testimonials.visit', currentLang)}</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href={WRITE_REVIEW_URL} target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27l6.18 3.73-1.64-7.03 5.46-4.73-7.19-.61L12 2 9.19 8.63l-7.19.61 5.46 4.73-1.64 7.03z" fill="currentColor"/></svg>
+          <span data-i18n="testimonials.write_review">{t('testimonials.write_review', currentLang)}</span>
+        </a>
+        <a class="btn btn-ghost" href={MAPS_URL} target="_blank" rel="noopener">
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          <span data-i18n="testimonials.view_more">{t('testimonials.view_more', currentLang)}</span>
+        </a>
+      </div>
     </div>
   </div>
 
-  <div class="more">
-    <a class="btn-secondary"
-       href={`https://maps.app.goo.gl/76gxBm8r9supmSYR9`}
-       target="_blank" rel="noopener"
-       data-i18n="testimonials.view_more">
-      {t('testimonials.view_more', currentLang)}
-    </a>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="t-modal-name" aria-hidden="true" data-modal>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="document">
+      <button class="modal-close" type="button" data-close data-i18n-aria-label="testimonials.close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <header class="modal-head">
+        <div class="avatar-wrap modal-avatar">
+          <img id="t-modal-photo" alt="" />
+          <span class="verified" aria-label="Verified">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </span>
+        </div>
+        <div>
+          <strong id="t-modal-name" class="card-name"></strong>
+          <div class="modal-rating">
+            <div id="t-modal-stars" class="stars"></div>
+            <span id="t-modal-time" class="card-time" data-time=""></span>
+          </div>
+        </div>
+      </header>
+      <p id="t-modal-text" class="modal-text"></p>
+      <a class="card-source modal-source" href={MAPS_URL} target="_blank" rel="noopener">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span data-i18n="testimonials.posted_on">{t('testimonials.posted_on', currentLang)}</span>
+      </a>
+    </div>
   </div>
 </section>
 
 <style>
-/* ===== Variables globales de fuentes ===== */
-:root{
-  --font-body: 'Source Sans 3', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  --font-heading: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  
-  --c-lilac: #CEC6E2;
-  --c-violet: #806AAA;
-  --c-plum: #7A2E87;
-  --c-brand: #BA93C2;
-}
-
-/* ===== Animaciones Mejoradas ===== */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
+  /* ==========================================================================
+     TESTIMONIALS — Google Reviews look, contained, modal de detalle
+     ========================================================================== */
+  .t {
+    position: relative;
+    padding: clamp(3rem, 8vw, 5rem) 0;
+    background: var(--surface-2);
+    font-family: var(--font-body);
+    color: var(--text-primary);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .t-inner { max-width: var(--content-max); margin: 0 auto; padding: 0 1rem; }
+
+  .t-head { text-align: center; margin-bottom: clamp(2rem, 5vw, 3rem); }
+
+  .g-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.45rem 0.95rem;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.85rem; font-weight: 700;
+    margin-bottom: 1.25rem;
   }
-}
+  .g-badge .g-logo { width: 18px; height: 18px; }
+  .g-badge .g-name { font-family: var(--font-heading); font-weight: 700; color: var(--text-primary); }
+  .g-badge-text { color: var(--muted); font-weight: 600; }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-100px);
+  .t-title {
+    font-family: var(--font-heading); font-weight: 800;
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    line-height: 1.1; margin: 0 0 0.5rem;
+    color: var(--text-primary); letter-spacing: -0.01em;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  .title-accent { color: var(--c-purple); }
+  .t-sub { color: var(--muted); font-size: clamp(0.95rem, 1.6vw, 1.1rem); margin: 0 auto 1.5rem; max-width: 600px; }
+
+  .t-stats {
+    display: inline-flex; align-items: center; flex-wrap: wrap; justify-content: center;
+    gap: clamp(0.75rem, 2.5vw, 1.5rem);
+    padding: 0.85rem 1.25rem;
+    background: #fff;
+    border: 1px solid rgba(122, 46, 135, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(122, 46, 135, 0.06);
   }
-}
+  .stat { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .stat-num { font-family: var(--font-heading); font-weight: 800; font-size: 1.3rem; color: var(--c-purple); line-height: 1; }
+  .stat-stars { display: inline-flex; gap: 1px; }
+  .stat-stars svg { width: 14px; height: 14px; fill: #FBBC05; }
+  .stat-label { font-size: 0.82rem; color: var(--text-primary); font-weight: 700; }
+  .stat-icon { width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; color: var(--c-purple); }
+  .stat-icon svg { width: 18px; height: 18px; }
+  .stat-check { width: 22px; height: 22px; border-radius: 50%; background: #16a34a; display: inline-flex; align-items: center; justify-content: center; }
+  .stat-check svg { width: 13px; height: 13px; fill: #fff; }
+  .stat-sep { width: 1px; height: 22px; background: rgba(122, 46, 135, 0.15); }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(100px);
+  .carousel { position: relative; padding: 0.5rem 0; width: 100%; }
+  .track {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 90%; gap: 1rem;
+    overflow-x: auto; overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    padding: 1rem 0.25rem;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
+  .track::-webkit-scrollbar { display: none; }
 
-@keyframes typewriter {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes blink {
-  0%, 50% {
-    border-color: transparent;
-  }
-  51%, 100% {
-    border-color: var(--c-plum);
-  }
-}
-
-@keyframes starGlow {
-  0%, 100% {
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,.18)) brightness(1);
-    transform: scale(1);
-  }
-  50% {
-    filter: drop-shadow(0 1px 8px rgba(255,215,0,.8)) brightness(1.3);
-    transform: scale(1.1);
-  }
-}
-
-/* Animaciones dinámicas y rápidas para el carrusel */
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(100px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-}
-
-@keyframes slideOutLeft {
-  from {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(-100px) scale(0.9);
-  }
-}
-
-@keyframes cardPop {
-  0% {
-    opacity: 0;
-    transform: scale(0.85) translateY(30px) rotateX(10deg);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.02) translateY(-5px) rotateX(0deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0) rotateX(0deg);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.08);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-10px) rotate(1deg);
-  }
-  66% {
-    transform: translateY(5px) rotate(-1deg);
-  }
-}
-
-@keyframes particleFloat {
-  0%, 100% {
-    transform: translateY(0px) translateX(0px) scale(1);
-    opacity: 0.3;
-  }
-  25% {
-    transform: translateY(-20px) translateX(10px) scale(1.2);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translateY(-10px) translateX(-5px) scale(0.8);
-    opacity: 0.4;
-  }
-  75% {
-    transform: translateY(-30px) translateX(15px) scale(1.1);
-    opacity: 0.7;
-  }
-}
-
-@keyframes cardEntrance {
-  0% {
-    opacity: 0;
-    transform: translateY(60px) rotateX(20deg) scale(0.9);
-  }
-  50% {
-    opacity: 0.7;
-    transform: translateY(20px) rotateX(10deg) scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) rotateX(0deg) scale(1);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-/* ===== Sección con efectos mejorados ===== */
-.testimonials{
-  background: var(--c-lilac);
-  color: #fff;
-  padding: clamp(3rem, 6vw, 5rem) 1rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  font-family: var(--font-body);
-  margin-bottom: -2rem;
-  animation: slideInLeft 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Partículas decorativas */
-.decorative-particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.particle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: var(--c-brand);
-  border-radius: 50%;
-  animation: particleFloat 6s ease-in-out infinite;
-}
-
-.particle:nth-child(1) {
-  top: 20%;
-  left: 10%;
-  animation-delay: 0s;
-  background: var(--c-violet);
-}
-
-.particle:nth-child(2) {
-  top: 60%;
-  left: 85%;
-  animation-delay: 1.5s;
-  background: var(--c-plum);
-}
-
-.particle:nth-child(3) {
-  top: 30%;
-  left: 75%;
-  animation-delay: 3s;
-  background: var(--c-brand);
-}
-
-.particle:nth-child(4) {
-  top: 80%;
-  left: 20%;
-  animation-delay: 4.5s;
-  background: var(--c-violet);
-}
-
-.particle:nth-child(5) {
-  top: 10%;
-  left: 50%;
-  animation-delay: 2s;
-  background: var(--c-plum);
-}
-
-/* ===== Títulos Rediseñados ===== */
-.testimonials__title{
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  margin: 0 auto 1rem;
-  color: #fff;
-  text-transform: uppercase;
-  text-shadow: 0 4px 8px rgba(0,0,0,0.4);
-  animation: slideInRight 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
-  position: relative;
-  z-index: 2;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-
-.title-main {
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  animation: typewriter 2s steps(12) 0.8s both, blink 1s step-end 2.8s infinite;
-  border-right: 3px solid var(--c-plum);
-  white-space: nowrap;
-  margin-right: 0.3em;
-}
-
-.title-accent {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--c-brand), var(--c-violet));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: slideInRight 1s ease-out 2.5s both, shimmer 3s ease-in-out 3.5s infinite;
-  background-size: 200% 100%;
-  font-weight: 900;
-  text-shadow: none;
-  position: relative;
-}
-
-.title-accent::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, var(--c-brand), var(--c-violet));
-  opacity: 0.1;
-  border-radius: 8px;
-  transform: scale(1.1);
-  z-index: -1;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.testimonials__title::after{
-  content: "";
-  display: block;
-  width: 120px; 
-  height: 4px;
-  margin: .75rem auto 0;
-  background: var(--c-plum);
-  border-radius: 999px;
-  animation: fadeInUp 0.6s ease-out 0.4s both;
-}
-.testimonials__subtitle{
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  color: var(--c-plum);
-  opacity: 0;
-  margin: .5rem 0 2.5rem;
-  width: 100%;
-  max-width: none;
-  white-space: nowrap;
-  text-align: center;
-  animation: fadeInUp 1.2s ease-out 1.5s both;
-  position: relative;
-  z-index: 2;
-  line-height: 1.4;
-  font-weight: 500;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* ===== Carrusel simplificado y estable ===== */
-.carousel{
-  --gap: 2rem;
-  overflow: hidden;
-  max-width: 1100px;
-  margin: 3rem auto 2rem;
-  position: relative;
-  border-radius: 20px;
-  padding: 1rem 0;
-  background: rgba(255,255,255,0.05);
-}
-
-/* Nuevo estilo para el carrusel estático */
-.carousel-container {
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
-
-.carousel-wrapper {
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  min-height: 400px; /* Altura mínima para evitar saltos */
-}
-
-.testimonial-group {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 2rem;
-  padding: 1rem;
-  opacity: 0;
-  transform: translateX(100px) scale(0.9);
-  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  pointer-events: none;
-}
-
-.testimonial-group.active {
-  opacity: 1;
-  transform: translateX(0) scale(1);
-  animation: slideInRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  pointer-events: auto;
-}
-
-.testimonial-group.exiting {
-  opacity: 0;
-  transform: translateX(-100px) scale(0.9);
-  animation: slideOutLeft 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  pointer-events: none;
-}
-
-.carousel-indicators {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 2rem;
-}
-
-.indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.indicator.active {
-  background: white;
-  border-color: white;
-  transform: scale(1.2);
-}
-
-/* ===== Card (diseño sólido moderno) ===== */
-.card{
-  position: relative;
-  flex: 0 0 340px;
-  padding: 2rem 1.5rem 1.75rem;
-  border-radius: 20px;
-  text-align: left;
-  font-weight: 700;
-  display: flex; 
-  flex-direction: column; 
-  align-items: center;
-  gap: .75rem;
-  background: #ffffff;
-  color: #3e2c4a;
-  font-family: var(--font-body);
-  border: 2px solid var(--c-brand);
-  box-shadow: 0 8px 25px rgba(122,46,135,.12);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation: cardEntrance 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) calc(0.8s + var(--delay, 0s)) both;
-  transform-origin: center bottom;
-  transform-style: preserve-3d;
-  will-change: transform, opacity;
-}
-
-.testimonial-group.active .card:nth-child(1) {
-  animation: cardPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.05s both;
-}
-
-.testimonial-group.active .card:nth-child(2) {
-  animation: cardPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.1s both;
-}
-
-.testimonial-group.active .card:nth-child(3) {
-  animation: cardPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.15s both;
-}
-
-@keyframes cardPop {
-      0% {
-        opacity: 0;
-        transform: scale(0.8) translateY(30px) rotateX(15deg);
-      }
-      60% {
-        opacity: 0.8;
-        transform: scale(1.05) translateY(-5px) rotateX(-5deg);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0) rotateX(0deg);
-      }
-    }
-
-.card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-  will-change: transform, opacity;
-}
-
-.testimonial-group {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.testimonial-group.exiting {
-  opacity: 0;
-  transform: translateX(-20px) scale(0.95);
-}
-
-/* Franja superior sólida */
-.card::before{
-  content: "";
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 0;
-  height: 8px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  background: linear-gradient(135deg, var(--c-brand) 0%, var(--c-violet) 50%, var(--c-plum) 100%);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Variantes de colores sólidos */
-.card:nth-child(5n+1)::before{
-  background: var(--c-plum);
-}
-.card:nth-child(5n+2)::before{
-  background: var(--c-violet);
-}
-.card:nth-child(5n+3)::before{
-  background: var(--c-brand);
-}
-.card:nth-child(5n+4)::before{
-  background: var(--c-lilac);
-}
-.card:nth-child(5n+5)::before{
-  background: var(--c-plum);
-}
-
-/* Sombra inferior mejorada */
-.card::after{
-  content: "";
-  position: absolute; 
-  left: 12px; 
-  right: 12px; 
-  bottom: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(122,46,135,.15);
-  filter: blur(6px);
-  opacity: .4;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-/* Hover simplificado con pausa del carrusel */
-.card:hover{
-  transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(122,46,135,.2);
-  border-color: var(--c-violet);
-}
-
-.card:hover {
-  animation-play-state: paused;
-}
-
-.track:has(.card:hover) {
-  animation-play-state: paused;
-}
-
-.card:hover::after{
-  opacity: .6;
-}
-
-.card:hover::before{
-  background: var(--c-violet) !important;
-}
-
-.card:hover .avatar{
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(122, 46, 135, 0.3);
-}
-
-/* Avatar simplificado */
-.avatar{
-  width: 86px; 
-  height: 86px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--c-brand);
-  box-shadow: 0 4px 12px rgba(122,46,135,.15);
-  transition: all 0.3s ease;
-}
-
-/* Texto mejorado */
-blockquote{
-  font-style: italic;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: .1rem 0 .5rem;
-  text-align: left;
-  color: var(--c-plum);
-  font-family: var(--font-body);
-  transition: color 0.3s ease;
-}
-
-.card:hover blockquote{
-  color: var(--c-violet);
-}
-
-/* Estrellas simplificadas */
-.stars{
-  display: flex; 
-  gap: 4px;
-  color: #FFD700;
-  margin-bottom: .15rem;
-}
-
-.stars svg{
-  width: 20px; 
-  height: 20px;
-  fill: currentColor;
-  transition: transform 0.2s ease;
-}
-
-.card:hover .stars svg{
-  transform: scale(1.1);
-}
-
-.card .meta{
-  align-self: stretch;
-  text-align: left;
-  font-weight: 800;
-  color: var(--c-violet);
-  opacity: .95;
-  transition: color 0.3s ease;
-}
-
-.card:hover .meta{
-  color: var(--c-plum);
-}
-
-/* ===== Botón sólido moderno ===== */
-.more{ 
-  margin-top: 1.5rem;
-  animation: fadeInUp 0.6s ease-out 1.2s both;
-}
-
-.btn-secondary{
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1.25rem 2.5rem;
-  border-radius: 60px;
-  background: var(--c-plum);
-  color: #fff;
-  text-decoration: none;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  font-size: 1.15rem;
-  box-shadow: 0 8px 25px rgba(122, 46, 135, 0.3);
-  transition: all 0.3s ease;
-  font-family: var(--font-heading);
-  border: 2px solid var(--c-plum);
-  text-transform: uppercase;
-  z-index: 2;
-}
-
-.btn-secondary:hover{
-  background: var(--c-violet);
-  border-color: var(--c-violet);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(122, 46, 135, 0.4);
-}
-
-.btn-secondary:active{
-  transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(122,46,135,.3);
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 1100px){
-  .testimonial-group {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  .card { 
-    flex-basis: 320px; 
-  }
-}
-
-@media (max-width: 768px){
-  .testimonial-group {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
-    padding: 0.5rem;
-  }
-  
-  .card { 
-    flex-basis: 300px; 
-  }
-  
-  blockquote{ 
-    font-size: .95rem; 
-  }
-  
-  .testimonials__subtitle{
-    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-    padding: 0 0.5rem;
-  }
-  
-  .carousel-container {
-    padding: 1rem 0;
-  }
-}
-
-@media (max-width: 480px){
-  .testimonial-group {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 0.5rem;
-  }
-  
   .card {
-    flex-basis: 100%;
-    max-width: 100%;
+    position: relative;
+    scroll-snap-align: start;
+    background: #fff;
+    border: 1px solid rgba(122, 46, 135, 0.1);
+    border-radius: 18px;
+    padding: 1.5rem 1.25rem 1.25rem;
+    box-shadow: 0 6px 20px rgba(89, 33, 111, 0.06);
+    will-change: transform;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
   }
-  
-  .testimonials__subtitle{
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    white-space: normal;
-    line-height: 1.3;
+
+  .quote-big {
+    position: absolute; top: 1rem; right: 1.1rem;
+    width: 36px; height: 36px;
+    color: var(--c-lilac); opacity: 0.55;
+    pointer-events: none;
+  }
+  .quote-big svg { width: 100%; height: 100%; }
+
+  .card-rating {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+  .stars { display: inline-flex; gap: 2px; color: #FBBC05; }
+  .stars svg { width: 17px; height: 17px; fill: currentColor; }
+  .card-time { color: var(--muted); font-size: 0.82rem; font-weight: 600; }
+
+  .card-text {
+    margin: 0 0 0.85rem;
+    color: #2d2640;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    quotes: none;
+    flex: 1 1 auto;
+  }
+  .card-text::before, .card-text::after { content: ''; }
+
+  .card-expand {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.4rem 0;
+    background: transparent; border: none;
+    color: var(--c-purple);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    margin-bottom: 0.75rem;
+    transition: color 0.2s ease, gap 0.2s ease;
+  }
+  .card-expand:hover { color: var(--c-purple-700); gap: 0.5rem; }
+  .card-expand svg { width: 14px; height: 14px; }
+
+  .card-foot {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(122, 46, 135, 0.08);
+  }
+
+  .avatar-wrap { position: relative; flex: 0 0 auto; }
+  .avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--c-rose);
+    background: #f3eef6;
+  }
+  .verified {
+    position: absolute; right: -2px; bottom: -2px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #1a73e8;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 2px solid #fff;
+  }
+  .verified svg { width: 10px; height: 10px; fill: #fff; }
+
+  .card-author { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+  .card-name {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    color: var(--text-primary);
+    font-size: 0.98rem;
+    line-height: 1.2;
+  }
+  .card-source {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    color: var(--muted);
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .card-source svg { width: 12px; height: 12px; }
+  .card-source:hover { color: var(--c-purple); }
+
+  .dots {
+    display: flex; justify-content: center; gap: 0.5rem;
+    margin: 1rem auto 0;
+    flex-wrap: wrap;
+    min-height: 12px;
+    max-width: var(--content-max);
     padding: 0 1rem;
   }
-  
-  .carousel-indicators {
-    margin-top: 1rem;
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(122, 46, 135, 0.3);
+    cursor: pointer;
+    padding: 0;
+    transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease;
   }
-  
-  .indicator {
-    width: 10px;
-    height: 10px;
-  }
-}
+  .dot:hover { background: rgba(122, 46, 135, 0.5); }
+  .dot.is-active { width: 26px; background: var(--c-purple); }
 
+  .cta { margin-top: clamp(2rem, 5vw, 3rem); text-align: center; }
+  .cta-text { color: var(--muted); font-size: 1rem; margin: 0 0 1rem; font-weight: 600; }
+  .cta-actions { display: inline-flex; flex-direction: column; gap: 0.7rem; width: 100%; max-width: 380px; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.55rem;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.98rem;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .btn-primary { background: var(--c-purple); color: #fff; box-shadow: 0 6px 18px rgba(122, 46, 135, 0.25); }
+  .btn-primary svg { width: 18px; height: 18px; fill: #FBBC05; }
+  .btn-primary:hover { background: var(--c-purple-700); }
+  .btn-ghost { background: #fff; color: var(--text-primary); border-color: rgba(0, 0, 0, 0.1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); }
+  .btn-ghost svg { width: 18px; height: 18px; }
+  .btn-ghost:hover { border-color: var(--c-rose); }
+
+  /* MODAL */
+  .modal { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; padding: 1rem; }
+  .modal.is-open { display: flex; }
+  .modal-backdrop { position: absolute; inset: 0; background: rgba(26, 29, 42, 0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .modal-card {
+    position: relative; background: #fff; border-radius: 20px;
+    padding: 1.75rem 1.5rem 1.5rem;
+    max-width: 540px; width: 100%; max-height: calc(100vh - 2rem); overflow-y: auto;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  }
+  .modal-close {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: none; background: rgba(0, 0, 0, 0.04); color: var(--text-primary);
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background 0.2s ease;
+  }
+  .modal-close:hover { background: rgba(0, 0, 0, 0.08); }
+  .modal-close svg { width: 18px; height: 18px; }
+  .modal-head { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.25rem; padding-right: 2.5rem; }
+  .modal-avatar img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--c-rose); display: block; }
+  .modal-rating { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.2rem; }
+  .modal-text { color: #2d2640; font-size: 1rem; line-height: 1.65; margin: 0 0 1.25rem; white-space: pre-wrap; }
+  .modal-source { border-top: 1px solid rgba(122, 46, 135, 0.1); padding-top: 0.85rem; font-size: 0.85rem; }
+  .modal-source svg { width: 14px; height: 14px; }
+
+  /* BREAKPOINTS */
+  @media (min-width: 640px) {
+    .cta-actions { flex-direction: row; max-width: none; justify-content: center; }
+  }
+  @media (min-width: 768px) {
+    .track { grid-auto-columns: calc((100% - 1.25rem) / 2); gap: 1.25rem; }
+  }
+  @media (min-width: 1024px) {
+    .track { grid-auto-columns: calc((100% - 2.5rem) / 3); gap: 1.25rem; }
+    .card { padding: 1.75rem 1.5rem 1.5rem; }
+  }
 </style>
 
 <script>
-// Carrusel estático con cambio automático cada 5 segundos
-(function () {
-  const section = document.querySelector('.testimonials');
-  const carouselContainer = section?.querySelector('.carousel-container');
-  if (!section || !carouselContainer) return;
+  import { animate } from 'motion';
 
-  const groups = carouselContainer.querySelectorAll('.testimonial-group');
-  const indicators = carouselContainer.querySelectorAll('.indicator');
-  
-  if (!groups.length || !indicators.length) return;
-
-  let currentIndex = 0;
-  let intervalId: number | undefined = undefined;
-  let isPaused = false;
-
-  // Función para mostrar un grupo específico con animación mejorada
-  const showGroup = (index: number) => {
-    const currentGroup = groups[currentIndex];
-    const nextGroup = groups[index];
-    
-    // Agregar clase de salida al grupo actual
-    if (currentGroup && currentIndex !== index) {
-      currentGroup.classList.add('exiting');
-      setTimeout(() => {
-        currentGroup.classList.remove('active', 'exiting');
-      }, 150);
+  /* === Tiempo relativo según idioma actual === */
+  const formatTimeAgo = (dateStr: string, lang: string): string => {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    const diffDays = Math.floor((Date.now() - d.getTime()) / (1000 * 60 * 60 * 24));
+    const isEn = lang === 'en';
+    if (diffDays < 1) return isEn ? 'today' : 'hoy';
+    if (diffDays < 7) {
+      const n = diffDays;
+      return isEn ? `${n} day${n > 1 ? 's' : ''} ago` : `hace ${n} día${n > 1 ? 's' : ''}`;
     }
-    
-    // Actualizar indicadores
-    setTimeout(() => {
-      indicators.forEach((indicator, i) => {
-        indicator.classList.toggle('active', i === index);
-      });
-    }, 75);
-    
-    // Mostrar el nuevo grupo después de un breve delay
-    setTimeout(() => {
-      nextGroup.classList.add('active');
-    }, currentIndex !== index ? 150 : 0);
-    
-    currentIndex = index;
+    if (diffDays < 30) {
+      const w = Math.floor(diffDays / 7);
+      return isEn ? `${w} week${w > 1 ? 's' : ''} ago` : `hace ${w} semana${w > 1 ? 's' : ''}`;
+    }
+    if (diffDays < 365) {
+      const m = Math.floor(diffDays / 30);
+      return isEn ? `${m} month${m > 1 ? 's' : ''} ago` : `hace ${m} ${m > 1 ? 'meses' : 'mes'}`;
+    }
+    const y = Math.floor(diffDays / 365);
+    return isEn ? `${y} year${y > 1 ? 's' : ''} ago` : `hace ${y} año${y > 1 ? 's' : ''}`;
   };
 
-  // Función para avanzar al siguiente grupo
-  const nextGroup = () => {
-    const nextIndex = (currentIndex + 1) % groups.length;
-    showGroup(nextIndex);
-  };
-
-  // Iniciar el carrusel automático
-  const startCarousel = () => {
-    if (intervalId) clearInterval(intervalId);
-    intervalId = setInterval(() => {
-      if (!isPaused) {
-        nextGroup();
-      }
-    }, 3000); // 3 segundos - más dinámico
-  };
-
-  // Pausar el carrusel
-  const pauseCarousel = () => {
-    isPaused = true;
-  };
-
-  // Reanudar el carrusel
-  const resumeCarousel = () => {
-    isPaused = false;
-  };
-
-  // Event listeners para los indicadores
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', () => {
-      showGroup(index);
-      // Reiniciar el timer después de la interacción manual
-      startCarousel();
+  const refreshTimes = (lang: string) => {
+    document.querySelectorAll<HTMLElement>('.t [data-time]').forEach((el) => {
+      const date = el.dataset.time || '';
+      el.textContent = formatTimeAgo(date, lang);
     });
-  });
+  };
 
-  // Pausar en hover
-  carouselContainer.addEventListener('mouseenter', pauseCarousel);
-  carouselContainer.addEventListener('mouseleave', resumeCarousel);
+  const init = () => {
+    const section = document.querySelector('.t') as HTMLElement | null;
+    if (!section) return;
 
-  // Pausar cuando el elemento tiene foco
-  section.addEventListener('focusin', pauseCarousel);
-  section.addEventListener('focusout', resumeCarousel);
+    const track = section.querySelector('.track') as HTMLElement | null;
+    const cards = Array.from(section.querySelectorAll('.card')) as HTMLElement[];
+    const dotsContainer = section.querySelector('.dots') as HTMLElement | null;
+    const carousel = section.querySelector('.carousel') as HTMLElement | null;
+    const modal = section.querySelector('[data-modal]') as HTMLElement | null;
+    if (!track || !cards.length || !dotsContainer || !modal) return;
 
-  // Respeto por prefers-reduced-motion
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
-  // Inicializar
-  showGroup(0);
-  
-  if (!prefersReducedMotion) {
-    startCarousel();
+    /* Tiempo inicial según idioma actual */
+    const getLang = () => (window as any).i18nClient?.currentLang || localStorage.getItem('language') || 'es';
+    refreshTimes(getLang());
+    window.addEventListener('languageChange', (e: any) => {
+      refreshTimes(e?.detail || getLang());
+    });
+
+    const animateAny = animate as unknown as (...args: any[]) => any;
+    const autoplayMs = Number(carousel?.dataset.autoplay) || 5000;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const computePageSize = () => {
+      const w = window.innerWidth;
+      if (w >= 1024) return 3;
+      if (w >= 768) return 2;
+      return 1;
+    };
+
+    let pageSize = computePageSize();
+    let pageCount = Math.max(1, Math.ceil(cards.length / pageSize));
+    let currentPage = 0;
+    let timer: number | null = null;
+    let userScrolling = false;
+
+    const renderDots = () => {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < pageCount; i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'dot' + (i === currentPage ? ' is-active' : '');
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-label', `${i + 1}`);
+        b.setAttribute('aria-selected', i === currentPage ? 'true' : 'false');
+        b.dataset.page = String(i);
+        b.addEventListener('click', () => {
+          goToPage(i);
+          startAutoplay();
+        });
+        dotsContainer.appendChild(b);
+      }
+    };
+
+    const updateDots = () => {
+      Array.from(dotsContainer.children).forEach((el, i) => {
+        const isActive = i === currentPage;
+        el.classList.toggle('is-active', isActive);
+        el.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+    };
+
+    const goToPage = (p: number) => {
+      currentPage = Math.max(0, Math.min(pageCount - 1, p));
+      const firstCardIndex = Math.min(currentPage * pageSize, cards.length - 1);
+      const card = cards[firstCardIndex];
+      if (!card) return;
+      const targetLeft = card.offsetLeft - track.offsetLeft;
+      track.scrollTo({ left: targetLeft, behavior: reducedMotion ? 'auto' : 'smooth' });
+      updateDots();
+    };
+
+    const nextPage = () => goToPage(currentPage >= pageCount - 1 ? 0 : currentPage + 1);
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      if (pageCount <= 1) return;
+      timer = window.setInterval(() => {
+        if (!userScrolling) nextPage();
+      }, autoplayMs);
+    };
+    const stopAutoplay = () => {
+      if (timer !== null) { clearInterval(timer); timer = null; }
+    };
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoplay();
+      else startAutoplay();
+    });
+
+    let scrollTimeout: number | null = null;
+    track.addEventListener('scroll', () => {
+      userScrolling = true;
+      if (scrollTimeout !== null) window.clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(() => {
+        const left = track.scrollLeft;
+        let nearestCard = 0;
+        let minDist = Infinity;
+        cards.forEach((c, idx) => {
+          const dist = Math.abs(c.offsetLeft - track.offsetLeft - left);
+          if (dist < minDist) { minDist = dist; nearestCard = idx; }
+        });
+        const newPage = Math.floor(nearestCard / pageSize);
+        if (newPage !== currentPage && newPage >= 0 && newPage < pageCount) {
+          currentPage = newPage;
+          updateDots();
+        }
+        userScrolling = false;
+      }, 160);
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      const newSize = computePageSize();
+      if (newSize !== pageSize) {
+        pageSize = newSize;
+        pageCount = Math.max(1, Math.ceil(cards.length / pageSize));
+        if (currentPage >= pageCount) currentPage = pageCount - 1;
+        renderDots();
+        requestAnimationFrame(() => goToPage(currentPage));
+      }
+    });
+
+    if (!reducedMotion) {
+      cards.forEach((card) => {
+        card.addEventListener('mouseenter', () => {
+          try { animate(card, { y: -6, scale: 1.015 }, { type: 'spring', stiffness: 260, damping: 20 }); } catch {}
+        });
+        card.addEventListener('mouseleave', () => {
+          try { animate(card, { y: 0, scale: 1 }, { type: 'spring', stiffness: 260, damping: 22 }); } catch {}
+        });
+      });
+    }
+
+    /* MODAL */
+    const modalPhoto = modal.querySelector('#t-modal-photo') as HTMLImageElement | null;
+    const modalName = modal.querySelector('#t-modal-name') as HTMLElement | null;
+    const modalText = modal.querySelector('#t-modal-text') as HTMLElement | null;
+    const modalStars = modal.querySelector('#t-modal-stars') as HTMLElement | null;
+    const modalTime = modal.querySelector('#t-modal-time') as HTMLElement | null;
+    const modalCard = modal.querySelector('.modal-card') as HTMLElement | null;
+    const modalBackdrop = modal.querySelector('.modal-backdrop') as HTMLElement | null;
+    const starSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27l6.18 3.73-1.64-7.03 5.46-4.73-7.19-.61L12 2 9.19 8.63l-7.19.61 5.46 4.73-1.64 7.03z"/></svg>';
+
+    const openModal = (card: HTMLElement) => {
+      const cardTimeEl = card.querySelector('[data-time]') as HTMLElement | null;
+      const date = cardTimeEl?.dataset.time || '';
+      if (modalTime) {
+        modalTime.dataset.time = date;
+        modalTime.textContent = formatTimeAgo(date, getLang());
+      }
+      if (modalText) modalText.textContent = card.dataset.fullText || '';
+      if (modalName) modalName.textContent = card.dataset.name || '';
+      if (modalPhoto) { modalPhoto.src = card.dataset.photo || ''; modalPhoto.alt = card.dataset.name || ''; }
+      const rating = Number(card.dataset.rating) || 5;
+      if (modalStars) modalStars.innerHTML = starSvg.repeat(rating);
+
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      stopAutoplay();
+
+      if (!reducedMotion && modalCard && modalBackdrop) {
+        try {
+          animateAny(modalBackdrop, { opacity: [0, 1] }, { duration: 0.25 });
+          animateAny(modalCard, { opacity: [0, 1], y: [20, 0], scale: [0.96, 1] }, { duration: 0.35, easing: [0.22, 1, 0.36, 1] });
+        } catch {}
+      }
+    };
+
+    const closeModal = () => {
+      if (!modal.classList.contains('is-open')) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      startAutoplay();
+    };
+
+    cards.forEach((card) => {
+      const expandBtn = card.querySelector('[data-expand]') as HTMLButtonElement | null;
+      expandBtn?.addEventListener('click', (e) => { e.stopPropagation(); openModal(card); });
+    });
+
+    modal.querySelectorAll('[data-close]').forEach((el) => {
+      el.addEventListener('click', closeModal);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+
+    renderDots();
+    startAutoplay();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
-
-  // Limpiar al descargar la página
-  window.addEventListener('beforeunload', () => {
-    if (intervalId) clearInterval(intervalId);
-  });
-})();
 </script>

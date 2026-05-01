@@ -12,7 +12,9 @@
     "legal_assistance": "Asistencia legal",
     "patients": "Pacientes",
     "form": "Formulario",
+    "form_desc": "Cuéntanos sobre tu caso",
     "frequent_questions": "Preguntas frecuentes",
+    "frequent_questions_desc": "Preguntas comunes resueltas",
     "schedule_online": "Agenda en línea",
     "services_dropdown": {
       "chiropractic": "Quiropráctica",
@@ -686,12 +688,25 @@
     "privacy_link": "política de privacidad",
     "and": "y",
     "receive_info_short": "Deseo recibir información sobre servicios y novedades",
-    "sms_consent": "Al enviar este formulario, acepto recibir mensajes SMS de Car Injury Clinic sobre mi solicitud de asistencia por accidente, actualizaciones de mi caso y coordinación de citas. La frecuencia de mensajes puede variar. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja."
+    "sms_consent": "Al enviar este formulario, acepto recibir mensajes SMS de Car Injury Clinic sobre mi solicitud de asistencia por accidente, actualizaciones de mi caso y coordinación de citas. La frecuencia de mensajes puede variar. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja.",
+    "captcha_hint": "Último paso: confirma que no eres un robot"
   },
   "footer": {
     "copyright": "Todos los derechos reservados.",
     "contact_label": "Contáctanos:",
-    "privacy": "Política de privacidad"
+    "privacy": "Política de privacidad",
+    "tagline": "Atención quiropráctica y apoyo legal completo para víctimas de accidentes de auto en Utah.",
+    "services_label": "Servicios",
+    "links_label": "Enlaces rápidos",
+    "contact_section": "Contacto",
+    "social_label": "Síguenos",
+    "review_title": "¿Cómo fue tu visita?",
+    "review_subtitle": "Tu reseña ayuda a otros pacientes a encontrarnos.",
+    "review_cta": "Deja tu reseña en Google",
+    "schedule_cta": "Agenda tu cita",
+    "address_value": "2997 W 4700 S, Taylorsville, UT 84129",
+    "hours_short": "Lun-Vie · 11am-8pm  |  Sáb · 10am-2pm",
+    "all_services": "Ver todos los servicios"
   },
   "privacy": {
     "title": "Política de Privacidad",
@@ -868,6 +883,8 @@
   },
   "feature_icons": {
     "aria_label": "Características principales de nuestros servicios",
+    "eyebrow": "Lo que incluye tu visita",
+    "title": "Beneficios reales para nuestros pacientes",
     "items": {
       "free_consultation": {
         "title": "Evaluación inicial sin costo",
@@ -902,11 +919,20 @@
   },
   "testimonials": {
     "title": {
-      "main": "Lo que dicen nuestros",
+      "main": "La voz de nuestros",
       "accent": "pacientes"
     },
-    "subtitle": "Testimonios reales de personas que han recuperado su bienestar con nosotros",
-    "view_more": "Ver más reseñas en Google"
+    "subtitle": "Historias reales de quienes confiaron su recuperación en nosotros",
+    "view_more": "Ver todas en Google",
+    "badge": "Reseñas verificadas de",
+    "average_rating": "Calificación promedio",
+    "same_day": "Atención el mismo día",
+    "verified": "100% verificadas",
+    "posted_on": "Publicado en Google",
+    "read_more": "Leer completa",
+    "write_review": "Deja tu reseña",
+    "visit": "¿Cómo fue tu visita? Ayuda a otros a encontrarnos",
+    "close": "Cerrar"
   },
   "map_contact": {
     "info_label": "Información de Contacto",

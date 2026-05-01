@@ -63,27 +63,10 @@ import { t, getServerLanguage } from '../i18n/index.ts';
   </style>
 </Layout>
 
-<script>
-  // Inicialización del cliente i18n para gracias.astro
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('Gracias: DOMContentLoaded');
-    
-    // Esperar a que i18n esté listo o inicializarlo
-    const initializeI18n = async () => {
-      if (window.i18nClient) {
-        console.log('Gracias: i18nClient already available');
-        window.i18nClient.updateAllTranslations();
-      } else {
-        console.log('Gracias: Waiting for i18nReady event');
-        window.addEventListener('i18nReady', () => {
-          console.log('Gracias: i18nReady event received');
-          if (window.i18nClient) {
-            window.i18nClient.updateAllTranslations();
-          }
-        });
-      }
-    };
-    
-    initializeI18n();
-  });
+<script is:inline>
+  (function () {
+    var update = function () { if (window.i18nClient) window.i18nClient.updateAllTranslations(); };
+    if (window.i18nClient) update();
+    else window.addEventListener('i18nReady', update);
+  })();
 </script>

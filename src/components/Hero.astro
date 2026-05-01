@@ -1,624 +1,556 @@
 ---
+/* Hero.astro — optimizado: lazy load videos, sin lógica de audio muerta,
+   solo el primer video se precarga (carga inicial ~6MB en lugar de 79MB) */
 import { t, getCurrentLanguage } from '../i18n/index.ts';
-
-interface Slide {
-  src: string;
-  title?: string;
-  subtitle?: string;
-  ctaLabel?: string;
-  ctaHref?: string;
-  hasAudio?: boolean;
-  wantSound?: boolean;
-  durationMs?: number;
-  filter?: string;
-  subs?: string;
-}
 
 const currentLang = getCurrentLanguage();
 
+interface Slide {
+  src: string;
+  titleKey?: string;
+  subtitleKey?: string;
+  ctaKey?: string;
+  ctaHref?: string;
+  durationMs: number;
+  showContent?: boolean;
+  hasAudio?: boolean;
+}
+
 const slides: Slide[] = [
   {
-    src: "/video/car-injury.mp4",
+    /* Video principal de presentación de la clínica (54 MB sin comprimir) */
+    src: '/video/car-injury.mp4',
+    durationMs: 47000,
+    showContent: false,
     hasAudio: true,
-    wantSound: false,
-    durationMs: 47000
   },
   {
-    src: "/video/accident.mp4",
-    durationMs: 10000,
-    title: t('hero.slides.slide1.title', currentLang),
-    subtitle: t('hero.slides.slide1.subtitle', currentLang),
-    ctaLabel: "Ver Servicios",
-    ctaHref: "/services"
+    src: '/video/hero.mp4',
+    titleKey: 'hero.slides.slide3.title',
+    subtitleKey: 'hero.slides.slide3.subtitle',
+    ctaKey: 'hero.slides.slide3.cta',
+    ctaHref: '/schedule',
+    durationMs: 8000,
+    showContent: true,
   },
   {
-    src: "/video/hero.mp4",
-    durationMs: 10000,
-    title: t('hero.slides.slide2.title', currentLang),
-    subtitle: t('hero.slides.slide2.subtitle', currentLang),
-    ctaLabel: t('hero.slides.slide2.cta', currentLang),
-    ctaHref: "tel:+1234567890"
+    src: '/video/accident.mp4',
+    titleKey: 'hero.slides.slide1.title',
+    subtitleKey: 'hero.slides.slide1.subtitle',
+    ctaKey: 'hero.slides.slide1.cta',
+    ctaHref: '/services',
+    durationMs: 8000,
+    showContent: true,
   },
   {
-    src: "/video/chiro.mp4",
-    durationMs: 10000,
-    title: t('hero.slides.slide3.title', currentLang),
-    subtitle: t('hero.slides.slide3.subtitle', currentLang),
-    ctaLabel: t('hero.slides.slide3.cta', currentLang),
-    ctaHref: "/schedule"
-  }
+    src: '/video/chiro.mp4',
+    titleKey: 'hero.slides.slide2.title',
+    subtitleKey: 'hero.slides.slide2.subtitle',
+    ctaKey: 'hero.slides.slide2.cta',
+    ctaHref: 'tel:+13852428571',
+    durationMs: 8000,
+    showContent: true,
+  },
 ];
-
-const defaultMs = 24000;
-const hasMany = slides.length > 1;
 ---
 
-<section class="hero relative overflow-hidden isolate animate-[heroSlideIn_1s_ease-out] min-h-[80vh] scroll-animate fade-scale" style="height: var(--hero-h)" data-default={defaultMs} aria-roledescription={hasMany ? 'carousel' : undefined}>
+<section class="hero" aria-roledescription="carousel" aria-label="Hero">
   {slides.map((s, i) => (
-    <div
-      class={`h-slide absolute inset-0 opacity-0 invisible pointer-events-none z-0 transition-opacity duration-600 ease-in-out ${i === 0 ? 'is-active is-primary' : ''}`}
+    <article
+      class={`hslide${i === 0 ? ' is-active' : ''}`}
       data-index={i}
-      data-duration={s.durationMs ?? ''}
-      data-hasaudio={s.hasAudio ? '1' : '0'}
-      data-wantsound={s.wantSound ? '1' : '0'}
-      style={i === 0 ? 'opacity:1; visibility:visible; z-index:10;' : 'opacity:0; visibility:hidden; z-index:0;'}
+      data-duration={s.durationMs}
+      data-has-audio={s.hasAudio ? 'true' : 'false'}
       aria-hidden={i === 0 ? 'false' : 'true'}
-      id={`hero-slide-${i}`}
-      role={hasMany ? 'group' : undefined}
-      aria-label={hasMany ? `${i + 1} de ${slides.length}` : undefined}
+      role="group"
+      aria-label={`${i + 1} / ${slides.length}`}
     >
-      {s.src ? (
-        <video
-          class="absolute inset-0 w-full h-[85%] object-cover z-[1] will-change-transform transition-transform duration-700 ease-out"
-          style={`object-position: 50% 0%; filter:${s.filter ?? 'brightness(1.2) contrast(1.06) saturate(1.06)'}`}
-          src={s.src}
-          autoplay
-          loop
-          playsinline
-          muted
-          preload="metadata"
-          controls={i === 0 ? true : false}
-          controlslist="nodownload"
-          onerror="this.remove()"
-        >
-          {s.subs && (
-            <track kind="subtitles" src={s.subs} srclang="es" label="Español" default />
-          )}
-        </video>
-      ) : (
-        <div class="absolute inset-0 w-full h-full"></div>
-      )}
+      <video
+        class={`hslide-video${s.hasAudio ? ' has-audio' : ''}`}
+        src={i === 0 ? s.src : undefined}
+        data-src={s.src}
+        autoplay={i === 0}
+        loop
+        playsinline
+        muted
+        preload={i === 0 ? 'auto' : 'none'}
+        onerror="this.style.display='none'"
+      ></video>
 
-      <div class="absolute inset-0 pointer-events-none z-[2]" style="background: linear-gradient(135deg, rgba(122, 46, 135, 0.3) 0%, rgba(97, 30, 108, 0.2) 50%, rgba(0, 0, 0, 0.1) 100%)"></div>
+      <div class={`hslide-overlay${s.showContent ? '' : ' is-soft'}`} aria-hidden="true"></div>
 
-      {(s.title || s.subtitle) && (
-        <div class="hero-content-container" data-slide-index={i}>
-          <div class="hero-content-background"></div>
-          {s.title && <h1 class="hero-title" data-i18n={`hero.slides.slide${i}.title`} set:html={s.title}></h1>}
-          {s.subtitle && <p class="hero-subtitle" data-i18n={`hero.slides.slide${i}.subtitle`}>{s.subtitle}</p>}
+      {s.showContent && s.titleKey && s.subtitleKey && s.ctaKey && (
+        <div class="hslide-content">
+          <h1 class="hslide-title" data-i18n={s.titleKey}>{t(s.titleKey, currentLang)}</h1>
+          <p class="hslide-subtitle" data-i18n={s.subtitleKey}>{t(s.subtitleKey, currentLang)}</p>
+          <a class="hslide-cta" href={s.ctaHref}>
+            <span data-i18n={s.ctaKey}>{t(s.ctaKey, currentLang)}</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M5 12h14m0 0l-5-5m5 5l-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       )}
-    </div>
+    </article>
   ))}
 
-  <!-- Sistema de botones CTA independiente y estable -->
-  <div class="hero-cta-overlay">
-    <div class="hero-cta-container">
-      <button class="hero-cta-btn" data-href="/services" data-slide="1" type="button" style="display: none;">
-        Ver Servicios
-      </button>
-      <button class="hero-cta-btn" data-href="tel:+1234567890" data-slide="2" type="button" style="display: none;" data-i18n="hero.slides.slide2.cta">
-        {t('hero.slides.slide2.cta', currentLang)}
-      </button>
-      <button class="hero-cta-btn" data-href="/schedule" data-slide="3" type="button" style="display: none;" data-i18n="hero.slides.slide3.cta">
-        {t('hero.slides.slide3.cta', currentLang)}
-      </button>
-    </div>
+  <!-- Botón de audio (solo visible en slides con audio) -->
+  <button class="hero-audio" type="button" aria-label="Activar sonido" aria-pressed="false" data-audio-toggle hidden>
+    <svg class="hero-audio-icon hero-audio-icon-mute" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.59 3L19 14.41l1.41-1.41L18 10.59 20.41 8.18 19 6.77 16.59 9.18 14.18 6.77l-1.41 1.41L15.18 10.59 12.77 13l1.41 1.41L16.59 12z"/>
+    </svg>
+    <svg class="hero-audio-icon hero-audio-icon-on" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm10.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05a4.5 4.5 0 0 0 2.5-4.02zM14 3.23v2.06A6.99 6.99 0 0 1 19 12a6.99 6.99 0 0 1-5 6.71v2.06A8.99 8.99 0 0 0 21 12 8.99 8.99 0 0 0 14 3.23z"/>
+    </svg>
+  </button>
+
+  <!-- Dots de navegación -->
+  <div class="hero-dots" role="tablist" aria-label="Slides">
+    {slides.map((_, i) => (
+      <button
+        class={`hero-dot${i === 0 ? ' is-active' : ''}`}
+        type="button"
+        role="tab"
+        aria-controls={`hslide-${i}`}
+        aria-selected={i === 0 ? 'true' : 'false'}
+        data-index={i}
+        aria-label={`Ir al slide ${i + 1}`}
+      ></button>
+    ))}
   </div>
 
-  {hasMany && (
-    <div class="absolute inset-0 z-[1004] pointer-events-none">
-      <div class="absolute left-1/2 bottom-[80px] -translate-x-1/2 flex gap-[10px] pointer-events-auto animate-[heroFadeIn_1s_ease-out_1.2s_both] z-[1005]" role="tablist" aria-label="Slides">
-        {slides.map((_, i) => (
-          <button
-            class={`h-dot w-[24px] h-[4px] rounded-full bg-white/50 border-none cursor-pointer transition-all duration-150 hover:scale-110 z-[1005] ${i === 0 ? 'is-active scale-[1.1] !bg-white' : ''}`}
-            role="tab"
-            aria-controls={`hero-slide-${i}`}
-            aria-selected={i === 0 ? 'true' : 'false'}
-            data-index={i}
-            type="button"
-          />
-        ))}
-      </div>
-
-
-
-      <div class="h-progress absolute left-0 right-0 bottom-0 h-1 bg-white/18 pointer-events-none z-[1004]" aria-hidden="true">
-        <span class="block h-full w-0 bg-[#BA93C2] z-[1004]"></span>
-      </div>
-    </div>
-  )}
-
-  {hasMany && (
-    <script is:inline>
-      (function(){
-        const root = document.currentScript.closest('.hero');
-        if (!root) return;
-
-        const slides = Array.from(root.querySelectorAll('.h-slide'));
-        if (slides.length <= 1) return;
-
-        const dots     = Array.from(root.querySelectorAll('.h-dot'));
-        const bar      = root.querySelector('.h-progress span');
-        const audioBtn = root.querySelector('.h-audio');
-        const DEFAULT  = Number(root.dataset.default) || 24000;
-
-        let index = 0;
-        let timer = null;
-
-        function v(i){ return slides[i]?.querySelector('video'); }
-        function dur(el){
-          const d = Number(el.dataset.duration);
-          return Number.isFinite(d) && d > 0 ? d : DEFAULT;
-        }
-
-        function clampToHalf(video){
-          if (!video) return;
-          if (!video.muted) video.volume = 0.25;
-        }
-        function bindVolumeGuard(video){
-          if (!video || video.dataset.volGuard === '1') return;
-          video.dataset.volGuard = '1';
-          video.addEventListener('volumechange', () => {
-            if (!video.muted && Math.abs(video.volume - 0.25) > 0.02) {
-              video.volume = 0.25;
-            }
-          });
-        }
-        function ensureSubs(video){
-          if (!video || !video.textTracks) return;
-          const tracks = Array.from(video.textTracks);
-          if (!tracks.length) return;
-          tracks.forEach(t => t.mode = 'hidden');
-          const es = tracks.find(t => (t.language || '').startsWith('es')) || tracks[0];
-          if (es) es.mode = 'showing';
-        }
-
-        function syncAudioUI(i){
-          // Audio button removed, no need to sync UI
-        }
-
-        function apply(i){
-          slides.forEach((el, k) => {
-            const active = k === i;
-            el.classList.toggle('is-active', active);
-            el.setAttribute('aria-hidden', active ? 'false' : 'true');
-            el.style.opacity       = active ? '1' : '0';
-            el.style.visibility    = active ? 'visible' : 'hidden';
-            el.style.pointerEvents = active ? 'auto'   : 'none';
-            el.style.zIndex        = active ? '10'     : '1';
-
-            const video = v(k);
-            if (!video) return;
-
-            if (active) {
-              // Configurar controles y atributos del video
-              if (k === 0) {
-                // Primer video: mostrar controles pero empezar silenciado
-                video.controls = true;
-                video.muted = true;
-              } else {
-                // Otros videos: sin controles, silenciados para autoplay
-                video.controls = false;
-                video.muted = true;
-              }
-              
-              clampToHalf(video);
-              bindVolumeGuard(video);
-              ensureSubs(video);
-              
-              // Mejorar la reproducción del video
-              video.load(); // Recargar el video para asegurar que esté listo
-              setTimeout(() => {
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                  playPromise.catch(() => { 
-                    video.muted = true; 
-                    video.play().catch(()=>{}); 
-                  });
-                }
-              }, 150);
-            } else {
-              video.pause();
-              video.currentTime = 0;
-              video.controls = false;
-            }
-          });
-
-          // Controlar visibilidad de botones CTA según el slide activo
-          const ctaButtons = root.querySelectorAll('.hero-cta-btn');
-          ctaButtons.forEach(btn => {
-            const btnSlide = parseInt(btn.dataset.slide);
-            if (i === 0) {
-              // Slider 1 (índice 0): FORZAR ocultación de todos los botones
-              btn.style.setProperty('display', 'none', 'important');
-              btn.style.setProperty('visibility', 'hidden', 'important');
-              btn.style.setProperty('opacity', '0', 'important');
-              btn.style.setProperty('pointer-events', 'none', 'important');
-            } else if (i === btnSlide) {
-              // Mostrar solo el botón correspondiente al slide actual
-              btn.style.setProperty('display', 'inline-block', 'important');
-              btn.style.setProperty('visibility', 'visible', 'important');
-              btn.style.setProperty('opacity', '1', 'important');
-              btn.style.setProperty('pointer-events', 'auto', 'important');
-            } else {
-              // Ocultar otros botones
-              btn.style.setProperty('display', 'none', 'important');
-              btn.style.setProperty('visibility', 'hidden', 'important');
-              btn.style.setProperty('opacity', '0', 'important');
-              btn.style.setProperty('pointer-events', 'none', 'important');
-            }
-          });
-
-          dots.forEach((d, k) => {
-            d.classList.toggle('is-active', k === i);
-            d.setAttribute('aria-selected', k === i ? 'true' : 'false');
-          });
-
-          index = i;
-          restartBar();
-          restartTimer();
-          syncAudioUI(i);
-        }
-
-        function nextSlide(){ apply((index + 1) % slides.length); }
-        function prevSlide(){ apply((index - 1 + slides.length) % slides.length); }
-
-        function restartBar(){
-          if (!bar) return;
-          const d = dur(slides[index]);
-          bar.style.animation = 'none';
-          void bar.offsetWidth;
-          bar.style.animation = 'hBar ' + d + 'ms linear forwards';
-        }
-
-        function restartTimer(){
-          clearTimeout(timer);
-          const d = dur(slides[index]);
-          timer = setTimeout(nextSlide, d);
-        }
-
-        // Controles
-        dots.forEach(d => d.addEventListener('click', (e) => {
-          const i = Number(e.currentTarget.dataset.index);
-          apply(i);
-        }));
-
-        // Audio button removed, no event listener needed
-
-        // Start
-        apply(0);
-        
-        // Sistema de botones CTA independiente
-        const ctaButtons = root.querySelectorAll('.hero-cta-btn');
-        ctaButtons.forEach(btn => {
-          btn.addEventListener('click', function() {
-            const href = this.dataset.href;
-            if (href) {
-              if (href.startsWith('tel:')) {
-                window.location.href = href;
-              } else {
-                window.location.href = href;
-              }
-            }
-          });
-        });
-      })();
-    </script>
-  )}
-
-  <style>
-    /* Importar fuentes de Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;800;900&display=swap');
-
-    /* Variables CSS para Hero */
-    :root{
-      --hero-h: 100vh;
-      --hero-zoom: 1.0;
-      --hero-shiftY: 0;
-      --hero-primary-posY: 50%;
-      
-      /* Variables de fuentes consistentes con el proyecto */
-      --font-heading: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      --font-body: 'Source Sans 3', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    }
-
-    /* Animaciones personalizadas */
-    @keyframes heroFadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes heroSlideIn {
-      from { opacity: 0; transform: scale(1.1); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    
-    @keyframes heroContentUp {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes heroPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.95; }
-    }
-    
-    @keyframes hBar { from{width:0%} to{width:100%} }
-
-    /* Estilos específicos que no se pueden reemplazar con Tailwind */
-    .h-slide{
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      transition: opacity 0.6s ease-in-out;
-    }
-    
-    .h-slide.is-active{
-      opacity:1 !important; 
-      visibility:visible !important; 
-      pointer-events:auto !important; 
-      z-index:10 !important;
-    }
-    
-    .h-slide:not(.is-active){
-      opacity:0 !important;
-      pointer-events:none !important;
-      z-index:1 !important;
-    }
-    
-    /* Estilos para el nuevo contenido del hero */
-    .hero-content-container {
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: white;
-      z-index: 1003;
-      max-width: 980px;
-      width: 100%;
-      padding: 0 1rem;
-      pointer-events: none;
-    }
-    
-    .hero-content-background {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,.35), rgba(0,0,0,0) 70%);
-      filter: blur(.5px);
-      z-index: -1;
-    }
-    
-    /* Forzar fuentes con máxima especificidad */
-    .hero .hero-content-container .hero-title,
-    .hero-content-container .hero-title,
-    .hero-title {
-      font-family: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, sans-serif !important;
-      font-weight: 800 !important;
-      font-size: 3rem !important;
-      line-height: 1.08 !important;
-      margin-bottom: 1rem !important;
-      text-shadow: 2px 2px 6px rgba(0,0,0,.6) !important;
-      text-wrap: balance !important;
-    }
-    
-    .hero .hero-content-container .hero-subtitle,
-    .hero-content-container .hero-subtitle,
-    .hero-subtitle {
-      font-family: 'Source Sans 3', system-ui, -apple-system, Segoe UI, Roboto, sans-serif !important;
-      font-weight: 500 !important;
-      font-size: 1.25rem !important;
-      line-height: 1.35 !important;
-      opacity: 0.98 !important;
-      margin-bottom: 1.5rem !important;
-      text-shadow: 2px 2px 6px rgba(0,0,0,.6) !important;
-      text-wrap: pretty !important;
-    }
-
-    /* Sistema de botones CTA independiente y estable */
-    .hero-cta-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1010;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .hero-cta-container {
-      position: absolute;
-      top: 65%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      pointer-events: auto;
-    }
-    
-    .hero .hero-cta-overlay .hero-cta-container .hero-cta-btn,
-    .hero-cta-overlay .hero-cta-container .hero-cta-btn,
-    .hero-cta-container .hero-cta-btn,
-    .hero-cta-btn {
-      background-color: #7A2E87 !important;
-      color: white !important;
-      padding: 1rem 1.75rem !important;
-      border-radius: 10px !important;
-      font-family: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, sans-serif !important;
-      font-weight: 800 !important;
-      font-size: 1.1rem !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.02em !important;
-      border: none !important;
-      cursor: pointer !important;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
-      text-decoration: none !important;
-      touch-action: manipulation !important;
-      user-select: none !important;
-      position: relative !important;
-      z-index: 1011 !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      pointer-events: auto !important;
-    }
-    
-    .hero-cta-btn:hover {
-      background-color: #6a3f75;
-      box-shadow: 0 8px 18px rgba(0,0,0,.28);
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .hero-cta-btn:focus {
-      background-color: #6a3f75;
-      box-shadow: 0 8px 18px rgba(0,0,0,.28);
-      outline: 2px solid rgba(255,255,255,0.5);
-      outline-offset: 2px;
-    }
-    
-    .hero-cta-btn:active {
-      background-color: #5a2f65;
-      transform: translateY(1px);
-    }
-
-    /* Subtítulos más legibles */
-    .h-slide video::cue {
-      background-color: rgba(0,0,0,.55);
-      color: #fff;
-      padding: .2em .45em;
-      font-weight: 600;
-      line-height: 1.25;
-      text-shadow: 0 1px 1px rgba(0,0,0,.85);
-      font-size: 16px;
-    }
-
-    /* Estilos responsivos */
-    @media (max-width: 768px){
-      :root{
-        --hero-h: 100vh;
-        --hero-zoom: 1.0;
-        --hero-shiftY: 0;
-        --hero-primary-posY: 45%;
-      }
-      
-      .hero-title {
-        font-size: 2.5rem;
-      }
-      
-      .hero-subtitle {
-        font-size: 1.1rem;
-      }
-    }
-    
-    @media (max-width: 480px){
-      .hero-title {
-        font-size: 2rem;
-      }
-      
-      .hero-subtitle {
-        font-size: 1rem;
-      }
-    }
-
-    /* Asegurar que el video cubra toda la pantalla y tenga más brillo */
-    .h-slide video {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      filter: brightness(1.2) !important;
-    }
-
-    /* Estilos para los controles del video */
-    .h-slide:first-child video::-webkit-media-controls-panel {
-      background-color: rgba(0, 0, 0, 0.7);
-      border-radius: 8px;
-    }
-
-    .h-slide:first-child video::-webkit-media-controls-volume-slider {
-      background-color: #7A2E87;
-    }
-
-    .h-slide:first-child video::-webkit-media-controls-current-time-display,
-    .h-slide:first-child video::-webkit-media-controls-time-remaining-display {
-      color: white;
-      font-weight: 500;
-    }
-
-    /* Posicionar los controles del video */
-    .h-slide:first-child video {
-      pointer-events: auto !important;
-    }
-
-    .h-slide:not(:first-child) video {
-      pointer-events: none !important;
-    }
-    
-    /* Estilos responsivos para botones CTA */
-    @media (max-width: 768px) {
-      .hero-cta-container {
-        top: 70%;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.75rem;
-      }
-      
-      .hero-cta-btn {
-        padding: 0.875rem 1.5rem;
-        font-size: 1rem;
-        min-width: 200px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .hero-cta-container {
-        top: 75%;
-        padding: 0 1rem;
-      }
-      
-      .hero-cta-btn {
-        padding: 0.75rem 1.25rem;
-        font-size: 0.9rem;
-        min-width: 180px;
-      }
-    }
-
-    /* Estilos para las bolitas indicadoras */
-    .h-dot {
-      background-color: rgba(255, 255, 255, 0.5) !important;
-      transform: scale(1) !important;
-      transition: all 0.3s ease !important;
-      border: none !important;
-    }
-    
-    .h-dot.is-active {
-      background-color: white !important;
-      transform: scale(1.3) !important;
-    }
-    
-    .h-dot:hover {
-      transform: scale(1.1) !important;
-    }
-    
-    .h-dot.is-active:hover {
-      transform: scale(1.3) !important;
-    }
-  </style>
+  <!-- Barra de progreso -->
+  <div class="hero-progress" aria-hidden="true">
+    <span class="hero-progress-bar"></span>
+  </div>
 </section>
+
+<style>
+  /* ==========================================================================
+     HERO — optimizado, mobile-first
+     ========================================================================== */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    min-height: 520px;
+    max-height: 900px;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--c-purple-900);
+  }
+
+  /* === Cada slide === */
+  .hslide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+  }
+  .hslide.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 1;
+  }
+
+  .hslide-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 35%;
+    z-index: 0;
+  }
+
+  /* Overlay para legibilidad del texto */
+  .hslide-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%),
+      radial-gradient(60% 50% at 50% 55%, rgba(0,0,0,0.45), rgba(0,0,0,0) 80%);
+    pointer-events: none;
+  }
+  /* Overlay suave para slides sin texto (deja que el video respire) */
+  .hslide-overlay.is-soft {
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%);
+  }
+
+  /* === Contenido del slide === */
+  .hslide-content {
+    position: absolute;
+    left: 50%;
+    bottom: 22%;
+    transform: translateX(-50%);
+    width: min(92%, 880px);
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  .hslide.is-active .hslide-content {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition: opacity 0.7s ease 0.2s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+  }
+
+  .hslide-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1.85rem, 6vw, 3.25rem);
+    line-height: 1.1;
+    margin: 0 0 0.85rem;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    text-wrap: balance;
+    color: #fff;
+  }
+  .hslide-subtitle {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    line-height: 1.45;
+    margin: 0 0 1.5rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+    text-wrap: pretty;
+    color: rgba(255,255,255,0.96);
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hslide-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.95rem 1.6rem;
+    background: var(--c-purple);
+    color: #fff;
+    border-radius: 999px;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    box-shadow: 0 8px 24px rgba(122, 46, 135, 0.45);
+    transition: background 0.25s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  }
+  .hslide-cta:hover {
+    background: #8b3494;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(122, 46, 135, 0.55);
+  }
+  .hslide-cta:hover svg { transform: translateX(3px); }
+  .hslide-cta svg { transition: transform 0.25s ease; }
+
+  /* === Cursor del video con audio (sugiere que se puede tocar) === */
+  .hslide-video.has-audio { cursor: pointer; }
+
+  /* === Botón de audio === */
+  .hero-audio {
+    position: absolute;
+    right: clamp(0.85rem, 3vw, 1.5rem);
+    bottom: clamp(96px, 14vh, 130px);
+    z-index: 4;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .hero-audio:hover {
+    background: rgba(122, 46, 135, 0.7);
+    border-color: rgba(255, 255, 255, 0.55);
+    transform: scale(1.08);
+  }
+  .hero-audio:focus-visible {
+    outline: 2px solid var(--c-rose);
+    outline-offset: 3px;
+  }
+  .hero-audio.is-visible { display: inline-flex; }
+  .hero-audio-icon { width: 22px; height: 22px; }
+  /* Por defecto muestra mute (audio off) */
+  .hero-audio-icon-on { display: none; }
+  .hero-audio.is-on .hero-audio-icon-mute { display: none; }
+  .hero-audio.is-on .hero-audio-icon-on { display: block; }
+  .hero-audio.is-on {
+    background: rgba(122, 46, 135, 0.85);
+    border-color: var(--c-rose);
+  }
+
+  /* Pulse sutil para invitar a tocar (solo cuando está muteado) */
+  .hero-audio:not(.is-on)::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    animation: heroAudioPulse 2.4s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes heroAudioPulse {
+    0%   { transform: scale(0.85); opacity: 0.8; }
+    100% { transform: scale(1.4);  opacity: 0; }
+  }
+
+  /* === Dots === */
+  .hero-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 56px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.45rem;
+    z-index: 3;
+  }
+  .hero-dot {
+    width: 10px; height: 10px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    padding: 0;
+    transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease;
+  }
+  .hero-dot:hover { background: rgba(255, 255, 255, 0.7); }
+  .hero-dot.is-active {
+    width: 28px;
+    background: #fff;
+  }
+
+  /* === Barra de progreso === */
+  .hero-progress {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.15);
+    z-index: 3;
+    pointer-events: none;
+  }
+  .hero-progress-bar {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--c-rose);
+  }
+
+  /* === Breakpoints === */
+  @media (min-width: 768px) {
+    .hslide-content { bottom: 25%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hslide, .hslide-content, .hero-dot, .hslide-cta {
+      transition: none !important;
+    }
+    .hero-progress-bar { animation: none !important; }
+  }
+</style>
+
+<script>
+  import { animate } from 'motion';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const hero = document.querySelector<HTMLElement>('.hero');
+    if (!hero) return;
+
+    const slides = Array.from(hero.querySelectorAll<HTMLElement>('.hslide'));
+    const dots = Array.from(hero.querySelectorAll<HTMLButtonElement>('.hero-dot'));
+    const progressBar = hero.querySelector<HTMLElement>('.hero-progress-bar');
+    const audioBtn = hero.querySelector<HTMLButtonElement>('[data-audio-toggle]');
+    if (slides.length <= 1) return;
+
+    let current = 0;
+    let timer: number | null = null;
+    let audioOn = false; // siempre arranca muteado
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const animateAny = animate as unknown as (...args: any[]) => any;
+
+    const getDuration = (idx: number) => {
+      const slide = slides[idx];
+      const d = Number(slide?.dataset.duration);
+      return Number.isFinite(d) && d > 0 ? d : 8000;
+    };
+
+    /* Lazy load: asignar src solo cuando el slide es el siguiente o actual */
+    const ensureLoaded = (idx: number) => {
+      const video = slides[idx]?.querySelector<HTMLVideoElement>('.hslide-video');
+      if (!video) return;
+      if (!video.src && video.dataset.src) {
+        video.src = video.dataset.src;
+        video.load();
+      }
+    };
+
+    /* === Audio: siempre arranca muteado, usuario lo activa con botón o tap === */
+    const slideHasAudio = (idx: number) => slides[idx]?.dataset.hasAudio === 'true';
+
+    const muteAllVideos = () => {
+      slides.forEach((s) => {
+        const v = s.querySelector<HTMLVideoElement>('.hslide-video');
+        if (v) v.muted = true;
+      });
+    };
+
+    const setAudio = (on: boolean) => {
+      audioOn = on && slideHasAudio(current);
+      const v = slides[current]?.querySelector<HTMLVideoElement>('.hslide-video');
+      if (v) v.muted = !audioOn;
+      if (audioBtn) {
+        audioBtn.classList.toggle('is-on', audioOn);
+        audioBtn.setAttribute('aria-pressed', audioOn ? 'true' : 'false');
+        audioBtn.setAttribute('aria-label', audioOn ? 'Silenciar' : 'Activar sonido');
+      }
+    };
+
+    const refreshAudioBtn = () => {
+      if (!audioBtn) return;
+      const has = slideHasAudio(current);
+      audioBtn.classList.toggle('is-visible', has);
+      if (has) audioBtn.removeAttribute('hidden');
+      else audioBtn.setAttribute('hidden', '');
+    };
+
+    const goTo = (idx: number) => {
+      current = (idx + slides.length) % slides.length;
+
+      /* Al cambiar de slide siempre se vuelve a mute */
+      muteAllVideos();
+      audioOn = false;
+
+      slides.forEach((s, k) => {
+        const isActive = k === current;
+        s.classList.toggle('is-active', isActive);
+        s.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+
+        const video = s.querySelector<HTMLVideoElement>('.hslide-video');
+        if (!video) return;
+
+        if (isActive) {
+          ensureLoaded(k);
+          window.setTimeout(() => {
+            video.play().catch(() => { /* autoplay bloqueado, ignorar */ });
+          }, 60);
+        } else {
+          video.pause();
+        }
+      });
+
+      dots.forEach((d, k) => {
+        const isActive = k === current;
+        d.classList.toggle('is-active', isActive);
+        d.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      /* Precargar el siguiente para transición fluida */
+      ensureLoaded((current + 1) % slides.length);
+
+      refreshAudioBtn();
+      setAudio(false);
+      restartProgress();
+      restartTimer();
+    };
+
+    const next = () => goTo(current + 1);
+
+    const restartProgress = () => {
+      if (!progressBar) return;
+      const d = getDuration(current);
+      if (reducedMotion) {
+        progressBar.style.width = '100%';
+        return;
+      }
+      try {
+        progressBar.style.width = '0%';
+        animateAny(progressBar, { width: ['0%', '100%'] }, { duration: d / 1000, easing: 'linear' });
+      } catch {
+        progressBar.style.width = '100%';
+      }
+    };
+
+    const restartTimer = () => {
+      if (timer !== null) clearTimeout(timer);
+      timer = window.setTimeout(next, getDuration(current));
+    };
+
+    /* Click en dots */
+    dots.forEach((d) => {
+      d.addEventListener('click', () => {
+        const idx = Number(d.dataset.index);
+        if (Number.isFinite(idx)) goTo(idx);
+      });
+    });
+
+    /* Toggle audio: botón + click en el video con audio */
+    audioBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setAudio(!audioOn);
+    });
+
+    slides.forEach((s) => {
+      const v = s.querySelector<HTMLVideoElement>('.hslide-video.has-audio');
+      if (!v) return;
+      v.addEventListener('click', () => {
+        if (slideHasAudio(current)) setAudio(!audioOn);
+      });
+    });
+
+    /* Si el usuario cambia el volumen manualmente al activarlo, lo dejamos al 60% */
+    slides.forEach((s) => {
+      const v = s.querySelector<HTMLVideoElement>('.hslide-video');
+      if (!v) return;
+      v.volume = 0.6;
+    });
+
+    /* Pausar autoplay cuando la pestaña está oculta */
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (timer !== null) { clearTimeout(timer); timer = null; }
+        const v = slides[current]?.querySelector<HTMLVideoElement>('.hslide-video');
+        v?.pause();
+      } else {
+        const v = slides[current]?.querySelector<HTMLVideoElement>('.hslide-video');
+        v?.play().catch(() => {});
+        restartTimer();
+        restartProgress();
+      }
+    });
+
+    /* Pausar cuando el hero NO es visible (scroll) */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const v = slides[current]?.querySelector<HTMLVideoElement>('.hslide-video');
+          v?.play().catch(() => {});
+          if (timer === null) restartTimer();
+          restartProgress();
+        } else {
+          if (timer !== null) { clearTimeout(timer); timer = null; }
+          const v = slides[current]?.querySelector<HTMLVideoElement>('.hslide-video');
+          v?.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+    io.observe(hero);
+
+    /* Init */
+    ensureLoaded(0);
+    ensureLoaded(1);
+    refreshAudioBtn();
+    restartProgress();
+    restartTimer();
+  });
+</script>

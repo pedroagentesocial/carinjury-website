@@ -173,29 +173,12 @@ const mapSrc =
 
 </Layout>
 
-<script>
-  // Inicialización del cliente i18n para faq.astro
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('FAQ: DOMContentLoaded');
-    
-    // Esperar a que i18n esté listo o inicializarlo
-    const initializeI18n = async () => {
-      if (window.i18nClient) {
-        console.log('FAQ: i18nClient already available');
-        window.i18nClient.updateAllTranslations();
-      } else {
-        console.log('FAQ: Waiting for i18nReady event');
-        window.addEventListener('i18nReady', () => {
-          console.log('FAQ: i18nReady event received');
-          if (window.i18nClient) {
-            window.i18nClient.updateAllTranslations();
-          }
-        });
-      }
-    };
-    
-    initializeI18n();
-  });
+<script is:inline>
+  (function () {
+    var update = function () { if (window.i18nClient) window.i18nClient.updateAllTranslations(); };
+    if (window.i18nClient) update();
+    else window.addEventListener('i18nReady', update);
+  })();
 </script>
 
 <style>

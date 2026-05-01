@@ -1,8 +1,11 @@
 ---
-// Layout.astro – plantilla principal (sin TopBar, Nav arriba)
+// Layout.astro – plantilla principal limpia
 import Nav from '../components/Nav.astro';
 import FloatingButtons from '../components/FloatingButtons.astro';
 import ScriptJsonLd from '../components/ScriptJsonLd.astro';
+import esTranslations from '../i18n/es.json';
+import enTranslations from '../i18n/en.json';
+
 const defaultTitle = 'Car Injury Clinic | Chiropractic & Legal Services';
 const defaultDescription = 'Somos especialistas en accidentes de auto. Ofrecemos atención quiropráctica y servicios legales para víctimas de accidentes.';
 const pageTitle = Astro.props.title ?? defaultTitle;
@@ -13,77 +16,31 @@ const pageDescription = Astro.props.description ?? defaultDescription;
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="robots" content="index, follow" />
 
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico?v=4&t=1760745600" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/Car-Injury-Clinic-White.png" />
     <link rel="shortcut icon" href="/favicon.ico?v=4&t=1760745600" />
-    <meta name="theme-color" content="#1e40af" />
+    <meta name="theme-color" content="#7A2E87" />
 
     <!-- Estilos globales -->
     <style is:global>
       @import '../styles/global.css';
     </style>
 
-    <!-- OVERRIDES específicos del Nav: respetan --navbar-height -->
-<style is:global>
-  /* Definir --nav-h para que coincida con --navbar-height */
-  :root {
-    --nav-h: 72px; /* SINCRONIZADO con enfoque mobile-first */
-    --logo-h: 34px; /* SINCRONIZADO con Nav.astro */
-  }
-  @media (min-width: 768px) {
-    :root {
-      --nav-h: 84px;
-      --logo-h: 42px;
-    }
-  }
-  @media (min-width: 1024px) {
-    :root {
-      --nav-h: 96px;
-      --logo-h: 50px;
-    }
-  }
-  
-  /* Si algún CSS global fijó alturas/line-height del nav/header, los anulamos aquí */
-  #main-nav,
-  #main-nav.navbar {
-    height: var(--navbar-height, var(--nav-h, 35px)) !important;
-    min-height: var(--navbar-height, var(--nav-h, 35px)) !important;
-    line-height: normal !important;
-  }
-  #main-nav .nav-inner {
-    height: var(--navbar-height, var(--nav-h, 35px)) !important;
-    min-height: var(--navbar-height, var(--nav-h, 35px)) !important;
-  }
-  #main-nav .brand-img {
-    height: var(--logo-h, 24px) !important;
-    width: auto !important;
-    max-height: none !important;
-  }
-  /* Permitir que el navbar use su altura definida, no forzar auto */
-  header.navbar,
-  nav.navbar { 
-    height: var(--navbar-height, var(--nav-h, 35px)) !important; 
-    min-height: var(--navbar-height, var(--nav-h, 35px)) !important; 
-  }
-</style>
-
-
-    <!-- Fuentes Google -->
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;600&family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:wght@400;600&family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- (Opcional) Font Awesome 6 -->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -92,23 +49,19 @@ const pageDescription = Astro.props.description ?? defaultDescription;
       referrerpolicy="no-referrer"
     />
 
-    <!-- JSON-LD para LocalBusiness -->
-    <ScriptJsonLd 
+    <ScriptJsonLd
       address="3365 S 700 E, Salt Lake City, UT 84106, USA"
       telephone="+1-801-999-8888"
     />
   </head>
 
   <body>
-    <!-- NAV arriba (sin TopBar) -->
     <Nav />
 
-    <!-- Contenido de cada página -->
     <slot />
-    
-    <!-- Botones flotantes -->
+
     <FloatingButtons />
-    
+
     <script
       is:inline
       src="https://widgets.leadconnectorhq.com/loader.js"
@@ -117,159 +70,47 @@ const pageDescription = Astro.props.description ?? defaultDescription;
       defer
     ></script>
 
-    <!-- Cargar traducciones globalmente -->
-    <script is:inline define:vars={{ translations: { es: await import('../i18n/es.json'), en: await import('../i18n/en.json') } }}>
+    <!-- Traducciones globales (única carga) -->
+    <script is:inline define:vars={{ translations: { es: esTranslations, en: enTranslations } }}>
       window.translations = translations;
     </script>
-    
-    <!-- Scripts opcionales -->
-    <script type="module">
-      import '/utils/testimonials.js';
-      import '/utils/dropdown.js';
-      import '/utils/animations.js';
-    </script>
-    
-    <!-- Inicializar i18n client con mejor manejo -->
-    <script type="module">
-      document.addEventListener('DOMContentLoaded', async () => {
-        console.log('Layout: DOMContentLoaded, initializing i18n...');
-        
-        try {
-          const mod = await import('../utils/i18n-client.js');
-          // Evitar warning de variable no usada
-          void mod;
-          
-          // Función para actualizar el texto del botón de idioma
-          const updateLanguageButton = () => {
-            const buttonText = document.getElementById('language-button-text');
-            if (buttonText && window.i18nClient) {
-              const currentLang = window.i18nClient.currentLang;
-              buttonText.textContent = currentLang === 'en' ? 'Spanish' : 'Ingles';
-              console.log('Layout: Button text updated to:', buttonText.textContent);
-            }
-          };
-          
-          // Configurar el botón de idioma
-          const setupLanguageButton = () => {
-            const languageButton = document.getElementById('language-toggle');
-            if (languageButton && window.i18nClient) {
-              // Remover listeners existentes
-              languageButton.replaceWith(languageButton.cloneNode(true));
-              const newButton = document.getElementById('language-toggle');
-              
-              // Agregar nuevo listener
-              newButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('Layout: Language button clicked');
-                if (window.i18nClient && window.i18nClient.toggleLanguage) {
-                  window.i18nClient.toggleLanguage();
-                  console.log('Layout: toggleLanguage called');
-                } else {
-                  console.error('Layout: i18nClient or toggleLanguage not available');
-                }
-              });
-              
-              console.log('Layout: Language button event listener added');
-            }
-          };
 
-          if (window.i18nClient) {
-            window.i18nClient.init();
-            setupLanguageButton();
-            updateLanguageButton();
-            window.dispatchEvent(new CustomEvent('i18nReady'));
-          }
-          
-          // Actualizar inmediatamente
-          updateLanguageButton();
-          setupLanguageButton();
-          
-          // Escuchar cambios de idioma
-          window.addEventListener('languageChange', () => {
-            console.log('Layout: Language change event received');
-            updateLanguageButton();
+    <!-- i18n + utils -->
+    <script>
+      import '../utils/i18n-client.js';
+      import '../utils/testimonials.js';
+      import '../utils/dropdown.js';
+      import '../utils/animations.js';
+
+      const initI18n = () => {
+        if (!window.i18nClient) return;
+        window.i18nClient.init();
+
+        const buttonText = document.getElementById('language-button-text');
+        const updateBtn = (lang) => {
+          if (!buttonText) return;
+          buttonText.textContent = lang === 'en' ? 'Spanish' : 'Ingles';
+        };
+        updateBtn(window.i18nClient.currentLang);
+        window.addEventListener('languageChange', (e) => updateBtn(e.detail || window.i18nClient.currentLang));
+
+        const langBtn = document.getElementById('language-toggle');
+        if (langBtn && !langBtn.dataset.bound) {
+          langBtn.dataset.bound = '1';
+          langBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.i18nClient.toggleLanguage();
           });
-          
-          // Disparar evento personalizado para notificar que i18n está listo
-          window.dispatchEvent(new CustomEvent('i18nReady'));
-          console.log('Layout: i18nReady event dispatched');
-          
-        } catch (error) {
-          console.error('Layout: Error initializing i18n:', error);
         }
-      });
+
+        window.dispatchEvent(new CustomEvent('i18nReady'));
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initI18n);
+      } else {
+        initI18n();
+      }
     </script>
   </body>
 </html>
-
-<style is:global>
-  /* ✅ Layout de ancho completo con legibilidad optimizada */
-
-  /* 1) Resetea márgenes/paddings y establece ancho completo */
-  html, body { 
-    margin: 0; 
-    padding: 0; 
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* 2) Box-sizing para todos los elementos */
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-
-  /* 3) Contenedores principales a ancho completo */
-  body,
-  header,
-  main,
-  .page,
-  .layout,
-  .content {
-    width: 100% !important;
-    max-width: none !important;
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  /* 4) Elimina variables del TopBar */
-  :root { --topbar-h: 0px; }
-
-  /* 5) Colapsa cualquier "spacer" o restos del TopBar */
-  .topbar,
-  .top-bar,
-  .site-topbar,
-  .topbar-spacer,
-  [data-topbar],
-  [data-spacer="topbar"] {
-    display: none !important;
-    height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  /* 6) Navbar sin margen superior */
-  nav.navbar { margin-top: 0 !important; }
-
-  /* 7) Legibilidad del texto: párrafos con max-width y centrado */
-  p, .text-content {
-    max-width: 60ch;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* 8) Secciones de ancho completo permitidas */
-  .hero,
-  .hero-section,
-  .gallery,
-  .banner,
-  .full-width {
-    width: 100% !important;
-    max-width: none !important;
-  }
-
-  /* (Opcional) Si tu Nav es sticky y tapa anclas, descomenta:
-  html { scroll-padding-top: 72px; }
-  */
-</style>

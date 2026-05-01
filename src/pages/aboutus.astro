@@ -435,33 +435,12 @@ const enTranslations = await import('../i18n/en.json');
   };
 </script>
 
-<!-- Cargar el cliente i18n -->
-<script type="module">
-  // Inicialización del cliente i18n para aboutus.astro
-  document.addEventListener('DOMContentLoaded', async () => {
-    console.log('AboutUs: DOMContentLoaded, initializing i18n...');
-    
-    try {
-      // Cargar el módulo i18n-client dinámicamente
-      const module = await import('/src/utils/i18n-client.js');
-      const i18nClient = module.default;
-      
-      // Asignar a window para acceso global
-      window.i18nClient = i18nClient;
-      console.log('AboutUs: i18nClient assigned to window');
-      
-      // Inicializar el cliente
-      await i18nClient.init();
-      console.log('AboutUs: i18nClient initialized');
-      
-      // Disparar evento personalizado para notificar que i18n está listo
-      window.dispatchEvent(new CustomEvent('i18nReady'));
-      console.log('AboutUs: i18nReady event dispatched');
-      
-    } catch (error) {
-      console.error('AboutUs: Error initializing i18n:', error);
-    }
-  });
+<script is:inline>
+  (function () {
+    var update = function () { if (window.i18nClient) window.i18nClient.updateAllTranslations(); };
+    if (window.i18nClient) update();
+    else window.addEventListener('i18nReady', update);
+  })();
 </script>
 
 <style>

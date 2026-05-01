@@ -219,37 +219,12 @@ class I18nClient {
     }
   }
 
-  toggleLanguage(forceNoRedirect = false) {
+  toggleLanguage() {
+    /* Cambio de idioma 100% client-side, sin redirect.
+       (Las rutas /en/ no existen como páginas separadas: el sitio renderiza
+       una sola versión y los textos se intercambian con data-i18n.) */
     const newLang = this.currentLang === 'es' ? 'en' : 'es';
     this.setLanguage(newLang);
-    
-    // Solo actualizar la URL si no se fuerza el no-redirect
-    if (typeof window !== 'undefined' && !forceNoRedirect) {
-      const currentPath = window.location.pathname;
-      let newPath;
-      
-      if (newLang === 'en') {
-        // Cambiar a inglés
-        if (currentPath === '/' || currentPath === '/index.html') {
-          newPath = '/en/';
-        } else if (!currentPath.startsWith('/en/')) {
-          newPath = '/en' + currentPath;
-        } else {
-          newPath = currentPath;
-        }
-      } else {
-        // Cambiar a español
-        if (currentPath.startsWith('/en/')) {
-          newPath = currentPath.replace('/en', '') || '/';
-        } else {
-          newPath = currentPath;
-        }
-      }
-      
-      if (newPath !== currentPath) {
-        window.location.href = newPath;
-      }
-    }
   }
 
   init() {

@@ -159,7 +159,13 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
                 </label>
               </div>
 
-              <div class="form-group form-group-full recaptcha-group">
+              <div class="form-group form-group-full recaptcha-group" data-captcha aria-hidden="true">
+                <p class="captcha-hint">
+                  <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                    <path d="M9 12l2 2 4-4M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span data-i18n="form.captcha_hint">{currentLang === 'es' ? 'Último paso: confirma que no eres un robot' : 'Last step: confirm you are not a robot'}</span>
+                </p>
                 <div
                   id="recaptcha-widget"
                   class="g-recaptcha"
@@ -349,7 +355,6 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
         // Verificar honeypot anti-spam
         const honeypot = form.querySelector('input[name="_honey"]');
         if (honeypot && honeypot.value) {
-          console.log('Spam detectado, ignorando envío');
           return;
         }
         
@@ -388,7 +393,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
           });
           
         } catch (error) {
-          console.log('Error enviando formulario:', error);
+          /* webhook silencioso: el usuario ya vio el mensaje de éxito */
         }
 
         setTimeout(() => {
@@ -411,42 +416,38 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-/* ===== VARIABLES CSS ===== */
-:root {
-  --primary-color: #7a2e87;
-  --secondary-color: #ba93c2;
-  --text-primary: #2d3748;
-  --text-secondary: #4a5568;
-  --background: #f8f9fa;
-  --surface: #ffffff;
-  --border: #e2e8f0;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
-  --border-radius: 12px;
-  --c3: #7a2e87;
-  --c4: #ba93c2;
-}
-
-/* ===== SECCIÓN PRINCIPAL ===== */
+/* ===== Form local aliases (paleta global desde global.css) ===== */
 .form-section {
-  background: linear-gradient(135deg, var(--background) 0%, #ffffff 100%);
-  font-family: 'Poppins', sans-serif;
-  padding: 4rem 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
+  --primary-color: var(--c-purple);
+  --secondary-color: var(--c-rose);
+  --border-radius: var(--radius);
 }
 
-/* ===== CONTENEDOR PRINCIPAL ===== */
+/* ===== SECCIÓN PRINCIPAL — mobile-first ===== */
+.form-section {
+  background: linear-gradient(135deg, var(--surface-2) 0%, #ffffff 100%);
+  font-family: 'Poppins', sans-serif;
+  padding: 2.5rem 0;
+}
+
+/* ===== CONTENEDOR — mobile-first (1 col) ===== */
 .form-container {
-  max-width: 1200px;
+  max-width: var(--content-max);
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 1fr;
+  gap: 2rem;
   align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .form-section { padding: 4rem 0; }
+  .form-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 2rem;
+  }
 }
 
 /* ===== COLUMNA IZQUIERDA - INFORMACIÓN ===== */
@@ -736,9 +737,32 @@ button[type="submit"]:hover .send-icon {
   background: #fef2f2;
 }
 
+/* Captcha oculto por defecto: aparece cuando los requeridos están completos */
 .recaptcha-group {
-  margin-top: 0.75rem;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transition: margin-top 0.35s ease;
 }
+.recaptcha-group.is-visible {
+  margin-top: 0.85rem;
+}
+
+.captcha-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--c-purple);
+  margin: 0 0 0.55rem;
+  padding: 0.4rem 0.7rem;
+  background: rgba(186, 147, 194, 0.14);
+  border-radius: 8px;
+  border-left: 3px solid var(--c-purple);
+}
+.captcha-hint svg { color: var(--c-purple); flex-shrink: 0; }
 
 .recaptcha-error {
   margin: 0.4rem 0 0;
@@ -747,44 +771,19 @@ button[type="submit"]:hover .send-icon {
   min-height: 1rem;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
-  .form-container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 1rem;
-  }
-  
-  .main-title {
-    font-size: 2rem;
-  }
-  
-  .sub-title {
-    font-size: 1.25rem;
-  }
-  
-  .form-card {
-    padding: 1.5rem;
-  }
-  
-  .form-section {
-    min-height: auto;
-    padding: 2rem 0;
-  }
+/* ===== RESPONSIVE — mobile-first overrides ===== */
+.main-title { font-size: clamp(1.75rem, 5vw, 3rem); }
+.sub-title  { font-size: clamp(1.15rem, 3vw, 1.5rem); }
+.form-card  { padding: 1.25rem; }
+.benefit-item { padding: 0.85rem; }
+
+@media (min-width: 768px) {
+  .form-card { padding: 1.5rem; }
+  .benefit-item { padding: 1rem; }
 }
 
-@media (max-width: 480px) {
-  .main-title {
-    font-size: 1.75rem;
-  }
-  
-  .form-card {
-    padding: 1rem;
-  }
-  
-  .benefit-item {
-    padding: 0.75rem;
-  }
+@media (min-width: 1024px) {
+  .form-card { padding: 2rem; }
 }
 
 /* ===== MODAL STYLES ===== */
@@ -908,24 +907,17 @@ button[type="submit"]:hover .send-icon {
   transform: translateY(0);
 }
 
-/* Responsive modal */
-@media (max-width: 768px) {
-  .modal-content {
-    width: 95%;
-    margin: 20px;
-  }
-  
-  .modal-body {
-    padding: 32px 24px 24px;
-  }
-  
-  .modal-title {
-    font-size: 20px;
-  }
-  
-  .modal-message {
-    font-size: 14px;
-  }
+/* Modal — mobile-first */
+.modal-content { width: 95%; margin: 20px; }
+.modal-body { padding: 32px 20px 24px; }
+.modal-title { font-size: 1.25rem; }
+.modal-message { font-size: 0.95rem; }
+
+@media (min-width: 768px) {
+  .modal-content { width: 90%; margin: 0; }
+  .modal-body { padding: 48px 32px 32px; }
+  .modal-title { font-size: 1.5rem; }
+  .modal-message { font-size: 1rem; }
 }
 </style>
 
@@ -935,12 +927,106 @@ button[type="submit"]:hover .send-icon {
     if (typeof window !== 'undefined' && window.i18nClient) {
       window.i18nClient.updateAllTranslations();
     } else {
-      // Wait for i18nReady event
       document.addEventListener('i18nReady', function() {
         if (window.i18nClient) {
           window.i18nClient.updateAllTranslations();
         }
       });
     }
+  });
+</script>
+
+<script>
+  /* Captcha condicional: solo aparece cuando los requeridos están completos.
+     Animación con Motion. Si Motion falla, fallback a class toggle simple. */
+  import { animate } from 'motion';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    const captcha = document.querySelector<HTMLElement>('[data-captcha]');
+    if (!form || !captcha) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const animateAny = animate as unknown as (...args: any[]) => any;
+
+    const requiredFields = ['name', 'phone', 'discovery_source'];
+    const consent = document.getElementById('sms-consent') as HTMLInputElement | null;
+
+    const isComplete = () => {
+      const allFilled = requiredFields.every((name) => {
+        const el = form.querySelector(`[name="${name}"]`) as HTMLInputElement | HTMLSelectElement | null;
+        return el && el.value.trim() !== '';
+      });
+      const consented = !!consent?.checked;
+      return allFilled && consented;
+    };
+
+    let isShown = false;
+
+    const showCaptcha = () => {
+      if (isShown) return;
+      isShown = true;
+      captcha.classList.add('is-visible');
+      captcha.setAttribute('aria-hidden', 'false');
+      const target = captcha.scrollHeight;
+      if (reducedMotion) {
+        captcha.style.height = 'auto';
+        captcha.style.opacity = '1';
+        return;
+      }
+      try {
+        animateAny(
+          captcha,
+          { height: ['0px', `${target}px`], opacity: [0, 1], y: [-6, 0] },
+          { duration: 0.42, easing: [0.22, 1, 0.36, 1] }
+        );
+        // Después de la animación dejarlo en height auto para que se adapte a cambios
+        window.setTimeout(() => {
+          if (isShown) captcha.style.height = 'auto';
+        }, 460);
+      } catch {
+        captcha.style.height = 'auto';
+        captcha.style.opacity = '1';
+      }
+    };
+
+    const hideCaptcha = () => {
+      if (!isShown) return;
+      isShown = false;
+      captcha.classList.remove('is-visible');
+      captcha.setAttribute('aria-hidden', 'true');
+      const current = captcha.offsetHeight;
+      if (reducedMotion) {
+        captcha.style.height = '0px';
+        captcha.style.opacity = '0';
+        return;
+      }
+      try {
+        animateAny(
+          captcha,
+          { height: [`${current}px`, '0px'], opacity: [1, 0] },
+          { duration: 0.28, easing: [0.4, 0, 0.2, 1] }
+        );
+      } catch {
+        captcha.style.height = '0px';
+        captcha.style.opacity = '0';
+      }
+    };
+
+    const check = () => {
+      if (isComplete()) showCaptcha();
+      else hideCaptcha();
+    };
+
+    requiredFields.forEach((name) => {
+      const el = form.querySelector(`[name="${name}"]`);
+      el?.addEventListener('input', check);
+      el?.addEventListener('change', check);
+      el?.addEventListener('blur', check);
+    });
+    consent?.addEventListener('change', check);
+
+    /* Por si el navegador autollena los campos */
+    window.setTimeout(check, 600);
   });
 </script>
