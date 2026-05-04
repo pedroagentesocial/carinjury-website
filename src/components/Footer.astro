@@ -13,7 +13,7 @@ const WRITE_REVIEW_URL = PLACE_ID
   ? `https://search.google.com/local/writereview?placeid=${PLACE_ID}`
   : ADDRESS_MAPS;
 
-const LOGO_SRC = '/assets/img/Car-Injury-Clinic-White.png';
+const LOGO_SRC = '/images/logo.png';
 
 const TOP_SERVICES = [
   { href: '/services#chiropractic',     key: 'nav.services_dropdown.chiropractic' },
@@ -34,7 +34,7 @@ const QUICK_LINKS = [
 ];
 ---
 
-<footer class="ft" aria-label="Pie de página">
+<footer class="ft" aria-label="Pie de página" data-footer>
   <!-- BANNER REVIEW -->
   <div class="ft-review">
     <div class="ft-review-inner">
@@ -67,7 +67,7 @@ const QUICK_LINKS = [
   <div class="ft-main">
     <div class="ft-grid">
       <!-- Brand + tagline + redes -->
-      <div class="ft-col ft-brand">
+      <div class="ft-col ft-brand ft-reveal">
         <a href="/" class="ft-logo" aria-label="Car Injury Clinic">
           <img src={LOGO_SRC} alt="Car Injury Clinic" loading="lazy" decoding="async" />
         </a>
@@ -90,7 +90,7 @@ const QUICK_LINKS = [
       </div>
 
       <!-- Servicios -->
-      <nav class="ft-col ft-nav" aria-label="Servicios">
+      <nav class="ft-col ft-nav ft-reveal" aria-label="Servicios">
         <h4 class="ft-heading" data-i18n="footer.services_label">{t('footer.services_label', currentLang)}</h4>
         <ul>
           {TOP_SERVICES.map((s) => (
@@ -106,7 +106,7 @@ const QUICK_LINKS = [
       </nav>
 
       <!-- Quick links -->
-      <nav class="ft-col ft-nav" aria-label="Enlaces rápidos">
+      <nav class="ft-col ft-nav ft-reveal" aria-label="Enlaces rápidos">
         <h4 class="ft-heading" data-i18n="footer.links_label">{t('footer.links_label', currentLang)}</h4>
         <ul>
           {QUICK_LINKS.map((l) => (
@@ -116,7 +116,7 @@ const QUICK_LINKS = [
       </nav>
 
       <!-- Contacto -->
-      <div class="ft-col ft-contact">
+      <div class="ft-col ft-contact ft-reveal">
         <h4 class="ft-heading" data-i18n="footer.contact_section">{t('footer.contact_section', currentLang)}</h4>
 
         <a class="ft-contact-row" href={ADDRESS_MAPS} target="_blank" rel="noopener">
@@ -464,4 +464,40 @@ const QUICK_LINKS = [
       transition: none !important;
     }
   }
+
+  /* === Reveal por columnas (stagger) === */
+  .ft-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    will-change: transform, opacity;
+  }
+  [data-footer].in-view .ft-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-footer].in-view .ft-reveal:nth-child(1) { transition-delay: 0s; }
+  [data-footer].in-view .ft-reveal:nth-child(2) { transition-delay: 0.1s; }
+  [data-footer].in-view .ft-reveal:nth-child(3) { transition-delay: 0.2s; }
+  [data-footer].in-view .ft-reveal:nth-child(4) { transition-delay: 0.3s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ft-reveal { opacity: 1; transform: none; transition: none; }
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const footer = document.querySelector<HTMLElement>('[data-footer]');
+    if (!footer) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          footer.classList.add('in-view');
+          io.disconnect();
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    io.observe(footer);
+  });
+</script>

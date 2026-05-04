@@ -229,9 +229,13 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
   </div>
 </div>
 
-<script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script is:inline define:vars={{ WEBHOOK_URL: import.meta.env.PUBLIC_WEBHOOK_URL }}>
+  /* === Form: init diferido hasta que la sección esté cerca del viewport === */
   (function(){
+    const formSection = document.getElementById('top-rated');
+    if (!formSection) return;
+
+    /* Fallback de texto del botón: barato y se queda fuera del init diferido */
     const btnText = document.getElementById('form-submit-text');
     function fixBtn() {
       const lang = (typeof window !== 'undefined' && localStorage.getItem('language')) || 'es';
@@ -247,6 +251,19 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
       const mo = new MutationObserver(() => fixBtn());
       if (btnText) mo.observe(btnText, { childList: true, subtree: true });
     }
+
+    let initialized = false;
+    function initForm() {
+      if (initialized) return;
+      initialized = true;
+
+      /* Carga diferida de reCAPTCHA — antes era un <script> de página */
+      const recaptcha = document.createElement('script');
+      recaptcha.src = 'https://www.google.com/recaptcha/api.js';
+      recaptcha.async = true;
+      recaptcha.defer = true;
+      document.head.appendChild(recaptcha);
+
     const discovery     = document.getElementById('discovery');
     const rowReferral   = document.getElementById('row-referral');
     const referralInput = document.getElementById('referral_name');
@@ -409,6 +426,28 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
           submitBtn.style.display = 'flex';
         }, 3000);
       });
+    }
+    } /* fin initForm */
+
+    /* Dispara init cuando el formulario está cerca del viewport (300px antes) */
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            initForm();
+            io.disconnect();
+            break;
+          }
+        }
+      }, { rootMargin: '300px 0px', threshold: 0 });
+      io.observe(formSection);
+    } else {
+      /* Fallback: navegadores sin IO inician al cargar */
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initForm);
+      } else {
+        initForm();
+      }
     }
   })();
 </script>

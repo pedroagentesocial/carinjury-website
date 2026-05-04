@@ -4,10 +4,10 @@ import { t, getCurrentLanguage } from '../i18n/index.ts';
 const currentLang = getCurrentLanguage();
 ---
 
-<section id="contact" class="contact-wrap">
+<section id="contact" class="contact-wrap" data-mapcontact>
   <div class="contact-inner">
     <!-- Columna: INFORMACIÓN -->
-    <div class="contact-info">
+    <div class="contact-info mc-reveal">
       <span class="chip" data-i18n="map_contact.info_label">{t('map_contact.info_label', currentLang)}</span>
 
       <h3 class="clinic-name">Car Injury Clinic</h3>
@@ -70,12 +70,12 @@ const currentLang = getCurrentLanguage();
       <!-- Logo morado (tintado con máscara) -->
       <div class="contact-logo" role="img" aria-label="Car Injury Clinic logo"></div>
       <!-- Si prefieres mantener la <img>, deja esta línea como referencia:
-      <img src="/assets/img/Car-Injury-Clinic-White.png" alt="Car Injury Clinic logo" class="contact-logo-img" width="260" height="260" decoding="async" />
+      <img src="/images/logo.png" alt="Car Injury Clinic logo" class="contact-logo-img" width="260" height="260" decoding="async" />
       -->
     </div>
 
     <!-- Columna: MAPA -->
-    <div class="contact-map">
+    <div class="contact-map mc-reveal">
       <!-- Etiqueta "Mapa" eliminada a petición -->
       <div class="map-frame">
         <iframe
@@ -153,7 +153,7 @@ const currentLang = getCurrentLanguage();
     background: #ffffff;
     border: 1px solid rgba(26,29,42,.08);
     border-radius: 16px;
-    padding: 16px 16px 170px; /* espacio para el logo */
+    padding: 16px 16px 130px; /* espacio para el logo */
     box-shadow: 0 18px 38px rgba(0,0,0,.12);
     color: #2b2140;
     overflow: visible;
@@ -255,13 +255,13 @@ const currentLang = getCurrentLanguage();
     position: absolute;
     left: 50%;                    /* ⬅ centrado horizontalmente */
     transform: translateX(-50%);  /* ⬅ centrado perfecto */
-    bottom: -42px;                /* ⬅ más abajo */
-    width: 220px;
-    height: 220px;
+    bottom: -20px;                /* ⬅ ajustado al nuevo tamaño */
+    width: 140px;
+    height: 140px;
     background: var(--c-plum);    /* color morado del texto */
     opacity: .95;                  /* opacidad para que destaque más */
-    -webkit-mask-image: url("/assets/img/Car-Injury-Clinic-White.png");
-  mask-image: url("/assets/img/Car-Injury-Clinic-White.png");
+    -webkit-mask-image: url("/CIC.svg");
+  mask-image: url("/CIC.svg");
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;
@@ -301,8 +301,8 @@ const currentLang = getCurrentLanguage();
       padding: 0 20px;
     }
     .map-frame{ min-height: 360px; }
-    .contact-info{ padding-bottom: 190px; padding: 20px 20px 190px; }
-    .contact-logo{ right: -110px; bottom: -34px; width: 240px; height: 240px; }
+    .contact-info{ padding-bottom: 140px; padding: 20px 20px 140px; }
+    .contact-logo{ bottom: -20px; width: 150px; height: 150px; }
     
     .clinic-name{
       font-size: 1.4rem;
@@ -347,9 +347,41 @@ const currentLang = getCurrentLanguage();
     }
     
     .contact-logo{
-      width: 180px;
-      height: 180px;
-      left: 10rem;
+      width: 120px;
+      height: 120px;
     }
   }
+
+  /* === Reveal: dispara al entrar al viewport === */
+  .mc-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: transform, opacity;
+  }
+  [data-mapcontact].in-view .mc-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-mapcontact].in-view .contact-map.mc-reveal { transition-delay: 0.15s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mc-reveal { opacity: 1; transform: none; transition: none; }
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector<HTMLElement>('[data-mapcontact]');
+    if (!section) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          section.classList.add('in-view');
+          io.disconnect();
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    io.observe(section);
+  });
+</script>

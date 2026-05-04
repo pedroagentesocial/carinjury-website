@@ -5,15 +5,23 @@ const currentLang = getCurrentLanguage();
 const videoSrc = '/video/clinic.mp4';
 ---
 
-<section id="about" class="about-video">
-  <video src={videoSrc} autoplay muted loop playsinline class="about-video-element"></video>
+<section id="about" class="about-video" data-about-video>
+  <video
+    data-src={videoSrc}
+    muted
+    loop
+    playsinline
+    preload="none"
+    class="about-video-element"
+    aria-hidden="true"
+  ></video>
 
   <div class="about-panel">
-    <h1 data-i18n="about_video.title" class="title-with-breaks">{t('about_video.title', currentLang)}</h1>
-    <p class="about-copy" data-i18n="about_video.tagline">{t('about_video.tagline', currentLang)}</p>
+    <h1 data-i18n="about_video.title" class="title-with-breaks about-reveal">{t('about_video.title', currentLang)}</h1>
+    <p class="about-copy about-reveal" data-i18n="about_video.tagline">{t('about_video.tagline', currentLang)}</p>
 
     <!-- Botón debajo del texto -->
-    <a href="/schedule" class="btn-about" data-i18n="about_video.contact_button">{t('about_video.contact_button', currentLang)}</a>
+    <a href="/schedule" class="btn-about about-reveal" data-i18n="about_video.contact_button">{t('about_video.contact_button', currentLang)}</a>
   </div>
 </section>
 
@@ -85,19 +93,24 @@ const videoSrc = '/video/clinic.mp4';
   margin-top: 0;
   line-height: 1.2;
   text-align: center;
-  will-change: transform, opacity;
-  animation: fadeInUp 1s ease-out;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* === Reveal inicial oculto; motion lo dispara al entrar al viewport === */
+.about-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: transform, opacity;
+}
+[data-about-video].in-view .about-reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-about-video].in-view .about-reveal:nth-child(2) { transition-delay: 0.12s; }
+[data-about-video].in-view .about-reveal:nth-child(3) { transition-delay: 0.24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .about-reveal { opacity: 1; transform: none; }
 }
 
 /* === Párrafo === */
@@ -217,3 +230,34 @@ const videoSrc = '/video/clinic.mp4';
   }
 }
 </style>
+
+<script>
+  /* Lazy-load del video + reveal del contenido al entrar al viewport */
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector<HTMLElement>('[data-about-video]');
+    if (!section) return;
+    const video = section.querySelector<HTMLVideoElement>('.about-video-element');
+
+    const loadAndPlay = () => {
+      if (!video) return;
+      if (!video.src && video.dataset.src) {
+        video.src = video.dataset.src;
+        video.load();
+      }
+      video.play().catch(() => { /* autoplay bloqueado, ignorar */ });
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          section.classList.add('in-view');
+          loadAndPlay();
+        } else if (video) {
+          video.pause();
+        }
+      });
+    }, { rootMargin: '200px 0px', threshold: 0.05 });
+
+    io.observe(section);
+  });
+</script>

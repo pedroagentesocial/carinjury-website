@@ -6,29 +6,29 @@ const currentLang = getCurrentLanguage();
 const videoSrc = '/video/legal-help.mp4'; 
 ---
 
-<section id="legal" class="legal-hero">
-  <!-- Video de fondo -->
-  <video src={videoSrc} autoplay muted loop playsinline></video>
-  
+<section id="legal" class="legal-hero" data-legal-video>
+  <!-- Video de fondo (lazy: se carga al entrar al viewport) -->
+  <video data-src={videoSrc} muted loop playsinline preload="none" aria-hidden="true"></video>
+
   <!-- Capa oscura -->
   <div class="legal-hero__scrim"></div>
 
   <!-- Contenido -->
   <div class="legal-hero__content">
-    <h1 data-i18n="legal_video.title">{t('legal_video.title', currentLang)}</h1>
-    <p class="legal-hero__text" data-i18n="legal_video.description">
+    <h1 class="legal-reveal" data-i18n="legal_video.title">{t('legal_video.title', currentLang)}</h1>
+    <p class="legal-hero__text legal-reveal" data-i18n="legal_video.description">
       {t('legal_video.description', currentLang)}
     </p>
 
     <!-- Botón principal degradado con destello -->
-    <a href="/schedule" class="btn-about cta-arrow">
+    <a href="/schedule" class="btn-about cta-arrow legal-reveal">
       <span data-i18n="legal_video.cta_button">{t('legal_video.cta_button', currentLang)}</span>
       <svg class="ico" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-        <path d="M5 12h12m0 0l-4-4m4 4l-4 4" 
-              fill="none" 
-              stroke="currentColor" 
-              stroke-width="2" 
-              stroke-linecap="round" 
+        <path d="M5 12h12m0 0l-4-4m4 4l-4 4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
               stroke-linejoin="round"/>
       </svg>
     </a>
@@ -173,37 +173,22 @@ const videoSrc = '/video/legal-help.mp4';
     line-height: 1.6;
   }
 
-  /* === Animaciones de entrada === */
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* === Reveal: se dispara al entrar al viewport (no en page load) === */
+  .legal-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: transform, opacity;
   }
-
-  .legal-hero__content h1 {
-    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+  [data-legal-video].in-view .legal-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
+  [data-legal-video].in-view .legal-reveal:nth-child(2) { transition-delay: 0.15s; }
+  [data-legal-video].in-view .legal-reveal:nth-child(3) { transition-delay: 0.3s; }
 
-  .legal-hero__content p {
-    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
-  }
-
-  .btn-about {
-    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s both;
-  }
-
-  /* Reducir animaciones en dispositivos que lo prefieren */
   @media (prefers-reduced-motion: reduce) {
-    .legal-hero__content h1,
-    .legal-hero__content p,
-    .btn-about {
-      animation: none;
-    }
+    .legal-reveal { opacity: 1; transform: none; transition: none; }
   }
 
   @media (min-width: 768px) {
@@ -225,3 +210,34 @@ const videoSrc = '/video/legal-help.mp4';
     .btn-about { font-size: 1rem; padding: .75rem 1.1rem; }
   }
 </style>
+
+<script>
+  /* Lazy-load del video + reveal del contenido al entrar al viewport */
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector<HTMLElement>('[data-legal-video]');
+    if (!section) return;
+    const video = section.querySelector<HTMLVideoElement>('video');
+
+    const loadAndPlay = () => {
+      if (!video) return;
+      if (!video.src && video.dataset.src) {
+        video.src = video.dataset.src;
+        video.load();
+      }
+      video.play().catch(() => { /* autoplay bloqueado, ignorar */ });
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          section.classList.add('in-view');
+          loadAndPlay();
+        } else if (video) {
+          video.pause();
+        }
+      });
+    }, { rootMargin: '200px 0px', threshold: 0.05 });
+
+    io.observe(section);
+  });
+</script>

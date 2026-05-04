@@ -1,179 +1,188 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
-import FinalCTA from '../components/FinalCTA.astro';
 import MapContact from '../components/MapContact.astro';
 
 import { t, getCurrentLanguage } from '../i18n/index.ts';
 
 const currentLang = getCurrentLanguage();
 
-const mapSrc =
-  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3026.909828347032!2d-111.96001532440677!3d40.6621170713987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87528477e6ebc9c9%3A0x7c5f3a11eda255ad!2s2997%20W%204700%20S%2C%20Taylorsville%2C%20UT%2084129!5e0!3m2!1sen!2sus!4v1699999999999';
+/* ===================================================================
+   FAQ — Hero aurora + búsqueda en vivo + chips de filtro +
+   acordeón single-open con grid-template-rows transition.
+=================================================================== */
+
+type FaqCategory = 'first_steps' | 'legal' | 'compensation';
+
+type FaqItem = { id: string; cat: FaqCategory };
+
+/* Reagrupados semánticamente; los keys siguen siendo q1..q9 (sin tocar contenido) */
+const items: FaqItem[] = [
+  { id: 'q2', cat: 'first_steps' },
+  { id: 'q1', cat: 'first_steps' },
+
+  { id: 'q4', cat: 'legal' },
+  { id: 'q6', cat: 'legal' },
+  { id: 'q8', cat: 'legal' },
+
+  { id: 'q3', cat: 'compensation' },
+  { id: 'q7', cat: 'compensation' },
+  { id: 'q5', cat: 'compensation' },
+  { id: 'q9', cat: 'compensation' },
+];
+
+const categories: { id: 'all' | FaqCategory }[] = [
+  { id: 'all' },
+  { id: 'first_steps' },
+  { id: 'legal' },
+  { id: 'compensation' },
+];
+
+const PHONE_DISPLAY = '385-242-8571';
+const PHONE_TEL = '+13852428571';
 ---
 
 <Layout title={t('faq_page.meta_title', currentLang)}>
-  <!-- Hero section -->
-  <header class="hero-min">
-    <div class="hero-min__bg" aria-hidden="true"></div>
-    <div class="container hero-min__content">
-      <h1 data-i18n="faq_page.hero.title">{t('faq_page.hero.title', currentLang)}</h1>
+  <!-- ===== HERO AURORA (consistente con HeroServices) ===== -->
+  <header class="fq-hero" data-fq-hero>
+    <div class="fq-bg" aria-hidden="true">
+      <span class="fq-orb fq-orb-1"></span>
+      <span class="fq-orb fq-orb-2"></span>
+      <span class="fq-orb fq-orb-3"></span>
+      <span class="fq-grid"></span>
+      <span class="fq-vignette"></span>
     </div>
+
+    <div class="fq-hero-content">
+      <span class="fq-badge">
+        <span class="fq-dot" aria-hidden="true"></span>
+        <span data-i18n="faq_page.hero.badge">{t('faq_page.hero.badge', currentLang)}</span>
+      </span>
+      <h1 class="fq-hero-title" data-i18n="faq_page.hero.title">{t('faq_page.hero.title', currentLang)}</h1>
+      <p class="fq-hero-sub" data-i18n="faq_page.hero.subtitle">{t('faq_page.hero.subtitle', currentLang)}</p>
+    </div>
+
+    <span class="fq-fade" aria-hidden="true"></span>
   </header>
 
-  <!-- Sección de introducción -->
-  <section class="intro-section">
-    <div class="container">
-      <div class="intro-content">
-        <h2 class="section-title" data-i18n="faq_page.intro.title">{t('faq_page.intro.title', currentLang)}</h2>
+  <!-- ===== TOOLBAR: búsqueda + chips ===== -->
+  <section class="fq-toolbar" aria-label={t('faq_page.search.label', currentLang)}>
+    <div class="fq-toolbar-inner">
+      <div class="fq-search">
+        <svg class="fq-search-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M21 21l-4.35-4.35" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input
+          id="fq-search-input"
+          type="search"
+          autocomplete="off"
+          aria-label={t('faq_page.search.label', currentLang)}
+          placeholder={t('faq_page.search.placeholder', currentLang)}
+          data-i18n-attr={JSON.stringify({ placeholder: 'faq_page.search.placeholder', 'aria-label': 'faq_page.search.label' })}
+        />
+        <button class="fq-clear" type="button" id="fq-clear" hidden aria-label={t('faq_page.search.clear', currentLang)} data-i18n-aria-label="faq_page.search.clear">
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="fq-chips" role="tablist">
+        {categories.map((c, i) => (
+          <button
+            class={`fq-chip${i === 0 ? ' is-active' : ''}`}
+            type="button"
+            role="tab"
+            aria-selected={i === 0 ? 'true' : 'false'}
+            data-cat={c.id}
+            data-i18n={`faq_page.categories.${c.id}`}
+          >
+            {t(`faq_page.categories.${c.id}`, currentLang)}
+          </button>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="faq-section">
-    <div class="container">
-      <div class="faq-wrapper">
-        <div class="faq-item">
-          <details class="faq-details">
-            <summary class="faq-question">
-              <span class="question-text" data-i18n="faq_page.questions.q1.question">{t('faq_page.questions.q1.question', currentLang)}</span>
-              <span class="question-icon"></span>
+  <!-- ===== LISTA DE PREGUNTAS ===== -->
+  <section class="fq-section">
+    <div class="fq-list" id="fq-list">
+      {items.map((it) => (
+        <article
+          class="fq-item"
+          data-cat={it.cat}
+          data-text={`${t(`faq_page.questions.${it.id}.question`, currentLang)} ${t(`faq_page.questions.${it.id}.answer`, currentLang)}`}
+        >
+          <details class="fq-details">
+            <summary class="fq-summary">
+              <span class="fq-q-text" data-i18n={`faq_page.questions.${it.id}.question`}>
+                {t(`faq_page.questions.${it.id}.question`, currentLang)}
+              </span>
+              <span class="fq-chev" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="14" height="14">
+                  <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </summary>
-            <div class="faq-answer">
-              <div class="answer-content">
-                <p data-i18n="faq_page.questions.q1.answer">{t('faq_page.questions.q1.answer', currentLang)}</p>
+            <div class="fq-answer-wrap">
+              <div class="fq-answer">
+                <p data-i18n={`faq_page.questions.${it.id}.answer`}>
+                  {t(`faq_page.questions.${it.id}.answer`, currentLang)}
+                </p>
               </div>
             </div>
           </details>
-        </div>
+        </article>
+      ))}
+    </div>
 
-        <div class="faq-item">
-          <details class="faq-details">
-            <summary class="faq-question">
-              <span class="question-text" data-i18n="faq_page.questions.q2.question">{t('faq_page.questions.q2.question', currentLang)}</span>
-              <span class="question-icon"></span>
-            </summary>
-            <div class="faq-answer">
-              <div class="answer-content">
-                <p data-i18n="faq_page.questions.q2.answer">{t('faq_page.questions.q2.answer', currentLang)}</p>
-              </div>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-details">
-            <summary class="faq-question">
-              <span class="question-text" data-i18n="faq_page.questions.q3.question">{t('faq_page.questions.q3.question', currentLang)}</span>
-              <span class="question-icon"></span>
-            </summary>
-            <div class="faq-answer">
-              <div class="answer-content">
-                <p data-i18n="faq_page.questions.q3.answer">{t('faq_page.questions.q3.answer', currentLang)}</p>
-              </div>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-details">
-            <summary class="faq-question">
-              <span class="question-text" data-i18n="faq_page.questions.q4.question">{t('faq_page.questions.q4.question', currentLang)}</span>
-              <span class="question-icon"></span>
-            </summary>
-            <div class="faq-answer">
-              <div class="answer-content">
-                <p data-i18n="faq_page.questions.q4.answer">{t('faq_page.questions.q4.answer', currentLang)}</p>
-              </div>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-details">
-            <summary class="faq-question">
-              <span class="question-text" data-i18n="faq_page.questions.q5.question">{t('faq_page.questions.q5.question', currentLang)}</span>
-              <span class="question-icon"></span>
-            </summary>
-            <div class="faq-answer">
-              <div class="answer-content">
-                <p data-i18n="faq_page.questions.q5.answer">{t('faq_page.questions.q5.answer', currentLang)}</p>
-              </div>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-details">
-            <summary class="faq-question">
-              <span class="question-text" data-i18n="faq_page.questions.q6.question">{t('faq_page.questions.q6.question', currentLang)}</span>
-              <span class="question-icon"></span>
-            </summary>
-            <div class="faq-answer">
-              <div class="answer-content">
-                <p data-i18n="faq_page.questions.q6.answer">{t('faq_page.questions.q6.answer', currentLang)}</p>
-              </div>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-details">
-            <summary class="faq-question">
-              <span class="question-text" data-i18n="faq_page.questions.q7.question">{t('faq_page.questions.q7.question', currentLang)}</span>
-              <span class="question-icon"></span>
-            </summary>
-            <div class="faq-answer">
-              <div class="answer-content">
-                <p data-i18n="faq_page.questions.q7.answer">{t('faq_page.questions.q7.answer', currentLang)}</p>
-              </div>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-details">
-            <summary class="faq-question">
-              <span class="question-text" data-i18n="faq_page.questions.q8.question">{t('faq_page.questions.q8.question', currentLang)}</span>
-              <span class="question-icon"></span>
-            </summary>
-            <div class="faq-answer">
-              <div class="answer-content">
-                <p data-i18n="faq_page.questions.q8.answer">{t('faq_page.questions.q8.answer', currentLang)}</p>
-              </div>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-item">
-          <details class="faq-details">
-            <summary class="faq-question">
-              <span class="question-text" data-i18n="faq_page.questions.q9.question">{t('faq_page.questions.q9.question', currentLang)}</span>
-              <span class="question-icon"></span>
-            </summary>
-            <div class="faq-answer">
-              <div class="answer-content">
-                <p data-i18n="faq_page.questions.q9.answer">{t('faq_page.questions.q9.answer', currentLang)}</p>
-              </div>
-            </div>
-          </details>
-        </div>
-      </div>
+    <!-- Empty state -->
+    <div class="fq-empty" id="fq-empty" hidden>
+      <svg viewBox="0 0 24 24" width="44" height="44" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M21 21l-4.35-4.35M8 11h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <h3 class="fq-empty-title" data-i18n="faq_page.search.no_results_title">{t('faq_page.search.no_results_title', currentLang)}</h3>
+      <p class="fq-empty-sub" data-i18n="faq_page.search.no_results_sub">{t('faq_page.search.no_results_sub', currentLang)}</p>
     </div>
   </section>
 
-  <FinalCTA />
-  
+  <!-- ===== BLOQUE DE AYUDA (closer) ===== -->
+  <section class="fq-help" data-fq-help>
+    <div class="fq-help-glow" aria-hidden="true"></div>
+    <h2 class="fq-help-title" data-i18n="faq_page.help.title">{t('faq_page.help.title', currentLang)}</h2>
+    <p class="fq-help-sub" data-i18n="faq_page.help.sub">{t('faq_page.help.sub', currentLang)}</p>
+    <div class="fq-help-actions">
+      <a class="fq-btn fq-btn-primary" href="/schedule" data-magnetic>
+        <span data-i18n="faq_page.help.cta">{t('faq_page.help.cta', currentLang)}</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <path d="M5 12h14m0 0l-5-5m5 5l-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a
+        class="fq-btn fq-btn-ghost"
+        href={`tel:${PHONE_TEL}`}
+        aria-label={t('faq_page.help.call_label', currentLang)}
+        data-i18n-aria-label="faq_page.help.call_label"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path d="M22 16.92v2a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 3.8 2 2 0 0 1 4.11 2h2a2 2 0 0 1 2 1.72c.12.9.31 1.78.57 2.63a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.45-1.17a2 2 0 0 1 2.11-.45c.85.26 1.73.45 2.63.57A2 2 0 0 1 22 16.92Z" fill="currentColor"/>
+        </svg>
+        <span>{PHONE_DISPLAY}</span>
+      </a>
+    </div>
+  </section>
+
   <div style="margin-top: -2rem;">
     <MapContact />
   </div>
 
   <Footer />
-
 </Layout>
 
 <script is:inline>
+  /* Re-aplica traducciones cuando i18nClient esté listo */
   (function () {
     var update = function () { if (window.i18nClient) window.i18nClient.updateAllTranslations(); };
     if (window.i18nClient) update();
@@ -181,319 +190,650 @@ const mapSrc =
   })();
 </script>
 
+<script>
+  import { animate, inView, stagger } from 'motion';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+    const animateAny = animate as unknown as (...args: any[]) => any;
+
+    const list = document.getElementById('fq-list');
+    const empty = document.getElementById('fq-empty');
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.fq-item'));
+    const detailsAll = items.map((i) => i.querySelector('details') as HTMLDetailsElement);
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.fq-chip'));
+    const input = document.getElementById('fq-search-input') as HTMLInputElement | null;
+    const clearBtn = document.getElementById('fq-clear') as HTMLButtonElement | null;
+
+    let activeCat: 'all' | string = 'all';
+    let query = '';
+
+    /* === Filtro combinado: categoría + búsqueda === */
+    const applyFilter = () => {
+      let visibleCount = 0;
+      const q = query.trim().toLowerCase();
+      items.forEach((it) => {
+        const matchesCat = activeCat === 'all' || it.dataset.cat === activeCat;
+        const text = (it.dataset.text || '').toLowerCase();
+        const matchesQ = !q || text.includes(q);
+        const visible = matchesCat && matchesQ;
+        it.hidden = !visible;
+        if (visible) visibleCount++;
+      });
+      if (empty) empty.hidden = visibleCount > 0;
+    };
+
+    /* === Búsqueda === */
+    if (input && clearBtn) {
+      input.addEventListener('input', () => {
+        query = input.value;
+        clearBtn.hidden = query.length === 0;
+        applyFilter();
+      });
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        query = '';
+        clearBtn.hidden = true;
+        applyFilter();
+        input.focus();
+      });
+    }
+
+    /* === Chips de categoría === */
+    chips.forEach((c) => {
+      c.addEventListener('click', () => {
+        chips.forEach((other) => {
+          const isActive = other === c;
+          other.classList.toggle('is-active', isActive);
+          other.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        activeCat = c.dataset.cat || 'all';
+        applyFilter();
+      });
+    });
+
+    /* === Acordeón single-open === */
+    detailsAll.forEach((d) => {
+      d.addEventListener('toggle', () => {
+        if (d.open) {
+          detailsAll.forEach((other) => {
+            if (other !== d && other.open) other.open = false;
+          });
+        }
+      });
+    });
+
+    /* === Reveal con stagger al entrar al viewport (una sola vez) === */
+    if (!reducedMotion && list) {
+      try {
+        inView(list, () => {
+          animateAny(
+            items,
+            { opacity: [0, 1], y: [22, 0] },
+            { duration: 0.55, delay: stagger(0.05), easing: [0.22, 1, 0.36, 1] }
+          );
+        }, { amount: 0.05 });
+      } catch {
+        items.forEach((i) => { i.style.opacity = '1'; i.style.transform = 'none'; });
+      }
+
+      const help = document.querySelector<HTMLElement>('[data-fq-help]');
+      if (help) {
+        try {
+          inView(help, () => {
+            animateAny(help, { opacity: [0, 1], y: [28, 0] }, { duration: 0.7, easing: [0.22, 1, 0.36, 1] });
+          }, { amount: 0.2 });
+        } catch {
+          help.style.opacity = '1';
+          help.style.transform = 'none';
+        }
+      }
+    } else {
+      items.forEach((i) => { i.style.opacity = '1'; i.style.transform = 'none'; });
+    }
+
+    /* === Magnetic CTA en el bloque de ayuda === */
+    if (!reducedMotion && canHover) {
+      document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((btn) => {
+        const strength = 0.22;
+        let raf = 0;
+        let nx = 0, ny = 0;
+        const onMove = (e: PointerEvent) => {
+          const rect = btn.getBoundingClientRect();
+          nx = (e.clientX - rect.left - rect.width / 2) * strength;
+          ny = (e.clientY - rect.top - rect.height / 2) * strength;
+          if (raf) return;
+          raf = requestAnimationFrame(() => {
+            btn.style.transform = `translate3d(${nx}px, ${ny}px, 0)`;
+            raf = 0;
+          });
+        };
+        btn.addEventListener('pointermove', onMove, { passive: true });
+        btn.addEventListener('pointerleave', () => {
+          if (raf) cancelAnimationFrame(raf);
+          btn.style.transform = '';
+          raf = 0;
+        });
+      });
+    }
+
+    /* === Pausar animaciones del hero cuando no es visible === */
+    const hero = document.querySelector<HTMLElement>('[data-fq-hero]');
+    if (hero) {
+      const animated = hero.querySelectorAll<HTMLElement>('.fq-orb, .fq-dot');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          animated.forEach((el) => {
+            el.style.animationPlayState = e.isIntersecting ? 'running' : 'paused';
+          });
+        });
+      }, { threshold: 0 });
+      io.observe(hero);
+    }
+  });
+</script>
+
 <style>
-  /* ===== Variables / paleta del proyecto ===== */
-  :root{
-    --c1:#CEC6E2;  /* luz */
-    --c2:#806AAA;  /* medio */
-    --c3:#7A2E87;  /* oscuro */
-    --c4:#BA93C2;  /* brand */
-
-    --ink:#1A1D2A;
-    --muted:#6B6F85;
-    --surface:#ffffff;
-    --line: rgba(26,29,42,.12);
-    
-    --hero-bg: linear-gradient(135deg, var(--c3) 0%, var(--c4) 100%);
-    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-    --card-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.18);
-    --animation-duration: 0.6s;
-    --animation-ease: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .container{ max-width:1200px; margin:0 auto; padding:0 16px; }
-
-  /* ===== HERO MIN ===== */
-   .hero-min{ position:relative; color:#fff; isolation:isolate; overflow:hidden; }
-   .hero-min__bg{ position:absolute; inset:0; z-index:0; background: var(--c3); }
-   .hero-min__content{ position:relative; z-index:1; padding: 120px 0 36px; text-align:center; opacity: 0; animation: fadeInUp 1s ease-out 0.3s forwards; }
-   .hero-min__content h1{
-     font-family:'Manrope',system-ui,sans-serif; font-weight:900;
-     font-size: clamp(2.5rem, 5vw, 4rem); margin:0; text-align: center;
-     line-height: 1.1;
-   }
-   .hero-min__content p{
-     font-family:'Source Sans 3',system-ui,sans-serif; font-weight:700; margin:0; opacity:.96; text-align: center !important;
-     width: 100%;
-     display: block;
-     max-width: none !important;
-     margin-left: 0 !important;
-     margin-right: 0 !important;
-   }
-
-  /* ===== INTRO SECTION ===== */
-   .intro-section {
-     padding: clamp(24px, 3vw, 40px) 0;
-     background: linear-gradient(180deg, #faf8fc 0%, #ffffff 100%);
-     text-align: center;
-   }
-
-   .intro-content {
-     max-width: 800px;
-     margin: 0 auto;
-     opacity: 0;
-     animation: fadeInUp 0.8s ease-out 0.6s forwards;
-   }
-
-   .section-title {
-     font-family: 'Manrope', system-ui, sans-serif;
-     font-weight: 900;
-     font-size: clamp(1.8rem, 4vw, 2.5rem);
-     color: var(--c3);
-     margin: 0 0 1rem;
-     line-height: 1.2;
-     text-align: center;
-   }
-
-   .section-description {
-     font-family: 'Source Sans 3', system-ui, sans-serif;
-     font-size: 1.1rem;
-     line-height: 1.6;
-     color: var(--muted);
-     margin: 0;
-     text-align: center;
-   }
-
-  /* ===== FAQ SECTION ===== */
-  .faq-section {
-    padding: clamp(48px, 6vw, 80px) 0;
-    background: var(--surface);
+  /* ============== TOKENS ============== */
+  :root {
+    --fq-purple-deep: #1f0d2a;
+    --fq-purple-base: #3a1547;
+    --fq-purple-mid:  #5d2167;
+    --fq-purple-warm: #7A2E87;
+    --fq-rose:        #BA93C2;
+    --fq-lilac:       #CEC6E2;
+    --fq-content-max: 880px;
+    --fq-pad-x: clamp(1rem, 4vw, 2rem);
+    --fq-ink: #1A1D2A;
+    --fq-muted: #5b5670;
+    --fq-line: rgba(122, 46, 135, 0.12);
   }
 
-  .faq-wrapper {
-    max-width: 900px;
+  /* ============== HERO AURORA ============== */
+  .fq-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #fff;
+    font-family: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: radial-gradient(ellipse 90% 70% at 50% 0%, var(--fq-purple-warm) 0%, var(--fq-purple-base) 40%, var(--fq-purple-deep) 100%);
+    min-height: clamp(360px, 50vh, 520px);
+    display: grid;
+    place-items: center;
+    padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem) clamp(4rem, 9vw, 6rem);
+    contain: layout paint;
+  }
+  .fq-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .fq-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(72px);
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+  }
+  .fq-orb-1 {
+    width: clamp(300px, 44vw, 540px);
+    height: clamp(300px, 44vw, 540px);
+    top: -8%;
+    left: -10%;
+    background: radial-gradient(circle, var(--fq-rose) 0%, transparent 65%);
+    opacity: 0.55;
+    animation: fqOrb1 38s ease-in-out infinite alternate;
+  }
+  .fq-orb-2 {
+    width: clamp(340px, 48vw, 620px);
+    height: clamp(340px, 48vw, 620px);
+    top: 15%;
+    right: -14%;
+    background: radial-gradient(circle, var(--fq-purple-warm) 0%, transparent 65%);
+    opacity: 0.45;
+    animation: fqOrb2 46s ease-in-out infinite alternate;
+  }
+  .fq-orb-3 {
+    width: clamp(260px, 38vw, 480px);
+    height: clamp(260px, 38vw, 480px);
+    bottom: -18%;
+    left: 32%;
+    background: radial-gradient(circle, var(--fq-lilac) 0%, transparent 65%);
+    opacity: 0.32;
+    animation: fqOrb3 52s ease-in-out infinite alternate;
+  }
+  @keyframes fqOrb1 { from { transform: translate3d(0,0,0) scale(1);} to { transform: translate3d(40px,30px,0) scale(1.1);} }
+  @keyframes fqOrb2 { from { transform: translate3d(0,0,0) scale(1);} to { transform: translate3d(-50px,36px,0) scale(0.95);} }
+  @keyframes fqOrb3 { from { transform: translate3d(0,0,0) scale(1);} to { transform: translate3d(20px,-40px,0) scale(1.08);} }
+
+  .fq-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 45%, #000 0%, transparent 75%);
+    mask-image: radial-gradient(ellipse 70% 65% at 50% 45%, #000 0%, transparent 75%);
+    opacity: 0.85;
+  }
+  .fq-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 100% 80% at 50% 50%, transparent 35%, rgba(31,13,42,0.55) 100%);
+  }
+
+  .fq-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.85rem, 1.4vw, 1.15rem);
+  }
+  .fq-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0.95rem 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(255,255,255,0.92);
+    font-weight: 800;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    animation: fqRise 0.7s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .fq-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--fq-rose);
+    box-shadow: 0 0 0 0 rgba(186,147,194,0.65);
+    animation: fqPulse 2.4s ease-in-out infinite;
+    will-change: box-shadow;
+  }
+  @keyframes fqPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(186,147,194,0.55); }
+    50%      { box-shadow: 0 0 0 9px rgba(186,147,194,0); }
+  }
+  .fq-hero-title {
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 0;
+    text-wrap: balance;
+    background: linear-gradient(135deg, #fff 0%, #efe2f4 50%, #fff 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    animation: fqRise 0.85s cubic-bezier(0.22,1,0.36,1) 0.08s both;
+  }
+  .fq-hero-sub {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: clamp(1rem, 1.7vw, 1.15rem);
+    line-height: 1.55;
+    color: rgba(255,255,255,0.78);
+    max-width: 56ch;
+    margin: 0;
+    text-wrap: pretty;
+    animation: fqRise 0.85s cubic-bezier(0.22,1,0.36,1) 0.16s both;
+  }
+  @keyframes fqRise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fq-fade {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 80px;
+    background: linear-gradient(180deg, transparent 0%, rgba(31,13,42,0.6) 70%, rgba(31,13,42,0.85) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ============== TOOLBAR (búsqueda + chips) ============== */
+  .fq-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border-bottom: 1px solid var(--fq-line);
+  }
+  .fq-toolbar-inner {
+    max-width: var(--fq-content-max);
+    margin: 0 auto;
+    padding: 0.85rem var(--fq-pad-x);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  @media (min-width: 720px) {
+    .fq-toolbar-inner { flex-direction: row; align-items: center; gap: 0.9rem; }
+  }
+
+  /* Search */
+  .fq-search {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+  }
+  .fq-search-ico {
+    position: absolute;
+    left: 0.95rem;
+    color: var(--fq-purple-warm);
+    pointer-events: none;
+  }
+  .fq-search input {
+    width: 100%;
+    padding: 0.7rem 2.5rem 0.7rem 2.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--fq-line);
+    background: #fff;
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    font-size: 0.96rem;
+    color: var(--fq-ink);
+    transition: border-color 0.22s ease, box-shadow 0.22s ease;
+  }
+  .fq-search input::placeholder { color: var(--fq-muted); }
+  .fq-search input:focus {
+    outline: none;
+    border-color: var(--fq-purple-warm);
+    box-shadow: 0 0 0 4px rgba(122,46,135,0.12);
+  }
+  .fq-clear {
+    position: absolute;
+    right: 0.55rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(122,46,135,0.08);
+    color: var(--fq-purple-warm);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+  }
+  .fq-clear:hover { background: rgba(122,46,135,0.18); }
+
+  /* Chips */
+  .fq-chips {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .fq-chips::-webkit-scrollbar { display: none; }
+  .fq-chip {
+    flex: 0 0 auto;
+    padding: 0.5rem 0.95rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.6);
+    color: var(--fq-purple-warm);
+    border: 1px solid var(--fq-line);
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 0.82rem;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.18s ease;
+  }
+  .fq-chip:hover { transform: translateY(-1px); border-color: rgba(122,46,135,0.3); }
+  .fq-chip.is-active {
+    background: var(--fq-purple-warm);
+    color: #fff;
+    border-color: var(--fq-purple-warm);
+    box-shadow: 0 6px 18px rgba(122,46,135,0.32);
+  }
+
+  /* ============== LIST ============== */
+  .fq-section {
+    position: relative;
+    padding: clamp(1.75rem, 4vw, 2.5rem) var(--fq-pad-x) clamp(2rem, 5vw, 3rem);
+    background: linear-gradient(180deg, #fff 0%, #faf8fc 100%);
+  }
+  .fq-list {
+    max-width: var(--fq-content-max);
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
-  .faq-item {
-    background: white;
+  .fq-item {
+    background: #fff;
+    border: 1px solid var(--fq-line);
     border-radius: 16px;
-    border: 1px solid var(--line);
     overflow: hidden;
-    transition: all 0.3s var(--animation-ease);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.25s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  .fq-item:hover {
+    border-color: rgba(122,46,135,0.25);
+    box-shadow: 0 8px 24px rgba(89,33,111,0.08);
+  }
+  .fq-item:has(details[open]) {
+    border-color: rgba(122,46,135,0.35);
+    box-shadow: 0 12px 32px rgba(89,33,111,0.12);
   }
 
-  .faq-item:hover {
-    box-shadow: var(--card-shadow);
-    transform: translateY(-2px);
+  /* Acento lateral cuando está abierto */
+  .fq-details {
+    position: relative;
   }
-
-  .faq-details {
-    border: none;
-    outline: none;
+  .fq-details::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--fq-rose), var(--fq-purple-warm));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);
+    border-radius: 3px;
   }
+  .fq-details[open]::before { transform: scaleY(1); }
 
-  .faq-details[open] .faq-item {
-    border-color: var(--c3);
-  }
-
-  .faq-question {
+  /* Summary */
+  .fq-summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 2rem;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
     cursor: pointer;
     list-style: none;
-    background: transparent;
-    border: none;
-    width: 100%;
-    text-align: center;
-    transition: all 0.3s var(--animation-ease);
-    position: relative;
+  }
+  .fq-summary::-webkit-details-marker { display: none; }
+  .fq-summary:focus-visible {
+    outline: 2px solid var(--fq-rose);
+    outline-offset: -3px;
+    border-radius: 14px;
   }
 
-  .faq-question::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq-question:hover {
-    background: rgba(122, 46, 135, 0.02);
-  }
-
-  .question-text {
+  .fq-q-text {
     font-family: 'Manrope', system-ui, sans-serif;
     font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--ink);
+    font-size: clamp(0.98rem, 1.6vw, 1.08rem);
     line-height: 1.4;
-    text-align: center;
-    margin: 0;
-    flex: 1;
-    padding-right: 1rem;
+    color: var(--fq-ink);
+    text-align: left;
+    flex: 1 1 auto;
+    text-wrap: balance;
+    transition: color 0.22s ease;
   }
+  .fq-details[open] .fq-q-text { color: var(--fq-purple-warm); }
 
-  .question-icon {
-    width: 24px;
-    height: 24px;
+  .fq-chev {
+    flex: 0 0 auto;
+    width: 30px; height: 30px;
     border-radius: 50%;
-    background: var(--c3);
-    display: flex;
+    background: rgba(122,46,135,0.08);
+    color: var(--fq-purple-warm);
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s var(--animation-ease);
-    flex-shrink: 0;
-    position: relative;
+    transition: transform 0.32s cubic-bezier(0.22,1,0.36,1), background 0.22s ease;
+  }
+  .fq-details[open] .fq-chev {
+    background: var(--fq-purple-warm);
+    color: #fff;
+    transform: rotate(180deg);
   }
 
-  .question-icon::before,
-  .question-icon::after {
-    content: '';
-    position: absolute;
-    background: white;
-    transition: all 0.3s var(--animation-ease);
+  /* ===== Animación de altura usando grid-template-rows ===== */
+  .fq-answer-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
-
-  .question-icon::before {
-    width: 12px;
-    height: 2px;
+  .fq-details[open] .fq-answer-wrap {
+    grid-template-rows: 1fr;
   }
-
-  .question-icon::after {
-    width: 2px;
-    height: 12px;
-  }
-
-  .faq-details[open] .question-icon {
-    background: var(--c4);
-    transform: rotate(45deg);
-  }
-
-  .faq-details[open] .question-icon::after {
-    opacity: 0;
-  }
-
-  .faq-answer {
-    max-height: 0;
+  .fq-answer {
     overflow: hidden;
-    transition: all 0.4s var(--animation-ease);
-    opacity: 0;
   }
-
-  .faq-details[open] .faq-answer {
-    max-height: 500px;
-    opacity: 1;
-  }
-
-  .answer-content {
-    padding: 0 2rem 1.5rem;
-    border-top: 1px solid var(--line);
-    margin-top: 0;
-  }
-
-  .answer-content p {
+  .fq-answer p {
+    margin: 0;
+    padding: 0 1.4rem 1.3rem;
+    color: var(--fq-muted);
     font-family: 'Source Sans 3', system-ui, sans-serif;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--muted);
-    margin: 1rem 0 0;
+    font-size: 0.96rem;
+    line-height: 1.65;
+    text-align: left;
+    text-wrap: pretty;
+  }
+
+  /* Empty state */
+  .fq-empty {
+    max-width: var(--fq-content-max);
+    margin: 1.5rem auto 0;
+    padding: 2.5rem 1.5rem;
     text-align: center;
+    color: var(--fq-muted);
+    background: rgba(255,255,255,0.7);
+    border: 1px dashed var(--fq-line);
+    border-radius: 18px;
+  }
+  .fq-empty svg { color: var(--fq-purple-warm); opacity: 0.7; }
+  .fq-empty-title {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--fq-ink);
+    margin: 0.6rem 0 0.35rem;
+  }
+  .fq-empty-sub {
+    margin: 0;
+    font-size: 0.96rem;
+    line-height: 1.55;
   }
 
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 768px) {
-    .hero-min__content {
-      padding: 80px 0 24px;
-    }
-
-    .hero-min__content h1 {
-      font-size: 1.8rem;
-    }
-
-    .intro-section,
-    .faq-section {
-      padding: 32px 0;
-    }
-
-    .faq-question {
-      padding: 1.25rem 1.5rem;
-    }
-
-    .question-text {
-      font-size: 1rem;
-    }
-
-    .answer-content {
-      padding: 0 1.5rem 1.25rem;
-    }
-
-    .question-icon {
-      width: 20px;
-      height: 20px;
-    }
-
-    .question-icon::before {
-      width: 10px;
-    }
-
-    .question-icon::after {
-      height: 10px;
-    }
+  /* ============== HELP / CLOSER ============== */
+  .fq-help {
+    position: relative;
+    isolation: isolate;
+    max-width: 800px;
+    margin: clamp(1rem, 3vw, 2rem) auto clamp(2rem, 5vw, 3rem);
+    padding: clamp(2.5rem, 5vw, 3.25rem) var(--fq-pad-x);
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(135deg, #5d2167 0%, #7A2E87 50%, #2a1a35 100%);
+    border-radius: 28px;
+    box-shadow: 0 30px 80px rgba(122,46,135,0.32);
+    overflow: hidden;
+    contain: layout paint;
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  .fq-help-glow {
+    position: absolute;
+    inset: -50%;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 50% 40% at 30% 30%, rgba(186,147,194,0.45), transparent 60%),
+      radial-gradient(ellipse 40% 35% at 75% 75%, rgba(206,198,226,0.35), transparent 60%);
+    filter: blur(28px);
+    pointer-events: none;
+  }
+  .fq-help-title {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    line-height: 1.15;
+    margin: 0 0 0.6rem;
+    color: #fff;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .fq-help-sub {
+    color: rgba(255,255,255,0.88);
+    font-size: clamp(1rem, 1.5vw, 1.08rem);
+    margin: 0 auto 1.5rem;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+  .fq-help-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    justify-content: center;
+  }
+  .fq-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.4rem;
+    border-radius: 999px;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 0.94rem;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.3s ease;
+  }
+  .fq-btn-primary {
+    background: #fff;
+    color: var(--fq-purple-warm);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+  }
+  .fq-btn-primary:hover { box-shadow: 0 18px 40px rgba(0,0,0,0.32); }
+  .fq-btn-primary svg { transition: transform 0.3s ease; }
+  .fq-btn-primary:hover svg { transform: translateX(3px); }
+  .fq-btn-ghost {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.4);
+  }
+  .fq-btn-ghost:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.7);
   }
 
-  @media (max-width: 480px) {
-    .faq-question {
-      padding: 1rem 1.25rem;
-    }
-
-    .answer-content {
-      padding: 0 1.25rem 1rem;
-    }
-
-    .question-text {
-      font-size: 0.95rem;
-      margin-right: 0.75rem;
-    }
+  /* ============== Reduced motion ============== */
+  @media (prefers-reduced-motion: reduce) {
+    .fq-orb, .fq-dot { animation: none !important; }
+    .fq-badge, .fq-hero-title, .fq-hero-sub { animation: none !important; opacity: 1; transform: none; }
+    .fq-item, .fq-help { opacity: 1 !important; transform: none !important; }
+    .fq-answer-wrap, .fq-chev, .fq-details::before { transition: none !important; }
   }
 
-  /* ===== ANIMACIONES DE ENTRADA ===== */
-   @keyframes fadeInUp {
-     from {
-       opacity: 0;
-       transform: translateY(30px);
-     }
-     to {
-       opacity: 1;
-       transform: translateY(0);
-     }
-   }
-
-   @keyframes slideInLeft {
-     from {
-       opacity: 0;
-       transform: translateX(-50px);
-     }
-     to {
-       opacity: 1;
-       transform: translateX(0);
-     }
-   }
-
-   @keyframes scaleIn {
-     from {
-       opacity: 0;
-       transform: scale(0.9);
-     }
-     to {
-       opacity: 1;
-       transform: scale(1);
-     }
-   }
-
-  .faq-item {
-     animation: fadeInUp 0.6s var(--animation-ease) forwards;
-     opacity: 0;
-   }
-
-   .faq-item:nth-child(1) { animation-delay: 0.9s; }
-   .faq-item:nth-child(2) { animation-delay: 1.0s; }
-   .faq-item:nth-child(3) { animation-delay: 1.1s; }
-   .faq-item:nth-child(4) { animation-delay: 1.2s; }
-   .faq-item:nth-child(5) { animation-delay: 1.3s; }
-   .faq-item:nth-child(6) { animation-delay: 1.4s; }
-   .faq-item:nth-child(7) { animation-delay: 1.5s; }
-   .faq-item:nth-child(8) { animation-delay: 1.6s; }
-   .faq-item:nth-child(9) { animation-delay: 1.7s; }
+  /* ============== Mobile tweaks ============== */
+  @media (max-width: 640px) {
+    .fq-summary { padding: 1rem 1.15rem; }
+    .fq-answer p { padding: 0 1.15rem 1.1rem; }
+  }
 </style>

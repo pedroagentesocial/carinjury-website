@@ -41,13 +41,29 @@ const PHONE_DISPLAY = '385-242-8571';
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
         <input type="hidden" name="page" value="Formulario de referencia" />
 
-
+        <!-- ===== Barra de progreso (sticky en mobile) ===== -->
+        <div class="form-progress" data-progress aria-live="polite">
+          <div class="form-progress-row">
+            <span class="form-progress-label" data-i18n="formulario_page.progress.label">{t('formulario_page.progress.label', currentLang)}</span>
+            <span class="form-progress-stat">
+              <span data-progress-done>0</span>
+              <span data-i18n="formulario_page.progress.of">{t('formulario_page.progress.of', currentLang)}</span>
+              <span data-progress-total>0</span>
+              <span data-i18n="formulario_page.progress.fields_required">{t('formulario_page.progress.fields_required', currentLang)}</span>
+              <span class="form-progress-pct"><span data-progress-pct>0</span>%</span>
+            </span>
+          </div>
+          <div class="form-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span class="form-progress-fill" data-progress-fill></span>
+          </div>
+        </div>
 
 
         <!-- ===== Información del Paciente (Simplificada) ===== -->
         <fieldset>
           <legend data-i18n="formulario_page.patient_info.title">{t('formulario_page.patient_info.title', currentLang)}</legend>
-          
+          <p class="fieldset-hint" data-i18n="formulario_page.section_hints.patient_info">{t('formulario_page.section_hints.patient_info', currentLang)}</p>
+
           <div class="form-row">
             <div class="form-group">
               <label for="first_name" data-i18n="formulario_page.patient_info.first_name">{t('formulario_page.patient_info.first_name', currentLang)}</label>
@@ -88,7 +104,8 @@ const PHONE_DISPLAY = '385-242-8571';
         <!-- ===== Dirección (Simplificada) ===== -->
         <fieldset>
           <legend data-i18n="formulario_page.address.title">{t('formulario_page.address.title', currentLang)}</legend>
-          
+          <p class="fieldset-hint" data-i18n="formulario_page.section_hints.address">{t('formulario_page.section_hints.address', currentLang)}</p>
+
           <div class="form-group">
             <label for="address" data-i18n="formulario_page.address.address">{t('formulario_page.address.address', currentLang)}</label>
             <input type="text" id="address" name="address" required />
@@ -110,7 +127,8 @@ const PHONE_DISPLAY = '385-242-8571';
             </div>
             <div class="form-group">
               <label for="zip" data-i18n="formulario_page.address.zip">{t('formulario_page.address.zip', currentLang)}</label>
-              <input type="text" id="zip" name="zip" required />
+              <input type="text" id="zip" name="zip" required inputmode="numeric" maxlength="5" pattern="[0-9]{5}" aria-describedby="zip_hint" />
+              <small id="zip_hint" class="field-hint" data-i18n="formulario_page.field_hints.zip">{t('formulario_page.field_hints.zip', currentLang)}</small>
             </div>
           </div>
         </fieldset>
@@ -118,26 +136,29 @@ const PHONE_DISPLAY = '385-242-8571';
         <!-- ===== Información de Contacto del Paciente (Nueva sección) ===== -->
         <fieldset>
           <legend data-i18n="formulario_page.patient_contact.title">{t('formulario_page.patient_contact.title', currentLang)}</legend>
-          
+          <p class="fieldset-hint" data-i18n="formulario_page.section_hints.patient_contact">{t('formulario_page.section_hints.patient_contact', currentLang)}</p>
+
           <div class="form-row">
             <div class="form-group">
               <label for="home_phone" data-i18n="formulario_page.patient_contact.home_phone">{t('formulario_page.patient_contact.home_phone', currentLang)}</label>
-              <input type="tel" id="home_phone" name="home_phone" />
+              <input type="tel" id="home_phone" name="home_phone" inputmode="tel" autocomplete="tel-national" />
             </div>
             <div class="form-group">
               <label for="cell_phone" data-i18n="formulario_page.patient_contact.cell_phone">{t('formulario_page.patient_contact.cell_phone', currentLang)}</label>
-              <input type="tel" id="cell_phone" name="cell_phone" required />
+              <input type="tel" id="cell_phone" name="cell_phone" required inputmode="tel" autocomplete="tel" aria-describedby="cell_phone_hint" />
+              <small id="cell_phone_hint" class="field-hint" data-i18n="formulario_page.field_hints.cell_phone">{t('formulario_page.field_hints.cell_phone', currentLang)}</small>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="work_phone" data-i18n="formulario_page.patient_contact.work_phone">{t('formulario_page.patient_contact.work_phone', currentLang)}</label>
-              <input type="tel" id="work_phone" name="work_phone" />
+              <input type="tel" id="work_phone" name="work_phone" inputmode="tel" />
             </div>
             <div class="form-group">
               <label for="email" data-i18n="formulario_page.patient_contact.email">{t('formulario_page.patient_contact.email', currentLang)}</label>
-              <input type="email" id="email" name="email" required />
+              <input type="email" id="email" name="email" required autocomplete="email" aria-describedby="email_hint" />
+              <small id="email_hint" class="field-hint" data-i18n="formulario_page.field_hints.email">{t('formulario_page.field_hints.email', currentLang)}</small>
             </div>
           </div>
         </fieldset>
@@ -145,7 +166,8 @@ const PHONE_DISPLAY = '385-242-8571';
         <!-- ===== Información del Incidente (Nueva sección) ===== -->
         <fieldset>
           <legend data-i18n="formulario_page.incident_info.title">{t('formulario_page.incident_info.title', currentLang)}</legend>
-          
+          <p class="fieldset-hint" data-i18n="formulario_page.section_hints.incident_info">{t('formulario_page.section_hints.incident_info', currentLang)}</p>
+
           <div class="form-group">
             <label data-i18n="formulario_page.incident_info.accident_type">{t('formulario_page.incident_info.accident_type', currentLang)}</label>
             <div class="radio-group">
@@ -220,17 +242,20 @@ const PHONE_DISPLAY = '385-242-8571';
 
           <div class="form-group">
             <label for="accident_date" data-i18n="formulario_page.incident_info.accident_date">{t('formulario_page.incident_info.accident_date', currentLang)}</label>
-            <input type="date" id="accident_date" name="accident_date" required />
+            <input type="date" id="accident_date" name="accident_date" required aria-describedby="accident_date_hint" />
+            <small id="accident_date_hint" class="field-hint" data-i18n="formulario_page.field_hints.accident_date">{t('formulario_page.field_hints.accident_date', currentLang)}</small>
           </div>
 
           <div class="form-group">
             <label for="additional_notes" data-i18n="formulario_page.incident_info.additional_notes">{t('formulario_page.incident_info.additional_notes', currentLang)}</label>
-            <textarea id="additional_notes" name="additional_notes" rows="4"></textarea>
+            <textarea id="additional_notes" name="additional_notes" rows="4" aria-describedby="additional_notes_hint"></textarea>
+            <small id="additional_notes_hint" class="field-hint" data-i18n="formulario_page.field_hints.additional_notes">{t('formulario_page.field_hints.additional_notes', currentLang)}</small>
           </div>
         </fieldset>
 
         <fieldset>
           <legend data-i18n="formulario_page.insurance_info.title">{t('formulario_page.insurance_info.title', currentLang)}</legend>
+          <p class="fieldset-hint" data-i18n="formulario_page.section_hints.insurance_info">{t('formulario_page.section_hints.insurance_info', currentLang)}</p>
           <div class="form-group">
             <label for="insurance_name" data-i18n="formulario_page.insurance_info.insurance_name">{t('formulario_page.insurance_info.insurance_name', currentLang)}</label>
             <input type="text" id="insurance_name" name="insurance_name" />
@@ -270,7 +295,8 @@ const PHONE_DISPLAY = '385-242-8571';
         <!-- ===== Información del Referido (Simplificada) ===== -->
         <fieldset>
           <legend data-i18n="formulario_page.referral_info.title">{t('formulario_page.referral_info.title', currentLang)}</legend>
-          
+          <p class="fieldset-hint" data-i18n="formulario_page.section_hints.referral_info">{t('formulario_page.section_hints.referral_info', currentLang)}</p>
+
           <div class="form-row">
             <div class="form-group">
               <label for="referral_first_name" data-i18n="formulario_page.referral_info.first_name">{t('formulario_page.referral_info.first_name', currentLang)}</label>
@@ -285,7 +311,8 @@ const PHONE_DISPLAY = '385-242-8571';
           <div class="form-row">
             <div class="form-group">
               <label for="referral_cell_phone" data-i18n="formulario_page.referral_info.cell_phone">{t('formulario_page.referral_info.cell_phone', currentLang)}</label>
-              <input type="tel" id="referral_cell_phone" name="referral_cell_phone" required />
+              <input type="tel" id="referral_cell_phone" name="referral_cell_phone" required inputmode="tel" aria-describedby="referral_phone_hint" />
+              <small id="referral_phone_hint" class="field-hint" data-i18n="formulario_page.field_hints.referral_phone">{t('formulario_page.field_hints.referral_phone', currentLang)}</small>
             </div>
             <div class="form-group">
               <label for="referral_email" data-i18n="formulario_page.referral_info.email">{t('formulario_page.referral_info.email', currentLang)}</label>
@@ -297,7 +324,8 @@ const PHONE_DISPLAY = '385-242-8571';
         <!-- ===== Declaración de Autenticidad con Firma ===== -->
         <fieldset>
           <legend data-i18n="formulario_page.authenticity.title">{t('formulario_page.authenticity.title', currentLang)}</legend>
-          
+          <p class="fieldset-hint" data-i18n="formulario_page.section_hints.authenticity">{t('formulario_page.section_hints.authenticity', currentLang)}</p>
+
           <!-- Texto de Declaración de Autenticidad -->
           <div class="form-group">
             <p class="authenticity-text" data-i18n="formulario_page.authenticity.statement">{t('formulario_page.authenticity.statement', currentLang)}</p>
@@ -331,14 +359,45 @@ const PHONE_DISPLAY = '385-242-8571';
 
         <p id="required-legend" class="required-legend" data-i18n="formulario.required_legend">{t('formulario.required_legend', currentLang)}</p>
 
-        <div class="form-group recaptcha-group">
-          <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="light"></div>
-          <p id="recaptcha-error" class="recaptcha-error" aria-live="polite"></p>
-        </div>
+        <!-- ===== Estado final: incompleto / listo (captcha + envío) ===== -->
+        <div class="form-end" data-form-end>
+          <!-- Estado incompleto -->
+          <div class="form-end-incomplete" data-form-end-incomplete>
+            <span class="form-end-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20">
+                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 8v4M12 16h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <div class="form-end-text">
+              <strong data-i18n="formulario_page.form_end.incomplete_title">{t('formulario_page.form_end.incomplete_title', currentLang)}</strong>
+              <span data-i18n="formulario_page.form_end.incomplete_sub">{t('formulario_page.form_end.incomplete_sub', currentLang)}</span>
+            </div>
+          </div>
 
-        <!-- ===== Botón de Envío ===== -->
-        <div class="form-actions">
-          <button id="ref-submit" type="submit" class="btn btn-primary">{t('formulario.submit', currentLang)}</button>
+          <!-- Estado listo: captcha + submit -->
+          <div class="form-end-ready" data-form-end-ready>
+            <div class="form-end-header">
+              <span class="form-end-ico form-end-ico-ok" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <div class="form-end-text">
+                <strong data-i18n="formulario_page.form_end.ready_title">{t('formulario_page.form_end.ready_title', currentLang)}</strong>
+                <span data-i18n="formulario_page.form_end.ready_sub">{t('formulario_page.form_end.ready_sub', currentLang)}</span>
+              </div>
+            </div>
+
+            <div class="form-group recaptcha-group">
+              <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="light"></div>
+              <p id="recaptcha-error" class="recaptcha-error" aria-live="polite"></p>
+            </div>
+
+            <div class="form-actions">
+              <button id="ref-submit" type="submit" class="btn btn-primary">{t('formulario.submit', currentLang)}</button>
+            </div>
+          </div>
         </div>
 
         <!-- ===== Mensajes de Estado ===== -->
@@ -361,8 +420,6 @@ const PHONE_DISPLAY = '385-242-8571';
   <script define:vars={{ esTranslations, enTranslations }}>
     window.translations = { es: esTranslations, en: enTranslations };
   </script>
-  <script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script>
-  
   <script define:vars={{ WEBHOOK_URL: import.meta.env.PUBLIC_WEBHOOK_URL }}>
     // Inicializar sistema de internacionalización
     document.addEventListener('DOMContentLoaded', function() {
@@ -424,6 +481,142 @@ const PHONE_DISPLAY = '385-242-8571';
         const group = el.closest('.form-group');
         if (group) group.classList.toggle('error', on);
       }
+      function markValid(el, on) {
+        const group = el.closest('.form-group');
+        if (group) group.classList.toggle('is-valid', on);
+      }
+
+      /* ===== Validación por campo (formato + obligatoriedad) ===== */
+      function isFieldValid(el) {
+        if (!el || !isVisible(el)) return false;
+        const v = (el.value || '').trim();
+        if (el.type === 'checkbox') return el.checked;
+        if (el.type === 'radio') {
+          const grp = document.querySelectorAll(`input[type="radio"][name="${el.name}"]`);
+          return Array.from(grp).some((r) => r.checked);
+        }
+        if (!v) return false;
+        if (el.type === 'email') {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        }
+        if (el.id === 'zip') {
+          return /^[0-9]{5}$/.test(v);
+        }
+        if (el.type === 'tel') {
+          /* al menos 7 dígitos cualquier formato */
+          return v.replace(/\D/g, '').length >= 7;
+        }
+        if (el.type === 'date') {
+          return !isNaN(Date.parse(v));
+        }
+        return true;
+      }
+
+      /* ===== Progreso + visibilidad del bloque final (captcha + submit) ===== */
+      const progressEl     = document.querySelector('[data-progress]');
+      const progressFill   = document.querySelector('[data-progress-fill]');
+      const progressDone   = document.querySelector('[data-progress-done]');
+      const progressTotal  = document.querySelector('[data-progress-total]');
+      const progressPct    = document.querySelector('[data-progress-pct]');
+      const progressBar    = document.querySelector('.form-progress-bar');
+      const formEnd        = document.querySelector('[data-form-end]');
+      const sigDataEl      = document.getElementById('signature_data');
+
+      function updateFormProgress() {
+        const requiredEls = Array.from(document.querySelectorAll('input[required], select[required], textarea[required]'))
+          .filter(isVisible);
+        const radioNames = new Set(requiredEls.filter((el) => el.type === 'radio').map((el) => el.name));
+        const nonRadios = requiredEls.filter((el) => el.type !== 'radio');
+
+        /* Total = no-radios + grupos de radio + 1 (firma) */
+        const total = nonRadios.length + radioNames.size + 1;
+        let done = 0;
+
+        nonRadios.forEach((el) => {
+          const valid = isFieldValid(el);
+          if (valid) done++;
+          /* No marcar verde antes de que el usuario haya tocado el campo */
+          if (el.dataset.touched === '1') {
+            markValid(el, valid);
+            markError(el, !valid);
+          }
+        });
+
+        radioNames.forEach((name) => {
+          const grp = document.querySelectorAll(`input[type="radio"][name="${name}"]`);
+          if (Array.from(grp).some((r) => r.checked)) done++;
+        });
+
+        /* Firma cuenta como un campo */
+        const sigOk = !!(sigDataEl && sigDataEl.value);
+        if (sigOk) done++;
+
+        const ratio = total > 0 ? done / total : 0;
+        const pct = Math.round(ratio * 100);
+
+        if (progressFill)  progressFill.style.width = pct + '%';
+        if (progressDone)  progressDone.textContent = String(done);
+        if (progressTotal) progressTotal.textContent = String(total);
+        if (progressPct)   progressPct.textContent = String(pct);
+        if (progressBar)   progressBar.setAttribute('aria-valuenow', String(pct));
+        if (progressEl)    progressEl.classList.toggle('is-complete', done === total);
+
+        /* Mostrar bloque final solo cuando todos los requeridos estén listos */
+        const allOk = done === total;
+        if (formEnd) {
+          const wasReady = formEnd.classList.contains('is-ready');
+          formEnd.classList.toggle('is-ready', allOk);
+          if (allOk && !wasReady) {
+            /* Primera vez que el formulario está listo: cargar reCAPTCHA */
+            loadRecaptcha();
+          }
+        }
+      }
+
+      /* Carga diferida de reCAPTCHA — solo cuando el form está completo */
+      let recaptchaInjected = false;
+      function loadRecaptcha() {
+        if (recaptchaInjected) return;
+        recaptchaInjected = true;
+        const s = document.createElement('script');
+        s.src = 'https://www.google.com/recaptcha/api.js';
+        s.async = true;
+        s.defer = true;
+        document.head.appendChild(s);
+      }
+
+      /* Marcar como "tocado" tras blur — para no pintar verde antes de tiempo */
+      function bindFieldEvents() {
+        const all = document.querySelectorAll('input, select, textarea');
+        all.forEach((el) => {
+          if (el.type === 'hidden') return;
+          el.addEventListener('blur', () => { el.dataset.touched = '1'; updateFormProgress(); });
+          el.addEventListener('input', updateFormProgress);
+          el.addEventListener('change', updateFormProgress);
+        });
+      }
+      bindFieldEvents();
+
+      /* Re-evaluar al cambiar visibilidad de campos condicionales (legal rep / accident type) */
+      const mo = new MutationObserver(() => updateFormProgress());
+      document.querySelectorAll('#legal_representation_details, #legal_representation_more, #legal_representation_contacts, #other_accident_type')
+        .forEach((el) => mo.observe(el, { attributes: true, attributeFilter: ['style'] }));
+
+      /* Hook al canvas de firma — el otro <script> guarda en signature_data tras dibujar */
+      if (sigDataEl) {
+        const obs = new MutationObserver(() => updateFormProgress());
+        obs.observe(sigDataEl, { attributes: true, attributeFilter: ['value'] });
+        /* Cubre el caso de cambio programático de .value (no dispara MutationObserver en valor) */
+        let last = sigDataEl.value || '';
+        setInterval(() => {
+          if ((sigDataEl.value || '') !== last) {
+            last = sigDataEl.value || '';
+            updateFormProgress();
+          }
+        }, 600);
+      }
+
+      updateFormProgress();
 
       const formMessages = document.getElementById('form-messages');
       const errorMsg = formMessages?.querySelector('.error-message');
@@ -822,6 +1015,180 @@ const PHONE_DISPLAY = '385-242-8571';
       flex-direction: column;
       align-items: center;
       gap: 0.35rem;
+    }
+
+    /* ===== Progress bar (sticky) ===== */
+    .form-progress {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      margin: 0 0 1.5rem;
+      box-shadow: 0 4px 12px rgba(122, 46, 135, 0.06);
+    }
+    .form-progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.55rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .form-progress-label {
+      font-weight: 700;
+      color: var(--primary-color);
+      letter-spacing: 0.02em;
+    }
+    .form-progress-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .form-progress-pct {
+      margin-left: 0.45rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(122, 46, 135, 0.08);
+      color: var(--primary-color);
+      font-weight: 800;
+    }
+    .form-progress-bar {
+      height: 6px;
+      background: rgba(122, 46, 135, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .form-progress-fill {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary-light) 0%, var(--primary-color) 100%);
+      border-radius: inherit;
+      transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .form-progress.is-complete .form-progress-fill {
+      background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+    }
+    .form-progress.is-complete .form-progress-pct {
+      background: rgba(16, 185, 129, 0.12);
+      color: #047857;
+    }
+
+    /* ===== Hints (sección + campo) ===== */
+    .fieldset-hint {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      margin: -0.4rem 0 1.1rem;
+      padding: 0.6rem 0.85rem;
+      background: rgba(122, 46, 135, 0.04);
+      border-left: 3px solid var(--primary-light);
+      border-radius: 6px;
+    }
+    .field-hint {
+      display: block;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: var(--text-secondary);
+      margin-top: 0.3rem;
+      padding-left: 0.15rem;
+    }
+
+    /* ===== Estado válido inline (check verde) ===== */
+    .form-group.is-valid input,
+    .form-group.is-valid select,
+    .form-group.is-valid textarea {
+      border-color: #10b981;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.85rem center;
+      background-size: 16px;
+      padding-right: 2.6rem;
+    }
+    .form-group.is-valid select { background-position: right 1.85rem center; }
+
+    /* ===== form-end (captcha + submit ocultos hasta completar) ===== */
+    .form-end {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      border-radius: 16px;
+      border: 1px dashed var(--border-color);
+      background: rgba(122, 46, 135, 0.03);
+      transition: background 0.35s ease, border-color 0.35s ease, border-style 0.35s ease;
+    }
+    .form-end.is-ready {
+      border-style: solid;
+      border-color: rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.04);
+    }
+
+    .form-end-incomplete {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.4rem 0.5rem;
+      color: var(--text-secondary);
+    }
+    .form-end-ico {
+      flex: 0 0 auto;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(122, 46, 135, 0.1);
+      color: var(--primary-color);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .form-end-ico-ok {
+      background: rgba(16, 185, 129, 0.12);
+      color: #047857;
+    }
+    .form-end-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      line-height: 1.45;
+    }
+    .form-end-text strong {
+      font-size: 0.98rem;
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+    .form-end-text span {
+      font-size: 0.86rem;
+    }
+
+    /* Visibilidad de los dos estados (sin tocar el render del captcha) */
+    .form-end:not(.is-ready) .form-end-ready { display: none; }
+    .form-end.is-ready .form-end-incomplete   { display: none; }
+
+    .form-end-ready {
+      animation: formEndReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .form-end-header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+    }
+    @keyframes formEndReveal {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .form-progress-row { font-size: 0.78rem; }
+      .form-end { padding: 1rem; }
     }
 
     .recaptcha-error {

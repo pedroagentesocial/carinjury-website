@@ -121,6 +121,36 @@
       "button": "Enviar",
       "success": "Formulario enviado exitosamente. Nos pondremos en contacto pronto.",
       "error": "Error al enviar el formulario. Por favor, inténtelo de nuevo."
+    },
+    "section_hints": {
+      "patient_info": "Datos básicos del paciente. Esta información se mantiene confidencial.",
+      "address": "Donde reside el paciente actualmente.",
+      "patient_contact": "Cómo contactar al paciente directamente.",
+      "incident_info": "Cuéntanos qué pasó. Si no recuerdas algún dato exacto, déjalo en blanco.",
+      "insurance_info": "Solo completa esta sección si ya tienes una aseguradora asignada al accidente.",
+      "referral_info": "Datos de quien refiere al paciente a la clínica.",
+      "authenticity": "Tu firma confirma que la información es verídica."
+    },
+    "field_hints": {
+      "cell_phone": "Lo usaremos para confirmar tu cita y enviarte recordatorios.",
+      "email": "Te confirmaremos por aquí. Revisa tu bandeja y spam.",
+      "zip": "5 dígitos.",
+      "accident_date": "Fecha en que ocurrió el incidente.",
+      "additional_notes": "Cualquier detalle útil: lugar, lesiones, si hay otras personas involucradas, etc.",
+      "referral_phone": "Por si necesitamos confirmar la referencia.",
+      "lawyer_phone_hint": "Para coordinar el manejo del caso médico-legal."
+    },
+    "progress": {
+      "label": "Progreso del formulario",
+      "of": "de",
+      "fields_required": "campos requeridos",
+      "complete": "Listo para enviar"
+    },
+    "form_end": {
+      "incomplete_title": "Aún faltan campos",
+      "incomplete_sub": "Completa los campos requeridos para habilitar el envío.",
+      "ready_title": "Todo listo",
+      "ready_sub": "Confirma que no eres un robot y envía tu formulario."
     }
   },
   "hero": {
@@ -427,11 +457,31 @@
     "meta_title": "Preguntas Frecuentes - Car Injury Clinic",
     "hero": {
       "title": "Preguntas Frecuentes",
-      "subtitle": "Encuentra respuestas a las preguntas más comunes sobre accidentes de auto y lesiones personales"
+      "subtitle": "Encuentra respuestas a las preguntas más comunes sobre accidentes de auto y lesiones personales",
+      "badge": "Centro de ayuda"
     },
     "intro": {
       "title": "¿Tienes preguntas sobre tu caso?",
       "description": "Aquí encontrarás respuestas a las preguntas más frecuentes sobre accidentes de auto, lesiones personales y el proceso legal. Si no encuentras la respuesta que buscas, no dudes en contactarnos directamente."
+    },
+    "search": {
+      "placeholder": "Busca tu pregunta…",
+      "label": "Buscar en preguntas frecuentes",
+      "no_results_title": "Sin resultados",
+      "no_results_sub": "No encontramos esa pregunta. Llámanos y te respondemos personalmente.",
+      "clear": "Limpiar búsqueda"
+    },
+    "categories": {
+      "all": "Todas",
+      "first_steps": "Lo primero",
+      "legal": "Apoyo legal",
+      "compensation": "Compensación y proceso"
+    },
+    "help": {
+      "title": "¿Aún tienes dudas?",
+      "sub": "Llámanos o agenda una evaluación gratis. Te respondemos en español, inglés o portugués.",
+      "cta": "Habla con un especialista",
+      "call_label": "Llamar ahora"
     },
     "questions": {
       "q1": {
@@ -488,6 +538,41 @@
   "services_page": {
     "service_label": "Servicio",
     "schedule_evaluation": "Agenda evaluación",
+    "nav_label": "Categorías de servicios",
+    "marquee": {
+      "same_day": "Atención el mismo día",
+      "transport": "Transporte gratis",
+      "wallet": "Sin costo de bolsillo",
+      "lang": "Atención trilingüe",
+      "lawyer": "Coordinación con abogado",
+      "insurance": "Trámite del seguro",
+      "front_desk": "Recepción bilingüe",
+      "saturdays": "Sábados abiertos"
+    },
+    "groups": {
+      "treatment": {
+        "label": "Tratamiento",
+        "description": "Terapias que alivian el dolor, restauran la movilidad y aceleran la recuperación."
+      },
+      "diagnostics": {
+        "label": "Diagnóstico e Imagen",
+        "description": "Imagenología y evaluaciones clínicas para confirmar lesiones con precisión."
+      },
+      "specialized": {
+        "label": "Atención Especializada",
+        "description": "Evaluaciones de especialistas para lesiones complejas y dolor crónico."
+      },
+      "support": {
+        "label": "Servicios de Apoyo",
+        "description": "Logística e idioma para que nada detenga tu recuperación."
+      }
+    },
+    "closer": {
+      "title": "¿No sabes por dónde empezar?",
+      "sub": "En una llamada de 5 minutos te decimos el siguiente paso. Gratis, sin compromiso.",
+      "cta": "Agenda evaluación gratis",
+      "call_aria": "Llamar al 385-242-8571"
+    },
     "items": {
       "chiropractic": {
         "title": "Terapia Quiropráctica",

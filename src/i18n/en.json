@@ -121,6 +121,36 @@
       "button": "Send",
       "success": "Form submitted successfully. We will contact you soon.",
       "error": "Error submitting form. Please try again."
+    },
+    "section_hints": {
+      "patient_info": "Basic patient details. This information stays confidential.",
+      "address": "Where the patient currently lives.",
+      "patient_contact": "How to reach the patient directly.",
+      "incident_info": "Tell us what happened. If you don't remember an exact detail, leave it blank.",
+      "insurance_info": "Only fill this section if an insurer is already assigned to the accident.",
+      "referral_info": "Information about who is referring the patient to the clinic.",
+      "authenticity": "Your signature confirms the information is true."
+    },
+    "field_hints": {
+      "cell_phone": "We'll use this to confirm your appointment and send reminders.",
+      "email": "We'll confirm here. Check your inbox and spam folder.",
+      "zip": "5 digits.",
+      "accident_date": "Date when the incident happened.",
+      "additional_notes": "Any helpful detail: location, injuries, other people involved, etc.",
+      "referral_phone": "In case we need to confirm the referral.",
+      "lawyer_phone_hint": "To coordinate the medical-legal case."
+    },
+    "progress": {
+      "label": "Form progress",
+      "of": "of",
+      "fields_required": "required fields",
+      "complete": "Ready to send"
+    },
+    "form_end": {
+      "incomplete_title": "A few fields left",
+      "incomplete_sub": "Complete the required fields to enable submission.",
+      "ready_title": "All set",
+      "ready_sub": "Confirm you are not a robot and submit your form."
     }
   },
   "hero": {
@@ -427,11 +457,31 @@
     "meta_title": "Frequently Asked Questions - Car Injury Clinic",
     "hero": {
       "title": "Frequently Asked Questions",
-      "subtitle": "Find answers to the most common questions about car accidents and personal injuries"
+      "subtitle": "Find answers to the most common questions about car accidents and personal injuries",
+      "badge": "Help center"
     },
     "intro": {
       "title": "Do you have questions about your case?",
       "description": "Here you'll find answers to the most frequently asked questions about car accidents, personal injuries, and the legal process. If you can't find the answer you're looking for, don't hesitate to contact us directly."
+    },
+    "search": {
+      "placeholder": "Search your question…",
+      "label": "Search the frequently asked questions",
+      "no_results_title": "No matches",
+      "no_results_sub": "We didn't find that question. Call us and we'll answer personally.",
+      "clear": "Clear search"
+    },
+    "categories": {
+      "all": "All",
+      "first_steps": "First steps",
+      "legal": "Legal support",
+      "compensation": "Compensation & process"
+    },
+    "help": {
+      "title": "Still have doubts?",
+      "sub": "Call us or schedule a free evaluation. We answer in Spanish, English, or Portuguese.",
+      "cta": "Talk to a specialist",
+      "call_label": "Call now"
     },
     "questions": {
       "q1": {
@@ -488,6 +538,41 @@
   "services_page": {
     "service_label": "Service",
     "schedule_evaluation": "Schedule evaluation",
+    "nav_label": "Service categories",
+    "marquee": {
+      "same_day": "Same-day visits",
+      "transport": "Free transport",
+      "wallet": "No out-of-pocket",
+      "lang": "Trilingual care",
+      "lawyer": "Lawyer coordination",
+      "insurance": "Insurance handled",
+      "front_desk": "Bilingual front desk",
+      "saturdays": "Open Saturdays"
+    },
+    "groups": {
+      "treatment": {
+        "label": "Treatment",
+        "description": "Therapies that relieve pain, restore mobility and accelerate recovery."
+      },
+      "diagnostics": {
+        "label": "Diagnostics & Imaging",
+        "description": "Imaging and clinical evaluations to confirm injuries with precision."
+      },
+      "specialized": {
+        "label": "Specialized Care",
+        "description": "Specialist evaluations for complex injuries and chronic pain."
+      },
+      "support": {
+        "label": "Patient Support",
+        "description": "Logistics and language so nothing stops your recovery."
+      }
+    },
+    "closer": {
+      "title": "Not sure where you fit?",
+      "sub": "A 5-minute call gets you the right next step. Free, no obligation.",
+      "cta": "Schedule free evaluation",
+      "call_aria": "Call 385-242-8571"
+    },
     "items": {
       "chiropractic": {
         "title": "Chiropractic Therapy",
