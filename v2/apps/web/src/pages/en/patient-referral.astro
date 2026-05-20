@@ -1,0 +1,34 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import PageHero from '@components/sections/PageHero';
+import PatientReferralForm from '@components/sections/PatientReferralForm';
+import { resolveLocale, t } from '@i18n/index';
+import { getPageMeta, buildBreadcrumbSchema } from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const meta = getPageMeta('patient-referral', locale);
+const prefix = locale === 'en' ? '/en' : '';
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: locale === 'en' ? 'Home' : 'Inicio', url: prefix || '/' },
+  { name: t('nav.patients', locale), url: `${prefix}/faq` },
+  { name: t('nav.form', locale), url: `${prefix}/patient-referral` },
+]);
+---
+
+<PageShell
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  schemas={[breadcrumb]}
+  fullBleed
+>
+  <PageHero
+    client:load
+    locale={locale}
+    eyebrow={t('nav.form', locale)}
+    title={t('formulario_page.hero.title', locale)}
+    subtitle={t('formulario_page.hero.subtitle', locale)}
+  />
+  <PatientReferralForm locale={locale} client:visible />
+</PageShell>

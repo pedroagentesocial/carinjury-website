@@ -1,0 +1,28 @@
+---
+/**
+ * Dispara una conversión cuando esta página carga (típicamente /gracias).
+ * Llama a window.trackConversion(label, value) si Analytics está activo.
+ */
+interface Props {
+  /** Label de conversion en Google Ads (parte después de AW-XXX/). Opcional. */
+  label?: string;
+  /** Valor estimado del lead. Opcional. */
+  value?: number;
+}
+const { label = 'lead_submit', value } = Astro.props;
+---
+
+<script is:inline define:vars={{ label, value }}>
+  (function () {
+    function fire() {
+      if (typeof window.trackConversion === 'function') {
+        window.trackConversion(label, value);
+      }
+      if (typeof window.trackEvent === 'function') {
+        window.trackEvent('generate_lead', { label: label, value: value });
+      }
+    }
+    if (document.readyState === 'complete') fire();
+    else window.addEventListener('load', fire);
+  })();
+</script>

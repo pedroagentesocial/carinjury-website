@@ -1,0 +1,41 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Nav from '@components/Nav';
+import Footer from '@components/Footer';
+import FloatingButtons from '@components/FloatingButtons';
+import HeroCarousel from '@components/sections/HeroCarousel';
+import FeatureIcons from '@components/sections/FeatureIcons';
+import ResultsAndProcess from '@components/sections/ResultsAndProcess';
+import Services from '@components/sections/Services';
+import AboutVideo from '@components/sections/AboutVideo';
+import Testimonials from '@components/sections/Testimonials';
+import MapContact from '@components/sections/MapContact';
+import ContactSection from '@components/sections/ContactSection';
+import { resolveLocale } from '@i18n/index';
+import { getPageMeta } from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const currentPath = Astro.url.pathname;
+const meta = getPageMeta('home', locale);
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  isHome
+>
+  <Nav locale={locale} currentPath={currentPath} client:load />
+  <main>
+    <HeroCarousel locale={locale} client:load />
+    <FeatureIcons locale={locale} client:visible />
+    <Services locale={locale} client:visible />
+    <ResultsAndProcess locale={locale} client:visible />
+    <AboutVideo locale={locale} client:visible />
+    <Testimonials locale={locale} client:visible />
+    <MapContact locale={locale} client:visible />
+    <ContactSection locale={locale} client:visible />
+  </main>
+  <Footer locale={locale} />
+  <FloatingButtons locale={locale} client:idle />
+</Layout>

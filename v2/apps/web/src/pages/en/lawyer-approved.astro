@@ -1,0 +1,25 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import LawyerContent from '@components/sections/LawyerContent';
+import { resolveLocale, t } from '@i18n/index';
+import { getPageMeta, buildBreadcrumbSchema } from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const meta = getPageMeta('lawyer-approved', locale);
+const prefix = locale === 'en' ? '/en' : '';
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: locale === 'en' ? 'Home' : 'Inicio', url: prefix || '/' },
+  { name: t('nav.legal_assistance', locale), url: `${prefix}/lawyer-approved` },
+]);
+---
+
+<PageShell
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  schemas={[breadcrumb]}
+  fullBleed
+>
+  <LawyerContent locale={locale} client:load />
+</PageShell>

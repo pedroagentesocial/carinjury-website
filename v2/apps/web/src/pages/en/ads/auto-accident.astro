@@ -1,0 +1,14 @@
+---
+import Layout from '@layouts/Layout.astro';
+import AdLanding from '@components/sections/AdLanding';
+import { resolveLocale } from '@i18n/index';
+
+const locale = resolveLocale(Astro.currentLocale);
+---
+
+<Layout
+  title="Car Injury Clinic — Immediate care after an accident"
+  description="Same-day appointments, no upfront cost, bilingual team. Free evaluation in minutes."
+>
+  <AdLanding locale={locale} client:load />
+</Layout>

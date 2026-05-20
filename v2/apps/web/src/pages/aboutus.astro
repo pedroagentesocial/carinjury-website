@@ -1,0 +1,51 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import AboutContent from '@components/sections/AboutContent';
+import { resolveLocale, t, translations } from '@i18n/index';
+import { getImage } from 'astro:assets';
+import darwinImg from '../assets/img/chiro2.jpeg';
+import anaImg from '../assets/img/chiro3.jpeg';
+import { getPageMeta, buildDoctorSchema, buildBreadcrumbSchema } from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const meta = getPageMeta('aboutus', locale);
+const prefix = locale === 'en' ? '/en' : '';
+
+const [darwin, darwinAvif, ana, anaAvif] = await Promise.all([
+  getImage({ src: darwinImg, format: 'webp', width: 800, quality: 80 }),
+  getImage({ src: darwinImg, format: 'avif', width: 800, quality: 70 }),
+  getImage({ src: anaImg, format: 'webp', width: 800, quality: 80 }),
+  getImage({ src: anaImg, format: 'avif', width: 800, quality: 70 }),
+]);
+
+const doctorPhotos = {
+  darwin: { webp: darwin.src, avif: darwinAvif.src },
+  ana: { webp: ana.src, avif: anaAvif.src },
+};
+
+/* Build Physician schemas for each doctor — E-E-A-T signal */
+const doctors = translations[locale].aboutus.doctors;
+const doctorSchemas = (['darwin', 'ana'] as const).map((key) =>
+  buildDoctorSchema({
+    name: doctors[key].name,
+    title: doctors[key].title,
+    specialty: doctors[key].specialty,
+    image: doctorPhotos[key].webp,
+  }),
+);
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: locale === 'en' ? 'Home' : 'Inicio', url: prefix || '/' },
+  { name: t('nav.about', locale), url: `${prefix}/aboutus` },
+]);
+---
+
+<PageShell
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  schemas={[...doctorSchemas, breadcrumb]}
+  fullBleed
+>
+  <AboutContent locale={locale} doctorPhotos={doctorPhotos} client:load />
+</PageShell>

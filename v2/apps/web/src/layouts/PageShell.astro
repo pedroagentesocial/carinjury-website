@@ -1,0 +1,54 @@
+---
+import Layout from './Layout.astro';
+import Nav from '@components/Nav';
+import Footer from '@components/Footer';
+import FloatingButtons from '@components/FloatingButtons';
+import { resolveLocale } from '@i18n/index';
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  /** Schemas JSON-LD adicionales (FAQ, Breadcrumb, Service, Doctor). */
+  schemas?: unknown[];
+  /** Si es página principal — incluye LocalBusiness + WebSite + Organization schemas globales. */
+  isHome?: boolean;
+  /**
+   * Cuando la página arranca con un hero propio que ya reserva espacio para el nav transparente,
+   * pasar `fullBleed` para no agregar el pt-24 default.
+   */
+  fullBleed?: boolean;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  ogType,
+  ogImage,
+  schemas,
+  isHome,
+  fullBleed = false,
+} = Astro.props;
+const locale = resolveLocale(Astro.currentLocale);
+const currentPath = Astro.url.pathname;
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  ogType={ogType}
+  ogImage={ogImage}
+  isHome={isHome}
+  schemas={schemas}
+>
+  <Nav locale={locale} currentPath={currentPath} client:load />
+  <main class={fullBleed ? '' : 'pt-24'}>
+    <slot />
+  </main>
+  <Footer locale={locale} />
+  <FloatingButtons locale={locale} client:idle />
+</Layout>

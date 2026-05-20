@@ -1,0 +1,39 @@
+# Car Injury Clinic — robots.txt
+# Permitir indexación completa con excepciones para áreas privadas / utilitarias
+
+User-agent: *
+Allow: /
+
+# Excluir endpoints API y páginas no indexables
+Disallow: /api/
+Disallow: /thank-you
+Disallow: /en/thank-you
+Disallow: /*.json$
+Disallow: /*?*utm_
+
+# Permitir explícitamente al GoogleBot crawlear assets para mejor rendering
+User-agent: Googlebot
+Allow: /
+Allow: /assets/
+Allow: /images/
+Allow: /video/
+Disallow: /api/
+Disallow: /thank-you
+Disallow: /en/thank-you
+
+# Permitir a AdsBot (Google Ads) y Mediapartners (AdSense) crawlear todo
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+# Crawlers de mala reputación / heavy scrapers
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+# Sitemap
+Sitemap: https://carinjuryclinics.com/sitemap-index.xml

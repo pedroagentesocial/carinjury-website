@@ -1,0 +1,38 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import PageHero from '@components/sections/PageHero';
+import ScheduleContent from '@components/sections/ScheduleContent';
+import { resolveLocale, t } from '@i18n/index';
+import { SITE } from '@lib/site';
+import { getPageMeta, buildBreadcrumbSchema } from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const bookingUrl = SITE.bookingUrl;
+const meta = getPageMeta('schedule', locale);
+const prefix = locale === 'en' ? '/en' : '';
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: locale === 'en' ? 'Home' : 'Inicio', url: prefix || '/' },
+  { name: t('nav.schedule', locale), url: `${prefix}/schedule` },
+]);
+---
+
+<PageShell
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  schemas={[breadcrumb]}
+  fullBleed
+>
+  <PageHero
+    client:load
+    locale={locale}
+    eyebrow={t('schedule_page.hero.badge', locale)}
+    title={t('schedule_page.hero.title', locale)}
+    subtitle={t('schedule_page.hero.description', locale)}
+    backgroundImage="/images/schedule.jpeg"
+    backgroundAlt={locale === 'en' ? 'Car Injury Clinic front desk' : 'Recepción de Car Injury Clinic'}
+    scrollToAnchor="book"
+  />
+  <ScheduleContent locale={locale} bookingUrl={bookingUrl} client:visible />
+</PageShell>

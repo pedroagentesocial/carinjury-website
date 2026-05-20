@@ -1,0 +1,11 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import NotFound from '@components/sections/NotFound';
+import { resolveLocale } from '@i18n/index';
+
+const locale = resolveLocale(Astro.currentLocale);
+---
+
+<PageShell title="404">
+  <NotFound locale={locale} client:load />
+</PageShell>

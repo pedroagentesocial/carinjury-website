@@ -1,0 +1,36 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import FaqAccordion from '@components/sections/FaqAccordion';
+import { resolveLocale, t, translations } from '@i18n/index';
+import { getPageMeta, buildFAQSchema, buildBreadcrumbSchema } from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const meta = getPageMeta('faq', locale);
+const prefix = locale === 'en' ? '/en' : '';
+
+/* Build FAQPage schema con todas las preguntas/respuestas */
+const QUESTIONS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9'] as const;
+const questions = translations[locale].faq_page.questions;
+const faqSchema = buildFAQSchema(
+  QUESTIONS.map((q) => ({
+    question: questions[q].question,
+    answer: questions[q].answer,
+  })),
+);
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: locale === 'en' ? 'Home' : 'Inicio', url: prefix || '/' },
+  { name: t('nav.patients', locale), url: `${prefix}/faq` },
+  { name: t('nav.frequent_questions', locale), url: `${prefix}/faq` },
+]);
+---
+
+<PageShell
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  schemas={[faqSchema, breadcrumb]}
+  fullBleed
+>
+  <FaqAccordion locale={locale} client:load />
+</PageShell>

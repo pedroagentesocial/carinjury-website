@@ -9,3 +9,6 @@ releases/
 
 .vercel
 .env*.local
+
+# v2 promovido a producción 2026-05-15 — ya no se ignora.
+# El propio v2/.gitignore se encarga de excluir node_modules, dist, .env, etc.

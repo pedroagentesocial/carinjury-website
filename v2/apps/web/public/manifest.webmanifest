@@ -1,0 +1,51 @@
+{
+  "name": "Car Injury Clinic",
+  "short_name": "CIC",
+  "description": "Atención médica y apoyo legal para víctimas de accidentes de auto. Citas el mismo día, atención bilingüe.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a1c5a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "es",
+  "categories": ["medical", "health", "lifestyle"],
+  "icons": [
+    {
+      "src": "/CIC.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Llamar ahora",
+      "short_name": "Llamar",
+      "description": "Llamar a la clínica",
+      "url": "tel:+13852428571"
+    },
+    {
+      "name": "Agendar cita",
+      "short_name": "Agendar",
+      "url": "/schedule"
+    },
+    {
+      "name": "Formulario de paciente",
+      "short_name": "Formulario",
+      "url": "/formulario"
+    }
+  ]
+}

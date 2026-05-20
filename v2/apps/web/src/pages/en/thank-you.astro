@@ -1,0 +1,13 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import ThankYou from '@components/sections/ThankYou';
+import { resolveLocale } from '@i18n/index';
+import { getPageMeta } from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const meta = getPageMeta('thank-you', locale);
+---
+
+<PageShell title={meta.title} description={meta.description} fullBleed>
+  <ThankYou locale={locale} client:load />
+</PageShell>

@@ -1,0 +1,28 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import FormPageHero from '@components/sections/FormPageHero';
+import ContactSection from '@components/sections/ContactSection';
+import { resolveLocale, t } from '@i18n/index';
+import { getPageMeta, buildContactPageSchema, buildBreadcrumbSchema } from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const meta = getPageMeta('form', locale);
+const prefix = locale === 'en' ? '/en' : '';
+
+const contactSchema = buildContactPageSchema(`${prefix}/form`);
+const breadcrumb = buildBreadcrumbSchema([
+  { name: locale === 'en' ? 'Home' : 'Inicio', url: prefix || '/' },
+  { name: t('nav.form', locale), url: `${prefix}/form` },
+]);
+---
+
+<PageShell
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  schemas={[contactSchema, breadcrumb]}
+  fullBleed
+>
+  <FormPageHero locale={locale} client:load />
+  <ContactSection locale={locale} client:visible />
+</PageShell>

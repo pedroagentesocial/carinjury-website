@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+import { resolveLocale, t } from '@i18n/index';
+import SiteMeta from '@components/SiteMeta.astro';
+import Analytics from '@components/Analytics.astro';
+import ChatWidget from '@components/ChatWidget.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  /** Si esta page es la home → carga schemas globales (LocalBusiness, WebSite, Organization). */
+  isHome?: boolean;
+  /** Schemas adicionales (FAQ, Breadcrumb, Service, Doctor). */
+  schemas?: unknown[];
+}
+
+const { title, description, keywords, ogType, ogImage, isHome, schemas } = Astro.props;
+const locale = resolveLocale(Astro.currentLocale);
+const siteTitle = title ?? t('site.title', locale);
+const siteDesc = description ?? t('site.description', locale);
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/CIC.svg" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    {/* Performance: hint al navegador sobre orígenes externos que vamos a usar */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://api.leadconnectorhq.com" />
+    <link rel="dns-prefetch" href="https://link.msgsndr.com" />
+    <link rel="dns-prefetch" href="https://www.google.com" />
+    <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+
+    {/* Preload del primer video del hero (LCP) — el resto se carga on demand */}
+    <link rel="preload" as="video" href="/video/car-injury.mp4" type="video/mp4" />
+
+    <SiteMeta
+      locale={locale}
+      title={siteTitle}
+      description={siteDesc}
+      keywords={keywords}
+      ogType={ogType}
+      image={ogImage}
+      isHome={isHome}
+      schemas={schemas}
+    />
+    <Analytics />
+  </head>
+  <body>
+    <slot />
+    <ChatWidget />
+  </body>
+</html>

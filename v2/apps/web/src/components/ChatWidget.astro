@@ -1,0 +1,21 @@
+---
+/**
+ * LeadConnector / GHL chat widget.
+ * Si `PUBLIC_GHL_WIDGET_ID` no está seteado, no se inyecta.
+ *
+ * Default = el widget de la clínica heredado de v1 (69cc5bc9af4d3484b4c4f464).
+ * Para desactivar el chat en un entorno específico, setea `PUBLIC_GHL_WIDGET_ID=""`.
+ */
+const widgetId =
+  import.meta.env.PUBLIC_GHL_WIDGET_ID ?? '69cc5bc9af4d3484b4c4f464';
+---
+
+{widgetId && (
+  <script
+    is:inline
+    src="https://widgets.leadconnectorhq.com/loader.js"
+    data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+    data-widget-id={widgetId}
+    defer
+  ></script>
+)}

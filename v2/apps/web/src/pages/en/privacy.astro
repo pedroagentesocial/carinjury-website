@@ -1,0 +1,21 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import PageHero from '@components/sections/PageHero';
+import PrivacyContent from '@components/sections/PrivacyContent';
+import { resolveLocale, t } from '@i18n/index';
+import { getPageMeta } from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const meta = getPageMeta('privacy', locale);
+---
+
+<PageShell title={meta.title} description={meta.description} fullBleed>
+  <PageHero
+    client:load
+    locale={locale}
+    eyebrow={t('footer.privacy', locale)}
+    title={t('privacy.title', locale)}
+    subtitle={t('privacy.subtitle', locale)}
+  />
+  <PrivacyContent locale={locale} client:visible />
+</PageShell>

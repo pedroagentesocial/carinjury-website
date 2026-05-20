@@ -1,0 +1,24 @@
+{
+  "name": "carinjury-v2",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "pnpm --filter @carinjury/web dev",
+    "dev:web": "pnpm --filter @carinjury/web dev",
+    "dev:api": "pnpm --filter @carinjury/api dev",
+    "dev:all": "pnpm -r --parallel run dev",
+    "build": "pnpm --filter @carinjury/web build",
+    "build:all": "pnpm -r run build",
+    "typecheck": "pnpm -r run typecheck",
+    "check-i18n": "pnpm --filter @carinjury/web check-i18n",
+    "clean": "pnpm -r exec rimraf node_modules dist .astro"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

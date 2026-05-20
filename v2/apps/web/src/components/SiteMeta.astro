@@ -1,0 +1,119 @@
+---
+import type { Locale } from '@carinjury/shared';
+import { SITE, SEARCH_CONSOLE_VERIFICATION, BING_VERIFICATION } from '@lib/site';
+import {
+  buildLocalBusinessSchema,
+  buildWebSiteSchema,
+  buildOrganizationSchema,
+  absoluteUrl,
+} from '@lib/seo';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  /** Comma-separated keywords (Bing + auditors). */
+  keywords?: string;
+  /** Tipo OG. */
+  ogType?: 'website' | 'article';
+  /** Imagen OG. Si no se pasa, usa /og-default.svg */
+  image?: string;
+  /** Canonical absoluto. Si no se pasa, lo construye desde Astro.url */
+  canonical?: string;
+  /** Sitio: si es página principal mostramos schemas globales (LocalBusiness, WebSite, Organization). */
+  isHome?: boolean;
+  /** Schemas extra (FAQ, Breadcrumb, etc.) específicos de la página. */
+  schemas?: unknown[];
+}
+
+const {
+  locale,
+  title,
+  description,
+  keywords,
+  ogType = 'website',
+  image,
+  canonical,
+  isHome = false,
+  schemas = [],
+} = Astro.props;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? SITE.url;
+const currentPath = Astro.url.pathname;
+const canonicalUrl = canonical ?? new URL(currentPath, siteUrl).toString();
+const ogImageUrl = absoluteUrl(image ?? '/og-default.svg', siteUrl);
+
+/* hreflang ES <-> EN + x-default */
+const altLocale: Locale = locale === 'es' ? 'en' : 'es';
+const altPath =
+  altLocale === 'en'
+    ? currentPath.startsWith('/en')
+      ? currentPath
+      : `/en${currentPath}`
+    : currentPath.startsWith('/en')
+      ? currentPath.replace(/^\/en/, '') || '/'
+      : currentPath;
+const altUrl = new URL(altPath, siteUrl).toString();
+
+/* Global schemas — siempre se cargan en el home; en otras pages solo si isHome */
+const globalSchemas = isHome
+  ? [
+      buildLocalBusinessSchema({ ogImage: ogImageUrl, locale }),
+      buildWebSiteSchema(),
+      buildOrganizationSchema(ogImageUrl),
+    ]
+  : [];
+
+const allSchemas = [...globalSchemas, ...schemas];
+---
+
+<!-- Primary meta -->
+<title>{title}</title>
+<meta name="description" content={description} />
+{keywords && <meta name="keywords" content={keywords} />}
+<meta name="author" content={SITE.name} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Geo meta (local SEO) -->
+<meta name="geo.region" content="US-UT" />
+<meta name="geo.placename" content={`${SITE.address.city}, ${SITE.address.region}`} />
+<meta name="geo.position" content={`${SITE.address.geo.lat};${SITE.address.geo.lng}`} />
+<meta name="ICBM" content={`${SITE.address.geo.lat}, ${SITE.address.geo.lng}`} />
+
+<!-- Verificaciones (vacío si la env var no está set) -->
+{SEARCH_CONSOLE_VERIFICATION && <meta name="google-site-verification" content={SEARCH_CONSOLE_VERIFICATION} />}
+{BING_VERIFICATION && <meta name="msvalidate.01" content={BING_VERIFICATION} />}
+
+<!-- hreflang -->
+<link rel="alternate" hreflang={locale} href={canonicalUrl} />
+<link rel="alternate" hreflang={altLocale} href={altUrl} />
+<link rel="alternate" hreflang="x-default" href={siteUrl} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={locale === 'es' ? 'es_US' : 'en_US'} />
+<meta property="og:locale:alternate" content={altLocale === 'es' ? 'es_US' : 'en_US'} />
+<meta property="og:site_name" content={SITE.name} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<!-- Theme -->
+<meta name="theme-color" content="#4a1c5a" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="format-detection" content="telephone=yes" />
+
+<!-- JSON-LD: schemas combinados (LocalBusiness, WebSite, Organization en home + extras de la page) -->
+{allSchemas.map((s) => (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(s)} />
+))}

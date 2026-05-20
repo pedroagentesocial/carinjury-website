@@ -1,0 +1,42 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import ServicesCatalog from '@components/sections/ServicesCatalog';
+import { resolveLocale, t, translations } from '@i18n/index';
+import { getPageMeta, buildServicesSchema, buildBreadcrumbSchema } from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const meta = getPageMeta('services', locale);
+const prefix = locale === 'en' ? '/en' : '';
+
+/* Build per-service MedicalProcedure schemas */
+const SERVICE_SLUGS = [
+  'chiropractic', 'rehabilitation', 'physical_therapy', 'hot_cold_therapy',
+  'massage', 'ultrasound', 'tens', 'xray', 'mri', 'concussion',
+  'second_opinions', 'pain_management', 'surgical_consultations',
+  'free_transport', 'trilingual',
+] as const;
+
+const items = translations[locale].services_page.items;
+const servicesSchema = buildServicesSchema(
+  SERVICE_SLUGS.map((slug) => ({
+    name: items[slug].title,
+    description: items[slug].description,
+    url: `${prefix}/services#${slug}`,
+  })),
+);
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: locale === 'en' ? 'Home' : 'Inicio', url: prefix || '/' },
+  { name: t('nav.services', locale), url: `${prefix}/services` },
+]);
+---
+
+<PageShell
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  schemas={[...servicesSchema, breadcrumb]}
+  fullBleed
+>
+  <ServicesCatalog locale={locale} client:load />
+</PageShell>

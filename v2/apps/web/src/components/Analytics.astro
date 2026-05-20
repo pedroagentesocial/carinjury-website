@@ -1,0 +1,71 @@
+---
+/**
+ * Analytics provider — GA4 + Meta Pixel + Google Ads conversion.
+ * Cada tag se inyecta SOLO si su env var está seteada. Si todas están vacías,
+ * este componente no emite nada.
+ *
+ * Variables:
+ *   PUBLIC_GA4_ID            ej. G-XXXXXXXXXX
+ *   PUBLIC_META_PIXEL_ID     ej. 1234567890123456
+ *   PUBLIC_GOOGLE_ADS_ID     ej. AW-XXXXXXXXXX  (account-level, sin "/conversion-id")
+ */
+const GA4 = import.meta.env.PUBLIC_GA4_ID;
+const META = import.meta.env.PUBLIC_META_PIXEL_ID;
+const GADS = import.meta.env.PUBLIC_GOOGLE_ADS_ID;
+const anyAnalytics = Boolean(GA4 || META || GADS);
+---
+
+{
+  anyAnalytics && (
+    <>
+      {/* Helper global para disparar conversiones desde cualquier página */}
+      <script is:inline define:vars={{ GA4, META, GADS }}>
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          window.gtag = gtag;
+          window.fbq = window.fbq || function(){(window.fbq.q=window.fbq.q||[]).push(arguments)};
+          window.fbq.l = +new Date();
+
+          window.trackEvent = function(name, params){
+            try { if (GA4) window.gtag('event', name, params || {}); } catch(e) {}
+            try { if (META) window.fbq('trackCustom', name, params || {}); } catch(e) {}
+          };
+          window.trackConversion = function(label, value){
+            var v = typeof value === 'number' ? value : 0;
+            try { if (GA4) window.gtag('event', 'conversion', { send_to: GA4 + '/' + (label||'lead'), value: v, currency: 'USD' }); } catch(e) {}
+            try { if (META) window.fbq('track', 'Lead', { value: v, currency: 'USD' }); } catch(e) {}
+            try { if (GADS && label) window.gtag('event', 'conversion', { send_to: GADS + '/' + label, value: v, currency: 'USD' }); } catch(e) {}
+          };
+        `}
+      </script>
+    </>
+  )
+}
+
+{(GA4 || GADS) && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA4 || GADS}`} />
+    <script is:inline define:vars={{ GA4, GADS }}>
+      {`
+        gtag('js', new Date());
+        if (GA4) gtag('config', GA4, { send_page_view: true, anonymize_ip: true });
+        if (GADS) gtag('config', GADS);
+      `}
+    </script>
+  </>
+)}
+
+{META && (
+  <script is:inline define:vars={{ META }}>
+    {`
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', META);
+      fbq('track', 'PageView');
+    `}
+  </script>
+)}
