@@ -1,8 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "pnpm build",
+  "buildCommand": "pnpm build && mkdir -p .vercel && rm -rf .vercel/output && mv apps/web/.vercel/output .vercel/output",
   "installCommand": "pnpm install --frozen-lockfile",
-  "outputDirectory": "apps/web/.vercel/output",
   "framework": "astro",
   "headers": [
     {
