@@ -4,7 +4,6 @@
   "installCommand": "pnpm install --frozen-lockfile",
   "outputDirectory": "apps/web/.vercel/output",
   "framework": "astro",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./apps/web ./packages/shared",
   "headers": [
     {
       "source": "/api/reviews",
