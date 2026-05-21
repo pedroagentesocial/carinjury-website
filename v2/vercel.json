@@ -3,6 +3,10 @@
   "buildCommand": "pnpm build && mkdir -p .vercel && rm -rf .vercel/output && mv apps/web/.vercel/output .vercel/output",
   "installCommand": "pnpm install --frozen-lockfile",
   "framework": "astro",
+  "redirects": [
+    { "source": "/formulario", "destination": "/form", "permanent": true },
+    { "source": "/gracias", "destination": "/thank-you", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/api/reviews",
