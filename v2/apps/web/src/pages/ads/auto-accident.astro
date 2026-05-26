@@ -2,13 +2,44 @@
 import Layout from '@layouts/Layout.astro';
 import AdLanding from '@components/sections/AdLanding';
 import { resolveLocale } from '@i18n/index';
+import {
+  buildBreadcrumbSchema,
+  buildMedicalWebPageSchema,
+  buildServicesSchema,
+} from '@lib/seo';
 
 const locale = resolveLocale(Astro.currentLocale);
+const title = 'Car Injury Clinic — Atención inmediata por accidente';
+const description =
+  'Citas el mismo día, sin costo inicial, equipo bilingüe. Evaluación gratuita en minutos.';
+
+const medicalPage = buildMedicalWebPageSchema({
+  url: '/ads/auto-accident',
+  name: title,
+  description,
+  specialty: 'Chiropractic',
+  audience: 'Patient',
+});
+
+const services = buildServicesSchema([
+  {
+    name: 'Atención quiropráctica de emergencia por accidente de auto',
+    description:
+      'Evaluación quiropráctica el mismo día para víctimas de accidente de auto. Manejo del dolor, rayos X y coordinación con seguro.',
+    url: '/ads/auto-accident',
+  },
+]);
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: 'Inicio', url: '/' },
+  { name: 'Atención por accidente', url: '/ads/auto-accident' },
+]);
 ---
 
 <Layout
-  title="Car Injury Clinic — Atención inmediata por accidente"
-  description="Citas el mismo día, sin costo inicial, equipo bilingüe. Evaluación gratuita en minutos."
+  title={title}
+  description={description}
+  schemas={[medicalPage, ...services, breadcrumb]}
 >
   <AdLanding locale={locale} client:load />
 </Layout>

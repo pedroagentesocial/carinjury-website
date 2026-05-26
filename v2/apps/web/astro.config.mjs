@@ -37,15 +37,18 @@ export default defineConfig({
         const url = new URL(item.url);
         const path = url.pathname.replace(/^\/en/, '') || '/';
 
+        /** @type {(v: string) => import('sitemap').EnumChangefreq} */
+        const cf = (v) => /** @type {any} */ (v);
+
         // Home: máxima prioridad
         if (path === '/' || path === '') {
           item.priority = 1.0;
-          item.changefreq = 'weekly';
+          item.changefreq = cf('weekly');
         }
         // Services + Lawyer: alta prioridad (intent comercial)
         else if (path === '/services' || path === '/services/' || path === '/lawyer-approved' || path === '/lawyer-approved/') {
           item.priority = 0.9;
-          item.changefreq = 'monthly';
+          item.changefreq = cf('monthly');
         }
         // About + Schedule + Form + Patient referral: importantes
         else if (
@@ -56,12 +59,12 @@ export default defineConfig({
           path === '/faq' || path === '/faq/'
         ) {
           item.priority = 0.8;
-          item.changefreq = 'monthly';
+          item.changefreq = cf('monthly');
         }
         // Privacy y otras
         else {
           item.priority = 0.4;
-          item.changefreq = 'yearly';
+          item.changefreq = cf('yearly');
         }
 
         return item;

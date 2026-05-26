@@ -5,8 +5,10 @@ import {
   buildLocalBusinessSchema,
   buildWebSiteSchema,
   buildOrganizationSchema,
+  buildBreadcrumbSchema,
   absoluteUrl,
 } from '@lib/seo';
+import { getReviews } from '@/lib/server/reviews';
 
 interface Props {
   locale: Locale;
@@ -55,12 +57,44 @@ const altPath =
       : currentPath;
 const altUrl = new URL(altPath, siteUrl).toString();
 
-/* Global schemas — siempre se cargan en el home; en otras pages solo si isHome */
+/*
+ * Global schemas — solo en home (isHome). Para AggregateRating + reviews,
+ * tiramos del cache server-side (6h TTL) que fetcha Google Places API si
+ * GOOGLE_PLACES_API_KEY/GOOGLE_PLACE_ID están seteadas, con fallback a SEED.
+ * Si el fetch falla por cualquier motivo, no emitimos rating (mejor sin
+ * snippet que con datos incorrectos).
+ */
+let reviewsData: Awaited<ReturnType<typeof getReviews>> | null = null;
+if (isHome) {
+  try {
+    reviewsData = await getReviews();
+  } catch (err) {
+    console.error('[SiteMeta] reviews fetch failed', err);
+  }
+}
+
 const globalSchemas = isHome
   ? [
-      buildLocalBusinessSchema({ ogImage: ogImageUrl, locale }),
+      buildLocalBusinessSchema({
+        ogImage: ogImageUrl,
+        locale,
+        aggregateRating: reviewsData
+          ? { value: reviewsData.average, count: reviewsData.reviews.length }
+          : undefined,
+        reviews: reviewsData
+          ? reviewsData.reviews.slice(0, 5).map((r) => ({
+              author: r.author,
+              rating: r.rating,
+              text: locale === 'en' ? r.text_en : r.text_es,
+              date: r.date,
+            }))
+          : undefined,
+      }),
       buildWebSiteSchema(),
       buildOrganizationSchema(ogImageUrl),
+      buildBreadcrumbSchema([
+        { name: locale === 'en' ? 'Home' : 'Inicio', url: locale === 'en' ? '/en/' : '/' },
+      ]),
     ]
   : [];
 

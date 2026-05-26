@@ -184,6 +184,23 @@ export default function FaqAccordion({ locale }: Props) {
         </div>
       </div>
 
+      {/*
+       * Bloque speakable / indexable: pre-renderiza todas las Q&A en HTML
+       * inicial. Oculto visualmente pero presente para crawlers, Google
+       * Assistant (vía SpeakableSpecification) y screen readers que quieran
+       * leer todas las respuestas seguidas.
+       */}
+      <div className="sr-only" data-speakable>
+        <dl>
+          {QUESTIONS.map((q) => (
+            <div key={q}>
+              <dt>{t(`faq_page.questions.${q}.question` as TranslationKey, locale)}</dt>
+              <dd>{t(`faq_page.questions.${q}.answer` as TranslationKey, locale)}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
       {/* =================== ACCORDION =================== */}
       <section className="relative bg-white py-16 md:py-20">
         <div

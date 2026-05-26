@@ -16,6 +16,7 @@ const faqSchema = buildFAQSchema(
     question: questions[q].question,
     answer: questions[q].answer,
   })),
+  ['[data-speakable] dt', '[data-speakable] dd'],
 );
 
 const breadcrumb = buildBreadcrumbSchema([

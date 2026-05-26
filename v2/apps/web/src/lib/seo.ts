@@ -214,7 +214,7 @@ export function buildLocalBusinessSchema(opts: {
 
   return {
     '@context': 'https://schema.org',
-    '@type': ['MedicalBusiness', 'Chiropractor'],
+    '@type': ['MedicalClinic', 'Chiropractor'],
     '@id': `${SITE_URL}/#business`,
     name: SITE.name,
     legalName: 'Car Injury Clinic LLC',
@@ -289,22 +289,142 @@ export function buildLocalBusinessSchema(opts: {
         datePublished: r.date,
       })),
     }),
-    makesOffer: [
-      'Chiropractic care',
-      'Physical therapy',
-      'Massage therapy',
-      'Digital X-Ray',
-      'MRI coordination',
-      'Pain management',
-      'TENS therapy',
-      'Hot/Cold therapy',
-      'Concussion evaluation',
-      'Free transportation',
-      'Legal coordination',
-    ].map((s) => ({
-      '@type': 'Offer',
-      itemOffered: { '@type': 'Service', name: s },
-    })),
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: locale === 'en' ? 'Car accident treatment services' : 'Servicios de tratamiento de accidentes',
+      itemListElement: [
+        {
+          '@type': 'OfferCatalog',
+          name: locale === 'en' ? 'Chiropractic & Rehabilitation' : 'Quiropráctica y Rehabilitación',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'MedicalProcedure',
+                name: locale === 'en' ? 'Chiropractic adjustment' : 'Ajuste quiropráctico',
+                procedureType: 'Therapeutic',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'MedicalProcedure',
+                name: locale === 'en' ? 'Physical therapy' : 'Terapia física',
+                procedureType: 'Therapeutic',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'MedicalProcedure',
+                name: locale === 'en' ? 'Therapeutic massage' : 'Masaje terapéutico',
+                procedureType: 'Therapeutic',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'MedicalProcedure',
+                name: locale === 'en' ? 'TENS therapy' : 'Terapia TENS',
+                procedureType: 'Therapeutic',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'MedicalProcedure',
+                name: locale === 'en' ? 'Hot/Cold therapy' : 'Terapia calor/frío',
+                procedureType: 'Therapeutic',
+              },
+            },
+          ],
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: locale === 'en' ? 'Diagnostic imaging' : 'Imagen diagnóstica',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'MedicalProcedure',
+                name: locale === 'en' ? 'Digital X-Ray' : 'Rayos X digitales',
+                procedureType: 'Diagnostic',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'MedicalProcedure',
+                name: locale === 'en' ? 'MRI coordination' : 'Coordinación de MRI',
+                procedureType: 'Diagnostic',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'MedicalProcedure',
+                name: locale === 'en' ? 'Concussion evaluation' : 'Evaluación de concusión',
+                procedureType: 'Diagnostic',
+              },
+            },
+          ],
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: locale === 'en' ? 'Pain management' : 'Manejo del dolor',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'MedicalProcedure',
+                name: locale === 'en' ? 'Pain management consultation' : 'Consulta de manejo del dolor',
+                procedureType: 'Therapeutic',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'MedicalProcedure',
+                name: locale === 'en' ? 'Surgical consultation referral' : 'Referencia para consulta quirúrgica',
+                procedureType: 'Diagnostic',
+              },
+            },
+          ],
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: locale === 'en' ? 'Patient support' : 'Apoyo al paciente',
+          itemListElement: [
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: locale === 'en' ? 'Free patient transportation' : 'Transporte gratis para pacientes',
+                serviceType: 'Transportation',
+              },
+              price: '0',
+              priceCurrency: 'USD',
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: locale === 'en' ? 'Legal coordination with attorneys' : 'Coordinación legal con abogados',
+                serviceType: 'LegalCoordination',
+              },
+            },
+            {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: locale === 'en' ? 'Trilingual care (ES/EN/PT)' : 'Atención trilingüe (ES/EN/PT)',
+                serviceType: 'LanguageSupport',
+              },
+            },
+          ],
+        },
+      ],
+    },
   };
 }
 
@@ -375,11 +495,25 @@ export function buildBreadcrumbSchema(items: Array<{ name: string; url: string }
 /**
  * FAQPage schema — pasale array de `{ question, answer }`.
  * Activa rich snippet de FAQ en Google.
+ *
+ * `speakableSelectors` (opcional): array de CSS selectors que apuntan al texto
+ * de respuestas en el HTML. Activa el SpeakableSpecification para Google
+ * Assistant / voice search. Pasalo solo si los selectores realmente existen
+ * en la página renderizada.
  */
-export function buildFAQSchema(qa: Array<{ question: string; answer: string }>) {
+export function buildFAQSchema(
+  qa: Array<{ question: string; answer: string }>,
+  speakableSelectors?: string[],
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    ...(speakableSelectors && speakableSelectors.length > 0 && {
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: speakableSelectors,
+      },
+    }),
     mainEntity: qa.map((it) => ({
       '@type': 'Question',
       name: it.question,
@@ -387,6 +521,36 @@ export function buildFAQSchema(qa: Array<{ question: string; answer: string }>) 
         '@type': 'Answer',
         text: it.answer,
       },
+    })),
+  };
+}
+
+/**
+ * HowTo schema — guía paso a paso. Útil para "qué hacer tras un accidente".
+ *
+ * REQUISITO de Google: los pasos deben ser visibles en el HTML de la página,
+ * no solo en JSON-LD. Si solo emites el schema sin contenido visible
+ * correspondiente, Google puede ignorarlo o aplicar penalización.
+ */
+export function buildHowToSchema(opts: {
+  name: string;
+  description: string;
+  totalTime?: string; // ISO 8601 duration, ej: "PT1H"
+  steps: Array<{ name: string; text: string; url?: string; image?: string }>;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: opts.name,
+    description: opts.description,
+    ...(opts.totalTime && { totalTime: opts.totalTime }),
+    step: opts.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      ...(s.url && { url: absoluteUrl(s.url) }),
+      ...(s.image && { image: absoluteUrl(s.image) }),
     })),
   };
 }
@@ -435,5 +599,29 @@ export function buildContactPageSchema(url: string) {
     '@type': 'ContactPage',
     url: absoluteUrl(url),
     mainEntity: { '@id': `${SITE_URL}/#business` },
+  };
+}
+
+/**
+ * MedicalWebPage — page-level schema más específico que WebPage para
+ * contenido médico/clínico. Útil para landings de servicios y PPC ads.
+ */
+export function buildMedicalWebPageSchema(opts: {
+  url: string;
+  name: string;
+  description: string;
+  specialty?: 'Chiropractic' | 'PainManagement' | 'PhysicalTherapy' | 'Rehabilitation';
+  audience?: 'Patient' | 'Clinician';
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    url: absoluteUrl(opts.url),
+    name: opts.name,
+    description: opts.description,
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    about: { '@id': `${SITE_URL}/#business` },
+    ...(opts.specialty && { specialty: opts.specialty }),
+    ...(opts.audience && { medicalAudience: opts.audience }),
   };
 }

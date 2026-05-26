@@ -3,13 +3,19 @@ import PageShell from '@layouts/PageShell.astro';
 import PageHero from '@components/sections/PageHero';
 import PrivacyContent from '@components/sections/PrivacyContent';
 import { resolveLocale, t } from '@i18n/index';
-import { getPageMeta } from '@lib/seo';
+import { getPageMeta, buildBreadcrumbSchema } from '@lib/seo';
 
 const locale = resolveLocale(Astro.currentLocale);
 const meta = getPageMeta('privacy', locale);
+const prefix = locale === 'en' ? '/en' : '';
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: locale === 'en' ? 'Home' : 'Inicio', url: prefix || '/' },
+  { name: t('footer.privacy', locale), url: `${prefix}/privacy` },
+]);
 ---
 
-<PageShell title={meta.title} description={meta.description} fullBleed>
+<PageShell title={meta.title} description={meta.description} schemas={[breadcrumb]} fullBleed>
   <PageHero
     client:load
     locale={locale}

@@ -2,12 +2,18 @@
 import PageShell from '@layouts/PageShell.astro';
 import ThankYou from '@components/sections/ThankYou';
 import { resolveLocale } from '@i18n/index';
-import { getPageMeta } from '@lib/seo';
+import { getPageMeta, buildBreadcrumbSchema } from '@lib/seo';
 
 const locale = resolveLocale(Astro.currentLocale);
 const meta = getPageMeta('thank-you', locale);
+const prefix = locale === 'en' ? '/en' : '';
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: locale === 'en' ? 'Home' : 'Inicio', url: prefix || '/' },
+  { name: locale === 'en' ? 'Thank you' : 'Gracias', url: `${prefix}/thank-you` },
+]);
 ---
 
-<PageShell title={meta.title} description={meta.description} fullBleed>
+<PageShell title={meta.title} description={meta.description} schemas={[breadcrumb]} fullBleed>
   <ThankYou locale={locale} client:load />
 </PageShell>

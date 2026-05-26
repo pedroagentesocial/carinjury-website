@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion, type Variants } from 'motion/react';
+
+const slideVariants: Variants = {
+  enter: (d: number) => ({ opacity: 0, x: 40 * d, scale: 0.98 }),
+  center: { opacity: 1, x: 0, scale: 1 },
+  exit: (d: number) => ({ opacity: 0, x: -40 * d, scale: 0.98 }),
+};
 import type { Locale, Review } from '@carinjury/shared';
 import { t } from '@i18n/index';
 import { SITE } from '@lib/site';
@@ -192,9 +198,10 @@ export default function Testimonials({ locale }: Props) {
               <motion.div
                 key={current.id}
                 custom={direction}
-                initial={(d: number) => ({ opacity: 0, x: 40 * d, scale: 0.98 })}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={(d: number) => ({ opacity: 0, x: -40 * d, scale: 0.98 })}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                 className="px-2"
               >
