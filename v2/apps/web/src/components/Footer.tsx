@@ -68,9 +68,8 @@ export default function Footer({ locale }: Props) {
     {
       icon: 'pin',
       label: SITE.address.full,
-      sub: locale === 'en' ? 'Get directions' : 'Cómo llegar',
-      href: SITE.mapsUrl,
-      external: true,
+      sub: locale === 'en' ? 'Location & directions' : 'Ubicación y cómo llegar',
+      href: `${prefix}/location`,
     },
   ];
 

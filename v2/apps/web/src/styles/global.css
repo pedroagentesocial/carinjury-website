@@ -671,3 +671,102 @@ html { scroll-padding-top: var(--nav-h); }
     transition-duration: 0.001s !important;
   }
 }
+
+/* ============================================================
+   Blog — estilo de artículo (markdown renderizado).
+   No usamos @tailwindcss/typography; estilamos a mano con la
+   paleta de marca para mantener consistencia visual.
+   ============================================================ */
+.prose-article {
+  color: var(--ink);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.prose-article > * + * { margin-top: 1.25em; }
+.prose-article h2 {
+  font-family: var(--font-heading, inherit);
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-top: 2.25em;
+  margin-bottom: 0.2em;
+}
+.prose-article h3 {
+  font-family: var(--font-heading, inherit);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 1.75em;
+}
+.prose-article p { color: #353846; }
+.prose-article a {
+  color: var(--c-purple);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-article a:hover { color: var(--c-deep); }
+.prose-article strong { color: var(--ink); font-weight: 700; }
+.prose-article ul,
+.prose-article ol { padding-left: 1.4em; }
+.prose-article ul { list-style: none; padding-left: 0; }
+.prose-article ul > li {
+  position: relative;
+  padding-left: 1.6em;
+  margin-top: 0.55em;
+  color: #353846;
+}
+.prose-article ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0.15em;
+  top: 0.65em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 9999px;
+  background: var(--c-rose);
+}
+.prose-article ol { counter-reset: item; list-style: none; padding-left: 0; }
+.prose-article ol > li {
+  position: relative;
+  padding-left: 2em;
+  margin-top: 0.55em;
+  color: #353846;
+  counter-increment: item;
+}
+.prose-article ol > li::before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  width: 1.4em;
+  height: 1.4em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78em;
+  font-weight: 800;
+  color: #fff;
+  background: var(--c-purple);
+  border-radius: 9999px;
+}
+.prose-article blockquote {
+  border-left: 3px solid var(--c-rose);
+  background: var(--surface-2);
+  padding: 1em 1.25em;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--ink);
+}
+.prose-article blockquote p { margin: 0; color: var(--ink); }
+.prose-article hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 2.5em 0;
+}
+.prose-article hr + p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+}

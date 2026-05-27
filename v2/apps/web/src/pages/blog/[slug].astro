@@ -1,0 +1,130 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE } from '@lib/site';
+import { buildArticleSchema, buildBreadcrumbSchema, absoluteUrl } from '@lib/seo';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (e) => e.data.lang === 'es' && !e.data.draft);
+  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const data = post.data;
+const { Content } = await render(post);
+
+const url = `/blog/${data.slug}`;
+
+/* hreflang: traducción EN con el mismo translationKey */
+const all = await getCollection('blog');
+const alt = all.find((e) => e.data.translationKey === data.translationKey && e.data.lang === 'en');
+const alternateUrl = alt ? absoluteUrl(`/en/blog/${alt.data.slug}`) : undefined;
+
+const articleSchema = buildArticleSchema({
+  url,
+  headline: data.title,
+  description: data.description,
+  datePublished: data.publishDate.toISOString(),
+  dateModified: data.updatedDate?.toISOString(),
+  image: data.heroImage,
+  author: data.author,
+  keywords: data.keywords,
+});
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: 'Inicio', url: '/' },
+  { name: 'Blog', url: '/blog' },
+  { name: data.title, url },
+]);
+
+const formattedDate = data.publishDate.toLocaleDateString('es-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<PageShell
+  title={data.title}
+  description={data.description}
+  keywords={data.keywords}
+  ogType="article"
+  ogImage={data.heroImage}
+  schemas={[articleSchema, breadcrumb]}
+  alternateUrl={alternateUrl}
+  fullBleed
+>
+  <article>
+    {/* ============ HERO ============ */}
+    <header class="relative isolate overflow-hidden bg-deep pt-28 pb-14 text-white md:pt-32 md:pb-20">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div class="absolute -left-32 top-0 h-[40vmax] w-[40vmax] rounded-full bg-secondary/15 blur-3xl"></div>
+        <div class="absolute -right-32 bottom-0 h-[36vmax] w-[36vmax] rounded-full bg-primary/30 blur-3xl"></div>
+      </div>
+      <div class="relative mx-auto max-w-3xl px-6">
+        <nav class="text-xs font-semibold text-white/65" aria-label="Breadcrumb">
+          <a href="/" class="transition hover:text-secondary">Inicio</a>
+          <span class="mx-2 text-white/30">/</span>
+          <a href="/blog" class="transition hover:text-secondary">Blog</a>
+        </nav>
+        <span class="mt-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80 backdrop-blur">
+          <span class="h-1 w-1 rounded-full bg-secondary"></span>
+          {data.category}
+        </span>
+        <h1 class="mt-4 font-heading text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-4xl md:text-[2.7rem]">
+          {data.title}
+        </h1>
+        <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-white/70">
+          <time datetime={data.publishDate.toISOString()}>{formattedDate}</time>
+          {data.readingTime && (
+            <>
+              <span aria-hidden="true" class="text-white/30">·</span>
+              <span>{data.readingTime} min de lectura</span>
+            </>
+          )}
+        </div>
+      </div>
+    </header>
+
+    {/* ============ BODY ============ */}
+    <div class="relative bg-white py-14 md:py-20">
+      <div class="mx-auto max-w-3xl px-6">
+        <div class="prose-article">
+          <Content />
+        </div>
+
+        {/* CTA */}
+        <div class="mt-14 rounded-3xl border border-line bg-surface-2 p-7 text-center md:p-10">
+          <p class="font-heading text-xl font-extrabold text-ink md:text-2xl">
+            ¿Tuviste un accidente de auto?
+          </p>
+          <p class="mx-auto mt-2 max-w-md text-sm text-muted">
+            Evaluación el mismo día, transporte gratis y apoyo legal en Taylorsville, UT.
+          </p>
+          <div class="mt-6 flex flex-wrap justify-center gap-3">
+            <a
+              href={`tel:${SITE.phone.tel}`}
+              class="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold"
+            >
+              {SITE.phone.display}
+            </a>
+            <a
+              href="/schedule"
+              class="inline-flex items-center gap-2 rounded-full border border-primary/25 px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary/[0.06]"
+            >
+              Agendar cita
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <a href="/blog" class="text-sm font-semibold text-primary transition hover:text-deep">
+            ← Volver al blog
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</PageShell>

@@ -15,9 +15,11 @@ interface Props {
   isHome?: boolean;
   /** Schemas adicionales (FAQ, Breadcrumb, Service, Doctor). */
   schemas?: unknown[];
+  /** URL absoluta de la versión en el otro idioma (hreflang) cuando el slug difiere. */
+  alternateUrl?: string;
 }
 
-const { title, description, keywords, ogType, ogImage, isHome, schemas } = Astro.props;
+const { title, description, keywords, ogType, ogImage, isHome, schemas, alternateUrl } = Astro.props;
 const locale = resolveLocale(Astro.currentLocale);
 const siteTitle = title ?? t('site.title', locale);
 const siteDesc = description ?? t('site.description', locale);
@@ -55,6 +57,7 @@ const siteDesc = description ?? t('site.description', locale);
       image={ogImage}
       isHome={isHome}
       schemas={schemas}
+      alternateUrl={alternateUrl}
     />
     <Analytics />
   </head>

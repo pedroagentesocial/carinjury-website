@@ -56,9 +56,20 @@ export default defineConfig({
           path === '/schedule' || path === '/schedule/' ||
           path === '/form' || path === '/form/' ||
           path === '/patient-referral' || path === '/patient-referral/' ||
-          path === '/faq' || path === '/faq/'
+          path === '/faq' || path === '/faq/' ||
+          path === '/location' || path === '/location/'
         ) {
           item.priority = 0.8;
+          item.changefreq = cf('monthly');
+        }
+        // Blog index: contenido fresco
+        else if (path === '/blog' || path === '/blog/') {
+          item.priority = 0.7;
+          item.changefreq = cf('weekly');
+        }
+        // Artículos del blog
+        else if (path.startsWith('/blog/')) {
+          item.priority = 0.6;
           item.changefreq = cf('monthly');
         }
         // Privacy y otras

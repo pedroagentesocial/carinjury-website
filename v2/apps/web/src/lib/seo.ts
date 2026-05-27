@@ -118,6 +118,38 @@ export const PAGE_META: Record<string, Record<Locale, PageMeta>> = {
         'car accident FAQ Utah, personal injury questions, statute of limitations accident, case value, auto insurance claim',
     },
   },
+  location: {
+    es: {
+      title: 'Ubicación de la Clínica en Taylorsville, UT · Car Injury Clinic',
+      description:
+        'Visítanos en 2997 W 4700 S, Taylorsville, UT 84129. Clínica quiropráctica de accidentes que da servicio a Salt Lake City y todo el condado. Mapa, horario, cómo llegar y estacionamiento.',
+      keywords:
+        'quiropráctico Taylorsville, clínica de accidentes Taylorsville, quiropráctico cerca de mí, clínica de accidentes cerca de mí, dirección Car Injury Clinic, quiropráctico West Valley City, quiropráctico Salt Lake City',
+    },
+    en: {
+      title: 'Clinic Location in Taylorsville, UT · Car Injury Clinic',
+      description:
+        'Visit us at 2997 W 4700 S, Taylorsville, UT 84129. Car accident chiropractic clinic serving Salt Lake City and the whole county. Map, hours, directions and parking.',
+      keywords:
+        'chiropractor Taylorsville, accident clinic Taylorsville, chiropractor near me, accident clinic near me, Car Injury Clinic address, chiropractor West Valley City, chiropractor Salt Lake City',
+    },
+  },
+  blog: {
+    es: {
+      title: 'Blog · Recuperación de Accidentes y Lesiones | Car Injury Clinic',
+      description:
+        'Guías sobre lesiones de accidentes de auto, recuperación, síntomas y reclamos de seguro en Utah. Información clara de nuestros quiroprácticos en Taylorsville.',
+      keywords:
+        'blog accidentes auto, latigazo cervical, lesiones accidente síntomas, recuperación accidente, reclamo seguro Utah, dolor de espalda accidente',
+    },
+    en: {
+      title: 'Blog · Accident Recovery & Injury Guides | Car Injury Clinic',
+      description:
+        'Guides on car accident injuries, recovery, symptoms and insurance claims in Utah. Clear information from our Taylorsville chiropractors.',
+      keywords:
+        'car accident blog, whiplash, accident injury symptoms, accident recovery, insurance claim Utah, back pain after accident',
+    },
+  },
   schedule: {
     es: {
       title: 'Agendar Cita en Línea | Car Injury Clinic · Salt Lake City',
@@ -209,8 +241,8 @@ export function buildLocalBusinessSchema(opts: {
 }) {
   const { ogImage, locale, aggregateRating, reviews } = opts;
   const desc = locale === 'en'
-    ? 'Chiropractic clinic specialized in car accident injuries in Salt Lake City, Utah. Same-day appointments, free transport, included legal support, bilingual care.'
-    : 'Clínica quiropráctica especializada en lesiones por accidentes de auto en Salt Lake City, Utah. Citas el mismo día, transporte gratis, apoyo legal incluido, atención bilingüe.';
+    ? 'Chiropractic clinic in Taylorsville, UT serving the greater Salt Lake City area, specialized in car accident injuries. Same-day appointments, free transport, included legal support, bilingual care.'
+    : 'Clínica quiropráctica en Taylorsville, UT que da servicio a toda el área de Salt Lake City, especializada en lesiones por accidentes de auto. Citas el mismo día, transporte gratis, apoyo legal incluido, atención bilingüe.';
 
   return {
     '@context': 'https://schema.org',
@@ -552,6 +584,44 @@ export function buildHowToSchema(opts: {
       ...(s.url && { url: absoluteUrl(s.url) }),
       ...(s.image && { image: absoluteUrl(s.image) }),
     })),
+  };
+}
+
+/**
+ * BlogPosting schema — para cada artículo del blog. Linkea autor/publisher
+ * a la organización (E-E-A-T) y es elegible para rich results de artículo.
+ */
+export function buildArticleSchema(opts: {
+  url: string;
+  headline: string;
+  description: string;
+  datePublished: string; // ISO 8601
+  dateModified?: string; // ISO 8601
+  image?: string;
+  author?: string;
+  keywords?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    mainEntityOfPage: { '@type': 'WebPage', '@id': absoluteUrl(opts.url) },
+    headline: opts.headline,
+    description: opts.description,
+    datePublished: opts.datePublished,
+    dateModified: opts.dateModified ?? opts.datePublished,
+    ...(opts.image && { image: absoluteUrl(opts.image) }),
+    ...(opts.keywords && { keywords: opts.keywords }),
+    author: {
+      '@type': 'Organization',
+      name: opts.author ?? SITE.name,
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.name,
+      logo: { '@type': 'ImageObject', url: absoluteUrl(SITE.logo) },
+    },
+    inLanguage: opts.url.includes('/en/') ? 'en' : 'es',
   };
 }
 

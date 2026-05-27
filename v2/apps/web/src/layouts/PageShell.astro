@@ -15,6 +15,8 @@ interface Props {
   schemas?: unknown[];
   /** Si es página principal — incluye LocalBusiness + WebSite + Organization schemas globales. */
   isHome?: boolean;
+  /** URL absoluta de la versión en el otro idioma (hreflang) cuando el slug difiere. */
+  alternateUrl?: string;
   /**
    * Cuando la página arranca con un hero propio que ya reserva espacio para el nav transparente,
    * pasar `fullBleed` para no agregar el pt-24 default.
@@ -30,6 +32,7 @@ const {
   ogImage,
   schemas,
   isHome,
+  alternateUrl,
   fullBleed = false,
 } = Astro.props;
 const locale = resolveLocale(Astro.currentLocale);
@@ -44,6 +47,7 @@ const currentPath = Astro.url.pathname;
   ogImage={ogImage}
   isHome={isHome}
   schemas={schemas}
+  alternateUrl={alternateUrl}
 >
   <Nav locale={locale} currentPath={currentPath} client:load />
   <main class={fullBleed ? '' : 'pt-24'}>

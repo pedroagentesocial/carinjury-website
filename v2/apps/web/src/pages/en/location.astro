@@ -1,0 +1,63 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import PageHero from '@components/sections/PageHero';
+import LocationContent from '@components/sections/LocationContent';
+import MapContact from '@components/sections/MapContact';
+import { resolveLocale } from '@i18n/index';
+import {
+  getPageMeta,
+  buildLocalBusinessSchema,
+  buildMedicalWebPageSchema,
+  buildBreadcrumbSchema,
+  absoluteUrl,
+} from '@lib/seo';
+
+const locale = resolveLocale(Astro.currentLocale);
+const meta = getPageMeta('location', locale);
+const prefix = locale === 'en' ? '/en' : '';
+const ogImage = absoluteUrl('/images/medical-care.webp');
+
+/* LocalBusiness con @id #business → refuerza la entidad local (NAP, horario,
+   geo, areaServed) en una página dedicada a búsquedas "near me" / Taylorsville. */
+const business = buildLocalBusinessSchema({ ogImage, locale });
+
+const webPage = buildMedicalWebPageSchema({
+  url: `${prefix}/location`,
+  name: meta.title,
+  description: meta.description,
+  specialty: 'Chiropractic',
+  audience: 'Patient',
+});
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: locale === 'en' ? 'Home' : 'Inicio', url: prefix || '/' },
+  { name: locale === 'en' ? 'Location' : 'Ubicación', url: `${prefix}/location` },
+]);
+---
+
+<PageShell
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  ogImage={ogImage}
+  schemas={[business, webPage, breadcrumb]}
+  fullBleed
+>
+  <PageHero
+    locale={locale}
+    eyebrow="Taylorsville, UT"
+    title={locale === 'en'
+      ? 'Car accident chiropractic clinic in Taylorsville, Utah'
+      : 'Clínica quiropráctica de accidentes en Taylorsville, Utah'}
+    subtitle={locale === 'en'
+      ? 'Serving Salt Lake City and the whole county. Same-day visits, free transportation and bilingual care — right where you need us.'
+      : 'Damos servicio a Salt Lake City y todo el condado. Citas el mismo día, transporte gratis y atención bilingüe — justo donde nos necesitas.'}
+    backgroundImage="/images/medical-care.webp"
+    backgroundAlt={locale === 'en'
+      ? 'Car Injury Clinic medical care in Taylorsville, Utah'
+      : 'Atención médica de Car Injury Clinic en Taylorsville, Utah'}
+    client:load
+  />
+  <LocationContent locale={locale} client:visible />
+  <MapContact locale={locale} client:visible />
+</PageShell>

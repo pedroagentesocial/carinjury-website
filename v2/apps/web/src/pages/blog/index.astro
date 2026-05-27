@@ -1,0 +1,101 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import { getCollection } from 'astro:content';
+import { getPageMeta, buildBreadcrumbSchema, absoluteUrl } from '@lib/seo';
+
+export const prerender = true;
+
+const meta = getPageMeta('blog', 'es');
+
+const posts = (await getCollection('blog', (e) => e.data.lang === 'es' && !e.data.draft)).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
+);
+
+const alternateUrl = absoluteUrl('/en/blog');
+
+const breadcrumb = buildBreadcrumbSchema([
+  { name: 'Inicio', url: '/' },
+  { name: 'Blog', url: '/blog' },
+]);
+
+const fmt = (d: Date) => d.toLocaleDateString('es-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<PageShell
+  title={meta.title}
+  description={meta.description}
+  keywords={meta.keywords}
+  schemas={[breadcrumb]}
+  alternateUrl={alternateUrl}
+  fullBleed
+>
+  {/* HERO */}
+  <section class="relative isolate overflow-hidden bg-deep pt-28 pb-14 text-white md:pt-32 md:pb-20">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute -left-32 top-0 h-[40vmax] w-[40vmax] rounded-full bg-secondary/15 blur-3xl"></div>
+      <div class="absolute -right-32 bottom-0 h-[36vmax] w-[36vmax] rounded-full bg-primary/30 blur-3xl"></div>
+    </div>
+    <div class="relative mx-auto max-w-3xl px-6 text-center">
+      <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80 backdrop-blur">
+        <span class="h-1 w-1 rounded-full bg-secondary"></span>
+        Blog
+      </span>
+      <h1 class="mt-5 font-heading text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl">
+        Recuperación de accidentes, explicada
+      </h1>
+      <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/75 md:text-lg">
+        Guías claras sobre lesiones, síntomas, recuperación y reclamos de seguro — escritas por nuestro equipo en Taylorsville, Utah.
+      </p>
+    </div>
+  </section>
+
+  {/* GRID */}
+  <section class="relative bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-content px-6">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <a
+            href={`/blog/${post.data.slug}`}
+            class="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition-colors hover:border-primary/30 hover:shadow-[0_18px_40px_-22px_rgba(74,28,90,0.4)]"
+          >
+            {post.data.heroImage && (
+              <div class="relative aspect-[16/10] overflow-hidden">
+                <img
+                  src={post.data.heroImage}
+                  alt={post.data.heroAlt ?? ''}
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+            )}
+            <div class="flex flex-1 flex-col p-5">
+              <span class="text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+                {post.data.category}
+              </span>
+              <h2 class="mt-2 font-heading text-lg font-bold leading-tight text-ink">
+                {post.data.title}
+              </h2>
+              <p class="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-muted">
+                {post.data.description}
+              </p>
+              <div class="mt-4 flex items-center gap-3 text-xs text-muted">
+                <time datetime={post.data.publishDate.toISOString()}>{fmt(post.data.publishDate)}</time>
+                {post.data.readingTime && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>{post.data.readingTime} min</span>
+                  </>
+                )}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <p class="text-center text-muted">Pronto publicaremos nuevos artículos.</p>
+      )}
+    </div>
+  </section>
+</PageShell>

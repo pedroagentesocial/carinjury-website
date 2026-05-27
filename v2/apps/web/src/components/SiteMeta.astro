@@ -22,6 +22,12 @@ interface Props {
   image?: string;
   /** Canonical absoluto. Si no se pasa, lo construye desde Astro.url */
   canonical?: string;
+  /**
+   * URL absoluta de la versión en el otro idioma (hreflang alternate).
+   * Necesaria cuando el slug difiere entre idiomas (ej. blog), donde el
+   * intercambio automático de path daría una URL incorrecta.
+   */
+  alternateUrl?: string;
   /** Sitio: si es página principal mostramos schemas globales (LocalBusiness, WebSite, Organization). */
   isHome?: boolean;
   /** Schemas extra (FAQ, Breadcrumb, etc.) específicos de la página. */
@@ -36,6 +42,7 @@ const {
   ogType = 'website',
   image,
   canonical,
+  alternateUrl,
   isHome = false,
   schemas = [],
 } = Astro.props;
@@ -55,7 +62,7 @@ const altPath =
     : currentPath.startsWith('/en')
       ? currentPath.replace(/^\/en/, '') || '/'
       : currentPath;
-const altUrl = new URL(altPath, siteUrl).toString();
+const altUrl = alternateUrl ?? new URL(altPath, siteUrl).toString();
 
 /*
  * Global schemas — solo en home (isHome). Para AggregateRating + reviews,
