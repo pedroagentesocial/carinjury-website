@@ -26,7 +26,7 @@ export default function Services({ locale }: Props) {
 
   const panels: ServicePanel[] = [
     {
-      img: '/images/medical-care.jpeg',
+      img: '/images/medical-care.webp',
       imgAlt: locale === 'en' ? 'Chiropractic care session' : 'Sesión de atención quiropráctica',
       icon: 'stethoscope',
       eyebrow: locale === 'en' ? 'Medical care' : 'Atención médica',
@@ -60,7 +60,7 @@ export default function Services({ locale }: Props) {
       },
     },
     {
-      img: '/images/legal.jpg',
+      img: '/images/legal.webp',
       imgAlt: locale === 'en' ? 'Legal team reviewing case' : 'Equipo legal revisando un caso',
       icon: 'gavel',
       eyebrow: locale === 'en' ? 'Legal support' : 'Apoyo legal',

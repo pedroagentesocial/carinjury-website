@@ -396,7 +396,7 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
           {/* IMAGE SIDE */}
           <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[520px]">
             <img
-              src="/images/finalcta.jpeg"
+              src="/images/finalcta.webp"
               alt=""
               loading="lazy"
               decoding="async"

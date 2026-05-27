@@ -305,7 +305,7 @@ export default function FaqAccordion({ locale }: Props) {
         <div className="relative grid lg:grid-cols-2">
           <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[440px]">
             <img
-              src="/images/finalcta.jpeg"
+              src="/images/finalcta.webp"
               alt=""
               loading="lazy"
               decoding="async"

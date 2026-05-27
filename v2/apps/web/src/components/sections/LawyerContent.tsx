@@ -203,7 +203,7 @@ export default function LawyerContent({ locale }: Props) {
           >
             <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]">
               <img
-                src="/images/legal.jpg"
+                src="/images/legal.webp"
                 alt={locale === 'en' ? 'Legal team reviewing a case' : 'Equipo legal revisando un caso'}
                 loading="eager"
                 decoding="async"
@@ -526,7 +526,7 @@ export default function LawyerContent({ locale }: Props) {
           {/* IMAGE SIDE (RIGHT) */}
           <div className="relative order-1 aspect-[4/3] lg:order-2 lg:aspect-auto lg:min-h-[520px]">
             <img
-              src="/images/finalcta.jpeg"
+              src="/images/finalcta.webp"
               alt=""
               loading="lazy"
               decoding="async"
