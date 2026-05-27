@@ -264,13 +264,13 @@ export default function FaqAccordion({ locale }: Props) {
                               : 'bg-primary/[0.08] text-primary ring-1 ring-primary/15 group-hover:bg-primary group-hover:text-white group-hover:ring-primary/40'
                           }`}
                         >
-                          <motion.span
-                            animate={{ rotate: isOpen ? 45 : 0 }}
-                            transition={{ duration: 0.25, ease: 'easeOut' }}
-                            className="inline-flex"
+                          <span
+                            className={`faq-toggle ${isOpen ? 'is-open' : ''}`}
+                            aria-hidden="true"
                           >
-                            <Icon name="close" size={15} strokeWidth={2.5} />
-                          </motion.span>
+                            <span className="faq-toggle-line" />
+                            <span className="faq-toggle-line faq-toggle-indicator" />
+                          </span>
                         </span>
                         <span className="flex-1 font-heading text-base font-bold leading-tight text-ink md:text-[1.05rem]">
                           {t(`faq_page.questions.${q}.question` as TranslationKey, locale)}

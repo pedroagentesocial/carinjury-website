@@ -178,15 +178,15 @@ export default function Footer({ locale }: Props) {
                   <a
                     href={c.href}
                     {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}
-                    className="group flex items-start gap-3 rounded-xl border border-transparent p-2 -m-2 transition hover:border-white/15 hover:bg-white/[0.04]"
+                    className="slice-contact group flex items-start gap-3 p-3"
                   >
-                    <span className="mt-0.5 inline-flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-secondary text-white shadow-[0_4px_12px_-4px_rgba(186,147,194,0.7)] transition group-hover:bg-[#c9a4d1]">
+                    <span className="mt-0.5 inline-flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-secondary text-white shadow-[0_4px_12px_-4px_rgba(186,147,194,0.7)] transition-colors duration-500 group-hover:bg-deep">
                       <Icon name={c.icon} size={16} strokeWidth={2.4} />
                     </span>
                     <div className="min-w-0 leading-tight">
-                      <p className="text-[0.92rem] font-bold text-white">{c.label}</p>
+                      <p className="text-[0.92rem] font-bold text-white transition-colors duration-500 group-hover:text-deep">{c.label}</p>
                       {c.sub && (
-                        <p className="mt-0.5 text-[0.78rem] font-medium text-white/75">{c.sub}</p>
+                        <p className="mt-0.5 text-[0.78rem] font-medium text-white/75 transition-colors duration-500 group-hover:text-deep/90">{c.sub}</p>
                       )}
                     </div>
                   </a>

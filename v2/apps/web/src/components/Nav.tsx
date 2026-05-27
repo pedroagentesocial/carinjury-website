@@ -147,7 +147,11 @@ export default function Nav({ locale, currentPath }: Props) {
               aria-expanded={open}
               onClick={() => setOpen((o) => !o)}
             >
-              <Icon name={open ? 'close' : 'menu'} size={20} />
+              <span className={`burger ${open ? 'is-open' : ''}`} aria-hidden="true">
+                <span className="burger-bar" />
+                <span className="burger-bar" />
+                <span className="burger-bar" />
+              </span>
             </button>
           </div>
         </div>

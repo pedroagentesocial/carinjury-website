@@ -22,7 +22,9 @@ export type IconName =
   | 'car'
   | 'stethoscope'
   | 'gavel'
-  | 'sparkles';
+  | 'sparkles'
+  | 'help'
+  | 'send';
 
 interface Props extends SVGProps<SVGSVGElement> {
   name: IconName;
@@ -188,6 +190,21 @@ export function Icon({ name, size = 20, strokeWidth = 2, ...rest }: Props) {
       return (
         <svg {...common}>
           <path d="M12 3v4m0 10v4M5 12H1m22 0h-4M5.6 5.6 8.5 8.5m7 7 2.9 2.9M18.4 5.6 15.5 8.5m-7 7-2.9 2.9" />
+        </svg>
+      );
+    case 'help':
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3" />
+          <path d="M12 17h.01" />
+        </svg>
+      );
+    case 'send':
+      /* Avión de papel del botón Uiverse adamgiebl (relleno, no trazo). */
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z" />
         </svg>
       );
   }

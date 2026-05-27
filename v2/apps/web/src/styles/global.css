@@ -188,6 +188,14 @@ html { scroll-padding-top: var(--nav-h); }
   transition-delay: 0.4s;
 }
 
+/* Variante de .btn-uiverse para fondos CLAROS (ej. sección Services en bg-white):
+   en reposo el texto es morado legible (no el crema de fondos oscuros); al hover
+   el ::after rellena de morado y .btn-uiverse:hover ya pasa el texto a blanco.
+   Debe ir después de .btn-uiverse para ganar en igualdad de especificidad. */
+.btn-uiverse-light {
+  color: var(--c-purple);
+}
+
 /* === BOTÓN UIVERSE PRIMARIO (CTAs principales: Agendar, Enviar, etc.) ===
    Burst expand al hover: el ::after escala 1.4×1.6 mientras se disipa.
    Adaptado de https://uiverse.io/cssbuttons-io
@@ -230,6 +238,326 @@ html { scroll-padding-top: var(--nav-h); }
 .btn-uiverse-primary:hover::after {
   transform: scaleX(1.4) scaleY(1.6);
   opacity: 0;
+}
+
+/* Mantener los CTAs de una sola etiqueta (Agendar, llamar, etc.) en una única
+   línea: evita que el texto haga wrap y empuje la flecha/icono a un segundo
+   renglón, agrandando el botón. Los layouts multi-línea (tarjetas) usan `flex`,
+   no `inline-flex`, así que no se ven afectados. */
+.btn-uiverse-primary.inline-flex,
+.btn-uiverse.inline-flex {
+  white-space: nowrap;
+}
+
+/* === BOTÓN "ENVIAR" CON FLECHA QUE DESPEGA (Uiverse adamgiebl) ===
+   Al hover la flecha vuela en diagonal (rotate 45°) y bota suavemente mientras
+   el texto la sigue hacia la derecha. Pensado para el submit del formulario.
+   https://uiverse.io/adamgiebl  ·  Color base: --c-purple (mantiene la paleta). */
+.btn-send {
+  background: var(--c-purple);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-send .btn-send-label,
+.btn-send .btn-send-icon {
+  display: block;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.btn-send .btn-send-icon {
+  transform-origin: center center;
+}
+
+.btn-send:hover .btn-send-svg-wrapper {
+  animation: btn-send-fly 0.6s ease-in-out infinite alternate;
+}
+
+.btn-send:hover .btn-send-icon {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+/* El texto vuela a la derecha Y se desvanece, para que al hover quede sólo el
+   avión (con etiquetas largas como "Enviar" el translate solo no bastaba). */
+.btn-send:hover .btn-send-label {
+  transform: translateX(4em);
+  opacity: 0;
+}
+
+.btn-send:active {
+  transform: scale(0.95);
+}
+
+@keyframes btn-send-fly {
+  from {
+    transform: translateY(0.1em);
+  }
+  to {
+    transform: translateY(-0.1em);
+  }
+}
+
+/* === FLOATING ACTION BUTTONS estilo "jello" + tooltip (Uiverse vinodjangid07) ===
+   Botón circular morado SÓLIDO (sin el degradado original). Al hover el icono
+   rebota con la animación jello y aparece un tooltip. https://uiverse.io/vinodjangid07
+   El tooltip se muestra a la izquierda porque los FABs van pegados al borde
+   derecho; arriba se solaparía con el botón superior del stack. */
+.fab-jello {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--c-purple);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(74, 28, 90, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fab-jello:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(74, 28, 90, 0.5);
+}
+
+.fab-jello:hover svg {
+  animation: jello-vertical 0.7s both;
+}
+
+.fab-jello .fab-tooltip {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  white-space: nowrap;
+  background-color: var(--c-purple);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.fab-jello .fab-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background-color: var(--c-purple);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.fab-jello:hover .fab-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+@keyframes jello-vertical {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  40% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  50% {
+    transform: scale3d(0.85, 1.15, 1);
+  }
+  65% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* === CHECKBOX animado (Uiverse boryanakrasteva) ===
+   La caja de borde blanco gira 45° al marcarse y revela un check verde con
+   glow + pulse. El truco: el ::after es una esquina (bordes derecho+inferior)
+   y la rotación de 45° del contenedor la convierte en un ✓.
+   https://uiverse.io/boryanakrasteva  ·  React: clase .is-checked vía estado. */
+.checkmark-box {
+  position: relative;
+  display: inline-block;
+  height: 22px;
+  width: 22px;
+  flex: none;
+  border: 2.5px solid #ffffff;
+  transition: 0.2s linear;
+}
+
+.checkmark-box::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: 8px;
+  height: 13px;
+  border: 2px solid #0ea021;
+  border-width: 0 2.5px 2.5px 0;
+  filter: drop-shadow(0 0 8px #0ea021);
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(0.2);
+  transition: 0.2s linear;
+}
+
+/* border-color transparent (no `border: none`) para no cambiar el tamaño de la
+   caja durante el giro y evitar un salto del layout. */
+.checkmark-box.is-checked {
+  transform: rotate(45deg);
+  border-color: transparent;
+}
+
+.checkmark-box.is-checked::after {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  animation: checkmark-pulse 1s ease-in;
+}
+
+@keyframes checkmark-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.6);
+  }
+}
+
+/* === BURGER → X (menú móvil, Uiverse Cevorob) ===
+   Tres barras que se transforman en X (la del medio se desvanece). Adaptado a
+   rotación centrada para un cierre simétrico. https://uiverse.io/Cevorob
+   `currentColor` => hereda el blanco del botón del nav. */
+.burger {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 16px;
+}
+
+.burger-bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  border-radius: 9px;
+  background: currentColor;
+  transition: transform 0.25s ease-in-out, opacity 0.2s ease-in-out, top 0.25s ease-in-out;
+}
+
+.burger-bar:nth-child(1) {
+  top: 0;
+}
+.burger-bar:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.burger-bar:nth-child(3) {
+  top: 100%;
+  transform: translateY(-100%);
+}
+
+.burger.is-open .burger-bar:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+.burger.is-open .burger-bar:nth-child(2) {
+  opacity: 0;
+}
+.burger.is-open .burger-bar:nth-child(3) {
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/* === FAQ "+" → "−" (Uiverse AbanoubMagdy1) ===
+   Dos líneas forman un "+"; al abrir la pregunta, la línea vertical rota a
+   horizontal (overshoot suave) y queda un "−". https://uiverse.io/AbanoubMagdy1
+   `currentColor` => morado cerrado / blanco abierto, según el círculo padre. */
+.faq-toggle {
+  position: relative;
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.faq-toggle-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  border-radius: 9px;
+  background: currentColor;
+  transform: translateY(-50%);
+  transition: transform 0.7s cubic-bezier(0, 1, 0.33, 1.2);
+}
+
+.faq-toggle-indicator {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.faq-toggle.is-open .faq-toggle-indicator {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+/* === SLICE HOVER (Uiverse nikk7007) — relleno diagonal ===
+   Una barra rotada 30° barre el elemento al hover. Adaptado a la columna de
+   Contacto del footer (fondo --c-deep): relleno rosa, borde rosa y el contenido
+   pasa a oscuro encima. https://uiverse.io/nikk7007
+   El contenido va en z-1; el ::after (relleno) en z-0 detrás. */
+.slice-contact {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(186, 147, 194, 0.4); /* --c-rose / 40 */
+  border-radius: 12px;
+  transition: border-color 300ms cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+.slice-contact::after {
+  content: "";
+  width: 0;
+  height: calc(300% + 1em);
+  position: absolute;
+  translate: -50% -50%;
+  inset: 50%;
+  rotate: 30deg;
+  background-color: var(--c-rose);
+  transition: width 900ms cubic-bezier(0.83, 0, 0.17, 1);
+  z-index: 0;
+}
+
+.slice-contact > * {
+  position: relative;
+  z-index: 1;
+}
+
+.slice-contact:hover {
+  border-color: var(--c-rose);
+}
+
+.slice-contact:hover::after {
+  width: calc(140% + 1em);
 }
 
 /* === SOCIAL ICONS UIVERSE (iconos de redes con tooltip) ===

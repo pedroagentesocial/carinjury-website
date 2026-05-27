@@ -168,10 +168,10 @@ export default function Services({ locale }: Props) {
           </div>
           <a
             href={`tel:${SITE.phone.tel}`}
-            className="btn-uiverse-primary group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-semibold"
+            className="btn-uiverse-primary group inline-flex flex-none items-center justify-center gap-2 whitespace-nowrap rounded-full px-7 py-3.5 font-semibold"
           >
-            {SITE.phone.displayLong}
-            <Icon name="arrow-right" size={18} className="transition-transform group-hover:translate-x-1" />
+            <span>{SITE.phone.displayLong}</span>
+            <Icon name="arrow-right" size={18} className="flex-none transition-transform group-hover:translate-x-1" />
           </a>
         </motion.div>
       </div>
@@ -276,17 +276,17 @@ function ServiceRow({ panel, reverse }: { panel: ServicePanel; reverse: boolean 
         <div className="mt-9 flex flex-wrap items-center gap-3">
           <a
             href={panel.ctaPrimary.href}
-            className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 font-semibold text-white shadow-[0_10px_24px_-10px_rgba(122,46,135,0.55)] transition hover:bg-[#6a3f75]"
+            className="btn-uiverse-primary group inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold"
           >
             {panel.ctaPrimary.label}
             <Icon name="arrow-right" size={16} className="transition-transform group-hover:translate-x-1" />
           </a>
           <a
             href={panel.ctaSecondary.href}
-            className="group inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 font-semibold text-ink transition hover:border-primary/40 hover:text-primary"
+            className="btn-uiverse btn-uiverse-light group inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 font-semibold"
           >
             {panel.ctaSecondary.label}
-            <Icon name="arrow-right" size={16} className="text-muted transition-all group-hover:translate-x-1 group-hover:text-primary" />
+            <Icon name="arrow-right" size={16} className="transition-transform group-hover:translate-x-1" />
           </a>
         </div>
       </motion.div>

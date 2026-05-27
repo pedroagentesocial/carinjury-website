@@ -453,7 +453,7 @@ export default function ContactForm({ locale }: Props) {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="btn-uiverse-primary mt-2 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/50"
+            className="btn-send mt-2 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/50"
           >
             {status === 'submitting' ? (
               <>
@@ -462,8 +462,10 @@ export default function ContactForm({ locale }: Props) {
               </>
             ) : (
               <>
-                <span>{t('form.submit_button', locale)}</span>
-                <Icon name="arrow-right" size={18} />
+                <span className="btn-send-svg-wrapper">
+                  <Icon name="send" size={18} className="btn-send-icon" />
+                </span>
+                <span className="btn-send-label">{t('form.submit_button', locale)}</span>
               </>
             )}
           </button>
@@ -534,14 +536,8 @@ function ConsentCheckbox({
       />
       <span
         aria-hidden="true"
-        className={`mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-md border-2 transition ${
-          checked
-            ? 'border-secondary bg-secondary text-white'
-            : 'border-white/40 bg-transparent group-hover:border-white/70'
-        }`}
-      >
-        {checked && <Icon name="check" size={12} strokeWidth={3} />}
-      </span>
+        className={`checkmark-box mt-0.5 ${checked ? 'is-checked' : ''}`}
+      />
       <span className="text-[0.78rem] leading-snug text-white/85">{text}</span>
     </label>
   );
