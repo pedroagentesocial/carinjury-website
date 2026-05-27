@@ -108,7 +108,7 @@ export default function FormResultModal({ open, status, locale, message, onClose
                 <button
                   type="button"
                   onClick={onClose}
-                  className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_-8px_rgba(186,147,194,0.7)] transition hover:bg-primary"
+                  className="btn-uiverse-primary mt-7 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold"
                 >
                   {copy.close}
                   <Icon name="check" size={14} strokeWidth={3} />
@@ -128,7 +128,7 @@ export default function FormResultModal({ open, status, locale, message, onClose
                 <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                   <a
                     href={`tel:+13852428571`}
-                    className="inline-flex items-center gap-2 rounded-full bg-secondary px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-primary"
+                    className="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold"
                   >
                     <Icon name="phone" size={14} />
                     {copy.call}

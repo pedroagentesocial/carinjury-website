@@ -131,7 +131,7 @@ export default function MapContact({ locale }: Props) {
                 href={SITE.mapsUrl}
                 target="_blank"
                 rel="noopener"
-                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:scale-[1.02] hover:bg-primary"
+                className="btn-uiverse-primary mt-2 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold"
               >
                 <Icon name="pin" size={16} />
                 {locale === 'en' ? 'Open in Google Maps' : 'Abrir en Google Maps'}

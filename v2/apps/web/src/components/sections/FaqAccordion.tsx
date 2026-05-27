@@ -226,7 +226,7 @@ export default function FaqAccordion({ locale }: Props) {
               </p>
               <a
                 href={`tel:${SITE.phone.tel}`}
-                className="mt-5 inline-flex items-center gap-2 rounded-full bg-secondary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary"
+                className="btn-uiverse-primary mt-5 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold"
               >
                 <Icon name="phone" size={14} />
                 {SITE.phone.display}
@@ -382,7 +382,7 @@ export default function FaqAccordion({ locale }: Props) {
               <a
                 href={`tel:${SITE.phone.tel}`}
                 aria-label={t('faq_page.help.call_label', locale)}
-                className="group flex items-center gap-3 rounded-2xl bg-secondary p-4 text-white shadow-[0_10px_28px_-10px_rgba(186,147,194,0.7)] transition hover:bg-primary"
+                className="btn-uiverse-primary group flex items-center gap-3 rounded-2xl p-4"
               >
                 <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-white/15 backdrop-blur">
                   <Icon name="phone" size={18} />

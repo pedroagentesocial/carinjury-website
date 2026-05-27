@@ -125,7 +125,7 @@ export default function Nav({ locale, currentPath }: Props) {
 
             <a
               href={`tel:${SITE.phone.tel}`}
-              className="hidden h-9 items-center gap-2 rounded-full border border-white/15 px-3.5 text-sm font-semibold text-white/90 transition hover:border-white/30 hover:bg-white/5 hover:text-white md:inline-flex"
+              className="btn-uiverse hidden h-9 items-center gap-2 rounded-full px-3.5 text-sm font-semibold md:inline-flex"
               aria-label={`Call ${SITE.phone.display}`}
             >
               <Icon name="phone" size={14} />
@@ -134,7 +134,7 @@ export default function Nav({ locale, currentPath }: Props) {
 
             <a
               href={scheduleHref}
-              className="group hidden h-9 items-center gap-2 rounded-full bg-secondary px-4 text-sm font-semibold text-white shadow-[0_6px_20px_-6px_rgba(186,147,194,0.6)] transition hover:bg-primary hover:shadow-[0_8px_24px_-6px_rgba(122,46,135,0.55)] md:inline-flex"
+              className="btn-uiverse-primary group hidden h-9 items-center gap-2 rounded-full px-4 text-sm font-semibold md:inline-flex"
             >
               <span>{t('nav.schedule', locale)}</span>
               <Icon name="arrow-right" size={13} className="transition-transform group-hover:translate-x-0.5" />
@@ -196,7 +196,7 @@ export default function Nav({ locale, currentPath }: Props) {
                   </a>
                   <a
                     href={`tel:${SITE.phone.tel}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-3 py-3 text-sm font-semibold text-white/90"
+                    className="btn-uiverse inline-flex items-center justify-center gap-2 rounded-full px-3 py-3 text-sm font-semibold"
                   >
                     <Icon name="phone" size={14} />
                     {SITE.phone.display}
@@ -204,7 +204,7 @@ export default function Nav({ locale, currentPath }: Props) {
                 </div>
                 <a
                   href={scheduleHref}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-4 py-3.5 text-sm font-semibold text-white shadow-[0_6px_20px_-6px_rgba(186,147,194,0.6)] transition hover:bg-primary"
+                  className="btn-uiverse-primary inline-flex items-center justify-center gap-2 rounded-full px-4 py-3.5 text-sm font-semibold"
                   onClick={() => setOpen(false)}
                 >
                   {t('nav.schedule', locale)}

@@ -110,7 +110,7 @@ export default function ThankYou({ locale }: Props) {
           >
             <a
               href={`tel:${SITE.phone.tel}`}
-              className="group inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_28px_-10px_rgba(186,147,194,0.7)] transition hover:bg-primary"
+              className="btn-uiverse-primary group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold"
             >
               <Icon name="phone" size={15} />
               {t('gracias_page.call_now', locale)}

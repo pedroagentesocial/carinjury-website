@@ -109,7 +109,7 @@ export default function WriteReviewButton({
         <button
           type="button"
           onClick={handleOpenModal}
-          className={className ?? 'group inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_24px_-10px_rgba(186,147,194,0.6)] transition hover:bg-primary'}
+          className={className ?? 'btn-uiverse-primary group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold'}
         >
           <GoogleGLogo small />
           {label ?? (locale === 'en' ? 'Write a review' : 'Escribir reseña')}
@@ -215,7 +215,7 @@ export default function WriteReviewButton({
                 <button
                   type="button"
                   onClick={handleContinue}
-                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-5 py-3.5 text-sm font-semibold text-white shadow-[0_10px_28px_-10px_rgba(186,147,194,0.7)] transition hover:bg-primary"
+                  className="btn-uiverse-primary group inline-flex items-center justify-center gap-2 rounded-full px-5 py-3.5 text-sm font-semibold"
                 >
                   <GoogleGLogo small white />
                   {copy.continue}

@@ -96,7 +96,7 @@ export default function AdLanding({ locale }: Props) {
           </a>
           <a
             href={`tel:${SITE.phone.tel}`}
-            className="inline-flex items-center gap-2 rounded-full bg-secondary px-5 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-primary"
+            className="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold"
           >
             <Icon name="phone" size={16} />
             <span className="hidden sm:inline">{SITE.phone.display}</span>
@@ -249,14 +249,14 @@ export default function AdLanding({ locale }: Props) {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-2 rounded-full bg-secondary px-7 py-3.5 font-semibold text-white shadow-lg transition hover:scale-[1.03] hover:bg-primary"
+              className="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold"
             >
               {c.finalCta}
               <Icon name="arrow-right" size={18} />
             </a>
             <a
               href={`tel:${SITE.phone.tel}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 font-semibold text-white backdrop-blur transition hover:bg-white/15"
+              className="btn-uiverse inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold"
             >
               <Icon name="phone" size={18} />
               {SITE.phone.display}
@@ -280,7 +280,7 @@ export default function AdLanding({ locale }: Props) {
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 p-3 shadow-[0_-10px_30px_-15px_rgba(0,0,0,0.2)] backdrop-blur md:hidden">
         <a
           href={`tel:${SITE.phone.tel}`}
-          className="flex items-center justify-center gap-2 rounded-full bg-secondary px-6 py-3 font-semibold text-white shadow-md"
+          className="btn-uiverse-primary flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold"
         >
           <Icon name="phone" size={18} />
           {c.stickyCta} {SITE.phone.display}

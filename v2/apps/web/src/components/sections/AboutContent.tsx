@@ -507,7 +507,7 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
               </a>
               <a
                 href={`tel:${SITE.phone.tel}`}
-                className="group flex items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.04] p-4 text-white backdrop-blur transition hover:border-white/30 hover:bg-white/[0.08]"
+                className="btn-uiverse group flex items-center gap-3 rounded-2xl p-4"
               >
                 <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-white/[0.08] ring-1 ring-white/15">
                   <Icon name="phone" size={18} />

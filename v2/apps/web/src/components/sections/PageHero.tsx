@@ -135,7 +135,7 @@ export default function PageHero({
         >
           <a
             href={`tel:${SITE.phone.tel}`}
-            className="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-primary"
+            className="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold"
           >
             <Icon name="phone" size={16} />
             {SITE.phone.display}

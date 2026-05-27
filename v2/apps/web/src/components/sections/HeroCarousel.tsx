@@ -230,7 +230,7 @@ export default function HeroCarousel({ locale }: Props) {
               <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                 <a
                   href={resolveHref(slide.ctaHref)}
-                  className="inline-flex items-center gap-2 rounded-full bg-secondary px-7 py-3.5 font-semibold text-white shadow-[0_8px_24px_rgba(122,46,135,0.55)] transition hover:bg-primary"
+                  className="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold"
                 >
                   <span>
                     {slide.ctaKey ? t(slide.ctaKey, locale) : t('hero.cta_primary', locale)}
@@ -239,7 +239,7 @@ export default function HeroCarousel({ locale }: Props) {
                 </a>
                 <a
                   href={`tel:${SITE.phone.tel}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/30 px-7 py-3.5 font-semibold text-white backdrop-blur-md transition hover:bg-black/45"
+                  className="btn-uiverse inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold"
                 >
                   <Icon name="phone" size={18} />
                   {SITE.phone.display}
@@ -270,14 +270,14 @@ export default function HeroCarousel({ locale }: Props) {
               <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                 <a
                   href={scheduleHref}
-                  className="inline-flex items-center gap-2 rounded-full bg-secondary px-7 py-3.5 font-semibold text-white shadow-[0_8px_24px_rgba(122,46,135,0.55)] transition hover:bg-primary"
+                  className="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold"
                 >
                   <span>{t('hero.cta_primary', locale)}</span>
                   <Icon name="arrow-right" size={18} />
                 </a>
                 <a
                   href={`tel:${SITE.phone.tel}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/30 px-7 py-3.5 font-semibold text-white backdrop-blur-md transition hover:bg-black/45"
+                  className="btn-uiverse inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold"
                 >
                   <Icon name="phone" size={18} />
                   {SITE.phone.display}

@@ -70,14 +70,14 @@ export default function FormPageHero({ locale }: Props) {
         >
           <a
             href="#contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_28px_-10px_rgba(186,147,194,0.7)] transition hover:bg-primary"
+            className="btn-uiverse-primary group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold"
           >
             {locale === 'en' ? 'Fill the form' : 'Llenar formulario'}
             <Icon name="arrow-right" size={15} className="transition-transform group-hover:translate-x-1" />
           </a>
           <a
             href={`tel:${SITE.phone.tel}`}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:border-white/30 hover:bg-white/[0.08]"
+            className="btn-uiverse inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold"
           >
             <Icon name="phone" size={15} />
             {SITE.phone.display}

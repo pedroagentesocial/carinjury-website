@@ -168,7 +168,7 @@ export default function Services({ locale }: Props) {
           </div>
           <a
             href={`tel:${SITE.phone.tel}`}
-            className="group inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-7 py-3.5 font-semibold text-white shadow-[0_8px_24px_-6px_rgba(186,147,194,0.6)] transition hover:bg-primary"
+            className="btn-uiverse-primary group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-semibold"
           >
             {SITE.phone.displayLong}
             <Icon name="arrow-right" size={18} className="transition-transform group-hover:translate-x-1" />

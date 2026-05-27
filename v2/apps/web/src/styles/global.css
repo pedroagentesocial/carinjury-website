@@ -140,6 +140,195 @@ html { scroll-padding-top: var(--nav-h); }
   padding-inline: clamp(16px, 4vw, 32px);
 }
 
+/* === BOTÓN UIVERSE (CTAs de llamar transparentes) ===
+   Slide-up fill morado con línea inferior animada.
+   Adaptación de https://uiverse.io/joe-watson-sbf
+   Pensado para fondos oscuros (bg-deep, bg-primary). */
+.btn-uiverse {
+  background: transparent;
+  color: #ffedd3;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.5s ease;
+}
+
+.btn-uiverse::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  width: 0;
+  background-color: var(--c-purple);
+  transition: width 0.5s ease;
+}
+
+.btn-uiverse::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 0;
+  width: 100%;
+  background-color: var(--c-purple);
+  transition: height 0.4s ease;
+  z-index: -1;
+}
+
+.btn-uiverse:hover {
+  color: #fff;
+  transition-delay: 0.5s;
+}
+
+.btn-uiverse:hover::before {
+  width: 100%;
+}
+
+.btn-uiverse:hover::after {
+  height: 100%;
+  transition-delay: 0.4s;
+}
+
+/* === BOTÓN UIVERSE PRIMARIO (CTAs principales: Agendar, Enviar, etc.) ===
+   Burst expand al hover: el ::after escala 1.4×1.6 mientras se disipa.
+   Adaptado de https://uiverse.io/cssbuttons-io
+   Color base: --c-purple (morado fuerte de la paleta). */
+.btn-uiverse-primary {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: #fff;
+  background-color: var(--c-purple);
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  isolation: isolate;
+}
+
+.btn-uiverse-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(74, 28, 90, 0.35);
+}
+
+.btn-uiverse-primary:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(74, 28, 90, 0.3);
+}
+
+.btn-uiverse-primary::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: var(--c-purple);
+  transition: transform 0.4s, opacity 0.4s;
+}
+
+.btn-uiverse-primary:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+/* === SOCIAL ICONS UIVERSE (iconos de redes con tooltip) ===
+   Cada icono es un circulo blanco con shadow; al hover se llena del color
+   oficial de la red y aparece un tooltip con el nombre encima.
+   Adaptado de https://uiverse.io/david-mohseni
+   Importante: el contenedor padre necesita overflow-visible para que el
+   tooltip flote sin cortarse. */
+.social-wrapper {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.625rem;
+  padding-top: 40px;
+}
+
+.social-icon {
+  position: relative;
+  background: #fff;
+  border-radius: 9999px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #1A1D2A;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.social-tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fff;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  white-space: nowrap;
+}
+
+.social-tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: inherit;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.social-icon:hover {
+  transform: translateY(-2px);
+}
+
+.social-icon:hover .social-tooltip {
+  top: -48px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Facebook */
+.social-icon.facebook:hover,
+.social-icon.facebook:hover .social-tooltip {
+  background: #1877f2;
+  color: #fff;
+}
+
+/* Instagram (single-color fallback que el CSS de referencia usa) */
+.social-icon.instagram:hover,
+.social-icon.instagram:hover .social-tooltip {
+  background: #e4405f;
+  color: #fff;
+}
+
+/* TikTok */
+.social-icon.tiktok:hover,
+.social-icon.tiktok:hover .social-tooltip {
+  background: #000;
+  color: #fff;
+}
+
+/* Google */
+.social-icon.google:hover,
+.social-icon.google:hover .social-tooltip {
+  background: #4285f4;
+  color: #fff;
+}
+
 /* Accesibilidad: respetar usuarios con motion reducido */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

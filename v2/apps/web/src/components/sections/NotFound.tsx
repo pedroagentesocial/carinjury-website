@@ -67,7 +67,7 @@ export default function NotFound({ locale }: Props) {
           </a>
           <a
             href={`tel:${SITE.phone.tel}`}
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 font-semibold text-white backdrop-blur transition hover:bg-white/15"
+            className="btn-uiverse inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold"
           >
             <Icon name="phone" size={18} />
             {SITE.phone.display}

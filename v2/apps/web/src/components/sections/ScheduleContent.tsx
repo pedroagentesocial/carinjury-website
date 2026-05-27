@@ -95,7 +95,7 @@ export default function ScheduleContent({ locale, bookingUrl }: Props) {
               </h3>
               <a
                 href={`tel:${SITE.phone.tel}`}
-                className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-deep"
+                className="btn-uiverse-primary mt-3 inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold"
               >
                 {SITE.phone.displayLong}
                 <Icon name="arrow-right" size={16} />

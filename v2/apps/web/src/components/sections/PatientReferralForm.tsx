@@ -389,7 +389,7 @@ export default function PatientReferralForm({ locale }: Props) {
               <button
                 type="button"
                 onClick={next}
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-deep"
+                className="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold"
               >
                 {locale === 'en' ? 'Continue' : 'Continuar'}
                 <Icon name="arrow-right" size={14} />
@@ -398,7 +398,7 @@ export default function PatientReferralForm({ locale }: Props) {
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex items-center gap-2 rounded-full bg-secondary px-7 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-primary disabled:opacity-60"
+                className="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-semibold disabled:opacity-60"
               >
                 {submitting
                   ? t('formulario_page.submit.button', locale) + '…'

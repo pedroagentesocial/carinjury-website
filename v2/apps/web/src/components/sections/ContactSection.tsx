@@ -153,48 +153,62 @@ export default function ContactSection({ locale }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="mt-5 flex items-center gap-3"
+            className="mt-2 flex items-center gap-3"
           >
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/55">
               {locale === 'en' ? 'Follow us' : 'Síguenos'}
             </span>
             <span aria-hidden="true" className="h-px flex-1 bg-white/10" />
-            <a
-              href={SITE.social.facebook}
-              target="_blank"
-              rel="noopener"
-              aria-label="Facebook"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-white transition hover:scale-110 hover:border-[#1877F2] hover:bg-[#1877F2] hover:text-white"
-            >
-              <FacebookIcon />
-            </a>
-            <a
-              href={SITE.social.instagram}
-              target="_blank"
-              rel="noopener"
-              aria-label="Instagram"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-white transition hover:scale-110 hover:border-pink-400 hover:text-pink-300"
-            >
-              <InstagramIcon />
-            </a>
-            <a
-              href={SITE.social.tiktok}
-              target="_blank"
-              rel="noopener"
-              aria-label="TikTok"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-white transition hover:scale-110 hover:border-white hover:bg-black"
-            >
-              <TikTokIcon />
-            </a>
-            <a
-              href={SITE.social.google}
-              target="_blank"
-              rel="noopener"
-              aria-label="Google"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-white transition hover:scale-110 hover:border-white hover:bg-white"
-            >
-              <GoogleIcon />
-            </a>
+            <ul className="social-wrapper">
+              <li>
+                <a
+                  href={SITE.social.facebook}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Facebook"
+                  className="social-icon facebook"
+                >
+                  <FacebookIcon />
+                  <span className="social-tooltip">Facebook</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE.social.instagram}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Instagram"
+                  className="social-icon instagram"
+                >
+                  <InstagramIcon />
+                  <span className="social-tooltip">Instagram</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE.social.tiktok}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="TikTok"
+                  className="social-icon tiktok"
+                >
+                  <TikTokIcon />
+                  <span className="social-tooltip">TikTok</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE.social.google}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Google"
+                  className="social-icon google"
+                >
+                  <GoogleIcon />
+                  <span className="social-tooltip">Google</span>
+                </a>
+              </li>
+            </ul>
           </motion.div>
         </motion.div>
 

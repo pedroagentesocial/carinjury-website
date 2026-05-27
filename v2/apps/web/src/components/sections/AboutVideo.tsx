@@ -152,7 +152,7 @@ export default function AboutVideo({ locale }: Props) {
         >
           <a
             href={scheduleHref}
-            className="group inline-flex items-center gap-2 rounded-full bg-secondary px-7 py-3.5 text-sm font-semibold text-white shadow-[0_12px_30px_-10px_rgba(186,147,194,0.7)] transition hover:bg-primary"
+            className="btn-uiverse-primary group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold"
           >
             <Icon name="calendar" size={16} />
             {locale === 'en' ? 'Schedule now' : 'Agenda ahora'}
@@ -160,7 +160,7 @@ export default function AboutVideo({ locale }: Props) {
           </a>
           <a
             href={`tel:${SITE.phone.tel}`}
-            className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/30 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-black/45"
+            className="btn-uiverse inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold"
           >
             <Icon name="phone" size={16} />
             {SITE.phone.display}

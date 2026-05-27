@@ -453,7 +453,7 @@ export default function ContactForm({ locale }: Props) {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-6 py-3.5 font-semibold text-white shadow-[0_10px_28px_-10px_rgba(186,147,194,0.7)] transition hover:bg-primary disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/50 disabled:shadow-none"
+            className="btn-uiverse-primary mt-2 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/50"
           >
             {status === 'submitting' ? (
               <>

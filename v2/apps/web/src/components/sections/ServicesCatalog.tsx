@@ -178,7 +178,7 @@ export default function ServicesCatalog({ locale }: Props) {
             </a>
             <a
               href={`tel:${SITE.phone.tel}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:border-white/30 hover:bg-white/[0.08]"
+              className="btn-uiverse inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold"
             >
               <Icon name="phone" size={15} />
               {SITE.phone.display}
@@ -448,7 +448,7 @@ export default function ServicesCatalog({ locale }: Props) {
               <a
                 href={`tel:${SITE.phone.tel}`}
                 aria-label={t('services_page.closer.call_aria', locale)}
-                className="group flex items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.04] p-4 text-white backdrop-blur transition hover:border-white/30 hover:bg-white/[0.08]"
+                className="btn-uiverse group flex items-center gap-3 rounded-2xl p-4"
               >
                 <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-white/[0.08] ring-1 ring-white/15">
                   <Icon name="phone" size={18} />
