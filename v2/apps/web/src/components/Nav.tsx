@@ -99,6 +99,7 @@ export default function Nav({ locale, currentPath }: Props) {
                   item={l}
                   locale={locale}
                   currentPath={currentPath}
+                  scrolled={scrolled}
                 />
               ) : (
                 <DesktopLink
@@ -262,10 +263,12 @@ function DesktopDropdown({
   item,
   locale,
   currentPath,
+  scrolled,
 }: {
   item: NavItem;
   locale: Locale;
   currentPath: string;
+  scrolled: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLLIElement | null>(null);
@@ -343,7 +346,9 @@ function DesktopDropdown({
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
             role="menu"
-            className="absolute left-1/2 top-full mt-3 w-72 -translate-x-1/2 overflow-hidden rounded-2xl border border-white/15 bg-deep p-2 shadow-[0_24px_50px_-20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.08)]"
+            className={`absolute left-1/2 top-full mt-3 w-72 -translate-x-1/2 overflow-hidden rounded-2xl p-2 ring-1 ring-black/[0.06] shadow-[0_24px_50px_-20px_rgba(74,28,90,0.35)] transition-colors duration-300 ${
+              scrolled ? 'bg-white' : 'bg-white/80 backdrop-blur-xl'
+            }`}
           >
             {item.children?.map((child) => {
               const childActive = isActive(child.href, currentPath);
@@ -355,11 +360,11 @@ function DesktopDropdown({
                   aria-current={childActive ? 'page' : undefined}
                   className={`group flex items-start gap-3 rounded-xl px-3 py-3 transition ${
                     childActive
-                      ? 'bg-white/10 ring-1 ring-white/15'
-                      : 'hover:bg-white/[0.06]'
+                      ? 'bg-primary/[0.06] ring-1 ring-primary/15'
+                      : 'hover:bg-primary/[0.05]'
                   }`}
                 >
-                  <span className="mt-0.5 inline-flex h-8 w-8 flex-none items-center justify-center rounded-lg bg-secondary/15 text-secondary ring-1 ring-secondary/30 transition group-hover:bg-secondary/25">
+                  <span className="mt-0.5 inline-flex h-8 w-8 flex-none items-center justify-center rounded-lg bg-primary/[0.08] text-primary ring-1 ring-primary/15 transition group-hover:bg-primary/15">
                     <Icon
                       name={child.key === 'nav.form' ? 'mail' : 'sparkles'}
                       size={14}
@@ -367,11 +372,11 @@ function DesktopDropdown({
                     />
                   </span>
                   <div className="min-w-0 flex-1 leading-tight">
-                    <p className="text-sm font-semibold text-white">
+                    <p className="text-sm font-semibold text-ink">
                       {t(child.key as TranslationKey, locale)}
                     </p>
                     {child.descKey && (
-                      <p className="mt-0.5 text-[11px] text-white/55">
+                      <p className="mt-0.5 text-[11px] text-muted">
                         {t(child.descKey as TranslationKey, locale)}
                       </p>
                     )}
@@ -379,7 +384,7 @@ function DesktopDropdown({
                   <Icon
                     name="arrow-right"
                     size={13}
-                    className="mt-2 flex-none text-white/30 transition-all group-hover:translate-x-0.5 group-hover:text-secondary"
+                    className="mt-2 flex-none text-muted/40 transition-all group-hover:translate-x-0.5 group-hover:text-primary"
                   />
                 </a>
               );
