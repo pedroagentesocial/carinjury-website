@@ -15,12 +15,12 @@ interface Props {
 export default function ScheduleContent({ locale, bookingUrl }: Props) {
   const hoursLabels = locale === 'en'
     ? [
-        { day: 'Monday - Friday', value: '9:00 AM - 6:00 PM' },
+        { day: 'Monday - Friday', value: '11:00 AM - 8:00 PM' },
         { day: 'Saturday', value: '10:00 AM - 2:00 PM' },
         { day: 'Sunday', value: 'Closed' },
       ]
     : [
-        { day: 'Lunes - Viernes', value: '9:00 AM - 6:00 PM' },
+        { day: 'Lunes - Viernes', value: '11:00 AM - 8:00 PM' },
         { day: 'Sábado', value: '10:00 AM - 2:00 PM' },
         { day: 'Domingo', value: 'Cerrado' },
       ];
