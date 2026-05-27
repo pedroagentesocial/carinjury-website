@@ -202,7 +202,14 @@ html { scroll-padding-top: var(--nav-h); }
    Color base: --c-purple (morado fuerte de la paleta). */
 .btn-uiverse-primary {
   position: relative;
-  display: inline-block;
+  /* inline-flex (no inline-block): si no, el SVG de la flecha —que el reset pone
+     en display:block— cae a su propia línea y agranda el botón. Como esta regla
+     está fuera de @layer, gana a la utilidad .inline-flex de Tailwind, así que el
+     display correcto debe vivir AQUÍ. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
   cursor: pointer;
   color: #fff;
   background-color: var(--c-purple);
