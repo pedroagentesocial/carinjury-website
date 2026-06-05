@@ -4,7 +4,7 @@ import type { Locale } from '@carinjury/shared';
 import { Icon } from '@components/ui/Icon';
 import { isPromoActive } from '@lib/promo';
 
-const BANNER_SRC = '/banners/cambiaton.webp';
+const BANNER_SRC = '/banners/cambiaton-mundial.webp';
 const DISMISS_KEY = 'promo-ad-dismissed';
 /** Delay antes de aparecer: deja que la página pinte primero. */
 const SHOW_DELAY_MS = 1500;

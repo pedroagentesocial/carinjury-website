@@ -4,7 +4,7 @@ import type { Locale } from '@carinjury/shared';
 import { Icon } from '@components/ui/Icon';
 import { isPromoActive } from '@lib/promo';
 
-const BANNER_SRC = '/banners/cambiaton.webp';
+const BANNER_SRC = '/banners/cambiaton-mundial.webp';
 /** Delay antes de mostrar el banner: deja que el hero pinte primero. */
 const OPEN_DELAY_MS = 1100;
 
