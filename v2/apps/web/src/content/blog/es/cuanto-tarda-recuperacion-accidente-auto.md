@@ -8,7 +8,7 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Recuperación"
 keywords: "recuperación accidente auto, cuánto tarda recuperarse accidente, tiempo recuperación latigazo, rehabilitación accidente Utah, dolor crónico accidente"
-heroImage: "/images/schedule.webp"
+heroImage: "/assets/img/rehab.webp"
 heroAlt: "Sesión de rehabilitación tras un accidente de auto"
 readingTime: 6
 ---

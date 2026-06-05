@@ -8,7 +8,7 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "latigazo cervical, whiplash, síndrome de latigazo, dolor de cuello accidente, lesión cervical accidente auto, tratamiento latigazo Utah"
-heroImage: "/images/medical-care.webp"
+heroImage: "/assets/img/chiro.webp"
 heroAlt: "Evaluación quiropráctica del cuello tras un accidente de auto"
 readingTime: 6
 ---

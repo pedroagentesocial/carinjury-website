@@ -8,8 +8,8 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "back pain car accident, lower back pain accident, herniated disc accident, sciatica accident, back pain treatment Utah"
-heroImage: "/images/medical-care.webp"
-heroAlt: "Spine evaluation for back pain after an accident"
+heroImage: "/assets/img/masaje.jpeg"
+heroAlt: "Hands-on back therapy for a patient after an accident"
 readingTime: 7
 ---
 

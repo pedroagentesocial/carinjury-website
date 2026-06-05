@@ -8,7 +8,7 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "whiplash, whiplash symptoms, neck pain after accident, cervical injury car accident, whiplash treatment Utah, neck sprain"
-heroImage: "/images/medical-care.webp"
+heroImage: "/assets/img/chiro.webp"
 heroAlt: "Chiropractic neck evaluation after a car accident"
 readingTime: 6
 ---

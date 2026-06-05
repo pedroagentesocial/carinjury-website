@@ -8,7 +8,7 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Treatment"
 keywords: "chiropractor vs physical therapist, difference chiropractor physical therapy, what does a chiropractor do, physical therapy accident, accident treatment Utah"
-heroImage: "/images/schedule.webp"
+heroImage: "/assets/img/phisycal.jpg.webp"
 heroAlt: "Chiropractor and physical therapist working with a patient"
 readingTime: 6
 ---

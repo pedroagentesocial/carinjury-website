@@ -98,11 +98,11 @@ export default function PromoAd({ locale }: Props) {
               <img
                 src={BANNER_SRC}
                 alt={copy.alt}
-                width={941}
-                height={1672}
+                width={2172}
+                height={724}
                 loading="lazy"
                 decoding="async"
-                className="block h-auto w-[88px] sm:w-32"
+                className="block h-auto w-44 sm:w-60"
               />
             </button>
 
@@ -149,10 +149,10 @@ export default function PromoAd({ locale }: Props) {
               <img
                 src={BANNER_SRC}
                 alt={copy.alt}
-                width={941}
-                height={1672}
+                width={2172}
+                height={724}
                 decoding="async"
-                className="block h-auto max-h-[82svh] w-auto max-w-[min(92vw,420px)] rounded-2xl shadow-[0_30px_90px_-20px_rgba(0,0,0,0.65)] ring-1 ring-white/15"
+                className="block h-auto max-h-[82svh] w-auto max-w-[min(92vw,900px)] rounded-2xl shadow-[0_30px_90px_-20px_rgba(0,0,0,0.65)] ring-1 ring-white/15"
               />
 
               <button

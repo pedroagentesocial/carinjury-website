@@ -8,8 +8,8 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "document accident injuries, car insurance claim Utah, proof of injury accident, accident medical records, what to do insurance claim"
-heroImage: "/images/legal.webp"
-heroAlt: "Medical and insurance documents after a car accident"
+heroImage: "/assets/img/second-opinion.jpeg"
+heroAlt: "Patient handing in medical paperwork at the clinic front desk"
 readingTime: 7
 ---
 

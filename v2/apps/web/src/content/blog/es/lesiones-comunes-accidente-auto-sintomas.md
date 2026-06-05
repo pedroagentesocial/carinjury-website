@@ -8,7 +8,7 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "lesiones accidente auto, síntomas accidente, lesión de cuello, lesión de espalda, conmoción cerebral accidente, dolor después de choque"
-heroImage: "/images/medical-care.webp"
+heroImage: "/assets/img/pain-management.jpeg"
 heroAlt: "Quiropráctico revisando lesiones de un paciente tras un accidente"
 readingTime: 7
 ---

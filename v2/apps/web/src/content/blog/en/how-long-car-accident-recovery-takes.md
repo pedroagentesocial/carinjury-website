@@ -8,7 +8,7 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Recovery"
 keywords: "car accident recovery, how long to recover from accident, whiplash recovery time, accident rehabilitation Utah, chronic pain after accident"
-heroImage: "/images/schedule.webp"
+heroImage: "/assets/img/rehab.webp"
 heroAlt: "Rehabilitation session after a car accident"
 readingTime: 6
 ---

@@ -8,8 +8,8 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "First steps"
 keywords: "what to do after an accident, first 24 hours after accident, steps after car accident, car accident Utah, claim after crash"
-heroImage: "/images/finalcta.webp"
-heroAlt: "Person checking their phone after a car accident"
+heroImage: "/assets/img/concussion.jpeg"
+heroAlt: "Patient documenting symptoms after a car accident"
 readingTime: 6
 ---
 

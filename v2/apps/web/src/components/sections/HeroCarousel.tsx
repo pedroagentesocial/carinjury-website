@@ -26,7 +26,7 @@ const SLIDES: Slide[] = [
     showContent: false,
   },
   {
-    /* Promo Cambiatón: imagen vertical, el banner trae su propio texto */
+    /* Promo Cambiatón: imagen horizontal, el banner trae su propio texto */
     src: '/banners/cambiaton.webp',
     kind: 'image',
     durationMs: 8000,
@@ -182,13 +182,13 @@ export default function HeroCarousel({ locale }: Props) {
                 loading="lazy"
                 className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl brightness-[0.45] saturate-[1.2]"
               />
-              {/* Banner vertical centrado, completo entre nav y controles */}
+              {/* Banner horizontal centrado, completo entre nav y controles */}
               <div className="absolute inset-0 flex items-center justify-center px-4 pb-20 pt-20">
                 <img
                   src={s.src}
                   alt=""
                   loading="lazy"
-                  className="h-full w-auto max-w-full rounded-xl object-contain shadow-[0_25px_70px_-15px_rgba(0,0,0,0.6)]"
+                  className="max-h-full w-full max-w-5xl rounded-xl object-contain shadow-[0_25px_70px_-15px_rgba(0,0,0,0.6)]"
                 />
               </div>
             </div>

@@ -8,7 +8,7 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Tratamiento"
 keywords: "quiropráctico vs fisioterapeuta, diferencia quiropráctico fisioterapia, qué hace un quiropráctico, terapia física accidente, tratamiento accidente Utah"
-heroImage: "/images/schedule.webp"
+heroImage: "/assets/img/phisycal.jpg.webp"
 heroAlt: "Quiropráctico y fisioterapeuta trabajando con un paciente"
 readingTime: 6
 ---

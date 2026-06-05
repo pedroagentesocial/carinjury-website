@@ -8,8 +8,8 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Primeros pasos"
 keywords: "qué hacer después de un accidente, primeras 24 horas accidente, pasos tras accidente auto, accidente de auto Utah, reclamo después de choque"
-heroImage: "/images/finalcta.webp"
-heroAlt: "Persona revisando su teléfono tras un accidente de auto"
+heroImage: "/assets/img/concussion.jpeg"
+heroAlt: "Paciente documentando sus síntomas tras un accidente de auto"
 readingTime: 6
 ---
 
