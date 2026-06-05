@@ -770,3 +770,12 @@ html { scroll-padding-top: var(--nav-h); }
   color: var(--muted);
   font-style: italic;
 }
+
+/* ---------------------------------------------------------------------------
+   Promo banner modal (PromoBanner.tsx)
+   Mientras el modal está abierto, ocultar el chat widget de GHL: se inyecta
+   async con z-index altísimo y quedaría encima del overlay oscuro.
+--------------------------------------------------------------------------- */
+html.promo-open chat-widget {
+  visibility: hidden !important;
+}

@@ -3,6 +3,7 @@ import Layout from '@layouts/Layout.astro';
 import Nav from '@components/Nav';
 import Footer from '@components/Footer';
 import FloatingButtons from '@components/FloatingButtons';
+import PromoBanner from '@components/ui/PromoBanner';
 import HeroCarousel from '@components/sections/HeroCarousel';
 import FeatureIcons from '@components/sections/FeatureIcons';
 import ResultsAndProcess from '@components/sections/ResultsAndProcess';
@@ -38,4 +39,5 @@ const meta = getPageMeta('home', locale);
   </main>
   <Footer locale={locale} />
   <FloatingButtons locale={locale} client:idle />
+  <PromoBanner locale={locale} client:load />
 </Layout>

@@ -3,6 +3,7 @@ import Layout from './Layout.astro';
 import Nav from '@components/Nav';
 import Footer from '@components/Footer';
 import FloatingButtons from '@components/FloatingButtons';
+import PromoAd from '@components/ui/PromoAd';
 import { resolveLocale } from '@i18n/index';
 
 interface Props {
@@ -55,4 +56,5 @@ const currentPath = Astro.url.pathname;
   </main>
   <Footer locale={locale} />
   <FloatingButtons locale={locale} client:idle />
+  <PromoAd locale={locale} client:idle />
 </Layout>

@@ -3,10 +3,13 @@ import { AnimatePresence, motion, useScroll, useTransform, useReducedMotion } fr
 import type { Locale } from '@carinjury/shared';
 import { t, type TranslationKey } from '@i18n/index';
 import { SITE } from '@lib/site';
+import { isPromoActive } from '@lib/promo';
 import { Icon } from '@components/ui/Icon';
 
 interface Slide {
   src: string;
+  /** 'image' renderiza un <img> centrado con fondo blur en vez de <video>. */
+  kind?: 'video' | 'image';
   poster?: string;
   durationMs: number;
   titleKey?: TranslationKey;
@@ -20,6 +23,13 @@ const SLIDES: Slide[] = [
   {
     src: '/video/car-injury.mp4',
     durationMs: 12000,
+    showContent: false,
+  },
+  {
+    /* Promo Cambiatón: imagen vertical, el banner trae su propio texto */
+    src: '/banners/cambiaton.webp',
+    kind: 'image',
+    durationMs: 8000,
     showContent: false,
   },
   {
@@ -61,15 +71,29 @@ export default function HeroCarousel({ locale }: Props) {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const progressKey = useRef(0);
 
-  const slide = SLIDES[index]!;
+  /* La promo vence sola (ver @lib/promo). En SSR se asume activa y el cliente
+     la quita al hidratar si ya pasó la fecha: evita mismatch de hidratación
+     (el slide promo nunca es el primero visible, así que no hay flash). */
+  const [promoActive, setPromoActive] = useState(true);
+  useEffect(() => {
+    if (!isPromoActive()) setPromoActive(false);
+  }, []);
+  const slides = useMemo(
+    () => (promoActive ? SLIDES : SLIDES.filter((s) => s.kind !== 'image')),
+    [promoActive],
+  );
+
+  const slide = slides[index]!;
+  /* El slide de imagen (banner promo) trae su propio texto: ocultar overlay y vignette */
+  const isImageSlide = slide.kind === 'image';
 
   const next = useCallback(
-    () => setIndex((i) => (i + 1) % SLIDES.length),
-    [],
+    () => setIndex((i) => (i + 1) % slides.length),
+    [slides.length],
   );
   const prev = useCallback(
-    () => setIndex((i) => (i - 1 + SLIDES.length) % SLIDES.length),
-    [],
+    () => setIndex((i) => (i - 1 + slides.length) % slides.length),
+    [slides.length],
   );
   const goTo = useCallback((i: number) => setIndex(i), []);
 
@@ -142,34 +166,63 @@ export default function HeroCarousel({ locale }: Props) {
         style={{ scale: videoScale }}
         aria-hidden="true"
       >
-        {SLIDES.map((s, i) => (
-          <video
-            key={s.src}
-            ref={(el) => {
-              videoRefs.current[i] = el;
-            }}
-            src={s.src}
-            autoPlay={i === 0}
-            muted
-            loop
-            playsInline
-            preload={i === 0 ? 'auto' : 'metadata'}
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
-              i === index ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ filter: 'brightness(0.85) saturate(1.05) contrast(1.02)' }}
-            onCanPlay={(e) => {
-              if (i === index) (e.target as HTMLVideoElement).play().catch(() => {});
-            }}
-            aria-hidden={i !== index}
-          />
-        ))}
+        {slides.map((s, i) =>
+          s.kind === 'image' ? (
+            <div
+              key={s.src}
+              className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+                i === index ? 'opacity-100' : 'opacity-0'
+              }`}
+              aria-hidden={i !== index}
+            >
+              {/* Fondo: misma imagen ampliada + blur para llenar el encuadre */}
+              <img
+                src={s.src}
+                alt=""
+                loading="lazy"
+                className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl brightness-[0.45] saturate-[1.2]"
+              />
+              {/* Banner vertical centrado, completo entre nav y controles */}
+              <div className="absolute inset-0 flex items-center justify-center px-4 pb-20 pt-20">
+                <img
+                  src={s.src}
+                  alt=""
+                  loading="lazy"
+                  className="h-full w-auto max-w-full rounded-xl object-contain shadow-[0_25px_70px_-15px_rgba(0,0,0,0.6)]"
+                />
+              </div>
+            </div>
+          ) : (
+            <video
+              key={s.src}
+              ref={(el) => {
+                videoRefs.current[i] = el;
+              }}
+              src={s.src}
+              autoPlay={i === 0}
+              muted
+              loop
+              playsInline
+              preload={i === 0 ? 'auto' : 'metadata'}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
+                i === index ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{ filter: 'brightness(0.85) saturate(1.05) contrast(1.02)' }}
+              onCanPlay={(e) => {
+                if (i === index) (e.target as HTMLVideoElement).play().catch(() => {});
+              }}
+              aria-hidden={i !== index}
+            />
+          ),
+        )}
       </motion.div>
 
       {/* Vignette radial: foco oscuro centrado donde está el texto (sube al medio) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 [background:radial-gradient(70%_55%_at_50%_55%,rgba(0,0,0,0.6),rgba(0,0,0,0)_75%)]"
+        className={`pointer-events-none absolute inset-0 -z-10 transition-opacity duration-700 [background:radial-gradient(70%_55%_at_50%_55%,rgba(0,0,0,0.6),rgba(0,0,0,0)_75%)] ${
+          isImageSlide ? 'opacity-0' : 'opacity-100'
+        }`}
       />
 
       {/* Vertical scrim: refuerza nav + base inferior (suavizado) */}
@@ -199,7 +252,7 @@ export default function HeroCarousel({ locale }: Props) {
         }}
       >
         <AnimatePresence mode="wait">
-          {slide.showContent ? (
+          {isImageSlide ? null : slide.showContent ? (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 24 }}
@@ -291,7 +344,7 @@ export default function HeroCarousel({ locale }: Props) {
       {/* Scroll indicator — subtle, prompts user to keep going */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={{ opacity: isImageSlide ? 0 : 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.6 }}
         className="pointer-events-none absolute bottom-24 left-1/2 z-10 -translate-x-1/2"
         aria-hidden="true"
@@ -335,7 +388,7 @@ export default function HeroCarousel({ locale }: Props) {
           </div>
 
           <div className="flex items-center gap-2">
-            {SLIDES.map((_, i) => {
+            {slides.map((_, i) => {
               const active = i === index;
               return (
                 <button
