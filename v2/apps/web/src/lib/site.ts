@@ -1,4 +1,5 @@
 import type { Locale } from '@carinjury/shared';
+import type { IconName } from '@components/ui/Icon';
 
 /**
  * Place ID de Google Maps. Override por env `PUBLIC_GOOGLE_PLACE_ID`.
@@ -79,6 +80,8 @@ export interface NavLink {
   href: string;
   key: string;
   descKey?: string;
+  /** Icono opcional para el dropdown desktop (si no, se infiere). */
+  icon?: IconName;
 }
 
 export interface NavItem {
@@ -89,6 +92,14 @@ export interface NavItem {
 
 export function navLinks(locale: Locale): NavItem[] {
   const prefix = locale === 'en' ? '/en' : '';
+  /* Herramientas: slug traducido por idioma. */
+  const checklistHref =
+    locale === 'en'
+      ? '/en/tools/what-to-do-after-a-car-accident'
+      : '/herramientas/que-hacer-despues-de-un-accidente';
+  const caseHref =
+    locale === 'en' ? '/en/tools/do-i-have-a-case' : '/herramientas/tengo-un-caso';
+
   return [
     { href: `${prefix || '/'}`, key: 'nav.home' },
     { href: `${prefix}/services`, key: 'nav.services' },
@@ -102,6 +113,18 @@ export function navLinks(locale: Locale): NavItem[] {
           href: `${prefix}/faq`,
           key: 'nav.frequent_questions',
           descKey: 'nav.frequent_questions_desc',
+        },
+        {
+          href: checklistHref,
+          key: 'nav.tool_checklist',
+          descKey: 'nav.tool_checklist_desc',
+          icon: 'check',
+        },
+        {
+          href: caseHref,
+          key: 'nav.tool_case',
+          descKey: 'nav.tool_case_desc',
+          icon: 'help',
         },
         {
           href: `${prefix}/patient-referral`,

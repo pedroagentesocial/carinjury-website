@@ -366,7 +366,7 @@ function DesktopDropdown({
                 >
                   <span className="mt-0.5 inline-flex h-8 w-8 flex-none items-center justify-center rounded-lg bg-primary/[0.08] text-primary ring-1 ring-primary/15 transition group-hover:bg-primary/15">
                     <Icon
-                      name={child.key === 'nav.form' ? 'mail' : 'sparkles'}
+                      name={child.icon ?? (child.key === 'nav.form' ? 'mail' : 'sparkles')}
                       size={14}
                       strokeWidth={2.2}
                     />
