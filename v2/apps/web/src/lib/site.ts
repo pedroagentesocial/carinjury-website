@@ -127,6 +127,12 @@ export function navLinks(locale: Locale): NavItem[] {
           icon: 'help',
         },
         {
+          href: `${prefix}/locations`,
+          key: 'nav.locations',
+          descKey: 'nav.locations_desc',
+          icon: 'pin',
+        },
+        {
           href: `${prefix}/patient-referral`,
           key: 'nav.form',
           descKey: 'nav.form_desc',

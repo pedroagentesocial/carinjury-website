@@ -162,16 +162,6 @@ export default function Footer({ locale }: Props) {
                   </a>
                 </li>
               ))}
-              {/* Hub de ubicaciones (SEO local por ciudad) */}
-              <li>
-                <a
-                  href={`${prefix}/locations`}
-                  className="group inline-flex items-center gap-2 text-white/80 transition hover:text-secondary"
-                >
-                  <span className="h-px w-0 bg-secondary transition-all duration-300 group-hover:w-4" />
-                  {locale === 'en' ? 'Locations' : 'Ubicaciones'}
-                </a>
-              </li>
             </ul>
           </div>
 
