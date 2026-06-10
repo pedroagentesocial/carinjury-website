@@ -92,13 +92,8 @@ export interface NavItem {
 
 export function navLinks(locale: Locale): NavItem[] {
   const prefix = locale === 'en' ? '/en' : '';
-  /* Herramientas: slug traducido por idioma. */
-  const checklistHref =
-    locale === 'en'
-      ? '/en/tools/what-to-do-after-a-car-accident'
-      : '/herramientas/que-hacer-despues-de-un-accidente';
-  const caseHref =
-    locale === 'en' ? '/en/tools/do-i-have-a-case' : '/herramientas/tengo-un-caso';
+  /* Central de herramientas: slug traducido por idioma. */
+  const toolsHref = locale === 'en' ? '/en/tools' : '/herramientas';
 
   return [
     { href: `${prefix || '/'}`, key: 'nav.home' },
@@ -115,22 +110,10 @@ export function navLinks(locale: Locale): NavItem[] {
           descKey: 'nav.frequent_questions_desc',
         },
         {
-          href: checklistHref,
-          key: 'nav.tool_checklist',
-          descKey: 'nav.tool_checklist_desc',
-          icon: 'check',
-        },
-        {
-          href: caseHref,
-          key: 'nav.tool_case',
-          descKey: 'nav.tool_case_desc',
-          icon: 'help',
-        },
-        {
-          href: `${prefix}/locations`,
-          key: 'nav.locations',
-          descKey: 'nav.locations_desc',
-          icon: 'pin',
+          href: toolsHref,
+          key: 'nav.tools',
+          descKey: 'nav.tools_desc',
+          icon: 'sparkles',
         },
         {
           href: `${prefix}/patient-referral`,

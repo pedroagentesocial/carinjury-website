@@ -25,7 +25,7 @@ const howTo = buildHowToSchema({
 });
 const breadcrumb = buildBreadcrumbSchema([
   { name: 'Home', url: '/en/' },
-  { name: 'Tools', url: '/en/tools/what-to-do-after-a-car-accident' },
+  { name: 'Tools', url: '/en/tools' },
   { name: 'What to do after a car accident', url },
 ]);
 
@@ -54,7 +54,7 @@ const whatsappHref = '/api/whatsapp?lang=en';
       <nav class="text-xs font-semibold text-white/65" aria-label="Breadcrumb">
         <a href="/en/" class="transition hover:text-secondary">Home</a>
         <span class="mx-2 text-white/30">/</span>
-        <span class="text-white/85">Tools</span>
+        <a href="/en/tools" class="transition hover:text-secondary">Tools</a>
       </nav>
       <span class="mt-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80 backdrop-blur">
         <span class="h-1 w-1 rounded-full bg-secondary"></span>
