@@ -1,18 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'motion/react';
+import { motion, useInView, useReducedMotion } from 'motion/react';
 import type { Locale } from '@carinjury/shared';
 import { t, type TranslationKey } from '@i18n/index';
 import { Icon, type IconName } from '@components/ui/Icon';
+import { HOME_STATS, type StatItem } from '@lib/stats';
 
 interface Props {
   locale: Locale;
-}
-
-interface Stat {
-  value: number;
-  prefix?: string;
-  suffix?: string;
-  label: string;
 }
 
 interface Step {
@@ -24,11 +18,7 @@ interface Step {
 const STEP_ICONS: IconName[] = ['sparkles', 'shield', 'gavel', 'check'];
 
 export default function ResultsAndProcess({ locale }: Props) {
-  const stats: Stat[] = [
-    { value: 5000, suffix: '+', label: t('stats.cases.label', locale) },
-    { value: 25, prefix: '$', suffix: 'M', label: t('stats.compensation.label', locale) },
-    { value: 15, suffix: '+', label: t('stats.experience.label', locale) },
-  ];
+  const stats = HOME_STATS;
 
   const steps: Step[] = STEP_ICONS.map((icon, i) => ({
     icon,
@@ -62,7 +52,7 @@ export default function ResultsAndProcess({ locale }: Props) {
 
             <div className="mt-8 flex flex-col gap-4">
               {stats.map((s, i) => (
-                <Counter key={s.label} stat={s} index={i} />
+                <Counter key={s.labelKey} stat={s} index={i} locale={locale} />
               ))}
             </div>
           </div>
@@ -139,25 +129,36 @@ function ColumnHeader({
   );
 }
 
-function Counter({ stat, index }: { stat: Stat; index: number }) {
+function Counter({ stat, index, locale }: { stat: StatItem; index: number; locale: Locale }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-40px' });
-  const [n, setN] = useState(0);
+  const prefersReduced = useReducedMotion();
+  const isPlaceholder = stat.value == null;
+  /* Valor inicial = número final → SSR/HTML muestra la cifra real aunque el JS
+     falle; nunca se queda pegado en 0. */
+  const [n, setN] = useState(stat.value ?? 0);
 
   useEffect(() => {
+    if (stat.value == null) return; // placeholder: sin animación
+    if (prefersReduced) {
+      setN(stat.value);
+      return;
+    }
     if (!inView) return;
-    const duration = 1800;
+    const target = stat.value;
+    const duration = 1600;
     const start = performance.now();
     let raf = 0;
     const tick = (now: number) => {
       const p = Math.min(1, (now - start) / duration);
       const eased = 1 - Math.pow(1 - p, 3);
-      setN(Math.round(stat.value * eased));
+      setN(Math.round(target * eased));
       if (p < 1) raf = requestAnimationFrame(tick);
+      else setN(target); // garantiza el valor exacto al final
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, stat.value]);
+  }, [inView, prefersReduced, stat.value]);
 
   return (
     <motion.div
@@ -176,13 +177,19 @@ function Counter({ stat, index }: { stat: Stat; index: number }) {
       />
 
       <div className="flex min-w-0 flex-1 items-baseline gap-3">
-        <p className="font-heading text-4xl font-extrabold leading-none tracking-tight text-primary md:text-5xl">
-          {stat.prefix}
-          {n.toLocaleString('en-US')}
-          {stat.suffix}
-        </p>
+        {isPlaceholder ? (
+          <p className="min-w-0 font-heading text-base font-extrabold leading-snug tracking-tight text-primary md:text-lg">
+            {stat.placeholder}
+          </p>
+        ) : (
+          <p className="font-heading text-4xl font-extrabold leading-none tracking-tight text-primary tabular-nums md:text-5xl">
+            {stat.prefix}
+            {n.toLocaleString('en-US')}
+            {stat.suffix}
+          </p>
+        )}
         <p className="min-w-0 text-sm font-medium leading-snug text-muted md:text-base">
-          {stat.label}
+          {t(stat.labelKey, locale)}
         </p>
       </div>
     </motion.div>

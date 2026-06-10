@@ -1,0 +1,114 @@
+---
+/**
+ * Hub de ubicaciones (/locations + /en/locations) — índice de las landings
+ * locales por ciudad. Estático (SEO/LCP). Lista todas las ciudades de `CITIES`
+ * + la clínica principal en Taylorsville, y refuerza el enlazado interno.
+ */
+import type { Locale } from '@carinjury/shared';
+import { getAllCities } from '@lib/cities';
+import { SITE } from '@lib/site';
+import { Icon } from '@components/ui/Icon';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+const cities = getAllCities();
+const scheduleHref = `${prefix}/schedule`;
+---
+
+{/* ===== HERO ===== */}
+<section class="relative isolate overflow-hidden bg-deep pb-14 pt-28 text-white md:pb-20 md:pt-36">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="absolute -left-32 top-0 h-[40vmax] w-[40vmax] rounded-full bg-secondary/15 blur-3xl"></div>
+    <div class="absolute -right-32 bottom-0 h-[36vmax] w-[36vmax] rounded-full bg-primary/30 blur-3xl"></div>
+  </div>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:radial-gradient(rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+  <div class="relative mx-auto max-w-content px-6">
+    <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/85 backdrop-blur">
+      <span class="h-1 w-1 rounded-full bg-secondary"></span>
+      {en ? 'Salt Lake County, UT' : 'Condado de Salt Lake, UT'}
+    </span>
+    <h1 class="mt-4 max-w-3xl font-heading text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl">
+      {en
+        ? 'Car accident clinic serving Salt Lake County'
+        : 'Clínica de accidentes de auto en el condado de Salt Lake'}
+    </h1>
+    <p class="mt-4 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
+      {en
+        ? 'Bilingual chiropractic care after a crash, with same-day visits and free transportation. Find your city below — our clinic is in Taylorsville, minutes from the whole valley.'
+        : 'Atención quiropráctica bilingüe tras un accidente, con citas el mismo día y transporte gratis. Encuentra tu ciudad abajo — nuestra clínica está en Taylorsville, a minutos de todo el valle.'}
+    </p>
+  </div>
+</section>
+
+{/* ===== GRID DE CIUDADES ===== */}
+<section class="bg-white py-16 md:py-20">
+  <div class="mx-auto max-w-content px-6">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {cities.map((city) => {
+        const c = en ? city.en : city.es;
+        return (
+          <a
+            href={`${prefix}/locations/${city.slug}`}
+            class="group flex flex-col rounded-2xl border border-line bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
+          >
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/[0.08] text-primary ring-1 ring-primary/15 transition group-hover:bg-primary group-hover:text-white">
+              <Icon name="pin" size={20} />
+            </span>
+            <h2 class="mt-4 font-heading text-lg font-extrabold text-ink">{city.name}, UT</h2>
+            <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{c.eyebrow}</p>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">
+              {en
+                ? `Accident care near ${city.corridors.slice(0, 2).join(' & ')}.`
+                : `Atención de accidentes cerca de ${city.corridors.slice(0, 2).join(' y ')}.`}
+            </p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+              {en ? 'View location' : 'Ver ubicación'}
+              <Icon name="arrow-right" size={16} className="transition-transform group-hover:translate-x-1" />
+            </span>
+          </a>
+        );
+      })}
+
+      {/* Clínica principal */}
+      <a
+        href={`${prefix}/location`}
+        class="group flex flex-col rounded-2xl border border-primary/20 bg-surface-2 p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+      >
+        <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
+          <Icon name="stethoscope" size={20} />
+        </span>
+        <h2 class="mt-4 font-heading text-lg font-extrabold text-ink">
+          {en ? 'Taylorsville — main clinic' : 'Taylorsville — clínica principal'}
+        </h2>
+        <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-secondary">{SITE.address.full}</p>
+        <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">
+          {en
+            ? 'Visit us in Taylorsville: map, hours, directions and parking.'
+            : 'Visítanos en Taylorsville: mapa, horario, cómo llegar y estacionamiento.'}
+        </p>
+        <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+          {en ? 'Clinic details' : 'Detalles de la clínica'}
+          <Icon name="arrow-right" size={16} className="transition-transform group-hover:translate-x-1" />
+        </span>
+      </a>
+    </div>
+
+    {/* CTA */}
+    <div class="mt-12 flex flex-wrap items-center justify-center gap-3">
+      <a href={scheduleHref} class="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
+        <Icon name="calendar" size={16} />
+        {en ? 'Schedule a visit' : 'Agendar una cita'}
+      </a>
+      <a href={`tel:${SITE.phone.tel}`} class="inline-flex items-center gap-2 rounded-full border border-primary/25 px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary/[0.06]">
+        <Icon name="phone" size={16} />
+        {SITE.phone.display}
+      </a>
+    </div>
+  </div>
+</section>

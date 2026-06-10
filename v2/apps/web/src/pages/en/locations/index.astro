@@ -1,0 +1,28 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import LocationsHub from '@components/sections/city/LocationsHub.astro';
+import { buildBreadcrumbSchema, buildMedicalWebPageSchema } from '@lib/seo';
+
+export const prerender = true;
+
+const locale = 'en' as const;
+const title = 'Locations · Car accident clinic serving Salt Lake County | Car Injury Clinic';
+const description =
+  'Car Injury Clinic local pages across Salt Lake County: West Valley City, West Jordan and Sandy. Bilingual care, same-day appointments and free transportation from Taylorsville.';
+
+const webPage = buildMedicalWebPageSchema({
+  url: '/en/locations',
+  name: title,
+  description,
+  specialty: 'Chiropractic',
+  audience: 'Patient',
+});
+const breadcrumb = buildBreadcrumbSchema([
+  { name: 'Home', url: '/en/' },
+  { name: 'Locations', url: '/en/locations' },
+]);
+---
+
+<PageShell title={title} description={description} schemas={[webPage, breadcrumb]} fullBleed>
+  <LocationsHub locale={locale} />
+</PageShell>

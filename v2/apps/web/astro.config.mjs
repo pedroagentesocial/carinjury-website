@@ -62,6 +62,16 @@ export default defineConfig({
           item.priority = 0.8;
           item.changefreq = cf('monthly');
         }
+        // Ubicaciones (SEO local): hub + landings por ciudad — intent comercial alto
+        else if (path === '/locations' || path === '/locations/' || path.startsWith('/locations/')) {
+          item.priority = path === '/locations' || path === '/locations/' ? 0.8 : 0.7;
+          item.changefreq = cf('monthly');
+        }
+        // Herramientas interactivas (imanes de leads): es /herramientas/*, en /tools/*
+        else if (path.startsWith('/herramientas/') || path.startsWith('/tools/')) {
+          item.priority = 0.7;
+          item.changefreq = cf('monthly');
+        }
         // Blog index: contenido fresco
         else if (path === '/blog' || path === '/blog/') {
           item.priority = 0.7;

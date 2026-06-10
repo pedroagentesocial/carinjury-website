@@ -1,0 +1,501 @@
+---
+/**
+ * Landing local por ciudad — presentacional, compartido por las rutas es/en.
+ *
+ * Render mayormente ESTÁTICO (HTML en el payload inicial) para SEO local y LCP:
+ * el contenido único de la ciudad es crawleable sin depender de JS. Solo se
+ * hidratan dos islas reutilizadas: el mapa (MapContact) y el formulario
+ * captador de leads (ContactForm, con honeypot + consent + captcha + endpoint
+ * server-only).
+ *
+ * Secciones (en orden requerido):
+ *   1. Hero            5. Qué hacer tras un accidente
+ *   2. Barra confianza 6. Por qué elegirnos
+ *   3. Intro local     7. FAQ (FAQPage)
+ *   4. Servicios       8. Mapa + cómo llegar
+ *                      9. CTA final + formulario
+ *  + Footer de ubicaciones (cross-linking entre ciudades)
+ */
+import type { Locale } from '@carinjury/shared';
+import type { CityData } from '@lib/cities';
+import { cityCopy, getAllCities } from '@lib/cities';
+import { SITE } from '@lib/site';
+import { Icon } from '@components/ui/Icon';
+import MapContact from '@components/sections/MapContact';
+import ContactForm from '@components/sections/ContactForm';
+
+interface Props {
+  city: CityData;
+  locale: Locale;
+}
+
+const { city, locale } = Astro.props;
+const c = cityCopy(city, locale);
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+
+/* Hrefs */
+const scheduleHref = `${prefix}/schedule`;
+const servicesHref = `${prefix}/services`;
+const lawyerHref = `${prefix}/lawyer-approved`;
+const blogHref = `${prefix}/blog`;
+/* Cluster "qué hacer tras un accidente" (slug difiere por idioma). */
+const afterAccidentPost = en
+  ? `${prefix}/blog/what-to-do-first-24-hours-after-accident`
+  : `${prefix}/blog/que-hacer-primeras-24-horas-accidente`;
+/* Herramienta interactiva (checklist) — slug traducido por idioma. */
+const checklistTool = en
+  ? '/en/tools/what-to-do-after-a-car-accident'
+  : '/herramientas/que-hacer-despues-de-un-accidente';
+const telHref = `tel:${SITE.phone.tel}`;
+/* WhatsApp: nunca expone el número en el bundle — pasa por el endpoint server-only. */
+const whatsappHref = `/api/whatsapp?city=${encodeURIComponent(city.name)}&lang=${locale}`;
+
+/* Servicios core mostrados en la landing (enlazan al catálogo completo). */
+const services = en
+  ? [
+      { icon: 'stethoscope', title: 'Post-accident chiropractic', desc: 'Adjustments and rehab for neck, back and whiplash injuries after a crash.' },
+      { icon: 'sparkles', title: 'Pain management', desc: 'Therapies to reduce pain and recover mobility, coordinated with imaging when needed.' },
+      { icon: 'gavel', title: 'Connection with lawyers', desc: 'We coordinate with a network of Utah accident attorneys. Free initial guidance.' },
+      { icon: 'shield', title: 'Insurance help', desc: 'We document your injuries and coordinate billing with your accident claim.' },
+    ]
+  : [
+      { icon: 'stethoscope', title: 'Quiropráctico post-accidente', desc: 'Ajustes y rehabilitación para lesiones de cuello, espalda y latigazo cervical.' },
+      { icon: 'sparkles', title: 'Manejo del dolor', desc: 'Terapias para reducir el dolor y recuperar movilidad, con imágenes cuando se necesitan.' },
+      { icon: 'gavel', title: 'Conexión con abogados', desc: 'Coordinamos con una red de abogados de accidentes de Utah. Orientación inicial gratis.' },
+      { icon: 'shield', title: 'Ayuda con el seguro', desc: 'Documentamos tus lesiones y coordinamos la facturación con tu reclamo de accidente.' },
+    ] as const;
+
+/* Pasos tras un accidente (visibles en HTML). */
+const steps = en
+  ? [
+      'Get to safety and call 911 if there are injuries or an emergency.',
+      'Document the scene: photos, other driver’s info and any witnesses.',
+      'Get a medical evaluation soon — some injuries (like whiplash) show up days later.',
+      'Book a same-day evaluation with us; we document everything for your claim.',
+    ]
+  : [
+      'Ponte a salvo y llama al 911 si hay heridos o una emergencia.',
+      'Documenta la escena: fotos, datos del otro conductor y testigos.',
+      'Busca una evaluación médica pronto — algunas lesiones (como el latigazo) aparecen días después.',
+      'Agenda una evaluación el mismo día con nosotros; documentamos todo para tu reclamo.',
+    ];
+
+/* Por qué elegirnos. */
+const reasons = en
+  ? [
+      { icon: 'globe', title: 'Bilingual ES / EN', desc: 'A bilingual team (Spanish, English, Portuguese) so nothing gets lost in translation.' },
+      { icon: 'calendar', title: 'Same-day visits', desc: 'Don’t wait days in pain — we see new accident patients the same day.' },
+      { icon: 'car', title: 'Free transportation', desc: 'No ride? We arrange free transportation to and from your appointments.' },
+      { icon: 'gavel', title: 'Free legal guidance', desc: 'Free, no-obligation legal orientation and coordination with accident attorneys.' },
+    ]
+  : [
+      { icon: 'globe', title: 'Bilingüe ES / EN', desc: 'Equipo bilingüe (español, inglés, portugués) para que nada se pierda en la traducción.' },
+      { icon: 'calendar', title: 'Citas el mismo día', desc: 'No esperes días con dolor — atendemos pacientes de accidente el mismo día.' },
+      { icon: 'car', title: 'Transporte gratis', desc: '¿Sin cómo llegar? Coordinamos transporte gratis a tus citas y de regreso.' },
+      { icon: 'gavel', title: 'Orientación legal gratis', desc: 'Orientación legal gratuita y sin compromiso, y coordinación con abogados de accidentes.' },
+    ] as const;
+
+const otherCities = getAllCities().filter((x) => x.slug !== city.slug);
+---
+
+{/* =================== 1 · HERO =================== */}
+<section class="relative isolate overflow-hidden bg-deep pb-16 pt-28 text-white md:pb-24 md:pt-36">
+  <img
+    src={city.heroImage}
+    alt={en ? city.heroImageAlt.en : city.heroImageAlt.es}
+    loading="eager"
+    decoding="async"
+    fetchpriority="high"
+    class="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover [filter:brightness(0.6)_saturate(1.05)]"
+  />
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 bg-deep/45 mix-blend-multiply"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-deep/80 via-primary/45 to-secondary/25"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:radial-gradient(rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+  <div class="relative mx-auto max-w-content px-6">
+    <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/85 backdrop-blur">
+      <span class="h-1 w-1 rounded-full bg-secondary"></span>
+      {c.eyebrow}
+    </span>
+
+    <h1 class="mt-4 max-w-3xl font-heading text-3xl font-extrabold leading-[1.05] tracking-tight [text-shadow:0_2px_18px_rgba(0,0,0,0.6),0_1px_3px_rgba(0,0,0,0.5)] sm:text-4xl md:text-5xl lg:text-6xl">
+      {c.h1}
+    </h1>
+
+    {/* Badge cita el mismo día */}
+    <span class="mt-5 inline-flex items-center gap-2 rounded-full border border-secondary/40 bg-secondary/15 px-3.5 py-1.5 text-xs font-bold text-white backdrop-blur">
+      <Icon name="calendar" size={14} />
+      {en ? 'Same-day appointments' : 'Cita el mismo día'}
+    </span>
+
+    <p class="mt-4 max-w-2xl text-base leading-relaxed text-white/95 [text-shadow:0_1px_10px_rgba(0,0,0,0.6)] md:text-lg">
+      {c.heroSubtitle}
+    </p>
+
+    {/* CTAs: Agendar · WhatsApp · Llamar */}
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href={scheduleHref} class="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
+        <Icon name="calendar" size={16} />
+        {en ? 'Schedule' : 'Agendar'}
+      </a>
+      <a
+        href={whatsappHref}
+        rel="nofollow"
+        class="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-[#0b3d24] transition hover:brightness-105"
+      >
+        <Icon name="whatsapp" size={18} />
+        WhatsApp
+      </a>
+      <a href={telHref} class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/25">
+        <Icon name="phone" size={16} />
+        {SITE.phone.display}
+      </a>
+    </div>
+  </div>
+</section>
+
+{/* =================== 2 · BARRA DE CONFIANZA =================== */}
+{/*
+ * Cifras reales y defendibles:
+ *  - 5.0 ★ / 44+ reseñas → calificación de Google de la clínica
+ *    (klinic.com, jun-2026: 5.00 con 44 reseñas; "44+" para que no quede corto
+ *    al crecer). Si se quiere live, conectar al feed de getReviews().
+ *  - 30+ años → experiencia ya publicada en el sitio (about us).
+ *  - ES·EN·PT → atención trilingüe (señal de confianza, no cifra inventada).
+ */}
+<section class="border-b border-line bg-surface-2">
+  <div class="mx-auto grid max-w-content grid-cols-2 gap-px bg-line px-0 md:grid-cols-4">
+    {[
+      { v: '5.0 ★', l: en ? 'Google rating' : 'Calificación Google' },
+      { v: '44+', l: en ? 'patient reviews' : 'reseñas de pacientes' },
+      { v: '30+', l: en ? 'years of experience' : 'años de experiencia' },
+      { v: 'ES · EN · PT', l: en ? 'trilingual care' : 'atención trilingüe' },
+    ].map((s) => (
+      <div class="flex flex-col items-center justify-center bg-surface-2 px-4 py-5 text-center md:py-6">
+        <span class="font-heading text-base font-extrabold text-primary sm:text-xl md:text-2xl">{s.v}</span>
+        <span class="mt-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted sm:text-[11px]">{s.l}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+{/* =================== 3 · INTRO LOCAL ÚNICA =================== */}
+<section class="bg-white py-16 md:py-20">
+  <div class="mx-auto max-w-content px-6">
+    <div class="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
+      {/* Prosa única */}
+      <div>
+        <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
+          <span class="h-px w-8 bg-secondary"></span>
+          {en ? `Serving ${city.name}` : `Atendemos en ${city.name}`}
+        </span>
+        <h2 class="mt-3 font-heading text-2xl font-extrabold text-ink md:text-3xl">
+          {en
+            ? `Car accident care close to ${city.name}`
+            : `Atención de accidentes cerca de ${city.name}`}
+        </h2>
+        <div class="mt-5 space-y-4 text-[1.0625rem] leading-relaxed text-[#353846]">
+          {c.intro.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+
+      {/* Carreteras + hospitales */}
+      <div class="space-y-6">
+        <div class="rounded-2xl border border-line bg-surface-2 p-6">
+          <h3 class="inline-flex items-center gap-2 font-heading text-base font-bold text-ink">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary/[0.08] text-primary">
+              <Icon name="car" size={16} />
+            </span>
+            {en ? 'Main traffic corridors' : 'Principales corredores de tráfico'}
+          </h3>
+          <p class="mt-3 text-sm text-muted">{c.corridorsLead}</p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {city.corridors.map((road) => (
+              <li class="rounded-full border border-primary/15 bg-white px-3 py-1 text-xs font-semibold text-primary">{road}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="rounded-2xl border border-line bg-surface-2 p-6">
+          <h3 class="inline-flex items-center gap-2 font-heading text-base font-bold text-ink">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary/[0.08] text-primary">
+              <Icon name="stethoscope" size={16} />
+            </span>
+            {en ? 'Nearby hospitals & ERs' : 'Hospitales y salas de emergencia cercanas'}
+          </h3>
+          <p class="mt-3 text-sm text-muted">{c.hospitalsLead}</p>
+          <ul class="mt-3 space-y-3">
+            {city.hospitals.map((h) => (
+              <li>
+                <p class="text-sm font-bold text-ink">{h.name}</p>
+                {h.note && <p class="text-xs text-muted">{en ? h.note.en : h.note.es}</p>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* =================== 4 · SERVICIOS =================== */}
+<section class="bg-surface-2 py-16 md:py-20">
+  <div class="mx-auto max-w-content px-6">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
+        <span class="h-px w-8 bg-secondary"></span>
+        {en ? 'How we help' : 'Cómo ayudamos'}
+        <span class="h-px w-8 bg-secondary"></span>
+      </span>
+      <h2 class="mt-3 font-heading text-2xl font-extrabold text-ink md:text-3xl">
+        {en ? 'Services for accident patients' : 'Servicios para pacientes de accidente'}
+      </h2>
+    </div>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((s) => (
+        <div class="flex flex-col rounded-2xl border border-line bg-white p-6 shadow-sm transition hover:shadow-md">
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/[0.08] text-primary ring-1 ring-primary/15">
+            <Icon name={s.icon as any} size={20} />
+          </span>
+          <h3 class="mt-4 font-heading text-base font-bold text-ink">{s.title}</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-8 text-center">
+      <a href={servicesHref} class="inline-flex items-center gap-2 rounded-full border border-primary/25 px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary/[0.06]">
+        {en ? 'See all services' : 'Ver todos los servicios'}
+        <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+  </div>
+</section>
+
+{/* =================== 5 · QUÉ HACER TRAS UN ACCIDENTE =================== */}
+<section class="bg-white py-16 md:py-20">
+  <div class="mx-auto max-w-content px-6">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div>
+        <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
+          <span class="h-px w-8 bg-secondary"></span>
+          {en ? 'After a crash' : 'Tras el choque'}
+        </span>
+        <h2 class="mt-3 font-heading text-2xl font-extrabold text-ink md:text-3xl">
+          {en ? 'What to do after a car accident' : 'Qué hacer después de un accidente'}
+        </h2>
+        <p class="mt-4 text-[1.0625rem] leading-relaxed text-[#353846]">
+          {en
+            ? 'A quick checklist for the first hours. Use our free interactive checklist to track each step, or read the full guide on what to do in the first 24 hours after an accident in Utah.'
+            : 'Una guía rápida para las primeras horas. Usa nuestro checklist interactivo gratuito para ir marcando cada paso, o lee la guía completa sobre qué hacer en las primeras 24 horas tras un accidente en Utah.'}
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href={checklistTool} class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-deep">
+            {en ? 'Open the interactive checklist' : 'Abrir el checklist interactivo'}
+            <Icon name="arrow-right" size={16} />
+          </a>
+          <a href={afterAccidentPost} class="inline-flex items-center gap-2 rounded-full border border-primary/25 px-5 py-2.5 text-sm font-semibold text-primary transition hover:bg-primary/[0.06]">
+            {en ? 'Read the full guide' : 'Leer la guía completa'}
+          </a>
+        </div>
+      </div>
+
+      <ol class="space-y-4">
+        {steps.map((step, i) => (
+          <li class="flex items-start gap-4 rounded-2xl border border-line bg-surface-2 p-5">
+            <span class="inline-flex h-8 w-8 flex-none items-center justify-center rounded-full bg-primary font-heading text-sm font-extrabold text-white">{i + 1}</span>
+            <p class="text-sm leading-relaxed text-ink">{step}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+{/* =================== 6 · POR QUÉ ELEGIRNOS =================== */}
+<section class="bg-deep py-16 text-white md:py-20">
+  <div class="mx-auto max-w-content px-6">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-white/70">
+        <span class="h-px w-8 bg-secondary"></span>
+        {en ? 'Why choose us' : 'Por qué elegirnos'}
+        <span class="h-px w-8 bg-secondary"></span>
+      </span>
+      <h2 class="mt-3 font-heading text-2xl font-extrabold md:text-3xl">
+        {en ? `Built for ${city.name} accident patients` : `Pensado para pacientes de accidente de ${city.name}`}
+      </h2>
+    </div>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {reasons.map((r) => (
+        <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur">
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-white">
+            <Icon name={r.icon as any} size={20} />
+          </span>
+          <h3 class="mt-4 font-heading text-base font-bold">{r.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-white/75">{r.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* =================== 7 · FAQ (FAQPage) — <details> sin JS =================== */}
+<section class="bg-white py-16 md:py-20">
+  <div class="mx-auto max-w-3xl px-6">
+    <div class="text-center">
+      <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
+        <span class="h-px w-8 bg-secondary"></span>
+        FAQ
+        <span class="h-px w-8 bg-secondary"></span>
+      </span>
+      <h2 class="mt-3 font-heading text-2xl font-extrabold text-ink md:text-3xl">
+        {en ? `Questions from ${city.name}` : `Preguntas de ${city.name}`}
+      </h2>
+    </div>
+    <ul class="mt-10 space-y-3">
+      {c.faqs.map((f) => (
+        <li>
+          <details class="group overflow-hidden rounded-2xl border border-line bg-white transition-colors open:border-primary/40 open:shadow-[0_18px_40px_-22px_rgba(74,28,90,0.4)]">
+            <summary class="flex cursor-pointer list-none items-center gap-4 px-5 py-5 md:px-6 [&::-webkit-details-marker]:hidden">
+              <span class="inline-flex h-9 w-9 flex-none items-center justify-center rounded-full bg-primary/[0.08] text-primary ring-1 ring-primary/15 transition group-open:bg-primary group-open:text-white">
+                <Icon name="chevron-down" size={16} className="transition-transform group-open:rotate-180" />
+              </span>
+              <span class="flex-1 font-heading text-base font-bold leading-tight text-ink md:text-[1.05rem]">{f.question}</span>
+            </summary>
+            <div class="border-t border-line px-5 pb-6 pt-5 text-[0.95rem] leading-relaxed text-muted md:px-6 md:pl-[4.5rem]">
+              {f.answer}
+            </div>
+          </details>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+{/* =================== 8 · MAPA + CÓMO LLEGAR =================== */}
+<section class="bg-surface-2 py-16 md:py-24">
+  <div class="mx-auto max-w-content px-6">
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
+        <span class="h-px w-8 bg-secondary"></span>
+        {en ? 'Getting here' : 'Cómo llegar'}
+        <span class="h-px w-8 bg-secondary"></span>
+      </span>
+      <h2 class="mt-3 font-heading text-2xl font-extrabold text-ink md:text-3xl">
+        {en ? `How to get here from ${city.name}` : `Cómo llegar desde ${city.name}`}
+      </h2>
+    </div>
+
+    <div class="mx-auto mt-8 max-w-3xl rounded-3xl border border-line bg-white p-6 shadow-sm md:p-8">
+      <p class="text-[1.0625rem] leading-relaxed text-[#353846]">{c.directions}</p>
+      <div class="mt-6 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <p class="inline-flex items-start gap-2 text-sm font-bold text-primary">
+          <Icon name="pin" size={16} className="mt-0.5 flex-none" />
+          <span>{SITE.address.full}</span>
+        </p>
+        <a
+          href={SITE.mapsUrl}
+          target="_blank"
+          rel="noopener"
+          class="btn-uiverse-primary inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold"
+        >
+          <Icon name="pin" size={14} />
+          {en ? 'Open in Google Maps' : 'Abrir en Google Maps'}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<MapContact locale={locale} client:visible />
+
+{/* =================== 9 · CTA FINAL + FORMULARIO =================== */}
+<section class="relative isolate overflow-hidden bg-deep py-16 text-white md:py-24">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="absolute -left-32 top-0 h-[40vmax] w-[40vmax] rounded-full bg-secondary/15 blur-3xl"></div>
+    <div class="absolute -right-32 bottom-0 h-[36vmax] w-[36vmax] rounded-full bg-primary/30 blur-3xl"></div>
+  </div>
+  <div class="relative mx-auto grid max-w-content gap-10 px-6 lg:grid-cols-2 lg:items-center">
+    <div>
+      <h2 class="font-heading text-3xl font-extrabold leading-[1.05] md:text-4xl">
+        {en
+          ? `Had an accident near ${city.name}?`
+          : `¿Tuviste un accidente cerca de ${city.name}?`}
+      </h2>
+      <p class="mt-4 max-w-md text-base leading-relaxed text-white/80">
+        {en
+          ? 'Tell us what happened. Same-day evaluation, free transportation and legal guidance. We reply within 24 hours.'
+          : 'Cuéntanos qué pasó. Evaluación el mismo día, transporte gratis y orientación legal. Te respondemos en menos de 24h.'}
+      </p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href={telHref} class="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
+          <Icon name="phone" size={16} />
+          {SITE.phone.displayLong}
+        </a>
+        <a href={whatsappHref} rel="nofollow" class="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-[#0b3d24] transition hover:brightness-105">
+          <Icon name="whatsapp" size={18} />
+          WhatsApp
+        </a>
+      </div>
+    </div>
+    <ContactForm locale={locale} client:visible />
+  </div>
+</section>
+
+{/* =================== FOOTER DE UBICACIONES (cross-linking) =================== */}
+<section class="border-t border-line bg-surface-2 py-14 md:py-16">
+  <div class="mx-auto max-w-content px-6">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <span class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
+          <span class="h-px w-8 bg-secondary"></span>
+          {en ? 'Salt Lake County' : 'Condado de Salt Lake'}
+        </span>
+        <h2 class="mt-3 font-heading text-2xl font-extrabold text-ink md:text-3xl">
+          {en ? 'Other locations we serve' : 'Otras ubicaciones que atendemos'}
+        </h2>
+      </div>
+      <a
+        href={`${prefix}/location`}
+        class="inline-flex items-center gap-2 self-start text-sm font-semibold text-primary underline-offset-2 hover:underline sm:self-auto"
+      >
+        {en ? 'Main clinic — Taylorsville' : 'Clínica principal — Taylorsville'}
+        <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {otherCities.length > 0
+        ? otherCities.map((x) => (
+            <a
+              href={`${prefix}/locations/${x.slug}`}
+              class="group flex items-center gap-4 rounded-2xl border border-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
+            >
+              <span class="inline-flex h-12 w-12 flex-none items-center justify-center rounded-xl bg-primary/[0.08] text-primary ring-1 ring-primary/15 transition group-hover:bg-primary group-hover:text-white">
+                <Icon name="pin" size={20} />
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block font-heading text-base font-bold text-ink">{x.name}, UT</span>
+                <span class="mt-0.5 block text-xs text-muted">
+                  {en ? 'Car accident chiropractic care' : 'Quiropráctica de accidentes de auto'}
+                </span>
+              </span>
+              <Icon name="arrow-right" size={18} className="flex-none text-primary/50 transition group-hover:translate-x-1 group-hover:text-primary" />
+            </a>
+          ))
+        : (
+            <div class="rounded-2xl border border-dashed border-line bg-white p-6 text-sm text-muted sm:col-span-2 lg:col-span-3">
+              {en
+                ? 'More Salt Lake County locations coming soon. In the meantime, visit our main clinic in Taylorsville.'
+                : 'Pronto más ubicaciones del condado de Salt Lake. Mientras tanto, visítanos en nuestra clínica principal en Taylorsville.'}
+            </div>
+          )}
+    </div>
+
+    {/* Enlaces a páginas clave */}
+    <div class="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-6 text-sm">
+      <a href={servicesHref} class="font-semibold text-primary underline-offset-2 hover:underline">{en ? 'Services' : 'Servicios'}</a>
+      <a href={lawyerHref} class="font-semibold text-primary underline-offset-2 hover:underline">{en ? 'Legal support' : 'Apoyo legal'}</a>
+      <a href={blogHref} class="font-semibold text-primary underline-offset-2 hover:underline">Blog</a>
+    </div>
+  </div>
+</section>

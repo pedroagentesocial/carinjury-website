@@ -459,6 +459,10 @@
       "aria_label": "Llamar ahora",
       "tooltip": "Llamar ahora"
     },
+    "whatsapp": {
+      "aria_label": "Escríbenos por WhatsApp",
+      "tooltip": "WhatsApp"
+    },
     "schedule": {
       "aria_label": "Agendar cita",
       "tooltip": "Agenda en línea"
