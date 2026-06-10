@@ -64,7 +64,9 @@ export default function FloatingButtons({ locale }: Props) {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 1 }}
-      className="fixed bottom-5 right-5 z-40 flex flex-col gap-3"
+      /* bottom-24: deja libre la esquina inferior derecha para la burbuja del
+         chat de GHL (se inyecta ahí con z-index altísimo); el stack queda encima. */
+      className="fixed bottom-24 right-5 z-40 flex flex-col gap-3"
     >
       {fabs.map((fab) => {
         const isWhatsApp = fab.brand === 'whatsapp';
