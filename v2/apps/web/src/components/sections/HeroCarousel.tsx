@@ -27,7 +27,7 @@ const SLIDES: Slide[] = [
   },
   {
     /* Promo Cambiatón: imagen horizontal, el banner trae su propio texto */
-    src: '/banners/cambiaton-mundial.webp',
+    src: '/banners/cambiaton-mundial-wvc.webp',
     kind: 'image',
     durationMs: 8000,
     showContent: false,
