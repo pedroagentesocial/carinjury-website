@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
 import SorteoApp from '../components/react/sorteo/SorteoApp.tsx';
 import { SORTEO_PREMIO, SORTEO_ESTADO, SORTEO_MAX_BOLETOS } from '../data/sorteo';
 
@@ -74,4 +75,5 @@ const description = `Participa gratis en el sorteo de ${SORTEO_PREMIO.etiqueta} 
       <SorteoApp client:load initialRef={ref} />
     </section>
   </main>
+  <Footer />
 </Layout>
