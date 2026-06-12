@@ -2,17 +2,21 @@
 // Editar SOLO aquí — lo consumen las páginas y componentes del sorteo.
 // ⚠️ VALORES PLACEHOLDER: confirmar premio/fechas/elegibilidad con Pedro y ajustar.
 
+// ⚠️ FECHAS POR ANUNCIAR (Pedro aún no las define). Mientras tanto el formulario
+// queda ABIERTO (SORTEO_CIERRE_ISO en el futuro lejano). Cuando se definan,
+// ajustar estas 3 etiquetas + SORTEO_CIERRE_ISO + FECHAS_DEFINIDAS=true.
 export const SORTEO_FECHAS = {
-  inicio: '12 de junio de 2026',
-  // El registro cierra el día de la rifa.
-  fin: '19 de julio de 2026', // ⚠️ PLACEHOLDER — ¿atar a la final del Mundial?
-  ganadores: '19 de julio de 2026',
+  inicio: 'por anunciar',
+  fin: 'por anunciar',
+  ganadores: 'por anunciar',
 } as const;
 
-// Cierre del registro: fin del día en hora de Utah (Mountain Daylight Time =
-// UTC−06:00 en verano). Después de esta fecha el registro y las acciones bonus
-// quedan cerrados y se hace la rifa.
-export const SORTEO_CIERRE_ISO = '2026-07-19T23:59:59-06:00'; // ⚠️ PLACEHOLDER
+/** False mientras las fechas no estén definidas (la UI muestra "por anunciar"). */
+export const SORTEO_FECHAS_DEFINIDAS = false;
+
+// Cierre del registro (fin del día, hora de Utah / MDT = UTC−06:00). Placeholder
+// lejano para mantener el registro abierto hasta definir la fecha real.
+export const SORTEO_CIERRE_ISO = '2026-12-31T23:59:59-07:00'; // ⚠️ PLACEHOLDER
 
 /** True si el sorteo ya cerró (registro/acciones no se aceptan). */
 export function sorteoCerrado(now: number = Date.now()): boolean {
@@ -23,14 +27,14 @@ export function sorteoCerrado(now: number = Date.now()): boolean {
 export const SORTEO_ESTADO = 'Utah';
 
 export const SORTEO_PREMIO = {
-  // Número de ganadores / premios. ⚠️ PLACEHOLDER — confirmar con Pedro.
+  // 3 ganadores distintos; cada uno gana UN álbum del Mundial (premios idénticos).
   cantidad: 3,
-  // Desglose listo para mostrar.
-  etiqueta: 'álbum del Mundial + estampas', // ⚠️ PLACEHOLDER
-  etiquetaEn: 'World Cup album + stickers', // ⚠️ PLACEHOLDER
-  // Sustantivo genérico para el "N ___" del hero/popup.
-  sustantivo: 'premios',
-  sustantivoEn: 'prizes',
+  // Texto listo para mostrar (ej. "3 álbumes del Mundial").
+  etiqueta: '3 álbumes del Mundial 2026',
+  etiquetaEn: '3 World Cup 2026 albums',
+  // Sustantivo para el "3 ___" del hero/popup ("3 álbumes").
+  sustantivo: 'álbumes del Mundial',
+  sustantivoEn: 'World Cup albums',
 } as const;
 
 // El ganador tiene N días para reclamar.

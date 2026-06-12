@@ -10,6 +10,23 @@ export default {
         accent: 'var(--c3)',
         background: 'var(--bg)',
         text: 'var(--text)',
+        // --- Paleta del sorteo (portada de senor-casas) — café/oliva/dorado ---
+        clay: {
+          50: '#FAF4EF', 100: '#F0E2D3', 200: '#DFC2A5', 300: '#C99D75', 400: '#A77149',
+          500: '#8B5132', 600: '#6D3D22', 700: '#5A321C', 800: '#412419', 900: '#2A1710',
+        },
+        moss: {
+          50: '#F2F4EB', 100: '#E1E6CC', 200: '#C2CC99', 300: '#9DAB68', 400: '#7B8B45',
+          500: '#606D34', 600: '#4A5429', 700: '#3F4925', 800: '#364322', 900: '#1F2614',
+        },
+        gold: {
+          50: '#FEF9E7', 100: '#FDEFC2', 200: '#FBE085', 300: '#F8CC4A', 400: '#F4D03F',
+          500: '#E0B72D', 600: '#B89421', 700: '#8A6E18', 800: '#5C4A10', 900: '#2E2508',
+        },
+      },
+      boxShadow: {
+        soft: '0 4px 20px -6px rgb(0 0 0 / 0.08)',
+        'glow-gold': '0 0 24px -4px rgb(244 208 63 / 0.55)',
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',
