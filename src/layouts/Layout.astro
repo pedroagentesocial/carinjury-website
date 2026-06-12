@@ -4,6 +4,7 @@ import Nav from '../components/Nav.astro';
 import FloatingButtons from '../components/FloatingButtons.astro';
 import ScriptJsonLd from '../components/ScriptJsonLd.astro';
 import Analytics from '../components/Analytics.astro';
+import PromoPopup from '../components/react/PromoPopup.tsx';
 import esTranslations from '../i18n/es.json';
 import enTranslations from '../i18n/en.json';
 
@@ -66,6 +67,9 @@ const pageDescription = Astro.props.description ?? defaultDescription;
     <slot />
 
     <FloatingButtons />
+
+    <!-- Popup promocional con carrusel (Cambiatón + Sorteo). Se oculta en /sorteo y /admin. -->
+    <PromoPopup client:idle />
 
     <script
       is:inline
