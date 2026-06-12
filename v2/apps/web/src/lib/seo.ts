@@ -461,6 +461,59 @@ export function buildLocalBusinessSchema(opts: {
 }
 
 /**
+ * Schema por landing de ciudad — MedicalClinic + Chiropractor con el NAP
+ * idéntico al del negocio principal, pero con `areaServed` apuntando a la
+ * ciudad y un `@id` propio de la página (no pisa al `#business` global).
+ * Refuerza la entidad local para búsquedas "[servicio] en [ciudad]".
+ */
+export function buildCityClinicSchema(opts: {
+  url: string;
+  cityName: string;
+  description: string;
+  geo?: { lat: number; lng: number };
+}) {
+  const { url, cityName, description, geo } = opts;
+  return {
+    '@context': 'https://schema.org',
+    '@type': ['MedicalClinic', 'Chiropractor'],
+    '@id': `${absoluteUrl(url)}#clinic`,
+    name: `${SITE.name} — ${cityName}`,
+    parentOrganization: { '@id': `${SITE_URL}/#business` },
+    url: absoluteUrl(url),
+    telephone: SITE.phone.tel,
+    email: SITE.email,
+    logo: absoluteUrl(SITE.logo),
+    description,
+    priceRange: '$$',
+    paymentAccepted: ['Insurance', 'Cash', 'Credit Card'],
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: SITE.address.street,
+      addressLocality: SITE.address.city,
+      addressRegion: SITE.address.region,
+      postalCode: SITE.address.postalCode,
+      addressCountry: SITE.address.country,
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: SITE.address.geo.lat,
+      longitude: SITE.address.geo.lng,
+    },
+    hasMap: SITE.mapsUrl,
+    medicalSpecialty: ['Chiropractic', 'PainManagement', 'PhysicalTherapy', 'Rehabilitation'],
+    knowsLanguage: ['Spanish', 'English', 'Portuguese'],
+    areaServed: {
+      '@type': 'City',
+      name: cityName,
+      ...(geo && {
+        geo: { '@type': 'GeoCoordinates', latitude: geo.lat, longitude: geo.lng },
+      }),
+      containedInPlace: { '@type': 'AdministrativeArea', name: 'Salt Lake County, Utah' },
+    },
+  };
+}
+
+/**
  * WebSite schema con SearchAction → activa el sitelinks searchbox en Google.
  */
 export function buildWebSiteSchema() {

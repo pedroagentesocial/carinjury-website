@@ -20,6 +20,8 @@
     "form_desc": "Tell us about your case",
     "frequent_questions": "Frequently Asked Questions",
     "frequent_questions_desc": "Common questions answered",
+    "tools": "Tools",
+    "tools_desc": "Free guides and evaluation",
     "schedule_online": "Schedule Online",
     "services_dropdown": {
       "chiropractic": "Chiropractic",
@@ -458,6 +460,10 @@
     "phone": {
       "aria_label": "Call now",
       "tooltip": "Call now"
+    },
+    "whatsapp": {
+      "aria_label": "Message us on WhatsApp",
+      "tooltip": "WhatsApp"
     },
     "schedule": {
       "aria_label": "Schedule appointment",

@@ -13,7 +13,21 @@ interface Fab {
   icon: IconName;
   ariaKey: TranslationKey;
   tooltipKey: TranslationKey;
+  /** WhatsApp: estilo verde + GA4 + abre en pestaña nueva. */
+  brand?: 'whatsapp';
 }
+
+/** GA4 best-effort (no rompe si analytics no cargó). */
+function track(name: string, params?: Record<string, unknown>) {
+  try {
+    (window as unknown as { trackEvent?: (n: string, p?: Record<string, unknown>) => void }).trackEvent?.(name, params);
+  } catch {
+    /* analytics opcional */
+  }
+}
+
+const FOCUS_RING =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-ink';
 
 export default function FloatingButtons({ locale }: Props) {
   const fabs: Fab[] = [
@@ -35,6 +49,14 @@ export default function FloatingButtons({ locale }: Props) {
       ariaKey: 'floating_buttons.phone.aria_label',
       tooltipKey: 'floating_buttons.phone.tooltip',
     },
+    {
+      /* Número NO hardcodeado: el endpoint server-only resuelve el wa.me. */
+      href: `/api/whatsapp?lang=${locale}&ctx=help`,
+      icon: 'whatsapp',
+      ariaKey: 'floating_buttons.whatsapp.aria_label',
+      tooltipKey: 'floating_buttons.whatsapp.tooltip',
+      brand: 'whatsapp',
+    },
   ];
 
   return (
@@ -42,19 +64,32 @@ export default function FloatingButtons({ locale }: Props) {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 1 }}
-      className="fixed bottom-5 right-5 z-40 flex flex-col gap-3"
+      /* bottom-24: deja libre la esquina inferior derecha para la burbuja del
+         chat de GHL (se inyecta ahí con z-index altísimo); el stack queda encima. */
+      className="fixed bottom-24 right-5 z-40 flex flex-col gap-3"
     >
-      {fabs.map((fab) => (
-        <a
-          key={fab.href}
-          href={fab.href}
-          aria-label={t(fab.ariaKey, locale)}
-          className="fab-jello h-14 w-14"
-        >
-          <Icon name={fab.icon} size={22} />
-          <span className="fab-tooltip">{t(fab.tooltipKey, locale)}</span>
-        </a>
-      ))}
+      {fabs.map((fab) => {
+        const isWhatsApp = fab.brand === 'whatsapp';
+        return (
+          <a
+            key={fab.href}
+            href={fab.href}
+            aria-label={t(fab.ariaKey, locale)}
+            {...(isWhatsApp
+              ? {
+                  target: '_blank',
+                  rel: 'noopener',
+                  onClick: () => track('whatsapp_click', { action: 'floating' }),
+                  style: { backgroundColor: '#25D366', boxShadow: '0 10px 20px rgba(37,211,102,0.45)' },
+                }
+              : {})}
+            className={`fab-jello h-14 w-14 ${FOCUS_RING}`}
+          >
+            <Icon name={fab.icon} size={isWhatsApp ? 26 : 22} />
+            <span className="fab-tooltip">{t(fab.tooltipKey, locale)}</span>
+          </a>
+        );
+      })}
     </motion.div>
   );
 }

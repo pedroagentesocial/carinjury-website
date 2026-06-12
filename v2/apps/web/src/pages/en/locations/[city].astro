@@ -1,0 +1,58 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import CityLanding from '@components/sections/city/CityLanding.astro';
+import { getAllCitySlugs, getCity, cityCopy } from '@lib/cities';
+import {
+  buildCityClinicSchema,
+  buildMedicalWebPageSchema,
+  buildFAQSchema,
+  buildBreadcrumbSchema,
+  absoluteUrl,
+} from '@lib/seo';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  return getAllCitySlugs().map((slug) => ({ params: { city: slug } }));
+}
+
+const locale = 'en' as const;
+const { city: citySlug } = Astro.params;
+const city = citySlug ? getCity(citySlug) : undefined;
+if (!city) return Astro.redirect('/404');
+
+const c = cityCopy(city, locale);
+const url = `/en/locations/${city.slug}`;
+const ogImage = absoluteUrl(city.heroImage);
+
+const clinic = buildCityClinicSchema({
+  url,
+  cityName: city.name,
+  description: c.metaDescription,
+  geo: city.geo,
+});
+const webPage = buildMedicalWebPageSchema({
+  url,
+  name: c.metaTitle,
+  description: c.metaDescription,
+  specialty: 'Chiropractic',
+  audience: 'Patient',
+});
+const faq = buildFAQSchema(c.faqs);
+const breadcrumb = buildBreadcrumbSchema([
+  { name: 'Home', url: '/en/' },
+  { name: 'Locations', url: '/en/locations' },
+  { name: city.name, url },
+]);
+---
+
+<PageShell
+  title={c.metaTitle}
+  description={c.metaDescription}
+  keywords={c.keywords}
+  ogImage={ogImage}
+  schemas={[clinic, webPage, faq, breadcrumb]}
+  fullBleed
+>
+  <CityLanding city={city} locale={locale} />
+</PageShell>

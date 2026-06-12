@@ -257,7 +257,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '';
       if (initialized) return;
       initialized = true;
 
-      /* Carga diferida de reCAPTCHA — antes era un <script> de página */
+      /* Carga diferida de reCAPTCHA — antes era un script de página */
       const recaptcha = document.createElement('script');
       recaptcha.src = 'https://www.google.com/recaptcha/api.js';
       recaptcha.async = true;

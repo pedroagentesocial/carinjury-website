@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import SorteoApp from '../components/react/sorteo/SorteoApp.tsx';
+import { SORTEO_PREMIO, SORTEO_ESTADO, SORTEO_MAX_BOLETOS } from '../data/sorteo';
+
+// ?ref=CODE para el sistema de referidos.
+const ref = Astro.url.searchParams.get('ref') || '';
+
+const title = `Sorteo de ${SORTEO_PREMIO.etiqueta} — Participa Gratis | Car Injury Clinic`;
+const description = `Participa gratis en el sorteo de ${SORTEO_PREMIO.etiqueta} de Car Injury Clinic. Regístrate, suma boletos siguiéndonos en redes e invitando amigos. Válido solo en ${SORTEO_ESTADO}.`;
+---
+
+<Layout title={title} description={description}>
+  <main>
+    <!-- ============================ HERO ============================ -->
+    <section class="relative overflow-hidden bg-clay-900 text-white">
+      <div class="relative mx-auto max-w-3xl px-5 py-20 text-center sm:py-24 lg:py-28">
+        <span
+          class="inline-block rounded-full bg-gold-400 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-clay-900 sm:text-xs"
+        >
+          ⚽ Participa gratis · Sin compra
+        </span>
+
+        <h1 class="mt-6">
+          <span
+            class="block font-sans text-base font-semibold uppercase tracking-[0.18em] text-clay-200 sm:text-lg"
+          >
+            Gánate uno de
+          </span>
+          <span class="mt-3 flex items-baseline justify-center gap-2 font-serif font-bold leading-none sm:gap-3">
+            <span class="text-gold-400 text-[4.5rem] drop-shadow-[0_6px_24px_rgba(0,0,0,0.45)] sm:text-8xl lg:text-[8.5rem]">
+              {SORTEO_PREMIO.cantidad}
+            </span>
+            <span class="text-white text-4xl sm:text-6xl lg:text-7xl">álbumes</span>
+          </span>
+          <span class="mt-1 block font-serif text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
+            del Mundial 2026
+          </span>
+        </h1>
+
+        <p
+          class="mx-auto mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold text-gold-200 sm:text-base"
+        >
+          ⚽ Álbum oficial del Mundial 2026 · 1 ganador por álbum
+        </p>
+
+        <p class="mx-auto mt-6 max-w-lg text-base leading-relaxed text-clay-100 sm:text-lg">
+          Regístrate sin costo y suma hasta <strong class="text-white">{SORTEO_MAX_BOLETOS} boletos</strong>
+          siguiéndonos en redes e invitando a tus amigos. Más boletos, más probabilidades.
+        </p>
+
+        <div class="mt-6 flex flex-col items-center justify-center gap-1 text-sm text-clay-200 sm:flex-row sm:gap-3">
+          <span>📍 Válido solo para residentes de {SORTEO_ESTADO} · +18</span>
+          <span class="hidden text-gold-400/50 sm:inline" aria-hidden="true">·</span>
+          <span>🏆 Fechas por anunciar</span>
+        </div>
+
+        <div class="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
+          <a
+            href="#registro"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-gold-400 px-8 py-4 text-lg font-bold text-clay-900 shadow-glow-gold transition-transform hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Participar gratis
+          </a>
+          <a
+            href="/sorteo/bases"
+            class="inline-flex items-center justify-center gap-1.5 px-4 py-4 font-semibold text-gold-200 underline-offset-4 transition-colors hover:text-white hover:underline"
+          >
+            Ver bases y condiciones →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== REGISTRO / TICKETS ===================== -->
+    <section class="py-14 sm:py-20 bg-clay-50">
+      <SorteoApp client:load initialRef={ref} />
+    </section>
+  </main>
+  <Footer />
+</Layout>

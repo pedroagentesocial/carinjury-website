@@ -1,4 +1,5 @@
 import type { Locale } from '@carinjury/shared';
+import type { IconName } from '@components/ui/Icon';
 
 /**
  * Place ID de Google Maps. Override por env `PUBLIC_GOOGLE_PLACE_ID`.
@@ -79,6 +80,8 @@ export interface NavLink {
   href: string;
   key: string;
   descKey?: string;
+  /** Icono opcional para el dropdown desktop (si no, se infiere). */
+  icon?: IconName;
 }
 
 export interface NavItem {
@@ -89,6 +92,9 @@ export interface NavItem {
 
 export function navLinks(locale: Locale): NavItem[] {
   const prefix = locale === 'en' ? '/en' : '';
+  /* Central de herramientas: slug traducido por idioma. */
+  const toolsHref = locale === 'en' ? '/en/tools' : '/herramientas';
+
   return [
     { href: `${prefix || '/'}`, key: 'nav.home' },
     { href: `${prefix}/services`, key: 'nav.services' },
@@ -102,6 +108,12 @@ export function navLinks(locale: Locale): NavItem[] {
           href: `${prefix}/faq`,
           key: 'nav.frequent_questions',
           descKey: 'nav.frequent_questions_desc',
+        },
+        {
+          href: toolsHref,
+          key: 'nav.tools',
+          descKey: 'nav.tools_desc',
+          icon: 'sparkles',
         },
         {
           href: `${prefix}/patient-referral`,

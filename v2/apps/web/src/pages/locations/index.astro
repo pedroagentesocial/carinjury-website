@@ -1,0 +1,28 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import LocationsHub from '@components/sections/city/LocationsHub.astro';
+import { buildBreadcrumbSchema, buildMedicalWebPageSchema } from '@lib/seo';
+
+export const prerender = true;
+
+const locale = 'es' as const;
+const title = 'Ubicaciones · Clínica de accidentes de auto en el condado de Salt Lake | Car Injury Clinic';
+const description =
+  'Landings locales de Car Injury Clinic en el condado de Salt Lake: West Valley City, West Jordan y Sandy. Atención bilingüe, citas el mismo día y transporte gratis desde Taylorsville.';
+
+const webPage = buildMedicalWebPageSchema({
+  url: '/locations',
+  name: title,
+  description,
+  specialty: 'Chiropractic',
+  audience: 'Patient',
+});
+const breadcrumb = buildBreadcrumbSchema([
+  { name: 'Inicio', url: '/' },
+  { name: 'Ubicaciones', url: '/locations' },
+]);
+---
+
+<PageShell title={title} description={description} schemas={[webPage, breadcrumb]} fullBleed>
+  <LocationsHub locale={locale} />
+</PageShell>

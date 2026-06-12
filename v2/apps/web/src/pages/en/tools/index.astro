@@ -1,0 +1,29 @@
+---
+import PageShell from '@layouts/PageShell.astro';
+import ToolsHub from '@components/sections/tools/ToolsHub.astro';
+import { buildBreadcrumbSchema, buildMedicalWebPageSchema, absoluteUrl } from '@lib/seo';
+
+export const prerender = true;
+
+const locale = 'en' as const;
+const title = 'Free Tools for Accident Victims in Utah | Car Injury Clinic';
+const description =
+  'A what-to-do-after-an-accident checklist and a free case evaluation. Educational, free tools from Car Injury Clinic in Salt Lake City.';
+const alternateUrl = absoluteUrl('/herramientas');
+
+const webPage = buildMedicalWebPageSchema({
+  url: '/en/tools',
+  name: title,
+  description,
+  specialty: 'Chiropractic',
+  audience: 'Patient',
+});
+const breadcrumb = buildBreadcrumbSchema([
+  { name: 'Home', url: '/en/' },
+  { name: 'Tools', url: '/en/tools' },
+]);
+---
+
+<PageShell title={title} description={description} schemas={[webPage, breadcrumb]} alternateUrl={alternateUrl} fullBleed>
+  <ToolsHub locale={locale} />
+</PageShell>

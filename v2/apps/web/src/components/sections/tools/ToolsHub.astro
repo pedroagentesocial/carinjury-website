@@ -1,0 +1,169 @@
+---
+/**
+ * Central de herramientas (/herramientas + /en/tools) — índice de las
+ * herramientas interactivas gratuitas. Estático (SEO/LCP). Con breadcrumb
+ * visible y enlaces a "lo demás" (ubicaciones, blog).
+ */
+import type { Locale } from '@carinjury/shared';
+import { SITE } from '@lib/site';
+import { Icon, type IconName } from '@components/ui/Icon';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+
+interface ToolCard {
+  href: string;
+  icon: IconName;
+  title: string;
+  desc: string;
+  tag: string;
+}
+
+const tools: ToolCard[] = en
+  ? [
+      {
+        href: '/en/tools/what-to-do-after-a-car-accident',
+        icon: 'check',
+        title: 'What to do after a car accident',
+        desc: 'A step-by-step checklist for the first moments after a crash. Track your progress, download the PDF and share it with your family.',
+        tag: 'Checklist',
+      },
+      {
+        href: '/en/tools/do-i-have-a-case',
+        icon: 'help',
+        title: 'Do I have a case?',
+        desc: 'Answer a few questions and get qualitative, educational guidance on whether it’s worth a free professional review. No dollar amounts, no promises.',
+        tag: 'Evaluation',
+      },
+      {
+        href: '/en/tools/symptom-check',
+        icon: 'stethoscope',
+        title: 'Post-accident symptom check',
+        desc: 'Mark your symptoms and get educational guidance, with urgent warning-sign awareness. Not a diagnosis.',
+        tag: 'Symptom check',
+      },
+    ]
+  : [
+      {
+        href: '/herramientas/que-hacer-despues-de-un-accidente',
+        icon: 'check',
+        title: 'Qué hacer después de un accidente',
+        desc: 'Un checklist paso a paso para los primeros momentos tras un choque. Marca tu progreso, descarga el PDF y compártelo con tu familia.',
+        tag: 'Checklist',
+      },
+      {
+        href: '/herramientas/tengo-un-caso',
+        icon: 'help',
+        title: '¿Tengo un caso?',
+        desc: 'Responde unas preguntas y recibe orientación cualitativa y educativa sobre si vale la pena una revisión profesional gratuita. Sin montos ni promesas.',
+        tag: 'Evaluación',
+      },
+      {
+        href: '/herramientas/chequeo-de-sintomas',
+        icon: 'stethoscope',
+        title: 'Chequeo de síntomas',
+        desc: 'Marca tus síntomas y recibe orientación educativa, con aviso de señales de alarma. No es un diagnóstico.',
+        tag: 'Síntomas',
+      },
+    ];
+
+const moreLinks = en
+  ? [
+      { href: '/en/locations', icon: 'pin' as IconName, label: 'Locations across Salt Lake County' },
+      { href: '/en/blog', icon: 'sparkles' as IconName, label: 'Accident recovery & injury blog' },
+    ]
+  : [
+      { href: '/locations', icon: 'pin' as IconName, label: 'Ubicaciones en el condado de Salt Lake' },
+      { href: '/blog', icon: 'sparkles' as IconName, label: 'Blog de recuperación y lesiones' },
+    ];
+
+const scheduleHref = `${prefix}/schedule`;
+const homeHref = en ? '/en/' : '/';
+---
+
+{/* ===== HERO ===== */}
+<section class="relative isolate overflow-hidden bg-deep pb-14 pt-28 text-white md:pb-20 md:pt-36">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="absolute -left-32 top-0 h-[40vmax] w-[40vmax] rounded-full bg-secondary/15 blur-3xl"></div>
+    <div class="absolute -right-32 bottom-0 h-[36vmax] w-[36vmax] rounded-full bg-primary/30 blur-3xl"></div>
+  </div>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:radial-gradient(rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+  <div class="relative mx-auto max-w-content px-6">
+    <nav class="text-xs font-semibold text-white/65" aria-label="Breadcrumb">
+      <a href={homeHref} class="transition hover:text-secondary">{en ? 'Home' : 'Inicio'}</a>
+      <span class="mx-2 text-white/30">/</span>
+      <span class="text-white/85">{en ? 'Tools' : 'Herramientas'}</span>
+    </nav>
+    <span class="mt-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/85 backdrop-blur">
+      <span class="h-1 w-1 rounded-full bg-secondary"></span>
+      {en ? 'Free tools · Salt Lake City, UT' : 'Herramientas gratis · Salt Lake City, UT'}
+    </span>
+    <h1 class="mt-4 max-w-3xl font-heading text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl">
+      {en ? 'Free tools for accident victims' : 'Herramientas gratuitas tras un accidente'}
+    </h1>
+    <p class="mt-4 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
+      {en
+        ? 'Educational, no-cost tools to help you right after a car accident in Utah. Information and guidance — not legal advice.'
+        : 'Herramientas educativas y sin costo para ayudarte justo después de un accidente en Utah. Información y orientación — no asesoría legal.'}
+    </p>
+  </div>
+</section>
+
+{/* ===== TOOL CARDS ===== */}
+<section class="bg-white py-16 md:py-20">
+  <div class="mx-auto max-w-content px-6">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {tools.map((tool) => (
+        <a
+          href={tool.href}
+          class="group flex flex-col rounded-3xl border border-line bg-white p-7 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md md:p-8"
+        >
+          <div class="flex items-center justify-between">
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/[0.08] text-primary ring-1 ring-primary/15 transition group-hover:bg-primary group-hover:text-white">
+              <Icon name={tool.icon} size={22} />
+            </span>
+            <span class="rounded-full bg-secondary/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-primary">{tool.tag}</span>
+          </div>
+          <h2 class="mt-5 font-heading text-xl font-extrabold text-ink">{tool.title}</h2>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{tool.desc}</p>
+          <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+            {en ? 'Open tool' : 'Abrir herramienta'}
+            <Icon name="arrow-right" size={16} className="transition-transform group-hover:translate-x-1" />
+          </span>
+        </a>
+      ))}
+    </div>
+
+    {/* ===== Lo demás ===== */}
+    <div class="mt-10 border-t border-line pt-8">
+      <h2 class="font-heading text-lg font-bold text-ink">{en ? 'More resources' : 'Más recursos'}</h2>
+      <div class="mt-4 grid gap-3 sm:grid-cols-2">
+        {moreLinks.map((link) => (
+          <a href={link.href} class="group flex items-center gap-3 rounded-2xl border border-line bg-surface-2 p-4 transition hover:border-primary/30 hover:bg-white">
+            <span class="inline-flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-primary/[0.08] text-primary"><Icon name={link.icon} size={18} /></span>
+            <span class="flex-1 text-sm font-semibold text-ink">{link.label}</span>
+            <Icon name="arrow-right" size={16} className="text-primary/50 transition group-hover:translate-x-1" />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    {/* ===== CTA ===== */}
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+      <a href={scheduleHref} class="btn-uiverse-primary inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
+        <Icon name="calendar" size={16} />
+        {en ? 'Schedule a free visit' : 'Agendar una cita gratis'}
+      </a>
+      <a href={`tel:${SITE.phone.tel}`} class="inline-flex items-center gap-2 rounded-full border border-primary/25 px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary/[0.06]">
+        <Icon name="phone" size={16} />
+        {SITE.phone.display}
+      </a>
+    </div>
+  </div>
+</section>
