@@ -4,20 +4,20 @@ import type { Locale } from '@carinjury/shared';
 import { Icon } from '@components/ui/Icon';
 import { isPromoActive } from '@lib/promo';
 
-const BANNER_SRC = '/banners/cambiaton-mundial-wvc.webp';
+const BANNER_SRC = '/banners/cambiaton-mundial-taylorsville.webp';
 const DISMISS_KEY = 'promo-ad-dismissed';
 /** Delay antes de aparecer: deja que la página pinte primero. */
 const SHOW_DELAY_MS = 1500;
 
 const COPY = {
   es: {
-    alt: 'Cambiatón en Car Injury Clinic: intercambia tus láminas del álbum del Mundial 2026. Sábado de 11:00 AM a 1:00 PM en 2997 W 4700 S, West Valley City, UT 84118.',
+    alt: 'Cambiatón en Car Injury Clinic: intercambia tus láminas del álbum del Mundial 2026. Sábado de 11:00 AM a 1:00 PM en 2997 W 4700 S, Taylorsville, UT 84129.',
     expand: 'Ver promoción del Cambiatón',
     close: 'Cerrar promoción',
     dismiss: 'Quitar anuncio',
   },
   en: {
-    alt: 'Sticker swap at Car Injury Clinic: trade your 2026 World Cup album stickers. Saturday, 11:00 AM to 1:00 PM at 2997 W 4700 S, West Valley City, UT 84118.',
+    alt: 'Sticker swap at Car Injury Clinic: trade your 2026 World Cup album stickers. Saturday, 11:00 AM to 1:00 PM at 2997 W 4700 S, Taylorsville, UT 84129.',
     expand: 'View sticker swap promotion',
     close: 'Close promotion',
     dismiss: 'Dismiss ad',
