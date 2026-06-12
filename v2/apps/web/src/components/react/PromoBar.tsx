@@ -12,13 +12,13 @@ const SLIDES = [
   {
     href: MAPS_URL,
     external: true,
-    text: '🎟️ Cambiatón: intercambia tus láminas del Mundial · Sábados 11am–1pm en Taylorsville',
+    text: '🎟️ Cambiatón de láminas del Mundial · Sáb 11am–1pm · Taylorsville',
     cta: 'Cómo llegar',
   },
   {
     href: '/sorteo',
     external: false,
-    text: '⚽ Gánate uno de 3 álbumes del Mundial · ¡participa gratis!',
+    text: '⚽ Gánate uno de 3 álbumes del Mundial · ¡gratis!',
     cta: 'Participar',
   },
 ];
@@ -34,22 +34,24 @@ export default function PromoBar() {
   const s = SLIDES[i];
 
   return (
-    <div className="relative w-full overflow-hidden bg-[#FFD60A] text-[#3A1456]">
-      <div className="mx-auto flex min-h-[40px] max-w-6xl items-center justify-center px-4 py-2 text-center">
+    <div className="fixed inset-x-0 top-0 z-[60] h-10 overflow-hidden bg-[#FFD60A] text-[#3A1456]">
+      <div className="mx-auto flex h-full max-w-6xl items-center justify-center px-3">
         <AnimatePresence mode="wait">
           <motion.a
             key={i}
             href={s.href}
             target={s.external ? '_blank' : undefined}
             rel={s.external ? 'noopener noreferrer' : undefined}
-            initial={{ opacity: 0, y: 9 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -9 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5 text-[12px] font-bold leading-tight sm:text-sm"
+            className="flex min-w-0 items-center justify-center gap-2 text-[12px] font-bold leading-none hover:underline sm:text-sm"
           >
-            <span>{s.text}</span>
-            <span className="whitespace-nowrap underline underline-offset-2">{s.cta} →</span>
+            <span className="truncate">{s.text}</span>
+            <span className="hidden shrink-0 whitespace-nowrap underline underline-offset-2 sm:inline">
+              {s.cta} →
+            </span>
           </motion.a>
         </AnimatePresence>
       </div>
