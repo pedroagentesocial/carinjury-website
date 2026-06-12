@@ -1,0 +1,61 @@
+---
+// Analytics.astro — GA4 + Meta (Facebook) Pixel.
+// Los IDs se leen de variables de entorno PÚBLICAS (visibles en el cliente):
+//   PUBLIC_GA4_ID         ej. "G-XXXXXXXXXX"
+//   PUBLIC_META_PIXEL_ID  ej. "123456789012345"
+// Configúralas en .env (local) y en Vercel → Settings → Environment Variables.
+// Si una falta, ese script simplemente no se carga (no rompe nada).
+const GA4_ID = import.meta.env.PUBLIC_GA4_ID;
+const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID;
+---
+
+{
+  GA4_ID && (
+    <Fragment>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} />
+      <script is:inline define:vars={{ GA4_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', GA4_ID, { anonymize_ip: true });
+      </script>
+    </Fragment>
+  )
+}
+
+{
+  META_PIXEL_ID && (
+    <Fragment>
+      <script is:inline define:vars={{ META_PIXEL_ID }}>
+        !(function (f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = '2.0';
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', META_PIXEL_ID);
+        fbq('track', 'PageView');
+      </script>
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style="display:none"
+          src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+        />
+      </noscript>
+    </Fragment>
+  )
+}
