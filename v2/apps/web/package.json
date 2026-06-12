@@ -18,6 +18,7 @@
     "@astrojs/tailwind": "^6.0.0",
     "@astrojs/vercel": "^8.0.0",
     "@carinjury/shared": "workspace:*",
+    "@supabase/supabase-js": "^2.39.0",
     "astro": "^5.1.0",
     "motion": "^12.38.0",
     "pdf-lib": "^1.17.1",
