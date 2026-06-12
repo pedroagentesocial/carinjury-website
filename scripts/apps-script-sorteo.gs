@@ -8,7 +8,7 @@
  *  4. Implementar → Administrar implementaciones → editar (lápiz) →
  *     Versión: "Nueva versión" → Implementar.  (Necesario para que el cambio
  *     de columnas/resena_google quede activo en la URL /exec.)
- *  5. Vuelve al Sheet y recárgalo: aparece el menú "🎁 Sorteo".
+ *  5. Vuelve al Sheet y recárgalo: aparece el menú "⚽ Sorteo Mundial".
  *     - "✨ Aplicar formato bonito"  → colores, encabezados, filas alternas.
  *     - "🧹 Limpiar filas de prueba" → borra registros de test/prueba/E2E.
  *     - "🏆 Ordenar por boletos"     → ordena de más a menos boletos.
@@ -34,15 +34,18 @@ const LABELS = [
   'Boletos', 'Ganador ✓', 'Reseña Google', 'Finalizado',
 ];
 
-// --- Paleta de marca (café oscuro + dorado, igual que el sitio) ---
+// --- Paleta tema Mundial (verde cancha + dorado trofeo ⚽) ---
 const C = {
-  headerBg: '#3B2517', headerFg: '#F2C75C',
-  zebra: '#FBF6EE',
-  siBg: '#E0F0E4', siFg: '#246B3D',
-  noBg: '#F2EEE9', noFg: '#9B8F81',
-  winnerBg: '#FFE3A1', winnerFg: '#7A5A12',
-  ticketMin: '#FFFFFF', ticketMax: '#F2C75C',
-  border: '#E7DECF',
+  headerBg: '#0E5C36', headerFg: '#FFD54A',   // verde cancha + dorado
+  zebra: '#F1F7F2',                            // verde muy claro
+  siBg: '#DCF1E1', siFg: '#1B6B3A',            // "Sí" → verde
+  noBg: '#F2F1EE', noFg: '#9AA0A6',            // "No" → gris suave
+  winnerBg: '#FFE08A', winnerFg: '#7A5A12',    // ganador → dorado fuerte
+  ticketMin: '#FFFFFF', ticketMax: '#FFD54A',  // boletos: blanco → dorado
+  border: '#DCE6DD',
+  labelFg: '#2A4A35',                          // etiquetas (verde oscuro)
+  mutedFg: '#8A938C',                          // texto tenue
+  sectionBg: '#E8F3EB',                        // encabezado de sección (verde crema)
 };
 
 const WIDTHS = [150, 175, 130, 230, 120, 120, 90, 90, 165, 100, 90, 110, 120, 110];
@@ -120,7 +123,7 @@ function doPost(e) {
 // ============================================================
 function onOpen() {
   SpreadsheetApp.getUi()
-    .createMenu('🎁 Sorteo')
+    .createMenu('⚽ Sorteo Mundial')
     .addItem('✨ Aplicar formato bonito', 'formatSheet')
     .addItem('📊 Actualizar resumen', 'buildSummary')
     .addItem('🏆 Ordenar por boletos', 'sortByTickets')
@@ -231,7 +234,7 @@ function formatSheet() {
   // 6. Refrescar el dashboard.
   buildSummary();
 
-  SpreadsheetApp.getActive().toast('Formato + resumen aplicados ✨', '🎁 Sorteo', 4);
+  SpreadsheetApp.getActive().toast('Formato + resumen aplicados ✨', '⚽ Sorteo Mundial', 4);
 }
 
 // ============================================================
@@ -242,7 +245,7 @@ function sortByTickets() {
   const lastRow = sh.getLastRow();
   if (lastRow < 3) return;
   sh.getRange(2, 1, lastRow - 1, KEYS.length).sort({ column: colOf_('total_tickets'), ascending: false });
-  SpreadsheetApp.getActive().toast('Ordenado por boletos 🏆', '🎁 Sorteo', 4);
+  SpreadsheetApp.getActive().toast('Ordenado por boletos 🏆', '⚽ Sorteo Mundial', 4);
 }
 
 // ============================================================
@@ -370,12 +373,12 @@ function buildSummary() {
   const stamp = Utilities.formatDate(new Date(), tz, "d 'de' MMMM yyyy, HH:mm");
 
   // Título.
-  sh.getRange('A1:E1').merge().setValue('🎁  SORTEO · RESUMEN')
+  sh.getRange('A1:E1').merge().setValue('⚽  SORTEO MUNDIAL · RESUMEN')
     .setBackground(C.headerBg).setFontColor(C.headerFg).setFontWeight('bold')
     .setFontSize(16).setHorizontalAlignment('center').setVerticalAlignment('middle');
   sh.setRowHeight(1, 46);
   sh.getRange('A2:E2').merge().setValue('Actualizado: ' + stamp)
-    .setFontColor('#9B8F81').setFontStyle('italic').setFontSize(9)
+    .setFontColor(C.mutedFg).setFontStyle('italic').setFontSize(9)
     .setHorizontalAlignment('center');
 
   // --- Sección TOTALES ---
@@ -393,13 +396,13 @@ function buildSummary() {
   ];
   let row = 5;
   kpis.forEach(function (k) {
-    sh.getRange(row, 1).setValue(k[0]).setFontColor('#5A4632');
+    sh.getRange(row, 1).setValue(k[0]).setFontColor(C.labelFg);
     const valCell = sh.getRange(row, 3).setValue(k[1])
       .setFontWeight('bold').setFontColor(C.headerBg).setHorizontalAlignment('right');
     if (k[0] === 'Promedio de boletos') valCell.setNumberFormat('0.0');
     if (k[2] !== null) {
       sh.getRange(row, 4).setValue(k[2]).setNumberFormat('0%')
-        .setFontColor('#9B8F81').setHorizontalAlignment('right');
+        .setFontColor(C.mutedFg).setHorizontalAlignment('right');
       sh.getRange(row, 5).setFormula(
         '=SPARKLINE(D' + row + ',{"charttype","bar";"max",1;"color1","' + C.headerBg + '"})');
     }
@@ -411,10 +414,10 @@ function buildSummary() {
   sectionHeader_(sh, dStart, 'DISTRIBUCIÓN DE BOLETOS');
   const headRow = dStart + 1;
   sh.getRange(headRow, 1, 1, 3).setValues([['Boletos', 'Participantes', '']])
-    .setFontWeight('bold').setFontColor('#5A4632');
+    .setFontWeight('bold').setFontColor(C.labelFg);
   for (let t = 1; t <= 6; t++) {
     const rr = headRow + t;
-    sh.getRange(rr, 1).setValue(t + (t === 1 ? ' boleto' : ' boletos')).setFontColor('#5A4632');
+    sh.getRange(rr, 1).setValue(t + (t === 1 ? ' boleto' : ' boletos')).setFontColor(C.labelFg);
     sh.getRange(rr, 2).setValue(dist[t]).setFontWeight('bold')
       .setFontColor(C.headerBg).setHorizontalAlignment('right');
     sh.getRange(rr, 3).setFormula(
@@ -426,7 +429,7 @@ function buildSummary() {
   widths.forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });
   if (sh.getMaxColumns() > 5) sh.deleteColumns(6, sh.getMaxColumns() - 5);
 
-  try { SpreadsheetApp.getActive().toast('Resumen actualizado 📊', '🎁 Sorteo', 4); } catch (e) { /* headless */ }
+  try { SpreadsheetApp.getActive().toast('Resumen actualizado 📊', '⚽ Sorteo Mundial', 4); } catch (e) { /* headless */ }
 }
 
 // ============================================================
@@ -437,7 +440,7 @@ function installHourlyTrigger() {
   ScriptApp.newTrigger('buildSummary').timeBased().everyHours(1).create();
   SpreadsheetApp.getUi().alert(
     '⏰ Auto-actualización activada',
-    'El resumen se actualizará solo cada hora. Puedes desactivarla cuando quieras desde el menú 🎁 Sorteo.',
+    'El resumen se actualizará solo cada hora. Puedes desactivarla cuando quieras desde el menú ⚽ Sorteo Mundial.',
     SpreadsheetApp.getUi().ButtonSet.OK,
   );
 }
@@ -464,7 +467,7 @@ function removeSummaryTriggers_() {
 function sectionHeader_(sh, row, text) {
   sh.getRange(row, 1, 1, 5).merge().setValue(text)
     .setFontWeight('bold').setFontSize(11).setFontColor(C.headerBg)
-    .setBackground('#F3EAD6') // crema cálido
+    .setBackground(C.sectionBg) // verde crema
     .setVerticalAlignment('middle');
   sh.setRowHeight(row, 26);
 }
