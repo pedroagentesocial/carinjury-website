@@ -36,8 +36,9 @@ export function useT() {
 
   const t = useCallback(
     (key: string, fallback?: string) => {
-      const w = window as unknown as { i18nClient?: { t: (k: string, l?: string) => string } };
-      const client = typeof window !== 'undefined' ? w.i18nClient : null;
+      // Guarda primero: en SSR (Node) no existe `window` → devolver el fallback.
+      if (typeof window === 'undefined') return fallback ?? key;
+      const client = (window as unknown as { i18nClient?: { t: (k: string, l?: string) => string } }).i18nClient;
       if (!client) return fallback ?? key;
       const value = client.t(key, lang);
       return value === key && fallback !== undefined ? fallback : value;
@@ -46,8 +47,8 @@ export function useT() {
   );
 
   const setLang = useCallback((next: Lang) => {
-    const w = window as unknown as { i18nClient?: { setLanguage: (l: string) => void } };
-    w.i18nClient?.setLanguage(next);
+    if (typeof window === 'undefined') return;
+    (window as unknown as { i18nClient?: { setLanguage: (l: string) => void } }).i18nClient?.setLanguage(next);
   }, []);
 
   return { t, lang, setLang };

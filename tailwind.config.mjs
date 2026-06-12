@@ -10,14 +10,16 @@ export default {
         accent: 'var(--c3)',
         background: 'var(--bg)',
         text: 'var(--text)',
-        // --- Paleta del sorteo (portada de senor-casas) — café/oliva/dorado ---
+        // --- Paleta del sorteo (marca Car Injury: morado) ---
+        // clay = neutral morado (fondos/texto; clay-900 = hero morado profundo)
         clay: {
-          50: '#FAF4EF', 100: '#F0E2D3', 200: '#DFC2A5', 300: '#C99D75', 400: '#A77149',
-          500: '#8B5132', 600: '#6D3D22', 700: '#5A321C', 800: '#412419', 900: '#2A1710',
+          50: '#F7F2FA', 100: '#EFE6F3', 200: '#DCCEE5', 300: '#CEC6E2', 400: '#A98FC0',
+          500: '#806AAA', 600: '#6A3F75', 700: '#59216F', 800: '#4A1C5A', 900: '#2A0E35',
         },
+        // moss = morado de marca (botones primarios / acentos)
         moss: {
-          50: '#F2F4EB', 100: '#E1E6CC', 200: '#C2CC99', 300: '#9DAB68', 400: '#7B8B45',
-          500: '#606D34', 600: '#4A5429', 700: '#3F4925', 800: '#364322', 900: '#1F2614',
+          50: '#F6EDF8', 100: '#EAD7EE', 200: '#D6AFDD', 300: '#BA93C2', 400: '#9E5FA9',
+          500: '#7A2E87', 600: '#6A3F75', 700: '#59216F', 800: '#4A1C5A', 900: '#34123F',
         },
         gold: {
           50: '#FEF9E7', 100: '#FDEFC2', 200: '#FBE085', 300: '#F8CC4A', 400: '#F4D03F',

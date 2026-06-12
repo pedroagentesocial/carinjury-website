@@ -104,9 +104,11 @@ export default function PromoPopup() {
                     className="flex h-full min-h-[360px] flex-col"
                   >
                     <img
-                      src="/banners/v2.png"
+                      src="/banners/v2.webp"
                       alt="Cambiatón en Car Injury Clinic — intercambia tus láminas del álbum del Mundial 2026"
                       className="w-full object-cover"
+                      width={900}
+                      height={300}
                       loading="lazy"
                     />
                     <div className="flex flex-1 flex-col justify-center px-6 py-5 text-center">
