@@ -13,5 +13,8 @@
 export const PROMO_ENDS_UTC = Date.UTC(2026, 6, 20, 6, 0, 0);
 
 export function isPromoActive(): boolean {
-  return Date.now() < PROMO_ENDS_UTC;
+  // OCULTO temporalmente — promo/sorteo desactivado (apaga slide del hero, PromoAd y PromoBanner).
+  // Revertir: descomentar la línea original y borrar `return false;`.
+  return false;
+  // return Date.now() < PROMO_ENDS_UTC;
 }
