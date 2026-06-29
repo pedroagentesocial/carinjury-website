@@ -28,5 +28,5 @@ export const HOME_STATS: StatItem[] = [
   // Confirmado → { value: 25, prefix: '$', suffix: 'M', labelKey: 'stats.compensation.label' }
   { value: 25, prefix: '$', suffix: 'M', labelKey: 'stats.compensation.label' },
   // Confirmado → { value: 30, suffix: '+', labelKey: 'stats.experience.label' }
-  { value: 30, suffix: '+', labelKey: 'stats.experience.label' },
+  { value: 10, suffix: '+', labelKey: 'stats.experience.label' },
 ];

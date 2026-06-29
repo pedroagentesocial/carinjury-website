@@ -59,7 +59,7 @@ export default function Nav({ locale, currentPath }: Props) {
       initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="fixed inset-x-0 top-10 z-50"
+      className="fixed inset-x-0 top-0 z-50"
       aria-label="Primary"
     >
       <div className={`px-3 transition-[padding] duration-300 ease-out md:px-6 ${scrolled ? 'py-2' : 'py-3.5'}`}>
