@@ -102,8 +102,8 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Espacio para la barra promocional fija (PromoBar, 40px de alto = h-10). */
-body { padding-top: 40px; }
+/* PromoBar oculto → sin reserva de 40px (si vuelve el promo, regresar a 40px y Nav a top-10). */
+body { padding-top: 0; }
 
 img, svg, video { max-width: 100%; height: auto; display: block; }
 button { font: inherit; cursor: pointer; }
@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5, h6 {
 p { line-height: 1.6; margin: 0 0 1em; }
 
 /* Anclas no quedan tapadas por el nav */
-html { scroll-padding-top: calc(var(--nav-h) + 40px); }
+html { scroll-padding-top: var(--nav-h); }
 
 /* === LIMPIEZA DE TOPBAR LEGACY === */
 .topbar, .top-bar, .site-topbar, .topbar-spacer,
