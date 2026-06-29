@@ -4,8 +4,9 @@ import Nav from '../components/Nav.astro';
 import FloatingButtons from '../components/FloatingButtons.astro';
 import ScriptJsonLd from '../components/ScriptJsonLd.astro';
 import Analytics from '../components/Analytics.astro';
-import PromoPopup from '../components/react/PromoPopup.tsx';
-import PromoBar from '../components/react/PromoBar.tsx';
+// OCULTO temporalmente (banner/modal del sorteo desactivados — NO eliminar):
+// import PromoPopup from '../components/react/PromoPopup.tsx';
+// import PromoBar from '../components/react/PromoBar.tsx';
 import esTranslations from '../i18n/es.json';
 import enTranslations from '../i18n/en.json';
 
@@ -63,16 +64,16 @@ const pageDescription = Astro.props.description ?? defaultDescription;
   </head>
 
   <body>
-    <!-- Barra promocional rotante (Cambiatón ↔ Sorteo), arriba del nav -->
-    <PromoBar client:load />
+    <!-- Barra promocional rotante (Cambiatón ↔ Sorteo) — OCULTA temporalmente (NO eliminar):
+         <PromoBar client:load /> -->
     <Nav />
 
     <slot />
 
     <FloatingButtons />
 
-    <!-- Popup promocional con carrusel (Cambiatón + Sorteo). Se oculta en /sorteo y /admin. -->
-    <PromoPopup client:idle />
+    <!-- Popup promocional con carrusel (Cambiatón + Sorteo) — OCULTO temporalmente (NO eliminar):
+         <PromoPopup client:idle /> -->
 
     <script
       is:inline
