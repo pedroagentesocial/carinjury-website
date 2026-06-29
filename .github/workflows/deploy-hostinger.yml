@@ -1,9 +1,8 @@
 name: build-and-deploy
 
+# DESACTIVADO: la v2 despliega en Vercel (v2/). Este FTP a Hostinger es legacy y
+# subía builds rotos en cada push. Solo manual (workflow_dispatch). NO eliminar.
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:

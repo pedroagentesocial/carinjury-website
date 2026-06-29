@@ -24,9 +24,9 @@ export interface StatItem {
 
 export const HOME_STATS: StatItem[] = [
   // Confirmado se vería así → { value: 5000, suffix: '+', labelKey: 'stats.cases.label' }
-  { placeholder: '{{VERIFICAR: pacientes atendidos}}', labelKey: 'stats.cases.label' },
+  { value: 5000, suffix: '+', labelKey: 'stats.cases.label' },
   // Confirmado → { value: 25, prefix: '$', suffix: 'M', labelKey: 'stats.compensation.label' }
-  { placeholder: '{{VERIFICAR: compensación recuperada}}', labelKey: 'stats.compensation.label' },
+  { value: 25, prefix: '$', suffix: 'M', labelKey: 'stats.compensation.label' },
   // Confirmado → { value: 30, suffix: '+', labelKey: 'stats.experience.label' }
-  { placeholder: '{{VERIFICAR: años de experiencia}}', labelKey: 'stats.experience.label' },
+  { value: 30, suffix: '+', labelKey: 'stats.experience.label' },
 ];
