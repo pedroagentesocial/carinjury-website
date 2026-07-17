@@ -125,14 +125,15 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
             </a>
           </motion.div>
 
-          {/* TEAM PHOTO — retrato vertical del equipo (w-full h-auto: nunca se estira) */}
+          {/* TEAM PHOTO — retrato del equipo con aspect fijo + object-cover
+              (altura controlada en todos los anchos, nunca se estira) */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.32 }}
-            className="mx-auto mt-12 w-full max-w-sm"
+            className="mx-auto mt-10 w-full max-w-[17rem] sm:mt-12 sm:max-w-sm"
           >
-            <figure className="group relative overflow-hidden rounded-[1.75rem] border border-white/15 bg-white/[0.03] shadow-[0_30px_70px_-25px_rgba(0,0,0,0.65)] ring-1 ring-white/10">
+            <figure className="group relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-white/15 bg-white/[0.03] shadow-[0_30px_70px_-25px_rgba(0,0,0,0.65)] ring-1 ring-white/10">
               <img
                 src="/images/team-group.webp"
                 alt={locale === 'en' ? 'Car Injury Clinic team' : 'Equipo de Car Injury Clinic'}
@@ -140,13 +141,13 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
                 height={1600}
                 loading="eager"
                 decoding="async"
-                className="block h-auto w-full"
+                className="absolute inset-0 h-full w-full object-cover object-[center_32%]"
               />
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-deep/80 to-transparent"
               />
-              <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 p-4 text-center">
+              <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 p-3.5 text-center">
                 <span className="h-1 w-1 rounded-full bg-secondary" />
                 <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/85">
                   {locale === 'en' ? 'Certified specialists' : 'Especialistas certificados'}
