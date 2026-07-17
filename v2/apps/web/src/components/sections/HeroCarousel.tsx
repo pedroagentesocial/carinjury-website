@@ -22,6 +22,7 @@ interface Slide {
 const SLIDES: Slide[] = [
   {
     src: '/video/new-hero.mp4',
+    poster: '/images/new-hero-poster.webp',
     durationMs: 12000,
     showContent: false,
   },
@@ -199,6 +200,7 @@ export default function HeroCarousel({ locale }: Props) {
                 videoRefs.current[i] = el;
               }}
               src={s.src}
+              poster={s.poster}
               autoPlay={i === 0}
               muted
               loop
