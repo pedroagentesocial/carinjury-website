@@ -13,6 +13,8 @@ interface Props {
   backgroundImage?: string;
   /** Alt text de la imagen — para SEO. Si no se pasa, queda decorativa. */
   backgroundAlt?: string;
+  /** Collage de fondo: varias imágenes en grid (tiene prioridad sobre backgroundImage). */
+  collageImages?: string[];
   /** Si la página tiene un anchor donde scrollear, el botón "Agendar" baja en lugar de navegar. */
   scrollToAnchor?: string;
 }
@@ -24,8 +26,11 @@ export default function PageHero({
   subtitle,
   backgroundImage,
   backgroundAlt,
+  collageImages,
   scrollToAnchor,
 }: Props) {
+  const hasCollage = Array.isArray(collageImages) && collageImages.length > 0;
+  const hasBg = hasCollage || Boolean(backgroundImage);
   const scheduleHref = scrollToAnchor
     ? `#${scrollToAnchor}`
     : (locale === 'en' ? '/en/schedule' : '/schedule');
@@ -46,8 +51,28 @@ export default function PageHero({
       ref={sectionRef}
       className="relative isolate overflow-hidden bg-deep pb-20 pt-32 text-white md:pb-28 md:pt-36"
     >
-      {/* Background image con parallax */}
-      {backgroundImage && (
+      {/* Collage de fondo (varias imágenes en grid) — tiene prioridad */}
+      {hasCollage && (
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-20 grid grid-rows-1 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 [&>*:nth-child(n+3)]:hidden sm:[&>*:nth-child(n+3)]:block sm:[&>*:nth-child(n+4)]:hidden lg:[&>*:nth-child(n+4)]:block"
+          style={{ y: bgY, scale: bgScale, filter: 'brightness(0.55) saturate(1.05)', willChange: 'transform' }}
+        >
+          {collageImages!.map((src) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              loading="eager"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
+          ))}
+        </motion.div>
+      )}
+
+      {/* Background image con parallax (si no hay collage) */}
+      {!hasCollage && backgroundImage && (
         <motion.img
           src={backgroundImage}
           alt={backgroundAlt ?? ''}
@@ -63,8 +88,8 @@ export default function PageHero({
         />
       )}
 
-      {/* Scrims morados sobre la imagen */}
-      {backgroundImage && (
+      {/* Scrims morados sobre la imagen/collage */}
+      {hasBg && (
         <>
           {/* Tinte morado: cubre toda la imagen con un wash de marca */}
           <div
@@ -84,8 +109,8 @@ export default function PageHero({
         </>
       )}
 
-      {/* Blobs blur — solo cuando NO hay imagen de fondo */}
-      {!backgroundImage && (
+      {/* Blobs blur — solo cuando NO hay imagen ni collage de fondo */}
+      {!hasBg && (
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -left-32 top-0 h-[40vmax] w-[40vmax] rounded-full bg-secondary/15 blur-3xl" />
           <div className="absolute -right-32 bottom-0 h-[36vmax] w-[36vmax] rounded-full bg-primary/30 blur-3xl" />

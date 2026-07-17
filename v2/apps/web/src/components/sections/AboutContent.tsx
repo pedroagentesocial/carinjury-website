@@ -125,51 +125,34 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
             </a>
           </motion.div>
 
-          {/* TEAM BUBBLES — overlapping doctor portraits */}
+          {/* TEAM PHOTO — retrato vertical del equipo (w-full h-auto: nunca se estira) */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.32 }}
-            className="mt-12 flex items-center justify-center"
+            transition={{ duration: 0.6, delay: 0.32 }}
+            className="mx-auto mt-12 w-full max-w-sm"
           >
-            <div className="flex -space-x-4">
-              {DOCTORS.map((d, i) => {
-                const photo = doctorPhotos?.[d] ?? FALLBACK_PHOTOS[d];
-                const doc = translations[locale].aboutus.doctors[d];
-                return (
-                  <a
-                    key={d}
-                    href={`#doctor-${d}`}
-                    title={doc.name}
-                    aria-label={doc.name}
-                    className="group relative inline-block h-16 w-16 overflow-hidden rounded-full border-[3px] border-deep bg-deep ring-2 ring-secondary/40 transition hover:z-10 hover:scale-110 hover:ring-secondary md:h-20 md:w-20"
-                    style={{ zIndex: DOCTORS.length - i }}
-                  >
-                    {photo ? (
-                      <img
-                        src={photo}
-                        alt=""
-                        loading="eager"
-                        decoding="async"
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <span className="flex h-full w-full items-center justify-center bg-primary/25 font-heading text-sm font-bold text-white md:text-base">
-                        {getInitials(doc.name)}
-                      </span>
-                    )}
-                  </a>
-                );
-              })}
-            </div>
-            <div className="ml-4 text-left">
-              <p className="font-heading text-sm font-bold text-white">
-                {DOCTORS.length} {locale === 'en' ? 'doctors' : 'doctores'}
-              </p>
-              <p className="text-xs text-white/65">
-                {locale === 'en' ? 'Certified specialists' : 'Especialistas certificados'}
-              </p>
-            </div>
+            <figure className="group relative overflow-hidden rounded-[1.75rem] border border-white/15 bg-white/[0.03] shadow-[0_30px_70px_-25px_rgba(0,0,0,0.65)] ring-1 ring-white/10">
+              <img
+                src="/images/team-group.webp"
+                alt={locale === 'en' ? 'Car Injury Clinic team' : 'Equipo de Car Injury Clinic'}
+                width={1067}
+                height={1600}
+                loading="eager"
+                decoding="async"
+                className="block h-auto w-full"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-deep/80 to-transparent"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 p-4 text-center">
+                <span className="h-1 w-1 rounded-full bg-secondary" />
+                <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/85">
+                  {locale === 'en' ? 'Certified specialists' : 'Especialistas certificados'}
+                </span>
+              </figcaption>
+            </figure>
           </motion.div>
         </div>
       </section>
