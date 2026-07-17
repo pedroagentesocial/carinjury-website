@@ -35,11 +35,16 @@ function isEnglish(): boolean {
 
 export default function SorteoColombiaPopup() {
   const [open, setOpen] = useState(false);
+  const [slide, setSlide] = useState(0); // 0 = video, 1 = banner
   const [muted, setMuted] = useState(true);
   const [showShare, setShowShare] = useState(false);
   const [copied, setCopied] = useState(false);
   const [en, setEn] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const SLIDE_COUNT = 2;
+  const goNext = useCallback(() => setSlide((s) => (s + 1) % SLIDE_COUNT), []);
+  const goPrev = useCallback(() => setSlide((s) => (s - 1 + SLIDE_COUNT) % SLIDE_COUNT), []);
 
   // Mostrar (con guardas de ruta y de "ya cerrado").
   useEffect(() => {
@@ -56,16 +61,21 @@ export default function SorteoColombiaPopup() {
     return () => clearTimeout(t);
   }, []);
 
-  // Al abrir: cargar y reproducir el video (silenciado para permitir autoplay).
+  // Reproducir el video solo cuando su slide está visible (silenciado para autoplay).
   useEffect(() => {
     if (!open) return;
     const v = videoRef.current;
     if (!v) return;
-    v.muted = true;
-    v.play().catch(() => {
-      /* autoplay bloqueado — se reproduce al primer toque */
-    });
-  }, [open]);
+    if (slide === 0) {
+      v.muted = true;
+      setMuted(true);
+      v.play().catch(() => {
+        /* autoplay bloqueado — se reproduce al primer toque */
+      });
+    } else {
+      v.pause();
+    }
+  }, [open, slide]);
 
   const dismiss = useCallback(() => {
     setOpen(false);
@@ -151,16 +161,29 @@ export default function SorteoColombiaPopup() {
           >
             {/* Media vertical (alto define el ancho → sin letterbox) */}
             <div className="relative aspect-[9/16] h-[58vh] max-h-[540px] bg-black">
+              {/* Slide 0: video */}
               <video
                 ref={videoRef}
                 src={VIDEO_SRC}
                 poster={POSTER_SRC}
-                className="absolute inset-0 h-full w-full object-cover"
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+                  slide === 0 ? 'opacity-100' : 'pointer-events-none opacity-0'
+                }`}
                 muted
                 loop
                 playsInline
                 preload="none"
                 onClick={toggleMute}
+              />
+
+              {/* Slide 1: banner */}
+              <img
+                src={POSTER_SRC}
+                alt={SHARE_TITLE}
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+                  slide === 1 ? 'opacity-100' : 'pointer-events-none opacity-0'
+                }`}
+                loading="lazy"
               />
 
               {/* Cerrar */}
@@ -173,28 +196,66 @@ export default function SorteoColombiaPopup() {
                 <Icon name="close" size={18} />
               </button>
 
-              {/* Sonido */}
+              {/* Sonido (solo en el video) */}
+              {slide === 0 && (
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  aria-label={muted ? (en ? 'Unmute' : 'Activar sonido') : (en ? 'Mute' : 'Silenciar')}
+                  className="absolute bottom-3 right-3 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-md transition hover:bg-black/65"
+                >
+                  <Icon name={muted ? 'mute' : 'sound'} size={18} />
+                </button>
+              )}
+
+              {/* Flechas de navegación */}
               <button
                 type="button"
-                onClick={toggleMute}
-                aria-label={muted ? (en ? 'Unmute' : 'Activar sonido') : (en ? 'Mute' : 'Silenciar')}
-                className="absolute bottom-3 right-3 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-md transition hover:bg-black/65"
+                onClick={goPrev}
+                aria-label={en ? 'Previous' : 'Anterior'}
+                className="absolute left-2 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition hover:bg-black/60"
               >
-                <Icon name={muted ? 'mute' : 'sound'} size={18} />
+                <Icon name="chevron-left" size={20} />
+              </button>
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label={en ? 'Next' : 'Siguiente'}
+                className="absolute right-2 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition hover:bg-black/60"
+              >
+                <Icon name="chevron-right" size={20} />
               </button>
 
-              {/* Tagline sobre el video */}
-              <div className="pointer-events-none absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-black/55 to-transparent px-4 pb-8 pt-3">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-3 w-6 overflow-hidden rounded-[2px] shadow ring-1 ring-white/30">
-                    <span className="block h-1/2 w-full bg-[#FCD116]" />
-                    <span className="block h-1/4 w-full bg-[#003893]" />
-                    <span className="block h-1/4 w-full bg-[#CE1126]" />
-                  </span>
-                  <span className="text-[11px] font-semibold uppercase tracking-wide text-white/90">
-                    {L.tagline}
-                  </span>
+              {/* Tagline (solo en el video; el banner trae su propio título) */}
+              {slide === 0 && (
+                <div className="pointer-events-none absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-black/55 to-transparent px-4 pb-8 pt-3">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-3 w-6 overflow-hidden rounded-[2px] shadow ring-1 ring-white/30">
+                      <span className="block h-1/2 w-full bg-[#FCD116]" />
+                      <span className="block h-1/4 w-full bg-[#003893]" />
+                      <span className="block h-1/4 w-full bg-[#CE1126]" />
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-wide text-white/90">
+                      {L.tagline}
+                    </span>
+                  </div>
                 </div>
+              )}
+
+              {/* Puntos indicadores */}
+              <div className="absolute inset-x-0 bottom-3 z-10 flex items-center justify-center gap-2">
+                {Array.from({ length: SLIDE_COUNT }).map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setSlide(i)}
+                    aria-label={`${en ? 'Slide' : 'Slide'} ${i + 1}`}
+                    aria-current={i === slide}
+                    className={`h-2 rounded-full transition-all ${
+                      i === slide ? 'w-5 bg-white' : 'w-2 bg-white/50 hover:bg-white/80'
+                    }`}
+                  />
+                ))}
               </div>
             </div>
 
@@ -284,7 +345,7 @@ export default function SorteoColombiaPopup() {
                 <p className="mb-2 text-center text-[11px] font-semibold uppercase tracking-wide text-purple-200/80">
                   {L.follow}
                 </p>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 gap-2">
                   <a
                     href={IG_CIC}
                     target="_blank"
