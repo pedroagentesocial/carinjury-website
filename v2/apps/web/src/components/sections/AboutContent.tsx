@@ -6,23 +6,27 @@ import { translations } from '@i18n/index';
 import { SITE } from '@lib/site';
 import { Icon, type IconName } from '@components/ui/Icon';
 
-type DoctorKey = 'darwin' | 'ana';
-const DOCTORS: DoctorKey[] = ['darwin', 'ana'];
-
-interface DoctorPhotoSet {
-  webp: string;
-  avif: string;
-}
+type DoctorKey = 'darwin' | 'ana' | 'westerman';
+const DOCTORS: DoctorKey[] = ['darwin', 'ana', 'westerman'];
 
 interface Props {
   locale: Locale;
-  doctorPhotos?: Record<DoctorKey, DoctorPhotoSet>;
+  /** Static portrait path per doctor (served from /public). */
+  doctorPhotos?: Partial<Record<DoctorKey, string>>;
 }
 
-const FALLBACK_PHOTOS: Record<DoctorKey, string> = {
+/** Doctors with a portrait available. A doctor without an entry here (nor a
+ *  path passed via props) renders an initials placeholder ("photo pending"). */
+const FALLBACK_PHOTOS: Partial<Record<DoctorKey, string>> = {
   darwin: '/assets/img/chiro2.jpeg',
   ana: '/assets/img/chiro3.jpeg',
 };
+
+/** Initials from a doctor name, ignoring the "Dr."/"Dra." honorific. */
+function getInitials(name: string): string {
+  const words = name.replace(/^Dra?\.?\s*/i, '').trim().split(/\s+/);
+  return words.slice(0, 2).map((w) => w[0]?.toUpperCase() ?? '').join('');
+}
 
 type CredentialKey = 'education' | 'licenses' | 'specialties' | 'education_continuous';
 const CREDENTIALS: { key: CredentialKey; icon: IconName }[] = [
@@ -130,8 +134,7 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
           >
             <div className="flex -space-x-4">
               {DOCTORS.map((d, i) => {
-                const optimized = doctorPhotos?.[d];
-                const fallback = FALLBACK_PHOTOS[d];
+                const photo = doctorPhotos?.[d] ?? FALLBACK_PHOTOS[d];
                 const doc = translations[locale].aboutus.doctors[d];
                 return (
                   <a
@@ -142,21 +145,19 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
                     className="group relative inline-block h-16 w-16 overflow-hidden rounded-full border-[3px] border-deep bg-deep ring-2 ring-secondary/40 transition hover:z-10 hover:scale-110 hover:ring-secondary md:h-20 md:w-20"
                     style={{ zIndex: DOCTORS.length - i }}
                   >
-                    <picture>
-                      {optimized && (
-                        <>
-                          <source srcSet={optimized.avif} type="image/avif" />
-                          <source srcSet={optimized.webp} type="image/webp" />
-                        </>
-                      )}
+                    {photo ? (
                       <img
-                        src={optimized?.webp ?? fallback}
+                        src={photo}
                         alt=""
                         loading="eager"
                         decoding="async"
                         className="h-full w-full object-cover"
                       />
-                    </picture>
+                    ) : (
+                      <span className="flex h-full w-full items-center justify-center bg-primary/25 font-heading text-sm font-bold text-white md:text-base">
+                        {getInitials(doc.name)}
+                      </span>
+                    )}
                   </a>
                 );
               })}
@@ -224,8 +225,7 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
           <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2 lg:gap-7">
             {DOCTORS.map((d, i) => {
               const doc = translations[locale].aboutus.doctors[d];
-              const optimized = doctorPhotos?.[d];
-              const fallback = FALLBACK_PHOTOS[d];
+              const photo = doctorPhotos?.[d] ?? FALLBACK_PHOTOS[d];
               return (
                 <motion.article
                   key={d}
@@ -238,15 +238,9 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
                 >
                   {/* Image */}
                   <div className="relative aspect-[4/5] overflow-hidden bg-deep">
-                    <picture>
-                      {optimized && (
-                        <>
-                          <source srcSet={optimized.avif} type="image/avif" />
-                          <source srcSet={optimized.webp} type="image/webp" />
-                        </>
-                      )}
+                    {photo ? (
                       <img
-                        src={optimized?.webp ?? fallback}
+                        src={photo}
                         alt={doc.name}
                         loading="lazy"
                         decoding="async"
@@ -254,17 +248,28 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
                         height={500}
                         className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
                       />
-                    </picture>
+                    ) : (
+                      <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-primary/30 to-deep">
+                        <span className="flex h-24 w-24 items-center justify-center rounded-full bg-white/10 font-heading text-3xl font-extrabold text-white ring-2 ring-white/20">
+                          {getInitials(doc.name)}
+                        </span>
+                        <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white/80">
+                          {locale === 'en' ? 'Photo coming soon' : 'Foto próximamente'}
+                        </span>
+                      </div>
+                    )}
                     {/* Subtle bottom vignette */}
                     <div
                       aria-hidden="true"
                       className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-deep/40 to-transparent"
                     />
                     {/* Years of experience pill */}
-                    <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary shadow-md backdrop-blur">
-                      <Icon name="clock" size={11} strokeWidth={2.4} />
-                      {doc.experience}
-                    </span>
+                    {doc.experience && (
+                      <span className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary shadow-md backdrop-blur">
+                        <Icon name="clock" size={11} strokeWidth={2.4} />
+                        {doc.experience}
+                      </span>
+                    )}
                   </div>
 
                   {/* Content */}
@@ -280,35 +285,41 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
                       {doc.bio}
                     </p>
 
-                    {/* Divider */}
-                    <div className="my-5 h-px bg-line" />
+                    {doc.specialties.items.length > 0 && (
+                      <>
+                        {/* Divider */}
+                        <div className="my-5 h-px bg-line" />
 
-                    {/* Specialties */}
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
-                      {doc.specialties.title}
-                    </p>
-                    <ul className="mt-3 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-                      {doc.specialties.items.map((it) => (
-                        <li key={it} className="flex items-start gap-2 text-[0.83rem] text-ink">
-                          <span className="mt-1 inline-flex h-3.5 w-3.5 flex-none items-center justify-center rounded-full bg-secondary/15 text-secondary ring-1 ring-secondary/30">
-                            <Icon name="check" size={8} strokeWidth={3.5} />
-                          </span>
-                          <span className="leading-snug">{it}</span>
-                        </li>
-                      ))}
-                    </ul>
+                        {/* Specialties */}
+                        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
+                          {doc.specialties.title}
+                        </p>
+                        <ul className="mt-3 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                          {doc.specialties.items.map((it) => (
+                            <li key={it} className="flex items-start gap-2 text-[0.83rem] text-ink">
+                              <span className="mt-1 inline-flex h-3.5 w-3.5 flex-none items-center justify-center rounded-full bg-secondary/15 text-secondary ring-1 ring-secondary/30">
+                                <Icon name="check" size={8} strokeWidth={3.5} />
+                              </span>
+                              <span className="leading-snug">{it}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
 
                     {/* Credentials chips */}
-                    <div className="mt-5 flex flex-wrap gap-1.5">
-                      {doc.credentials.map((c) => (
-                        <span
-                          key={c}
-                          className="rounded-full border border-line bg-surface-2 px-2.5 py-1 text-[10px] font-medium text-muted"
-                        >
-                          {c}
-                        </span>
-                      ))}
-                    </div>
+                    {doc.credentials.length > 0 && (
+                      <div className="mt-5 flex flex-wrap gap-1.5">
+                        {doc.credentials.map((c) => (
+                          <span
+                            key={c}
+                            className="rounded-full border border-line bg-surface-2 px-2.5 py-1 text-[10px] font-medium text-muted"
+                          >
+                            {c}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </motion.article>
               );

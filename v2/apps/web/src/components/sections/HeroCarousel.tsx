@@ -21,7 +21,7 @@ interface Slide {
 
 const SLIDES: Slide[] = [
   {
-    src: '/video/car-injury.mp4',
+    src: '/video/new-hero.mp4',
     durationMs: 12000,
     showContent: false,
   },

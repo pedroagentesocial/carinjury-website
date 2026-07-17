@@ -851,6 +851,19 @@
           "Certificada en Trauma Vehicular",
           "Especialista en Lesiones Cervicales"
         ]
+      },
+      "westerman": {
+        "name": "Dr. Westerman",
+        "title": "Doctor Quiropráctico",
+        "specialty": "Especialista en Quiropráctica y Lesiones de Accidentes",
+        "bio": "Perfil en preparación. Pronto agregaremos la biografía completa, especialidades y credenciales del Dr. Westerman.",
+        "experience": "",
+        "cases": "",
+        "specialties": {
+          "title": "Especialidades Clínicas:",
+          "items": []
+        },
+        "credentials": []
       }
     },
     "credentials": {

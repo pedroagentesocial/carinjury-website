@@ -851,6 +851,19 @@
           "Certified in Vehicular Trauma",
           "Cervical Injury Specialist"
         ]
+      },
+      "westerman": {
+        "name": "Dr. Westerman",
+        "title": "Chiropractor",
+        "specialty": "Chiropractic and Accident Injury Specialist",
+        "bio": "Profile in preparation. We will soon add Dr. Westerman's full biography, specialties and credentials.",
+        "experience": "",
+        "cases": "",
+        "specialties": {
+          "title": "Clinical Specialties:",
+          "items": []
+        },
+        "credentials": []
       }
     },
     "credentials": {

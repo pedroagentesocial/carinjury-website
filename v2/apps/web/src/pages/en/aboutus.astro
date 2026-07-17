@@ -2,34 +2,28 @@
 import PageShell from '@layouts/PageShell.astro';
 import AboutContent from '@components/sections/AboutContent';
 import { resolveLocale, t, translations } from '@i18n/index';
-import { getImage } from 'astro:assets';
-import darwinImg from '../../assets/img/chiro2.jpeg';
-import anaImg from '../../assets/img/chiro3.jpeg';
 import { getPageMeta, buildDoctorSchema, buildBreadcrumbSchema } from '@lib/seo';
 
 const locale = resolveLocale(Astro.currentLocale);
 const meta = getPageMeta('aboutus', locale);
 const prefix = locale === 'en' ? '/en' : '';
 
-const [darwin, darwinAvif, ana, anaAvif] = await Promise.all([
-  getImage({ src: darwinImg, format: 'webp', width: 800, quality: 80 }),
-  getImage({ src: darwinImg, format: 'avif', width: 800, quality: 70 }),
-  getImage({ src: anaImg, format: 'webp', width: 800, quality: 80 }),
-  getImage({ src: anaImg, format: 'avif', width: 800, quality: 70 }),
-]);
-
-const doctorPhotos = {
-  darwin: { webp: darwin.src, avif: darwinAvif.src },
-  ana: { webp: ana.src, avif: anaAvif.src },
+/* Static portrait paths served directly from /public. We intentionally avoid
+   astro:assets getImage() here: with the Vercel server adapter that emits
+   /_image?... URLs which 404 in production, breaking the doctor portraits. */
+const doctorImages: Record<'darwin' | 'ana' | 'westerman', string | undefined> = {
+  darwin: '/assets/img/chiro2.jpeg',
+  ana: '/assets/img/chiro3.jpeg',
+  westerman: undefined, // portrait pending
 };
 
 const doctors = translations[locale].aboutus.doctors;
-const doctorSchemas = (['darwin', 'ana'] as const).map((key) =>
+const doctorSchemas = (['darwin', 'ana', 'westerman'] as const).map((key) =>
   buildDoctorSchema({
     name: doctors[key].name,
     title: doctors[key].title,
     specialty: doctors[key].specialty,
-    image: doctorPhotos[key].webp,
+    image: doctorImages[key],
   }),
 );
 
@@ -46,5 +40,5 @@ const breadcrumb = buildBreadcrumbSchema([
   schemas={[...doctorSchemas, breadcrumb]}
   fullBleed
 >
-  <AboutContent locale={locale} doctorPhotos={doctorPhotos} client:load />
+  <AboutContent locale={locale} doctorPhotos={doctorImages} client:load />
 </PageShell>
