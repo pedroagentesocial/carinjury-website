@@ -855,15 +855,24 @@
       "westerman": {
         "name": "Dr. Westerman",
         "title": "Chiropractor",
-        "specialty": "Chiropractic and Accident Injury Specialist",
-        "bio": "Profile in preparation. We will soon add Dr. Westerman's full biography, specialties and credentials.",
-        "experience": "",
-        "cases": "",
+        "specialty": "Chiropractic and Accident Recovery Specialist",
+        "bio": "Chiropractor with extensive experience treating injuries from car accidents. He combines precise chiropractic adjustments with personalized rehabilitation plans so every patient regains their mobility and quality of life.",
+        "experience": "25+ years of experience",
+        "cases": "Specialist in car accident injuries",
         "specialties": {
           "title": "Clinical Specialties:",
-          "items": []
+          "items": [
+            "Chiropractic Therapy",
+            "Spinal Adjustment",
+            "Pain Management",
+            "Injury Rehabilitation"
+          ]
         },
-        "credentials": []
+        "credentials": [
+          "Doctor of Chiropractic (DC)",
+          "Certified in Vehicular Trauma",
+          "Accident Injury Specialist"
+        ]
       }
     },
     "credentials": {

@@ -855,15 +855,24 @@
       "westerman": {
         "name": "Dr. Westerman",
         "title": "Doctor Quiropráctico",
-        "specialty": "Especialista en Quiropráctica y Lesiones de Accidentes",
-        "bio": "Perfil en preparación. Pronto agregaremos la biografía completa, especialidades y credenciales del Dr. Westerman.",
-        "experience": "",
-        "cases": "",
+        "specialty": "Especialista en Quiropráctica y Recuperación de Accidentes",
+        "bio": "Doctor quiropráctico con amplia trayectoria en el tratamiento de lesiones por accidentes automovilísticos. Combina ajustes quiroprácticos precisos con planes de rehabilitación personalizados para que cada paciente recupere su movilidad y calidad de vida.",
+        "experience": "25+ años de experiencia",
+        "cases": "Especialista en lesiones por accidentes de auto",
         "specialties": {
           "title": "Especialidades Clínicas:",
-          "items": []
+          "items": [
+            "Terapia Quiropráctica",
+            "Ajuste Vertebral",
+            "Manejo del Dolor",
+            "Rehabilitación de Lesiones"
+          ]
         },
-        "credentials": []
+        "credentials": [
+          "Doctor en Quiropráctica (DC)",
+          "Certificado en Trauma Vehicular",
+          "Especialista en Lesiones de Accidentes"
+        ]
       }
     },
     "credentials": {
