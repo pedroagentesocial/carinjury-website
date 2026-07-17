@@ -30,7 +30,7 @@ type ServiceSlug =
 type GroupKey = 'treatment' | 'diagnostics' | 'specialized' | 'support';
 
 const GROUP_ITEMS: Record<GroupKey, ServiceSlug[]> = {
-  treatment: ['chiropractic', 'rehabilitation', 'physical_therapy', 'hot_cold_therapy', 'massage', 'ultrasound', 'tens'],
+  treatment: ['chiropractic', 'hot_cold_therapy', 'massage', 'ultrasound', 'tens'],
   diagnostics: ['xray', 'mri', 'concussion', 'second_opinions'],
   specialized: ['pain_management', 'surgical_consultations'],
   support: ['free_transport', 'trilingual'],
@@ -55,7 +55,7 @@ const SERVICE_ICONS: Record<ServiceSlug, IconName> = {
 };
 
 const SERVICE_IMAGES: Record<ServiceSlug, string> = {
-  chiropractic: '/assets/img/chiro2.jpeg',
+  chiropractic: '/assets/img/chiro1.jpeg',
   rehabilitation: '/assets/img/rehab.webp',
   physical_therapy: '/assets/img/phisycal.jpg.webp',
   hot_cold_therapy: '/assets/img/hotcold.webp',
