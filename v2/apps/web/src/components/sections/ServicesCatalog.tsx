@@ -55,7 +55,7 @@ const SERVICE_ICONS: Record<ServiceSlug, IconName> = {
 };
 
 const SERVICE_IMAGES: Record<ServiceSlug, string> = {
-  chiropractic: '/assets/img/chiro1.jpeg',
+  chiropractic: '/assets/img/chiro.webp',
   rehabilitation: '/assets/img/rehab.webp',
   physical_therapy: '/assets/img/phisycal.jpg.webp',
   hot_cold_therapy: '/assets/img/hotcold.webp',
