@@ -55,7 +55,7 @@ export default function PageHero({
       {hasCollage && (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-20 grid grid-rows-1 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 [&>*:nth-child(n+3)]:hidden sm:[&>*:nth-child(n+3)]:block sm:[&>*:nth-child(n+4)]:hidden lg:[&>*:nth-child(n+4)]:block"
+          className="pointer-events-none absolute inset-0 -z-20 grid grid-rows-1 grid-cols-2 lg:grid-cols-4 [&>*:nth-child(n+3)]:hidden lg:[&>*:nth-child(n+3)]:block"
           style={{ y: bgY, scale: bgScale, filter: 'brightness(0.55) saturate(1.05)', willChange: 'transform' }}
         >
           {collageImages!.map((src) => (
