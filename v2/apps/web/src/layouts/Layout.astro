@@ -48,7 +48,8 @@ const siteDesc = description ?? t('site.description', locale);
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
 
-    {/* Preload del primer video del hero (LCP) — el resto se carga on demand */}
+    {/* Preload del hero: el poster pinta al instante (LCP) y el video se descarga en paralelo */}
+    <link rel="preload" as="image" href="/images/new-hero-poster.webp" type="image/webp" />
     <link rel="preload" as="video" href="/video/new-hero.mp4" type="video/mp4" />
 
     <SiteMeta
