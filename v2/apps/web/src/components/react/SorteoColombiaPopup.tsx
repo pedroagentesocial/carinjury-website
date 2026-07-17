@@ -9,12 +9,12 @@ import { Icon } from '@components/ui/Icon';
  * e invita a COMPARTIR el video y a SEGUIR en Instagram (@car.injuryclinic y
  * @theruanamarketstore) — que es justo lo que pide la mecánica del sorteo.
  *
- * Aparece ~1.4s tras cargar, se puede cerrar y no reaparece por 1 día.
- * No se muestra en /admin.
+ * Aparece ~1.4s tras cargar. Al cerrarlo NO reaparece solo durante la misma
+ * sesión del navegador (sessionStorage), pero queda un botón flotante ("Sorteo")
+ * abajo a la izquierda para reabrirlo cuando quieran. No se muestra en /admin.
  */
 
-const STORAGE_KEY = 'cic_sorteo_co_v1';
-const DISMISS_MS = 1 * 24 * 60 * 60 * 1000; // 1 día
+const STORAGE_KEY = 'cic_sorteo_co_v1'; // sessionStorage: se resetea al cerrar el navegador
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 const VIDEO_SRC = '/video/promo.mp4';
@@ -40,22 +40,32 @@ export default function SorteoColombiaPopup() {
   const [showShare, setShowShare] = useState(false);
   const [copied, setCopied] = useState(false);
   const [en, setEn] = useState(false);
+  const [blocked, setBlocked] = useState(false); // /admin → no renderizar nada
+  const [showLauncher, setShowLauncher] = useState(false); // botón para reabrir
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const SLIDE_COUNT = 2;
   const goNext = useCallback(() => setSlide((s) => (s + 1) % SLIDE_COUNT), []);
   const goPrev = useCallback(() => setSlide((s) => (s - 1 + SLIDE_COUNT) % SLIDE_COUNT), []);
 
-  // Mostrar (con guardas de ruta y de "ya cerrado").
+  // Mostrar (con guardas de ruta y de "ya cerrado en esta sesión").
   useEffect(() => {
     const path = window.location.pathname;
-    if (path.startsWith('/admin')) return;
+    if (path.startsWith('/admin')) {
+      setBlocked(true);
+      return;
+    }
     setEn(path.startsWith('/en'));
+    let dismissed = false;
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw && Date.now() < Number(raw)) return;
+      dismissed = sessionStorage.getItem(STORAGE_KEY) === '1';
     } catch {
       /* ignore */
+    }
+    if (dismissed) {
+      // Ya lo cerró en esta sesión: no auto-abrir, pero dejar el botón para reabrir.
+      setShowLauncher(true);
+      return;
     }
     const t = setTimeout(() => setOpen(true), 1400);
     return () => clearTimeout(t);
@@ -79,13 +89,20 @@ export default function SorteoColombiaPopup() {
 
   const dismiss = useCallback(() => {
     setOpen(false);
+    setShowLauncher(true); // deja el botón para reabrir
     const v = videoRef.current;
     if (v) v.pause();
     try {
-      localStorage.setItem(STORAGE_KEY, String(Date.now() + DISMISS_MS));
+      sessionStorage.setItem(STORAGE_KEY, '1');
     } catch {
       /* ignore */
     }
+  }, []);
+
+  const openPopup = useCallback(() => {
+    setSlide(0);
+    setShowShare(false);
+    setOpen(true);
   }, []);
 
   const toggleMute = useCallback(() => {
@@ -135,16 +152,49 @@ export default function SorteoColombiaPopup() {
       : 'Gánate 1 de 2 mercados de $500 · Sorteo 20 de julio',
   };
 
+  if (blocked) return null;
+
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          className="fixed inset-0 z-[70] flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-        >
+    <>
+      {/* Botón flotante para reabrir el popup (abajo-izquierda; la derecha la usan
+          el chat de GHL y los FloatingButtons). Aparece cuando el popup está cerrado. */}
+      <AnimatePresence>
+        {showLauncher && !open && (
+          <motion.button
+            type="button"
+            onClick={openPopup}
+            aria-label={en ? 'Open giveaway' : 'Ver el sorteo'}
+            initial={{ opacity: 0, y: 24, scale: 0.85 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.85 }}
+            transition={{ duration: 0.35, ease: EASE }}
+            /* bottom-24: por encima de los controles del carrusel del hero (esquina
+               inferior izquierda) para no taparlos; la derecha la usan chat + FABs. */
+            className="fixed bottom-24 left-5 z-[55] inline-flex items-center gap-2 rounded-full bg-[#7A2E87] px-4 py-2.5 text-sm font-bold text-white shadow-xl ring-1 ring-white/25 transition-transform hover:scale-105"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inset-0 animate-ping rounded-full bg-[#FCD116] opacity-75" />
+              <span className="relative h-2.5 w-2.5 rounded-full bg-[#FCD116]" />
+            </span>
+            <span className="h-3 w-5 overflow-hidden rounded-[2px] ring-1 ring-white/30">
+              <span className="block h-1/2 w-full bg-[#FCD116]" />
+              <span className="block h-1/4 w-full bg-[#003893]" />
+              <span className="block h-1/4 w-full bg-[#CE1126]" />
+            </span>
+            {en ? 'Giveaway' : 'Sorteo'}
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 z-[70] flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={dismiss} />
 
@@ -370,7 +420,8 @@ export default function SorteoColombiaPopup() {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+      </AnimatePresence>
+    </>
   );
 }
 
