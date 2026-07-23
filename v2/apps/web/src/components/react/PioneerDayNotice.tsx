@@ -24,11 +24,13 @@ export default function PioneerDayNotice({ locale }: { locale: Locale }) {
   const line1 = en ? 'Closed Friday, July 24 (Pioneer Day)' : 'Cerrados el viernes 24 de julio (Día del Pionero)';
   const line2 = en ? 'We reopen Saturday, July 25' : 'Reabrimos el sábado 25';
   return (
-    <div className="bg-[#FFD60A] px-3 py-1.5 text-center text-[#3A1456] sm:py-2">
+    <div className="bg-[#FFD60A] px-3 py-1 text-center text-[#3A1456] sm:py-1.5">
       {/* Cada frase es un bloque nowrap: en móvil quiebra limpio en dos líneas
           centradas (sin partir "(Día del Pionero)"); en desktop va todo en una
-          línea separada por el pipe. El icono viaja con la primera frase. */}
-      <p className="mx-auto max-w-content text-[11px] font-bold leading-snug sm:text-[13px]">
+          línea separada por el pipe. El icono viaja con la primera frase.
+          div y NO <p>: la regla global de tipografía p{margin-bottom} (sin layer)
+          le gana a m-0 y descentraba el texto engordando la barra. */}
+      <div className="mx-auto max-w-content text-[11px] font-bold leading-snug sm:text-[13px]">
         <span className="whitespace-nowrap">
           <svg
             width="13"
@@ -50,7 +52,7 @@ export default function PioneerDayNotice({ locale }: { locale: Locale }) {
         </span>{' '}
         <span className="hidden opacity-40 sm:inline">|</span>{' '}
         <span className="whitespace-nowrap">{line2}</span>
-      </p>
+      </div>
     </div>
   );
 }
