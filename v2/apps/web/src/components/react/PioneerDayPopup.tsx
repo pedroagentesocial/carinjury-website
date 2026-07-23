@@ -121,12 +121,16 @@ export default function PioneerDayPopup() {
               transition={{ duration: 0.35, ease: EASE }}
               className="relative flex w-auto max-w-[92vw] flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-white/10"
             >
-              {/* Banner vertical (alto define el ancho → sin letterbox) */}
-              <div className="relative aspect-[752/1268] h-[68vh] max-h-[600px]">
+              {/* Banner vertical COMPLETO: la imagen define su propio tamaño
+                  (object-contain, sin recortes) limitada por alto y ancho de
+                  viewport — en móvil manda el ancho, en desktop el alto. */}
+              <div className="relative">
                 <img
                   src={BANNER_SRC}
                   alt={L.caption}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  width={752}
+                  height={1268}
+                  className="block h-auto max-h-[min(72vh,620px)] w-auto max-w-[88vw] object-contain"
                   loading="eager"
                   decoding="async"
                 />
@@ -142,8 +146,10 @@ export default function PioneerDayPopup() {
                 </button>
               </div>
 
-              {/* Leyenda (la imagen está en español; en EN el texto lo traduce) */}
-              <div className="bg-[#3A1456] px-4 py-3 text-center text-[12px] font-semibold text-white sm:text-sm">
+              {/* Leyenda (la imagen está en español; en EN el texto lo traduce).
+                  w-0 min-w-full: el texto NO aporta ancho intrínseco — la tarjeta
+                  toma el ancho de la imagen y la leyenda hace wrap debajo. */}
+              <div className="w-0 min-w-full bg-[#3A1456] px-4 py-2.5 text-center text-[12px] font-semibold leading-snug text-white [text-wrap:balance] sm:text-[13px]">
                 {L.caption}
               </div>
             </motion.div>
