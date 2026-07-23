@@ -4,6 +4,7 @@ import type { Locale } from '@carinjury/shared';
 import { t, type TranslationKey } from '@i18n/index';
 import { SITE, navLinks, altLocaleHref, type NavItem } from '@lib/site';
 import { Icon } from '@components/ui/Icon';
+import PioneerDayNotice from '@components/react/PioneerDayNotice';
 
 interface Props {
   locale: Locale;
@@ -62,6 +63,9 @@ export default function Nav({ locale, currentPath }: Props) {
       className="fixed inset-x-0 top-0 z-50"
       aria-label="Primary"
     >
+      {/* Aviso del Día del Pionero: al ser primer hijo del nav fijo, empuja la
+          píldora hacia abajo mientras está visible (se auto-oculta el 25 de julio). */}
+      <PioneerDayNotice locale={locale} />
       <div className={`px-3 transition-[padding] duration-300 ease-out md:px-6 ${scrolled ? 'py-2' : 'py-3.5'}`}>
         <div
           className={`mx-auto flex max-w-content items-center justify-between gap-3 rounded-2xl border transition-[background,border-color,box-shadow] duration-300 ease-out md:gap-4 ${
