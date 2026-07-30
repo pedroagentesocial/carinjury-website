@@ -65,7 +65,7 @@ export default function AboutVideo({ locale }: Props) {
   return (
     <section
       ref={sectionRef}
-      className="relative isolate flex min-h-[480px] items-center overflow-hidden bg-deep py-16 text-white md:min-h-[560px] md:py-24 lg:min-h-[640px] lg:py-28"
+      className="relative isolate flex min-h-[480px] items-center overflow-hidden bg-[var(--c-sec-3)] py-16 text-white md:min-h-[560px] md:py-24 lg:min-h-[640px] lg:py-28"
       aria-label={t('about_video.title', locale).replace(/\n/g, ' ')}
     >
       {/* VIDEO BG */}

@@ -6,6 +6,10 @@ import ContactForm from './ContactForm';
 
 interface Props {
   locale: Locale;
+  /** Fondo de la sección. El index la usa como último escalón de su escala
+   *  (--c-sec-4); el resto de páginas (/form, /services, /lawyer-approved)
+   *  se quedan con el --c-deep de siempre. */
+  bgClass?: string;
 }
 
 interface Benefit {
@@ -13,7 +17,7 @@ interface Benefit {
   label: string;
 }
 
-export default function ContactSection({ locale }: Props) {
+export default function ContactSection({ locale, bgClass = 'bg-deep' }: Props) {
   const benefits: Benefit[] = locale === 'en'
     ? [
         { icon: 'sparkles',    label: 'Same-day X-Ray and diagnosis' },
@@ -37,7 +41,7 @@ export default function ContactSection({ locale }: Props) {
       ];
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-deep py-16 text-white md:py-24 lg:py-28">
+    <section id="contact" className={`relative overflow-hidden ${bgClass} py-16 text-white md:py-24 lg:py-28`}>
       {/* Background blobs */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-32 top-0 h-[40vmax] w-[40vmax] rounded-full bg-secondary/15 blur-3xl" />

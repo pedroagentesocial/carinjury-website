@@ -158,7 +158,7 @@ export default function HeroCarousel({ locale }: Props) {
   return (
     <section
       ref={sectionRef}
-      className="relative isolate h-[100svh] min-h-[520px] w-full overflow-hidden bg-deep md:min-h-[640px]"
+      className="relative isolate h-[100svh] min-h-[520px] w-full overflow-hidden bg-[var(--c-sec-1)] md:min-h-[640px]"
       aria-roledescription="carousel"
       aria-label={locale === 'en' ? 'Hero' : 'Inicio'}
     >

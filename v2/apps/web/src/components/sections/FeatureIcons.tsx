@@ -26,7 +26,7 @@ export default function FeatureIcons({ locale }: Props) {
 
   return (
     <section
-      className="relative isolate overflow-hidden bg-deep py-20 md:py-24"
+      className="relative isolate overflow-hidden bg-[var(--c-sec-2)] py-20 md:py-24"
       aria-label={t('feature_icons.aria_label', locale)}
     >
       {/* Background — blobs sutiles + dot pattern */}

@@ -27,6 +27,16 @@
   --c-fab-3:   #722380;   /* L 0.42 · icono blanco 9.2:1 */
   --c-fab-tip: #3F1550;   /* Tooltip: fijo y profundo (texto blanco 14.6:1) */
 
+  /* Escala de las secciones a sangre del INDEX. Antes las 4 usaban el mismo
+     --c-deep y la home leia como un solo bloque morado. Mismo hue (321.5),
+     pasos parejos de 0.088 en L. El recorrido no puede abrirse mas: a partir
+     de L=0.585 el texto blanco baja de 4.5:1. --c-deep NO se toca porque lo
+     usan footer, nav, blog, landings de ciudad y tools. */
+  --c-sec-1:   #4C0057;   /* Hero            · L 0.30 · texto blanco 14.6:1 */
+  --c-sec-2:   #662072;   /* FeatureIcons    · L 0.39 · texto blanco 10.5:1 */
+  --c-sec-3:   #803B8D;   /* AboutVideo      · L 0.48 · texto blanco  7.2:1 */
+  --c-sec-4:   #9C55A8;   /* ContactSection  · L 0.57 · texto blanco  4.9:1 */
+
   /* Aliases semánticos (compat con código existente) */
   --c1: var(--c-lilac);
   --c2: var(--c-violet);
