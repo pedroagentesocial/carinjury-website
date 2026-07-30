@@ -38,7 +38,7 @@
       "surgical_consultations": "Surgical Consultations with Specialist",
       "concussion": "Concussion Diagnosis",
       "free_transport": "Free Transportation",
-      "trilingual": "Trilingual Care"
+      "bilingual": "Bilingual Care"
     }
   },
   "formulario_page": {
@@ -512,7 +512,7 @@
     },
     "help": {
       "title": "Still have doubts?",
-      "sub": "Call us or schedule a free evaluation. We answer in Spanish, English, or Portuguese.",
+      "sub": "Call us or schedule a free evaluation. We answer in Spanish or English.",
       "cta": "Talk to a specialist",
       "call_label": "Call now"
     },
@@ -576,7 +576,7 @@
       "same_day": "Same-day visits",
       "transport": "Free transport",
       "wallet": "No out-of-pocket",
-      "lang": "Trilingual care",
+      "lang": "Bilingual care",
       "lawyer": "Lawyer coordination",
       "insurance": "Insurance handled",
       "front_desk": "Bilingual front desk",
@@ -663,9 +663,9 @@
         "title": "Free Transportation",
         "description": "At Car Injury Clinic we understand that transportation can be an obstacle to caring for your health. That's why we offer free transportation for all our patients who don't have a way to get here. This way we guarantee that you attend your appointment comfortably, safely and without worries."
       },
-      "trilingual": {
-        "title": "Trilingual Care",
-        "description": "Our team serves you in Spanish, English and Portuguese, so you receive the best care without communication barriers."
+      "bilingual": {
+        "title": "Bilingual Care",
+        "description": "Our team serves you in Spanish and English, so you receive the best care without communication barriers."
       }
     }
   },
@@ -940,8 +940,8 @@
         "aria_label": "Same day X-Ray - View X-Ray services"
       },
       "languages": {
-        "title": "We speak Spanish, English and Portuguese",
-        "aria_label": "Multilingual care - View bilingual services"
+        "title": "We speak Spanish and English",
+        "aria_label": "Bilingual care - View bilingual services"
       },
       "legal_guidance": {
         "title": "Free legal guidance",

@@ -23,7 +23,7 @@ export default function ContactSection({ locale }: Props) {
         { icon: 'shield',      label: 'We handle the full insurance process' },
         { icon: 'check',       label: 'Advanced rehabilitation treatments' },
         { icon: 'car',         label: 'Free transportation to your appointments' },
-        { icon: 'globe',       label: 'Care in Spanish, English and Portuguese' },
+        { icon: 'globe',       label: 'Care in Spanish and English' },
       ]
     : [
         { icon: 'sparkles',    label: 'Rayos X y diagnóstico el mismo día' },
@@ -33,7 +33,7 @@ export default function ContactSection({ locale }: Props) {
         { icon: 'shield',      label: 'Manejamos todo el proceso con tu seguro' },
         { icon: 'check',       label: 'Tratamientos avanzados de rehabilitación' },
         { icon: 'car',         label: 'Transporte gratuito a tus citas' },
-        { icon: 'globe',       label: 'Atención en español, inglés y portugués' },
+        { icon: 'globe',       label: 'Atención en español e inglés' },
       ];
 
   return (

@@ -29,7 +29,7 @@
       "surgical_consultations": "Consultas quirúrgicas con especialista",
       "concussion": "Diagnóstico de conmoción",
       "free_transport": "Transporte sin costo",
-      "trilingual": "Atención Trilingüe"
+      "bilingual": "Atención Bilingüe"
     }
   },
   "formulario_page": {
@@ -221,7 +221,7 @@
       "insurance_process": "Llevamos el proceso con tu aseguradora",
       "advanced_treatments": "Tratamientos avanzados con equipos modernos",
       "free_transport": "Transporte sin costo de ida y vuelta a la clínica",
-      "multilingual": "Hablamos español, inglés y portugués"
+      "multilingual": "Hablamos español e inglés"
     },
     "schedule_button": "Agenda tu cita",
     "form_title": "Agenda Tu Cita",
@@ -618,9 +618,9 @@
           "Sin costo adicional"
         ]
       },
-      "trilingual": {
-        "title": "Atención Trilingüe",
-        "description": "Atención médica en español, inglés y portugués para una mejor comunicación.",
+      "bilingual": {
+        "title": "Atención Bilingüe",
+        "description": "Atención médica en español e inglés para una mejor comunicación.",
         "benefits": [
           "Comunicación clara",
           "Comprensión cultural",

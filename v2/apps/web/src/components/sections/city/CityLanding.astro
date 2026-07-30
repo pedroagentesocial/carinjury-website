@@ -84,13 +84,13 @@ const steps = en
 /* Por qué elegirnos. */
 const reasons = en
   ? [
-      { icon: 'globe', title: 'Bilingual ES / EN', desc: 'A bilingual team (Spanish, English, Portuguese) so nothing gets lost in translation.' },
+      { icon: 'globe', title: 'Bilingual ES / EN', desc: 'A bilingual team (Spanish and English) so nothing gets lost in translation.' },
       { icon: 'calendar', title: 'Same-day visits', desc: 'Don’t wait days in pain — we see new accident patients the same day.' },
       { icon: 'car', title: 'Free transportation', desc: 'No ride? We arrange free transportation to and from your appointments.' },
       { icon: 'gavel', title: 'Free legal guidance', desc: 'Free, no-obligation legal orientation and coordination with accident attorneys.' },
     ]
   : [
-      { icon: 'globe', title: 'Bilingüe ES / EN', desc: 'Equipo bilingüe (español, inglés, portugués) para que nada se pierda en la traducción.' },
+      { icon: 'globe', title: 'Bilingüe ES / EN', desc: 'Equipo bilingüe (español e inglés) para que nada se pierda en la traducción.' },
       { icon: 'calendar', title: 'Citas el mismo día', desc: 'No esperes días con dolor — atendemos pacientes de accidente el mismo día.' },
       { icon: 'car', title: 'Transporte gratis', desc: '¿Sin cómo llegar? Coordinamos transporte gratis a tus citas y de regreso.' },
       { icon: 'gavel', title: 'Orientación legal gratis', desc: 'Orientación legal gratuita y sin compromiso, y coordinación con abogados de accidentes.' },
@@ -162,7 +162,7 @@ const otherCities = getAllCities().filter((x) => x.slug !== city.slug);
  *    (klinic.com, jun-2026: 5.00 con 44 reseñas; "44+" para que no quede corto
  *    al crecer). Si se quiere live, conectar al feed de getReviews().
  *  - 30+ años → experiencia ya publicada en el sitio (about us).
- *  - ES·EN·PT → atención trilingüe (señal de confianza, no cifra inventada).
+ *  - ES·EN → atención bilingüe (señal de confianza, no cifra inventada).
  */}
 <section class="border-b border-line bg-surface-2">
   <div class="mx-auto grid max-w-content grid-cols-2 gap-px bg-line px-0 md:grid-cols-4">
@@ -170,7 +170,7 @@ const otherCities = getAllCities().filter((x) => x.slug !== city.slug);
       { v: '5.0 ★', l: en ? 'Google rating' : 'Calificación Google' },
       { v: '44+', l: en ? 'patient reviews' : 'reseñas de pacientes' },
       { v: '30+', l: en ? 'years of experience' : 'años de experiencia' },
-      { v: 'ES · EN · PT', l: en ? 'trilingual care' : 'atención trilingüe' },
+      { v: 'ES · EN', l: en ? 'bilingual care' : 'atención bilingüe' },
     ].map((s) => (
       <div class="flex flex-col items-center justify-center bg-surface-2 px-4 py-5 text-center md:py-6">
         <span class="font-heading text-base font-extrabold text-primary sm:text-xl md:text-2xl">{s.v}</span>

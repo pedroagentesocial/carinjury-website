@@ -328,10 +328,10 @@ export default function FaqAccordion({ locale }: Props) {
               </span>
               <div>
                 <p className="font-heading text-base font-extrabold leading-none text-white">
-                  ES · EN · PT
+                  ES · EN
                 </p>
                 <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white/90">
-                  {locale === 'en' ? 'Trilingual team' : 'Equipo trilingüe'}
+                  {locale === 'en' ? 'Bilingual team' : 'Equipo bilingüe'}
                 </p>
               </div>
             </motion.div>

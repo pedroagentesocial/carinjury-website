@@ -292,7 +292,7 @@ export function buildLocalBusinessSchema(opts: {
       ...SITE.areasServed.map((city) => ({ '@type': 'City' as const, name: city })),
     ],
     medicalSpecialty: ['Chiropractic', 'PainManagement', 'PhysicalTherapy', 'Rehabilitation'],
-    knowsLanguage: ['Spanish', 'English', 'Portuguese'],
+    knowsLanguage: ['Spanish', 'English'],
     hasMap: SITE.mapsUrl,
     identifier: {
       '@type': 'PropertyValue',
@@ -449,7 +449,7 @@ export function buildLocalBusinessSchema(opts: {
               '@type': 'Offer',
               itemOffered: {
                 '@type': 'Service',
-                name: locale === 'en' ? 'Trilingual care (ES/EN/PT)' : 'Atención trilingüe (ES/EN/PT)',
+                name: locale === 'en' ? 'Bilingual care (ES/EN)' : 'Atención bilingüe (ES/EN)',
                 serviceType: 'LanguageSupport',
               },
             },
@@ -501,7 +501,7 @@ export function buildCityClinicSchema(opts: {
     },
     hasMap: SITE.mapsUrl,
     medicalSpecialty: ['Chiropractic', 'PainManagement', 'PhysicalTherapy', 'Rehabilitation'],
-    knowsLanguage: ['Spanish', 'English', 'Portuguese'],
+    knowsLanguage: ['Spanish', 'English'],
     areaServed: {
       '@type': 'City',
       name: cityName,
@@ -556,7 +556,7 @@ export function buildOrganizationSchema(ogImage: string) {
       telephone: SITE.phone.tel,
       contactType: 'customer service',
       areaServed: 'US',
-      availableLanguage: ['Spanish', 'English', 'Portuguese'],
+      availableLanguage: ['Spanish', 'English'],
     },
   };
 }

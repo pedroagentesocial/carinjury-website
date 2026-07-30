@@ -38,10 +38,10 @@ export default function LocationContent({ locale }: Props) {
     },
     {
       icon: 'globe' as const,
-      title: en ? 'Trilingual team' : 'Equipo trilingüe',
+      title: en ? 'Bilingual team' : 'Equipo bilingüe',
       text: en
-        ? 'We care for you in Spanish, English and Portuguese.'
-        : 'Te atendemos en español, inglés y portugués.',
+        ? 'We care for you in Spanish and English.'
+        : 'Te atendemos en español e inglés.',
     },
     {
       icon: 'shield' as const,

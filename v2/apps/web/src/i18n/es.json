@@ -38,7 +38,7 @@
       "surgical_consultations": "Consultas quirúrgicas con especialista",
       "concussion": "Diagnóstico de conmoción",
       "free_transport": "Transporte sin costo",
-      "trilingual": "Atención Trilingüe"
+      "bilingual": "Atención Bilingüe"
     }
   },
   "formulario_page": {
@@ -294,7 +294,7 @@
       "insurance_process": "Manejamos todo el proceso con tu seguro",
       "advanced_treatments": "Tratamientos avanzados de rehabilitación",
       "free_transport": "Transporte gratuito a tus citas",
-      "multilingual": "Atención en español, inglés y portugues"
+      "multilingual": "Atención en español e inglés"
     },
     "schedule_button": "Agendar mi cita",
     "form_title": "Agenda tu consulta",
@@ -512,7 +512,7 @@
     },
     "help": {
       "title": "¿Aún tienes dudas?",
-      "sub": "Llámanos o agenda una evaluación gratis. Te respondemos en español, inglés o portugués.",
+      "sub": "Llámanos o agenda una evaluación gratis. Te respondemos en español o inglés.",
       "cta": "Habla con un especialista",
       "call_label": "Llamar ahora"
     },
@@ -576,7 +576,7 @@
       "same_day": "Atención el mismo día",
       "transport": "Transporte gratis",
       "wallet": "Sin costo de bolsillo",
-      "lang": "Atención trilingüe",
+      "lang": "Atención bilingüe",
       "lawyer": "Coordinación con abogado",
       "insurance": "Trámite del seguro",
       "front_desk": "Recepción bilingüe",
@@ -663,9 +663,9 @@
         "title": "Transporte sin costo",
         "description": "En Car Injury Clinic comprendemos que el traslado puede ser un obstáculo para cuidar tu salud. Por eso ofrecemos transporte gratuito para todos nuestros pacientes que no dispongan de cómo llegar. Así garantizamos que asistas a tu cita de forma cómoda, segura y sin preocupaciones."
       },
-      "trilingual": {
-        "title": "Atención Trilingüe",
-        "description": "Nuestro equipo te atiende en español, inglés y portugués, para que recibas la mejor atención sin barreras de comunicación."
+      "bilingual": {
+        "title": "Atención Bilingüe",
+        "description": "Nuestro equipo te atiende en español e inglés, para que recibas la mejor atención sin barreras de comunicación."
       }
     }
   },
@@ -940,8 +940,8 @@
         "aria_label": "X-Ray el mismo día - Ver servicios de radiografías"
       },
       "languages": {
-        "title": "Hablamos español, inglés y portugués",
-        "aria_label": "Atención multilingüe - Ver servicios bilingües"
+        "title": "Hablamos español e inglés",
+        "aria_label": "Atención bilingüe - Ver servicios bilingües"
       },
       "legal_guidance": {
         "title": "Orientación legal sin costo",
