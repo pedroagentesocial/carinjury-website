@@ -17,6 +17,16 @@
   --c-rose:    #BA93C2;   /* Rosa brand */
   --c-deep:    #611E6C;   /* Footer / fondos profundos */
 
+  /* Escala de morado para los botones flotantes. Calculada en OKLCH sobre el
+     hue del púrpura de marca (321.5) con pasos parejos de 0.11 en L, para que
+     los tres escalones se distingan igual entre sí (1.61:1 cada par). No se
+     cuelgan de --c-purple-700/800/900 porque esa serie mezcla hues (299 y 321)
+     y sus saltos de luminosidad son desiguales. */
+  --c-fab-1:   #B070BB;   /* L 0.64 · icono blanco 3.6:1 */
+  --c-fab-2:   #9347A1;   /* L 0.53 · icono blanco 5.7:1 */
+  --c-fab-3:   #722380;   /* L 0.42 · icono blanco 9.2:1 */
+  --c-fab-tip: #3F1550;   /* Tooltip: fijo y profundo (texto blanco 14.6:1) */
+
   /* Aliases semánticos (compat con código existente) */
   --c1: var(--c-lilac);
   --c2: var(--c-violet);
@@ -354,7 +364,10 @@ html { scroll-padding-top: var(--nav-h); }
   top: 50%;
   transform: translateY(-50%) translateX(6px);
   white-space: nowrap;
-  background-color: var(--fab);
+  /* Fondo fijo, no el tono del botón: a 12px el texto necesita 4.5:1 y el
+     escalón más claro de la escala no llega. Además el tooltip es una capa de
+     sistema, se lee mejor constante. */
+  background-color: var(--c-fab-tip);
   color: #fff;
   padding: 5px 10px;
   border-radius: 6px;
@@ -373,7 +386,7 @@ html { scroll-padding-top: var(--nav-h); }
   top: 50%;
   width: 8px;
   height: 8px;
-  background-color: var(--fab);
+  background-color: var(--c-fab-tip);
   transform: translate(-50%, -50%) rotate(45deg);
 }
 

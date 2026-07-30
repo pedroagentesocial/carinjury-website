@@ -33,30 +33,29 @@ const FOCUS_RING =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-ink';
 
 export default function FloatingButtons({ locale }: Props) {
-  /* Tonos de la paleta canónica, no valores sueltos. El stack va de menor a
-     mayor intención de contacto: consultar (violeta) -> agendar (púrpura) ->
-     llamar (deep). Así deja de leerse como un bloque de un solo morado. */
+  /* Escala --c-fab-1/2/3 (ver global.css): mismo hue, pasos parejos en OKLCH.
+     Va de menor a mayor intención de contacto: consultar -> agendar -> llamar. */
   const fabs: Fab[] = [
     {
       href: locale === 'en' ? '/en/faq' : '/faq',
       icon: 'help',
       ariaKey: 'floating_buttons.help.aria_label',
       tooltipKey: 'floating_buttons.help.tooltip',
-      tone: 'var(--c-violet)',
+      tone: 'var(--c-fab-1)',
     },
     {
       href: locale === 'en' ? '/en/schedule' : '/schedule',
       icon: 'calendar',
       ariaKey: 'floating_buttons.schedule.aria_label',
       tooltipKey: 'floating_buttons.schedule.tooltip',
-      tone: 'var(--c-purple)',
+      tone: 'var(--c-fab-2)',
     },
     {
       href: `tel:${SITE.phone.tel}`,
       icon: 'phone',
       ariaKey: 'floating_buttons.phone.aria_label',
       tooltipKey: 'floating_buttons.phone.tooltip',
-      tone: 'var(--c-deep)',
+      tone: 'var(--c-fab-3)',
     },
     {
       /* Número NO hardcodeado: el endpoint server-only resuelve el wa.me. */
