@@ -7,6 +7,8 @@ import ChatWidget from '@components/ChatWidget.astro';
 // OCULTO temporalmente (banner + modal del promo/sorteo — NO eliminar):
 // import PromoBar from '@components/react/PromoBar';
 // import PromoPopup from '@components/react/PromoPopup';
+// import SorteoColombiaPopup from '@components/react/SorteoColombiaPopup';
+import PioneerDayPopup from '@components/react/PioneerDayPopup';
 
 interface Props {
   title?: string;
@@ -71,6 +73,10 @@ const siteDesc = description ?? t('site.description', locale);
     <slot />
     <!-- Popup con carrusel (Cambiatón + Sorteo) — OCULTO temporalmente (NO eliminar):
          <PromoPopup client:idle /> -->
+    <!-- Popup del sorteo de Independencia de Colombia — OCULTO (NO eliminar):
+         <SorteoColombiaPopup client:idle /> -->
+    <!-- Popup del Día del Pionero (se auto-oculta a partir del sábado 25 de julio) -->
+    <PioneerDayPopup client:idle />
     <ChatWidget />
   </body>
 </html>

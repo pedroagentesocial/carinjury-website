@@ -29,7 +29,7 @@
       "surgical_consultations": "Surgical Consultations with Specialist",
       "concussion": "Concussion Diagnosis",
       "free_transport": "Free Transportation",
-      "trilingual": "Trilingual Care"
+      "bilingual": "Bilingual Care"
     }
   },
   "formulario_page": {
@@ -221,7 +221,7 @@
       "insurance_process": "We handle the process with your insurance",
       "advanced_treatments": "Advanced treatments with modern equipment",
       "free_transport": "Free round-trip transportation to the clinic",
-      "multilingual": "We speak Spanish, English and Portuguese"
+      "multilingual": "We speak Spanish and English"
     },
     "schedule_button": "Schedule your appointment",
     "form_title": "Schedule Your Appointment",
@@ -618,9 +618,9 @@
           "No additional cost"
         ]
       },
-      "trilingual": {
-        "title": "Trilingual Care",
-        "description": "Medical care in Spanish, English, and Portuguese for better communication.",
+      "bilingual": {
+        "title": "Bilingual Care",
+        "description": "Medical care in Spanish and English for better communication.",
         "benefits": [
           "Clear communication",
           "Cultural understanding",

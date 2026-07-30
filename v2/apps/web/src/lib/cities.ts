@@ -165,7 +165,7 @@ const westValleyCity: CityData = {
       {
         question: '¿Hablan español en la clínica?',
         answer:
-          'Sí. Nuestro equipo es bilingüe (español, inglés y portugués), algo importante para la gran comunidad latina de West Valley City. Te explicamos tu diagnóstico y tu plan de tratamiento en tu idioma.',
+          'Sí. Nuestro equipo es bilingüe (español e inglés), algo importante para la gran comunidad latina de West Valley City. Te explicamos tu diagnóstico y tu plan de tratamiento en tu idioma.',
       },
       {
         question: '¿Me pueden conectar con un abogado de accidentes?',
@@ -219,7 +219,7 @@ const westValleyCity: CityData = {
       {
         question: 'Do you speak Spanish at the clinic?',
         answer:
-          'Yes. Our team is bilingual (Spanish, English and Portuguese), which matters for West Valley City’s large Latino community. We explain your diagnosis and treatment plan in your language.',
+          'Yes. Our team is bilingual (Spanish and English), which matters for West Valley City’s large Latino community. We explain your diagnosis and treatment plan in your language.',
       },
       {
         question: 'Can you connect me with an accident lawyer?',
@@ -325,7 +325,7 @@ const westJordan: CityData = {
       {
         question: '¿Hablan español en la clínica?',
         answer:
-          'Sí. Nuestro equipo es bilingüe (español, inglés y portugués). Te explicamos tu diagnóstico y tu plan de tratamiento en tu idioma, sin que nada se pierda en la traducción.',
+          'Sí. Nuestro equipo es bilingüe (español e inglés). Te explicamos tu diagnóstico y tu plan de tratamiento en tu idioma, sin que nada se pierda en la traducción.',
       },
       {
         question: '¿Me pueden conectar con un abogado de accidentes?',
@@ -379,7 +379,7 @@ const westJordan: CityData = {
       {
         question: 'Do you speak Spanish at the clinic?',
         answer:
-          'Yes. Our team is bilingual (Spanish, English and Portuguese). We explain your diagnosis and treatment plan in your language, so nothing gets lost in translation.',
+          'Yes. Our team is bilingual (Spanish and English). We explain your diagnosis and treatment plan in your language, so nothing gets lost in translation.',
       },
       {
         question: 'Can you connect me with an accident lawyer?',
@@ -483,7 +483,7 @@ const sandy: CityData = {
       {
         question: '¿Hablan español en la clínica?',
         answer:
-          'Sí. Nuestro equipo es bilingüe (español, inglés y portugués). Te explicamos tu diagnóstico y tu plan de tratamiento en tu idioma.',
+          'Sí. Nuestro equipo es bilingüe (español e inglés). Te explicamos tu diagnóstico y tu plan de tratamiento en tu idioma.',
       },
       {
         question: '¿Me pueden conectar con un abogado de accidentes?',
@@ -537,7 +537,7 @@ const sandy: CityData = {
       {
         question: 'Do you speak Spanish at the clinic?',
         answer:
-          'Yes. Our team is bilingual (Spanish, English and Portuguese). We explain your diagnosis and treatment plan in your language.',
+          'Yes. Our team is bilingual (Spanish and English). We explain your diagnosis and treatment plan in your language.',
       },
       {
         question: 'Can you connect me with an accident lawyer?',

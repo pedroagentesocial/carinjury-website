@@ -546,8 +546,8 @@ const VALUES: Value[] = [
     icon: 'globe',
     title: { es: 'Sin barreras de idioma', en: 'No language barriers' },
     description: {
-      es: 'Atención completa en español, inglés y portugués. Te entendemos como hablás.',
-      en: 'Full care in Spanish, English and Portuguese. We understand you in your language.',
+      es: 'Atención completa en español e inglés. Te entendemos como hablás.',
+      en: 'Full care in Spanish and English. We understand you in your language.',
     },
   },
   {

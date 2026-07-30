@@ -25,7 +25,7 @@ type ServiceSlug =
   | 'pain_management'
   | 'surgical_consultations'
   | 'free_transport'
-  | 'trilingual';
+  | 'bilingual';
 
 type GroupKey = 'treatment' | 'diagnostics' | 'specialized' | 'support';
 
@@ -33,7 +33,7 @@ const GROUP_ITEMS: Record<GroupKey, ServiceSlug[]> = {
   treatment: ['chiropractic', 'hot_cold_therapy', 'massage', 'ultrasound', 'tens'],
   diagnostics: ['xray', 'mri', 'concussion', 'second_opinions'],
   specialized: ['pain_management', 'surgical_consultations'],
-  support: ['free_transport', 'trilingual'],
+  support: ['free_transport', 'bilingual'],
 };
 
 const SERVICE_ICONS: Record<ServiceSlug, IconName> = {
@@ -51,7 +51,7 @@ const SERVICE_ICONS: Record<ServiceSlug, IconName> = {
   pain_management: 'sparkles',
   surgical_consultations: 'stethoscope',
   free_transport: 'car',
-  trilingual: 'globe',
+  bilingual: 'globe',
 };
 
 const SERVICE_IMAGES: Record<ServiceSlug, string> = {
@@ -69,7 +69,7 @@ const SERVICE_IMAGES: Record<ServiceSlug, string> = {
   pain_management: '/assets/img/pain-management.jpeg',
   surgical_consultations: '/assets/img/surgery-consult.jpeg',
   free_transport: '/assets/img/transporte.jpg',
-  trilingual: '/assets/img/bilingue.jpg',
+  bilingual: '/assets/img/bilingue.jpg',
 };
 
 const GROUPS: GroupKey[] = ['treatment', 'diagnostics', 'specialized', 'support'];
