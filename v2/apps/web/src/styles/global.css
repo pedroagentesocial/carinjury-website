@@ -318,23 +318,30 @@ html { scroll-padding-top: var(--nav-h); }
    rebota con la animación jello y aparece un tooltip. https://uiverse.io/vinodjangid07
    El tooltip se muestra a la izquierda porque los FABs van pegados al borde
    derecho; arriba se solaparía con el botón superior del stack. */
+/* Cada FAB define su propio tono con --fab (ver FloatingButtons.tsx). El stack
+   sube en intensidad hacia abajo (violeta -> púrpura -> deep) para que no lea
+   como un bloque morado plano. Sin --fab cae al púrpura primario. */
 .fab-jello {
+  --fab: var(--c-purple);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   border-radius: 50%;
-  background-color: var(--c-purple);
+  background-color: var(--fab);
   color: #fff;
   cursor: pointer;
+  /* Fallback para navegadores sin color-mix; la 2ª declaración gana donde hay soporte. */
   box-shadow: 0 10px 20px rgba(74, 28, 90, 0.4);
+  box-shadow: 0 10px 20px color-mix(in srgb, var(--fab) 45%, transparent);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .fab-jello:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 26px rgba(74, 28, 90, 0.5);
+  box-shadow: 0 14px 26px color-mix(in srgb, var(--fab) 55%, transparent);
 }
 
 .fab-jello:hover svg {
@@ -347,7 +354,7 @@ html { scroll-padding-top: var(--nav-h); }
   top: 50%;
   transform: translateY(-50%) translateX(6px);
   white-space: nowrap;
-  background-color: var(--c-purple);
+  background-color: var(--fab);
   color: #fff;
   padding: 5px 10px;
   border-radius: 6px;
@@ -366,7 +373,7 @@ html { scroll-padding-top: var(--nav-h); }
   top: 50%;
   width: 8px;
   height: 8px;
-  background-color: var(--c-purple);
+  background-color: var(--fab);
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
