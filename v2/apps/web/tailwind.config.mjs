@@ -37,6 +37,7 @@ export default {
       fontFamily: {
         heading: 'var(--font-heading)',
         body: 'var(--font-body)',
+        display: 'var(--font-display)',
       },
       borderRadius: {
         DEFAULT: 'var(--radius)',

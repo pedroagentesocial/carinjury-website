@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+import { useEffect, useRef, useState, type PointerEvent } from 'react';
+import { AnimatePresence, LayoutGroup, motion, MotionConfig, useInView, useReducedMotion } from 'motion/react';
 import type { Locale } from '@carinjury/shared';
 import { t, type TranslationKey } from '@i18n/index';
 
@@ -21,87 +22,292 @@ const FEATURES: Feature[] = [
   { key: 'languages',         icon: '/assets/icons/idiomas.png',       href: '/services#bilingue' },
 ];
 
+const ROTATING_KEYS = ['rotating_1', 'rotating_2', 'rotating_3', 'rotating_4'] as const;
+
+// Tiempo que cada beneficio se queda en el cuadro grande.
+const STEP_MS = 4200;
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const item = (key: string, field: string, locale: Locale) =>
+  t(`feature_icons.items.${key}.${field}` as TranslationKey, locale);
+
+/**
+ * Bento rotativo: el cuadro grande va rotando sin fin. El siguiente beneficio
+ * crece y toma su lugar y el que estaba destacado pasa al final. La barra de
+ * progreso marca el tiempo y su animationend avanza el carrusel, asi pausar la
+ * barra pausa todo. Se detiene con el cursor encima, con foco de teclado o fuera
+ * de pantalla; con reduced-motion no rota solo (queda la navegacion por puntos).
+ */
 export default function FeatureIcons({ locale }: Props) {
   const prefix = locale === 'en' ? '/en' : '';
+  const gridRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(gridRef, { amount: 0.35 });
+  const reduce = useReducedMotion();
+  const [featured, setFeatured] = useState(0);
+  const [hovered, setHovered] = useState(false);
+
+  const paused = hovered || !inView;
+  const next = () => setFeatured((f) => (f + 1) % FEATURES.length);
+
+  // Destacado primero y luego el resto en secuencia: el siguiente siempre queda
+  // en el primer cuadro chico, que es el que crece despues.
+  const order = FEATURES.map((_, i) => FEATURES[(featured + i) % FEATURES.length]);
+  const rotating = ROTATING_KEYS.map((k) => t(`feature_icons.${k}` as TranslationKey, locale));
 
   return (
-    <section
-      className="relative isolate overflow-hidden bg-[var(--c-sec-2)] py-20 md:py-24"
-      aria-label={t('feature_icons.aria_label', locale)}
-    >
-      {/* Background — blobs sutiles + dot pattern */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-32 top-0 h-[36vmax] w-[36vmax] rounded-full bg-secondary/15 blur-3xl" />
-        <div className="absolute -right-32 bottom-0 h-[32vmax] w-[32vmax] rounded-full bg-primary/25 blur-3xl" />
-      </div>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.05] [background-image:radial-gradient(rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:28px_28px]"
-      />
+    <MotionConfig reducedMotion="user">
+      <section
+        className="relative bg-white px-4 py-16 md:px-6 md:py-20 lg:px-8 xl:px-10"
+        aria-label={t('feature_icons.aria_label', locale)}
+      >
+        {/* Card flotante — el fondo morado vive dentro; la seccion queda en blanco */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5 }}
+          className="relative isolate mx-auto max-w-[1400px] overflow-hidden rounded-[1.75rem] bg-[var(--c-sec-2)] px-4 py-10 text-white shadow-[0_30px_70px_-20px_rgba(102,32,114,0.55)] sm:px-6 md:rounded-[2.5rem] md:px-10 md:py-14 lg:px-12 lg:py-16"
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10 opacity-[0.07] [background-image:radial-gradient(rgba(255,255,255,0.7)_1px,transparent_1px)] [background-size:24px_24px]"
+          />
 
-      {/* HEADER — sigue centrado en max-w-content */}
-      <div className="relative mx-auto max-w-content px-5">
-        <header className="mx-auto mb-12 max-w-2xl text-center md:mb-14">
-          <motion.h2
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-heading text-3xl font-extrabold leading-[1.1] text-white md:text-4xl lg:text-[2.6rem]"
+          <header className="mb-8 flex flex-col gap-4 md:mb-10 lg:flex-row lg:items-end lg:justify-between">
+            <h2 className="font-display text-[clamp(1.75rem,8.5vw,2.3rem)] font-extrabold leading-[1] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
+              <span className="sr-only">{t('feature_icons.title', locale)}</span>
+              <span aria-hidden="true">
+                {t('feature_icons.title_lead', locale)}
+                <br />
+                <RotatingWord words={rotating} />
+              </span>
+            </h2>
+            <p className="max-w-sm text-[1.02rem] leading-relaxed text-white/70">
+              {t('feature_icons.subtitle', locale)}
+            </p>
+          </header>
+
+          {/* Movil: 2 cols (destacado arriba a lo ancho). Desktop: 3 cols, destacado 2x2. */}
+          <div
+            ref={gridRef}
+            onPointerEnter={() => setHovered(true)}
+            onPointerLeave={() => setHovered(false)}
+            onFocusCapture={() => setHovered(true)}
+            onBlurCapture={() => setHovered(false)}
           >
-            {t('feature_icons.title', locale)}
-          </motion.h2>
-        </header>
-      </div>
+            <LayoutGroup>
+              <ul className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3">
+                {order.map((f, pos) => (
+                  <motion.li
+                    key={f.key}
+                    layout
+                    transition={{ layout: { duration: 0.75, ease: EASE } }}
+                    className={
+                      pos === 0
+                        ? 'col-span-2 lg:row-span-2'
+                        : pos === order.length - 1
+                          ? 'col-span-2 lg:col-span-1'
+                          : ''
+                    }
+                  >
+                    {pos === 0 ? (
+                      <FeaturedTile
+                        feature={f}
+                        href={`${prefix}${f.href}`}
+                        locale={locale}
+                        paused={paused}
+                        autoplay={!reduce}
+                        onDone={next}
+                      />
+                    ) : (
+                      <SmallTile feature={f} href={`${prefix}${f.href}`} locale={locale} />
+                    )}
+                  </motion.li>
+                ))}
+              </ul>
+            </LayoutGroup>
 
-      {/* GRID — full bleed: 2 mobile, 3 tablet, 6 desktop (una sola fila) */}
-      <div className="relative px-4 md:px-6 lg:px-8 xl:px-10">
-        <ul className="mx-auto grid max-w-[1600px] grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-6 lg:gap-3 xl:gap-4">
-          {FEATURES.map((f, i) => (
-            <motion.li
-              key={f.key}
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.45, delay: 0.05 + i * 0.06 }}
-            >
-              <a
-                href={`${prefix}${f.href}`}
-                aria-label={t(`feature_icons.items.${f.key}.aria_label` as TranslationKey, locale)}
-                className="group relative flex h-full flex-col items-center gap-4 overflow-hidden rounded-3xl border border-white/8 bg-white p-5 text-center text-ink shadow-[0_10px_30px_rgba(0,0,0,0.22)] transition duration-300 hover:-translate-y-1.5 hover:border-secondary/40 hover:shadow-[0_24px_50px_-10px_rgba(0,0,0,0.4)] md:gap-5 md:p-6 lg:p-5 xl:p-6"
-              >
-                {/* Top accent line */}
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-5 top-0 h-[3px] origin-center scale-x-0 bg-secondary transition-transform duration-500 group-hover:scale-x-100"
+            {/* Indicadores: tambien sirven para elegir uno a mano */}
+            <div className="mt-6 flex items-center justify-center gap-2">
+              {FEATURES.map((f, i) => (
+                <button
+                  key={f.key}
+                  type="button"
+                  onClick={() => setFeatured(i)}
+                  aria-label={`${t('feature_icons.highlight', locale)}: ${item(f.key, 'title', locale)}`}
+                  aria-current={i === featured}
+                  className={`h-2 rounded-full transition-all duration-500 ${i === featured ? 'w-8 bg-secondary' : 'w-2 bg-white/30 hover:bg-white/60'}`}
                 />
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </section>
+    </MotionConfig>
+  );
+}
 
-                {/* Soft glow behind icon */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute left-1/2 top-6 h-28 w-28 -translate-x-1/2 rounded-full bg-secondary/0 blur-2xl transition-all duration-500 group-hover:bg-secondary/30"
-                />
+/* Luz que sigue al cursor: guarda la posicion en variables CSS del tile. */
+function spotlight(e: PointerEvent<HTMLElement>) {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
+}
 
-                {/* ICON — grande pero adaptable */}
-                <span className="relative flex h-20 w-20 flex-none items-center justify-center rounded-2xl bg-primary shadow-[0_12px_28px_-6px_rgba(122,46,135,0.55)] transition duration-300 group-hover:scale-[1.08] group-hover:-rotate-3 group-hover:bg-[#6a3f75] md:h-24 md:w-24 lg:h-20 lg:w-20 xl:h-24 xl:w-24">
-                  <img
-                    src={f.icon}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    decoding="async"
-                    className="h-[60%] w-[60%] object-contain brightness-0 invert"
-                  />
-                </span>
+const SPOT =
+  'before:pointer-events-none before:absolute before:inset-0 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100 before:[background:radial-gradient(260px_circle_at_var(--mx)_var(--my),rgba(255,255,255,0.16),transparent_70%)]';
 
-                {/* TITLE */}
-                <span className="relative font-heading text-[0.95rem] font-extrabold leading-tight tracking-tight md:text-lg lg:text-base xl:text-lg">
-                  {t(`feature_icons.items.${f.key}.title` as TranslationKey, locale)}
-                </span>
-              </a>
-            </motion.li>
-          ))}
-        </ul>
-      </div>
-    </section>
+interface TileProps {
+  feature: Feature;
+  href: string;
+  locale: Locale;
+}
+
+function FeaturedTile({
+  feature,
+  href,
+  locale,
+  paused,
+  autoplay,
+  onDone,
+}: TileProps & { paused: boolean; autoplay: boolean; onDone: () => void }) {
+  const mark = item(feature.key, 'mark', locale);
+  const markSize = mark.length <= 3 ? 'text-[9rem] md:text-[13rem]' : 'text-[6.5rem] md:text-[9rem]';
+
+  return (
+    <a
+      href={href}
+      aria-label={item(feature.key, 'aria_label', locale)}
+      onPointerMove={spotlight}
+      className={`group relative flex h-full min-h-[280px] flex-col overflow-hidden rounded-3xl bg-gradient-to-br from-secondary via-[var(--c-fab-1)] to-[var(--c-purple)] p-6 md:min-h-[320px] md:p-8 lg:min-h-[400px] ${SPOT}`}
+    >
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={feature.key}
+          layout="position"
+          className="relative flex h-full flex-1 flex-col"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.45, delay: 0.2 }}
+        >
+          <Icon src={feature.icon} size="lg" />
+          <span className="mt-auto pt-8">
+            <span className="block max-w-md font-display text-3xl font-extrabold leading-[1.02] tracking-[-0.02em] md:text-[2.6rem]">
+              {item(feature.key, 'title', locale)}
+            </span>
+            <span className="mt-3 block max-w-xs text-base leading-snug text-white/85">
+              {item(feature.key, 'desc', locale)}
+            </span>
+            <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold">
+              {t('feature_icons.learn_more', locale)}
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5"><Arrow /></span>
+            </span>
+          </span>
+        </motion.span>
+      </AnimatePresence>
+
+      {/* Palabra gigante de fondo */}
+      <AnimatePresence>
+        <motion.span
+          key={mark}
+          aria-hidden="true"
+          className={`pointer-events-none absolute -bottom-5 -right-2 font-display font-extrabold leading-none tracking-[-0.06em] text-white/15 ${markSize}`}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -30 }}
+          transition={{ duration: 0.7, ease: EASE }}
+        >
+          {mark}
+        </motion.span>
+      </AnimatePresence>
+
+      {/* Barra de progreso: al terminar su animacion avanza el carrusel */}
+      {autoplay && (
+        <span aria-hidden="true" className="absolute inset-x-6 bottom-0 h-1 overflow-hidden rounded-full bg-white/20 md:inset-x-8">
+          <span
+            key={feature.key}
+            onAnimationEnd={onDone}
+            className="benefit-progress block h-full bg-white"
+            style={{ animationDuration: `${STEP_MS}ms`, animationPlayState: paused ? 'paused' : 'running' }}
+          />
+        </span>
+      )}
+    </a>
+  );
+}
+
+function SmallTile({ feature, href, locale }: TileProps) {
+  return (
+    <a
+      href={href}
+      aria-label={item(feature.key, 'aria_label', locale)}
+      onPointerMove={spotlight}
+      className={`group relative flex h-full min-h-[150px] flex-col gap-3 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.07] p-5 transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.11] md:min-h-[170px] md:p-6 ${SPOT}`}
+    >
+      <motion.span layout="position" className="relative flex h-full flex-1 flex-col gap-3">
+        <Icon src={feature.icon} />
+        <span className="mt-auto block font-display text-[1.1rem] font-bold leading-[1.08] tracking-[-0.015em] md:text-xl">
+          {item(feature.key, 'title', locale)}
+        </span>
+      </motion.span>
+    </a>
+  );
+}
+
+function Icon({ src, size = 'md' }: { src: string; size?: 'md' | 'lg' }) {
+  const box = size === 'lg' ? 'h-16 w-16 md:h-20 md:w-20' : 'h-12 w-12';
+  return (
+    <span className={`benefit-float relative flex flex-none items-center justify-center rounded-2xl bg-white/15 backdrop-blur ${box} transition-transform duration-300 group-hover:scale-110`}>
+      <img
+        src={src}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        className="h-[58%] w-[58%] object-contain brightness-0 invert"
+      />
+    </span>
+  );
+}
+
+function RotatingWord({ words, interval = 2200 }: { words: string[]; interval?: number }) {
+  const [i, setI] = useState(0);
+  const reduce = useReducedMotion();
+
+  useEffect(() => {
+    if (reduce) return;
+    const id = setInterval(() => setI((n) => (n + 1) % words.length), interval);
+    return () => clearInterval(id);
+  }, [reduce, words.length, interval]);
+
+  return (
+    <span className="relative inline-grid overflow-hidden align-bottom text-secondary">
+      {/* Reserva el ancho de la palabra mas larga para que el layout no salte */}
+      <span className="invisible col-start-1 row-start-1">
+        {words.reduce((a, b) => (b.length > a.length ? b : a))}
+      </span>
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={words[i]}
+          className="col-start-1 row-start-1 pb-[0.08em]"
+          initial={{ y: '100%', opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: '-100%', opacity: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+        >
+          {words[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
+function Arrow() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
   );
 }

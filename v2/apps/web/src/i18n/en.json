@@ -922,30 +922,50 @@
     "aria_label": "Main features of our services",
     "eyebrow": "What your visit includes",
     "title": "Real benefits for our patients",
+    "title_lead": "Real benefits,",
+    "rotating_1": "at no cost",
+    "rotating_2": "same day",
+    "rotating_3": "in your language",
+    "rotating_4": "no runaround",
+    "subtitle": "Everything you need after an accident, in one place, from your very first visit.",
+    "learn_more": "Learn more",
+    "highlight": "Highlight",
     "items": {
       "free_consultation": {
         "title": "Free initial evaluation",
-        "aria_label": "Free initial evaluation - Go to form"
+        "aria_label": "Free initial evaluation - Go to form",
+        "desc": "We examine you and build your plan before you pay anything.",
+        "mark": "$0"
       },
       "free_transport": {
         "title": "Free transportation",
-        "aria_label": "Free transportation - View transport services"
+        "aria_label": "Free transportation - View transport services",
+        "desc": "No way to get here? We'll arrange your ride.",
+        "mark": "Free"
       },
       "same_day": {
         "title": "Same day attention",
-        "aria_label": "Same day attention - Schedule appointment"
+        "aria_label": "Same day attention - Schedule appointment",
+        "desc": "Book today and get seen without weeks of waiting.",
+        "mark": "Today"
       },
       "xray": {
         "title": "Same day X-Ray",
-        "aria_label": "Same day X-Ray - View X-Ray services"
+        "aria_label": "Same day X-Ray - View X-Ray services",
+        "desc": "X-rays right at the clinic, no sending you elsewhere.",
+        "mark": "X-Ray"
       },
       "languages": {
         "title": "We speak Spanish and English",
-        "aria_label": "Bilingual care - View bilingual services"
+        "aria_label": "Bilingual care - View bilingual services",
+        "desc": "The whole process in your language, start to finish.",
+        "mark": "EN/ES"
       },
       "legal_guidance": {
         "title": "Free legal guidance",
-        "aria_label": "Free legal guidance - View legal services"
+        "aria_label": "Free legal guidance - View legal services",
+        "desc": "We connect you with attorneys who know your type of case.",
+        "mark": "Legal"
       }
     }
   },

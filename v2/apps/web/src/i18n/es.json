@@ -922,30 +922,50 @@
     "aria_label": "Características principales de nuestros servicios",
     "eyebrow": "Lo que incluye tu visita",
     "title": "Beneficios reales para nuestros pacientes",
+    "title_lead": "Beneficios reales,",
+    "rotating_1": "sin costo",
+    "rotating_2": "hoy mismo",
+    "rotating_3": "en tu idioma",
+    "rotating_4": "sin vueltas",
+    "subtitle": "Todo lo que necesitas después de un accidente, en un solo lugar y desde tu primera visita.",
+    "learn_more": "Saber más",
+    "highlight": "Destacar",
     "items": {
       "free_consultation": {
         "title": "Evaluación inicial sin costo",
-        "aria_label": "Evaluación inicial sin costo - Ir al formulario"
+        "aria_label": "Evaluación inicial sin costo - Ir al formulario",
+        "desc": "Te revisamos y armamos tu plan antes de que pagues nada.",
+        "mark": "$0"
       },
       "free_transport": {
         "title": "Transporte sin costo",
-        "aria_label": "Transporte sin costo - Ver servicios de transporte"
+        "aria_label": "Transporte sin costo - Ver servicios de transporte",
+        "desc": "Si no tienes cómo llegar, coordinamos tu transporte.",
+        "mark": "0 costo"
       },
       "same_day": {
         "title": "Atención hoy mismo",
-        "aria_label": "Atención hoy mismo - Agendar cita"
+        "aria_label": "Atención hoy mismo - Agendar cita",
+        "desc": "Agenda hoy y te atendemos sin semanas de espera.",
+        "mark": "Hoy"
       },
       "xray": {
         "title": "X-Ray el mismo día",
-        "aria_label": "X-Ray el mismo día - Ver servicios de radiografías"
+        "aria_label": "X-Ray el mismo día - Ver servicios de radiografías",
+        "desc": "Radiografías en la clínica, sin mandarte a otro lugar.",
+        "mark": "X-Ray"
       },
       "languages": {
         "title": "Hablamos español e inglés",
-        "aria_label": "Atención bilingüe - Ver servicios bilingües"
+        "aria_label": "Atención bilingüe - Ver servicios bilingües",
+        "desc": "Todo el proceso en tu idioma, de principio a fin.",
+        "mark": "ES/EN"
       },
       "legal_guidance": {
         "title": "Orientación legal sin costo",
-        "aria_label": "Orientación legal sin costo - Ver servicios legales"
+        "aria_label": "Orientación legal sin costo - Ver servicios legales",
+        "desc": "Te conectamos con abogados que conocen tu tipo de caso.",
+        "mark": "Legal"
       }
     }
   },

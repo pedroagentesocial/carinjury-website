@@ -75,6 +75,8 @@
   /* Tipografía */
   --font-heading: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-body:    'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Display: titulos de la seccion de beneficios (se carga en Layout.astro) */
+  --font-display: 'Bricolage Grotesque', var(--font-heading);
 
   /* Layout */
   --radius:  12px;
@@ -697,12 +699,37 @@ html { scroll-padding-top: var(--nav-h); }
   color: #fff;
 }
 
+/* ============================================================
+   FeatureIcons (bento rotativo): iconos que flotan y barra de
+   progreso del cuadro destacado. La duracion de la barra llega
+   inline desde el componente y su animationend avanza el carrusel.
+   ============================================================ */
+@keyframes benefit-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.benefit-float { animation: benefit-float 4s ease-in-out infinite; }
+li:nth-child(2n) .benefit-float { animation-delay: -1.3s; }
+li:nth-child(3n) .benefit-float { animation-delay: -2.6s; }
+
+@keyframes benefit-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.benefit-progress {
+  transform-origin: left;
+  animation-name: benefit-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
 /* Accesibilidad: respetar usuarios con motion reducido */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001s !important;
     transition-duration: 0.001s !important;
   }
+  .benefit-float { animation: none; }
 }
 
 /* ============================================================
