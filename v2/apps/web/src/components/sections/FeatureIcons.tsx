@@ -121,7 +121,7 @@ export default function FeatureIcons({ locale }: Props) {
                         onDone={next}
                       />
                     ) : (
-                      <SmallTile feature={f} href={`${prefix}${f.href}`} locale={locale} />
+                      <SmallTile feature={f} href={`${prefix}${f.href}`} locale={locale} upNext={pos === 1 && !reduce} />
                     )}
                   </motion.li>
                 ))}
@@ -238,18 +238,38 @@ function FeaturedTile({
   );
 }
 
-function SmallTile({ feature, href, locale }: TileProps) {
+function SmallTile({ feature, href, locale, upNext }: TileProps & { upNext: boolean }) {
   return (
     <a
       href={href}
       aria-label={item(feature.key, 'aria_label', locale)}
       onPointerMove={spotlight}
-      className={`group relative flex h-full min-h-[150px] flex-col gap-3 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.07] p-5 transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.11] md:min-h-[170px] md:p-6 ${SPOT}`}
+      className={`group relative flex h-full min-h-[200px] flex-col overflow-hidden rounded-3xl border p-4 transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.11] sm:p-5 md:min-h-[210px] md:p-6 ${upNext ? 'border-secondary/50 bg-white/[0.1]' : 'border-white/10 bg-white/[0.07]'} ${SPOT}`}
     >
-      <motion.span layout="position" className="relative flex h-full flex-1 flex-col gap-3">
-        <Icon src={feature.icon} />
-        <span className="mt-auto block font-display text-[1.1rem] font-bold leading-[1.08] tracking-[-0.015em] md:text-xl">
-          {item(feature.key, 'title', locale)}
+      <motion.span layout="position" className="relative flex h-full flex-1 flex-col">
+        <span className="flex flex-wrap items-start justify-between gap-2">
+          <Icon src={feature.icon} />
+          {/* Etiqueta del proximo en crecer */}
+          <AnimatePresence>
+            {upNext && (
+              <motion.span
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="rounded-full bg-secondary px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[var(--c-deep)] md:text-[0.7rem]"
+              >
+                {t('feature_icons.up_next', locale)}
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </span>
+        <span className="mt-auto block pt-4">
+          <span className="block font-display text-[1.2rem] font-extrabold leading-[1.05] tracking-[-0.02em] sm:text-[1.35rem] md:text-2xl">
+            {item(feature.key, 'title', locale)}
+          </span>
+          <span className="mt-1.5 line-clamp-2 text-[0.85rem] leading-snug text-white/65 md:text-[0.92rem]">
+            {item(feature.key, 'desc', locale)}
+          </span>
         </span>
       </motion.span>
     </a>
@@ -257,7 +277,7 @@ function SmallTile({ feature, href, locale }: TileProps) {
 }
 
 function Icon({ src, size = 'md' }: { src: string; size?: 'md' | 'lg' }) {
-  const box = size === 'lg' ? 'h-16 w-16 md:h-20 md:w-20' : 'h-12 w-12';
+  const box = size === 'lg' ? 'h-20 w-20 md:h-24 md:w-24' : 'h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16';
   return (
     <span className={`benefit-float relative flex flex-none items-center justify-center rounded-2xl bg-white/15 backdrop-blur ${box} transition-transform duration-300 group-hover:scale-110`}>
       <img
