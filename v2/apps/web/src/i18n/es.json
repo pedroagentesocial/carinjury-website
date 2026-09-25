@@ -936,37 +936,43 @@
         "title": "Evaluación inicial sin costo",
         "aria_label": "Evaluación inicial sin costo - Ir al formulario",
         "desc": "Te revisamos y armamos tu plan antes de que pagues nada.",
-        "mark": "$0"
+        "mark": "$0",
+        "em": "sin costo"
       },
       "free_transport": {
         "title": "Transporte sin costo",
         "aria_label": "Transporte sin costo - Ver servicios de transporte",
         "desc": "Si no tienes cómo llegar, coordinamos tu transporte.",
-        "mark": "0 costo"
+        "mark": "0 costo",
+        "em": "sin costo"
       },
       "same_day": {
         "title": "Atención hoy mismo",
         "aria_label": "Atención hoy mismo - Agendar cita",
         "desc": "Agenda hoy y te atendemos sin semanas de espera.",
-        "mark": "Hoy"
+        "mark": "Hoy",
+        "em": "hoy mismo"
       },
       "xray": {
         "title": "X-Ray el mismo día",
         "aria_label": "X-Ray el mismo día - Ver servicios de radiografías",
         "desc": "Radiografías en la clínica, sin mandarte a otro lugar.",
-        "mark": "X-Ray"
+        "mark": "X-Ray",
+        "em": "el mismo día"
       },
       "languages": {
         "title": "Hablamos español e inglés",
         "aria_label": "Atención bilingüe - Ver servicios bilingües",
         "desc": "Todo el proceso en tu idioma, de principio a fin.",
-        "mark": "ES/EN"
+        "mark": "ES/EN",
+        "em": "español e inglés"
       },
       "legal_guidance": {
         "title": "Orientación legal sin costo",
         "aria_label": "Orientación legal sin costo - Ver servicios legales",
         "desc": "Te conectamos con abogados que conocen tu tipo de caso.",
-        "mark": "Legal"
+        "mark": "Legal",
+        "em": "sin costo"
       }
     }
   },

@@ -38,6 +38,7 @@ export default {
         heading: 'var(--font-heading)',
         body: 'var(--font-body)',
         display: 'var(--font-display)',
+        'serif-display': 'var(--font-serif-display)',
       },
       borderRadius: {
         DEFAULT: 'var(--radius)',

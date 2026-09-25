@@ -74,13 +74,18 @@ export default function FeatureIcons({ locale }: Props) {
             className="pointer-events-none absolute inset-0 -z-10 opacity-[0.07] [background-image:radial-gradient(rgba(255,255,255,0.7)_1px,transparent_1px)] [background-size:24px_24px]"
           />
 
-          <header className="mb-8 flex flex-col gap-4 md:mb-10 lg:flex-row lg:items-end lg:justify-between">
-            <h2 className="font-display text-[clamp(1.75rem,8.5vw,2.3rem)] font-extrabold leading-[1] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
+          <header className="mb-8 flex flex-col gap-4 md:mb-10 xl:flex-row xl:items-end xl:justify-between">
+            {/* Dos voces: grotesca blanca + serif cursiva rosa para la palabra que rota */}
+            <h2 className="text-[clamp(2.1rem,9.5vw,2.9rem)] leading-[0.98] sm:text-6xl lg:text-[4.6rem] xl:text-[5.2rem]">
               <span className="sr-only">{t('feature_icons.title', locale)}</span>
               <span aria-hidden="true">
-                {t('feature_icons.title_lead', locale)}
+                <span className="font-display font-extrabold tracking-[-0.035em] text-white">
+                  {t('feature_icons.title_lead', locale)}
+                </span>
                 <br />
-                <RotatingWord words={rotating} />
+                <span className="font-serif-display font-semibold italic tracking-[-0.01em] text-secondary">
+                  <RotatingWord words={rotating} />
+                </span>
               </span>
             </h2>
             <p className="max-w-sm text-[1.02rem] leading-relaxed text-white/70">
@@ -194,8 +199,8 @@ function FeaturedTile({
         >
           <Icon src={feature.icon} size="lg" />
           <span className="mt-auto pt-8">
-            <span className="block max-w-md font-display text-3xl font-extrabold leading-[1.02] tracking-[-0.02em] md:text-[2.6rem]">
-              {item(feature.key, 'title', locale)}
+            <span className="block max-w-md text-[2.1rem] leading-[1.02] md:text-5xl">
+              <DualTitle featureKey={feature.key} locale={locale} emClass="text-white" />
             </span>
             <span className="mt-3 block max-w-xs text-base leading-snug text-white/85">
               {item(feature.key, 'desc', locale)}
@@ -264,8 +269,8 @@ function SmallTile({ feature, href, locale, upNext }: TileProps & { upNext: bool
           </AnimatePresence>
         </span>
         <span className="mt-auto block pt-4">
-          <span className="block font-display text-[1.2rem] font-extrabold leading-[1.05] tracking-[-0.02em] sm:text-[1.35rem] md:text-2xl">
-            {item(feature.key, 'title', locale)}
+          <span className="block text-[1.3rem] leading-[1.05] sm:text-[1.45rem] md:text-[1.7rem]">
+            <DualTitle featureKey={feature.key} locale={locale} emClass="text-secondary" />
           </span>
           <span className="mt-1.5 line-clamp-2 text-[0.85rem] leading-snug text-white/65 md:text-[0.92rem]">
             {item(feature.key, 'desc', locale)}
@@ -273,6 +278,28 @@ function SmallTile({ feature, href, locale, upNext }: TileProps & { upNext: bool
         </span>
       </motion.span>
     </a>
+  );
+}
+
+/**
+ * Titulo a dos voces: la frase clave (`em` en i18n) va en serif cursiva y con
+ * color propio; el resto en la grotesca blanca. Si `em` no aparece en el
+ * titulo, cae al titulo entero en una sola voz.
+ */
+function DualTitle({ featureKey, locale, emClass }: { featureKey: string; locale: Locale; emClass: string }) {
+  const title = item(featureKey, 'title', locale);
+  const em = item(featureKey, 'em', locale);
+  const at = title.indexOf(em);
+  const plain = 'font-display font-extrabold tracking-[-0.02em] text-white';
+
+  if (at < 0) return <span className={plain}>{title}</span>;
+
+  return (
+    <>
+      {at > 0 && <span className={plain}>{title.slice(0, at)}</span>}
+      <span className={`font-serif-display text-[1.08em] font-semibold italic tracking-[-0.01em] ${emClass}`}>{em}</span>
+      {at + em.length < title.length && <span className={plain}>{title.slice(at + em.length)}</span>}
+    </>
   );
 }
 
@@ -303,9 +330,9 @@ function RotatingWord({ words, interval = 2200 }: { words: string[]; interval?: 
   }, [reduce, words.length, interval]);
 
   return (
-    <span className="relative inline-grid overflow-hidden align-bottom text-secondary">
+    <span className="relative inline-grid overflow-hidden pr-[0.12em] align-bottom">
       {/* Reserva el ancho de la palabra mas larga para que el layout no salte */}
-      <span className="invisible col-start-1 row-start-1">
+      <span className="invisible col-start-1 row-start-1 pb-[0.08em]">
         {words.reduce((a, b) => (b.length > a.length ? b : a))}
       </span>
       <AnimatePresence mode="popLayout" initial={false}>
