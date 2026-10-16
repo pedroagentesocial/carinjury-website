@@ -840,3 +840,274 @@ li:nth-child(3n) .benefit-float { animation-delay: -2.6s; }
 html.promo-open chat-widget {
   visibility: hidden !important;
 }
+
+/* ============================================================
+   Blog — bloques gráficos reutilizables desde el markdown.
+   Astro permite HTML dentro de .md, así que los artículos usan
+   estas clases para no ser sólo párrafos: tarjetas de dato,
+   línea de tiempo, comparativas, barras y checklists.
+   Prefijo `pa-` = prose article.
+   ============================================================ */
+
+/* --- Imagen + pie de foto --- */
+.prose-article img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius, 14px);
+  border: 1px solid var(--line);
+}
+.pa-figure { margin: 2em 0; }
+.pa-figure figcaption {
+  margin-top: 0.6em;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* --- Tarjetas de dato (números grandes) --- */
+.pa-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.85rem;
+  margin: 2em 0;
+}
+.pa-stat {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius, 14px);
+  padding: 1.15rem 1rem;
+  text-align: center;
+}
+.pa-stat-num {
+  display: block;
+  font-family: var(--font-heading, inherit);
+  font-size: clamp(1.7rem, 5vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--c-purple);
+}
+.pa-stat-label {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.83rem;
+  line-height: 1.4;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* --- Barras de porcentaje (mini gráfico) --- */
+.pa-bars { margin: 2em 0; display: grid; gap: 0.9rem; }
+.pa-bar-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.35rem;
+}
+.pa-bar-label span:last-child { color: var(--c-purple); }
+.pa-bar-track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.pa-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--c-purple), var(--c-rose));
+}
+
+/* --- Línea de tiempo vertical --- */
+.pa-timeline {
+  margin: 2em 0;
+  padding-left: 1.6rem;
+  border-left: 2px solid var(--line);
+  display: grid;
+  gap: 1.35rem;
+}
+.pa-step { position: relative; }
+.pa-step::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.6rem - 6px);
+  top: 0.45rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: var(--c-purple);
+  box-shadow: 0 0 0 4px rgba(122, 46, 135, 0.14);
+}
+.pa-step-when {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--c-purple);
+}
+.pa-step-title {
+  margin: 0.2rem 0 0.25rem;
+  font-family: var(--font-heading, inherit);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.pa-step p { margin: 0; font-size: 0.94rem; color: #353846; }
+
+/* --- Comparativa a dos columnas (sí / no) --- */
+.pa-compare {
+  display: grid;
+  gap: 0.85rem;
+  margin: 2em 0;
+}
+@media (min-width: 640px) { .pa-compare { grid-template-columns: 1fr 1fr; } }
+.pa-col {
+  border: 1px solid var(--line);
+  border-radius: var(--radius, 14px);
+  padding: 1.1rem 1.15rem;
+  background: #fff;
+}
+.pa-col-good { border-color: rgba(16, 185, 129, 0.35); background: rgba(16, 185, 129, 0.05); }
+.pa-col-bad  { border-color: rgba(220, 38, 38, 0.28);  background: rgba(220, 38, 38, 0.04); }
+.pa-col h4 {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-heading, inherit);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.pa-col ul { margin: 0; padding: 0; list-style: none; }
+.pa-col li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #353846;
+}
+.pa-col li::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 800;
+}
+.pa-col-good li::before { content: "✓"; color: var(--success); }
+.pa-col-bad  li::before { content: "✕"; color: var(--danger); }
+
+/* --- Checklist --- */
+.pa-check {
+  margin: 2em 0;
+  padding: 1.2rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius, 14px);
+  background: var(--surface-2);
+}
+.pa-check h4 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-heading, inherit);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.pa-check ul { margin: 0; padding: 0; list-style: none; }
+.pa-check li {
+  position: relative;
+  padding-left: 1.85rem;
+  margin-top: 0.55rem;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: #353846;
+}
+.pa-check li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 5px;
+  border: 2px solid var(--c-purple);
+  background:
+    linear-gradient(45deg, transparent 45%, var(--c-purple) 45%, var(--c-purple) 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, var(--c-purple) 45%, var(--c-purple) 55%, transparent 55%);
+  background-size: 62% 62%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* --- Callout / aviso --- */
+.pa-note {
+  margin: 2em 0;
+  display: flex;
+  gap: 0.85rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: var(--radius, 14px);
+  border: 1px solid rgba(122, 46, 135, 0.22);
+  background: rgba(122, 46, 135, 0.05);
+}
+.pa-note-alert {
+  border-color: rgba(220, 38, 38, 0.28);
+  background: rgba(220, 38, 38, 0.05);
+}
+.pa-note-icon { font-size: 1.25rem; line-height: 1.3; flex: 0 0 auto; }
+.pa-note p { margin: 0; font-size: 0.94rem; line-height: 1.6; color: #353846; }
+.pa-note p + p { margin-top: 0.5rem; }
+
+/* --- Tabla con scroll horizontal en móvil --- */
+.pa-table-wrap { margin: 2em 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.pa-table-wrap table {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.pa-table-wrap th,
+.pa-table-wrap td {
+  text-align: left;
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.pa-table-wrap th {
+  background: var(--surface-2);
+  font-family: var(--font-heading, inherit);
+  font-weight: 800;
+  color: var(--ink);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.pa-table-wrap td { color: #353846; }
+.pa-table-wrap tr:last-child td { border-bottom: 0; }
+
+/* --- Fuentes citadas --- */
+.pa-sources {
+  margin: 2.5em 0 0;
+  padding: 1.15rem 1.25rem;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius, 14px);
+  background: #fff;
+}
+.pa-sources h4 {
+  margin: 0 0 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.pa-sources ol { margin: 0; padding-left: 1.2rem; }
+.pa-sources li {
+  font-size: 0.83rem;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+.pa-sources a { color: var(--c-purple); font-weight: 600; }

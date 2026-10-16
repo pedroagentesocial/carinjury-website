@@ -3,11 +3,22 @@ import PageShell from '@layouts/PageShell.astro';
 import { getCollection } from 'astro:content';
 import { getPageMeta, buildBreadcrumbSchema, absoluteUrl } from '@lib/seo';
 
-export const prerender = true;
+export const prerender = false;
+
+/* Publicacion automatica: el articulo aparece solo cuando su publishDate ya paso.
+   Se renderiza en servidor (no en build) para no depender de un redeploy. */
+Astro.response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=1800, stale-while-revalidate=86400');
+
+const now = Date.now();
 
 const meta = getPageMeta('blog', 'en');
 
-const posts = (await getCollection('blog', (e) => e.data.lang === 'en' && !e.data.draft)).sort(
+const posts = (
+  await getCollection(
+    'blog',
+    (e) => e.data.lang === 'en' && !e.data.draft && e.data.publishDate.getTime() <= now,
+  )
+).sort(
   (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
 );
 

@@ -4,22 +4,36 @@ import { getCollection, render } from 'astro:content';
 import { SITE } from '@lib/site';
 import { buildArticleSchema, buildBreadcrumbSchema, absoluteUrl } from '@lib/seo';
 
-export const prerender = true;
+export const prerender = false;
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog', (e) => e.data.lang === 'en' && !e.data.draft);
-  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }));
-}
+/* Publicacion automatica: la URL responde solo si publishDate ya paso.
+   Antes de esa fecha el articulo existe en el repo pero devuelve 404. */
+Astro.response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=1800, stale-while-revalidate=86400');
 
-const { post } = Astro.props;
+const now = Date.now();
+const all = await getCollection('blog');
+const post = all.find(
+  (e) =>
+    e.data.lang === 'en' &&
+    !e.data.draft &&
+    e.data.slug === Astro.params.slug &&
+    e.data.publishDate.getTime() <= now,
+);
+if (!post) return Astro.rewrite('/404');
+
 const data = post.data;
 const { Content } = await render(post);
 
 const url = `/en/blog/${data.slug}`;
 
 /* hreflang: traducción ES con el mismo translationKey */
-const all = await getCollection('blog');
-const alt = all.find((e) => e.data.translationKey === data.translationKey && e.data.lang === 'es');
+const alt = all.find(
+  (e) =>
+    e.data.translationKey === data.translationKey &&
+    e.data.lang === 'es' &&
+    !e.data.draft &&
+    e.data.publishDate.getTime() <= now,
+);
 const alternateUrl = alt ? absoluteUrl(`/blog/${alt.data.slug}`) : undefined;
 
 const articleSchema = buildArticleSchema({

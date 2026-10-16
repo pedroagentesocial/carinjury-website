@@ -37,3 +37,4 @@ Crawl-delay: 10
 
 # Sitemap
 Sitemap: https://carinjuryclinics.com/sitemap-index.xml
+Sitemap: https://carinjuryclinics.com/sitemap-blog.xml

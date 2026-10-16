@@ -99,8 +99,7 @@ export function navLinks(locale: Locale): NavItem[] {
     { href: `${prefix || '/'}`, key: 'nav.home' },
     { href: `${prefix}/services`, key: 'nav.services' },
     { href: `${prefix}/lawyer-approved`, key: 'nav.legal_assistance' },
-    { href: `${prefix}/aboutus`, key: 'nav.about' },
-    { href: `${prefix}/blog`, key: 'nav.blog' },
+    { href: `${prefix}/aboutus`, key: 'nav.about' },
     {
       key: 'nav.patients',
       children: [

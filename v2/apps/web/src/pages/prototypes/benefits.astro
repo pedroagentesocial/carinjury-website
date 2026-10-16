@@ -1,0 +1,113 @@
+---
+// Vista previa LOCAL de 3 prototipos para la seccion "Beneficios reales".
+// No se publica: en produccion responde 404.
+import Layout from '@layouts/Layout.astro';
+import ProtoEditorial from '@components/sections/benefits-protos/ProtoEditorial';
+import ProtoBento from '@components/sections/benefits-protos/ProtoBento';
+import ProtoMarquee from '@components/sections/benefits-protos/ProtoMarquee';
+
+if (import.meta.env.PROD) {
+  return new Response(null, { status: 404 });
+}
+
+const protos = [
+  { id: 'a', label: 'A · Editorial', font: 'Fraunces (serif)', motion: 'Titulo que sube palabra por palabra, divisores que se dibujan, filas que se deslizan' },
+  { id: 'b', label: 'B · Bento rotativo', font: 'Bricolage Grotesque', motion: 'Carrusel infinito: el siguiente beneficio crece y toma el cuadro grande; se pausa con el cursor encima' },
+  { id: 'c', label: 'C · Cinta + carrusel', font: 'Unbounded', motion: 'Cinta de texto infinita, borde de luz giratorio, carrusel deslizable en movil' },
+];
+---
+
+<Layout title="Prototipos · Beneficios">
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Unbounded:wght@500..800&display=swap"
+  />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <nav class="sticky top-0 z-50 border-b border-black/5 bg-white/85 backdrop-blur">
+    <div class="mx-auto flex max-w-[1400px] items-center gap-2 overflow-x-auto px-4 py-3 text-sm font-semibold [scrollbar-width:none]">
+      <span class="mr-2 whitespace-nowrap text-ink/50">Prototipos:</span>
+      {protos.map((p) => (
+        <a href={`#${p.id}`} class="whitespace-nowrap rounded-full bg-[#CEC6E2]/40 px-3.5 py-1.5 text-[var(--c-deep)] transition hover:bg-[#CEC6E2]">
+          {p.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  <main>
+    {protos.map((p) => (
+      <div id={p.id} class="scroll-mt-14">
+        <div class="mx-auto max-w-[1400px] px-4 pt-12 md:px-6 lg:px-8">
+          <p class="font-heading text-2xl font-extrabold text-[var(--c-deep)]">{p.label}</p>
+          <p class="mt-1 text-sm text-ink/60">
+            Tipografia: <strong>{p.font}</strong> · Movimiento: {p.motion}
+          </p>
+        </div>
+        {p.id === 'a' && <ProtoEditorial client:visible />}
+        {p.id === 'b' && <ProtoBento client:visible />}
+        {p.id === 'c' && <ProtoMarquee client:visible />}
+      </div>
+    ))}
+  </main>
+</Layout>
+
+<style is:global>
+  /* B — iconos que flotan (desfasados por posicion para que no se muevan en bloque) */
+  @keyframes proto-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .proto-float { animation: proto-float 4s ease-in-out infinite; }
+  a:nth-child(2n) .proto-float { animation-delay: -1.3s; }
+  a:nth-child(3n) .proto-float { animation-delay: -2.6s; }
+
+  /* B — barra de progreso del destacado (la duracion llega inline desde el componente) */
+  @keyframes proto-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  .proto-progress { animation-name: proto-progress; animation-timing-function: linear; animation-fill-mode: forwards; }
+
+  /* C — cinta infinita: dos copias iguales, cada una se desplaza su propio ancho */
+  @keyframes proto-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+  .proto-marquee { animation: proto-marquee 28s linear infinite; }
+
+  /* C — borde de luz giratorio con conic-gradient animado via @property */
+  @property --proto-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes proto-spin { to { --proto-angle: 360deg; } }
+  .proto-ring {
+    background: conic-gradient(from var(--proto-angle), rgba(255,255,255,0.12) 0deg, var(--c-rose) 60deg, rgba(255,255,255,0.12) 140deg, rgba(255,255,255,0.12) 360deg);
+    animation: proto-spin 6s linear infinite;
+  }
+  .proto-ring:hover { animation-duration: 2s; }
+
+  /* C — anillo que late alrededor del icono */
+  @keyframes proto-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(186, 147, 194, 0.55); }
+    100% { box-shadow: 0 0 0 16px rgba(186, 147, 194, 0); }
+  }
+  .proto-pulse { animation: proto-pulse 2.4s ease-out infinite; }
+
+  /* A — grano sutil sobre el morado */
+  .proto-grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proto-float, .proto-marquee, .proto-ring, .proto-pulse { animation: none; }
+  }
+</style>

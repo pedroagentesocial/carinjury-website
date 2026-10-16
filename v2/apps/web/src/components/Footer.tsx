@@ -162,6 +162,16 @@ export default function Footer({ locale }: Props) {
                   </a>
                 </li>
               ))}
+              {/* Blog: unica entrada al blog — a proposito NO va en el nav principal. */}
+              <li>
+                <a
+                  href={`${prefix}/blog`}
+                  className="group inline-flex items-center gap-2 text-white/80 transition hover:text-secondary"
+                >
+                  <span className="h-px w-0 bg-secondary transition-all duration-300 group-hover:w-4" />
+                  Blog
+                </a>
+              </li>
               {/* Hub de ubicaciones (no va en el nav; se enlaza desde el footer) */}
               <li>
                 <a
