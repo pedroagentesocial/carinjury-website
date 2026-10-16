@@ -9,14 +9,14 @@ endpoint Astro en modo SSR.
 1. **Importa el repo en Vercel** (`https://vercel.com/new`).
 2. En el wizard de importación:
    - **Framework Preset**: Astro (auto-detecta)
-   - **Root Directory**: `v2` (NO la raíz del repo)
+   - **Root Directory**: vacío (la raíz del repo). Hasta oct-2026 era `v2`; la v1 se archivó en el tag `v1-final`
    - **Build Command**: `pnpm build`
    - **Install Command**: `pnpm install --frozen-lockfile`
    - **Output Directory**: deja por defecto (Astro lo maneja)
 3. Pega las variables de entorno (ver sección abajo).
 4. Deploy.
 
-El `v2/vercel.json` ya tiene el `framework`, `buildCommand`, etc. configurados.
+El `vercel.json` ya tiene el `framework`, `buildCommand`, etc. configurados.
 
 ## Variables de entorno en Vercel
 
@@ -140,7 +140,7 @@ contra él. Para forzar build real:
 # Local dev
 
 ```bash
-cd v2
+cd carinjury2
 pnpm install
 pnpm dev              # arranca solo web en :4321 (incluye los /api/*)
 ```
@@ -159,4 +159,4 @@ pnpm check-i18n       # paridad es ↔ en y duplicados
 pnpm build            # genera el output Vercel
 ```
 
-El GitHub Action `.github/workflows/v2-check.yml` corre estos 3 en cada PR.
+El GitHub Action `.github/workflows/check.yml` corre estos 3 en cada PR.
