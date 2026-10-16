@@ -57,9 +57,8 @@ export default function Nav({ locale, currentPath }: Props) {
 
   return (
     <motion.nav
-      initial={{ y: -24, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+      // Sin animación de entrada: con initial opacity 0 el SSR pintaba el nav
+      // invisible hasta que hidrataba React.
       className="fixed inset-x-0 top-0 z-50"
       aria-label="Primary"
     >

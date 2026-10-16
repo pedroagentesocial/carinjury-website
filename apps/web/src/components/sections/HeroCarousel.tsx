@@ -253,7 +253,8 @@ export default function HeroCarousel({ locale }: Props) {
           opacity: contentOpacity,
         }}
       >
-        <AnimatePresence mode="wait">
+        {/* initial={false}: el primer slide se pinta visible desde el SSR, sin esperar a hidratar */}
+        <AnimatePresence mode="wait" initial={false}>
           {isImageSlide ? null : slide.showContent ? (
             <motion.div
               key={index}
