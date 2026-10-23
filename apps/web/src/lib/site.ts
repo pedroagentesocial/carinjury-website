@@ -32,7 +32,7 @@ export const SITE = {
     display: '385-242-8571',
     displayLong: '+1 (385) 242-8571',
   },
-  email: 'info@carinjuryclinic.com',
+  email: 'support@carinjuryclinic.com',
   address: {
     street: '2997 W 4700 S',
     city: 'Taylorsville',
