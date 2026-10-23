@@ -89,6 +89,8 @@ export default function Recaptcha({ siteKey, onVerify, onExpire, theme = 'light'
   }, [siteKey, onVerify, onExpire, theme]);
 
   if (!siteKey) {
+    /* En producción no mostramos el aviso de dev a los visitantes */
+    if (!import.meta.env.DEV) return null;
     return (
       <div className="rounded-lg border border-amber-400/40 bg-amber-50 px-3 py-2 text-xs text-amber-800">
         ⚠️ <code>PUBLIC_RECAPTCHA_SITE_KEY</code> no configurada — captcha desactivado en dev.

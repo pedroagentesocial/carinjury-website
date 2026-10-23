@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState, type FormEvent } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { PatientReferralSchema, type PatientReferral, type Locale } from '@carinjury/shared';
+import { PatientReferralSchema, isAccidentBeforeBirth, type PatientReferral, type Locale } from '@carinjury/shared';
 import { submitReferral } from '@lib/api-client';
 import { t, translations, type TranslationKey } from '@i18n/index';
 import { Icon, type IconName } from '@components/ui/Icon';
@@ -66,9 +66,20 @@ const ERROR_MSGS: Record<Locale, Record<string, string>> = {
   es: {
     field_required: 'Campo obligatorio o demasiado corto.',
     name_too_short: 'Nombre demasiado corto.',
-    phone_too_short: 'Teléfono inválido (mínimo 7 dígitos).',
+    phone_too_short: 'Teléfono inválido (10 dígitos, con código de área).',
     phone_invalid: 'Teléfono inválido (solo números y símbolos + ( ) -).',
     email_invalid: 'Correo inválido.',
+    address_invalid: 'Dirección inválida (5 a 120 caracteres; solo letras, números y . , # / -).',
+    address_number: 'Incluye el número de la casa o edificio.',
+    city_invalid: 'Ciudad inválida (solo letras, máximo 60 caracteres).',
+    state_invalid: 'Estado/condado inválido (solo letras, máximo 40 caracteres).',
+    zip_invalid: 'Código postal inválido (5 dígitos, ej. 84129).',
+    insurance_invalid: 'Nombre inválido (letras, números y . , & -).',
+    policy_invalid: 'Número inválido (solo letras, números y guiones, 2 a 30 caracteres).',
+    name_invalid: 'Nombre inválido (solo letras).',
+    date_invalid: 'Fecha inválida.',
+    date_future: 'La fecha no puede ser posterior a hoy.',
+    date_before_birth: 'La fecha del accidente no puede ser anterior a la de nacimiento.',
     consent_required: 'Debes aceptar el consentimiento.',
     validation_failed: 'Revisa los campos del paso actual.',
     webhook_unreachable: 'No pudimos enviar. Intenta de nuevo.',
@@ -78,9 +89,20 @@ const ERROR_MSGS: Record<Locale, Record<string, string>> = {
   en: {
     field_required: 'Required field or too short.',
     name_too_short: 'Name too short.',
-    phone_too_short: 'Invalid phone (minimum 7 digits).',
+    phone_too_short: 'Invalid phone (10 digits, including area code).',
     phone_invalid: 'Invalid phone (only numbers and symbols + ( ) -).',
     email_invalid: 'Invalid email.',
+    address_invalid: 'Invalid address (5 to 120 characters; letters, numbers and . , # / - only).',
+    address_number: 'Include the house or building number.',
+    city_invalid: 'Invalid city (letters only, 60 characters max).',
+    state_invalid: 'Invalid state/county (letters only, 40 characters max).',
+    zip_invalid: 'Invalid ZIP code (5 digits, e.g. 84129).',
+    insurance_invalid: 'Invalid name (letters, numbers and . , & - only).',
+    policy_invalid: 'Invalid number (letters, numbers and dashes only, 2 to 30 characters).',
+    name_invalid: 'Invalid name (letters only).',
+    date_invalid: 'Invalid date.',
+    date_future: 'The date cannot be later than today.',
+    date_before_birth: 'The accident date cannot be before the date of birth.',
     consent_required: 'You must accept the consent.',
     validation_failed: 'Please review the current step.',
     webhook_unreachable: 'Could not submit. Please try again.',
@@ -200,15 +222,19 @@ export default function PatientReferralForm({ locale }: Props) {
 
   function validateCurrent(): boolean {
     const parsed = PatientReferralSchema.safeParse(data);
-    if (parsed.success) return true;
-    const issue = parsed.error.issues.find((i) =>
-      current.fields.includes(i.path[0] as keyof PatientReferral),
-    );
+    const issue = parsed.success
+      ? undefined
+      : parsed.error.issues.find((i) => current.fields.includes(i.path[0] as keyof PatientReferral));
     if (issue) {
       const fieldKey = issue.path[0] as keyof PatientReferral;
       const fieldLabel = FIELD_LABELS[locale][fieldKey] ?? String(fieldKey);
       const detail = ERROR_MSGS[locale][issue.message] ?? ERROR_MSGS[locale].validation_failed!;
       setErrorMsg(`${fieldLabel} → ${detail}`);
+      return false;
+    }
+    /* El superRefine no corre mientras haya errores en pasos siguientes */
+    if (current.fields.includes('accident_date') && isAccidentBeforeBirth(data)) {
+      setErrorMsg(`${FIELD_LABELS[locale].accident_date} → ${ERROR_MSGS[locale].date_before_birth}`);
       return false;
     }
     return true;
@@ -423,6 +449,12 @@ interface StepProps {
   set: <K extends keyof PatientReferral>(key: K, value: PatientReferral[K]) => void;
 }
 
+/** Hoy en YYYY-MM-DD local, para el atributo max de los inputs de fecha. */
+function todayISO(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 const INPUT =
   'w-full rounded-lg border border-line bg-white px-4 py-2.5 text-ink shadow-sm transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20';
 
@@ -450,7 +482,7 @@ function StepPatient({ locale, data, set }: StepProps) {
         <input className={INPUT} required value={data.last_name} onChange={(e) => set('last_name', e.target.value)} />
       </Field>
       <Field label={`${fields.date_of_birth} *`}>
-        <input className={INPUT} type="date" required value={data.date_of_birth} onChange={(e) => set('date_of_birth', e.target.value)} />
+        <input className={INPUT} type="date" required min="1900-01-01" max={todayISO()} value={data.date_of_birth} onChange={(e) => set('date_of_birth', e.target.value)} />
       </Field>
       <Field label={`${fields.gender} *`}>
         <select className={INPUT} value={data.gender} onChange={(e) => set('gender', e.target.value as PatientReferral['gender'])}>
@@ -469,22 +501,31 @@ function StepAddress({ locale, data, set }: StepProps) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <Field label={`${a.address} *`}>
-        <input className={INPUT} required value={data.address} onChange={(e) => set('address', e.target.value)} />
+        <input className={INPUT} required maxLength={120} autoComplete="address-line1" value={data.address} onChange={(e) => set('address', e.target.value)} />
       </Field>
       <Field label={a.address2}>
-        <input className={INPUT} value={data.address2 ?? ''} onChange={(e) => set('address2', e.target.value)} />
+        <input className={INPUT} maxLength={60} autoComplete="address-line2" value={data.address2 ?? ''} onChange={(e) => set('address2', e.target.value)} />
       </Field>
       <Field label={`${a.city} *`}>
-        <input className={INPUT} required value={data.city} onChange={(e) => set('city', e.target.value)} />
+        <input className={INPUT} required maxLength={60} autoComplete="address-level2" value={data.city} onChange={(e) => set('city', e.target.value)} />
       </Field>
       <Field label={`${a.state} *`}>
-        <input className={INPUT} required value={data.state} onChange={(e) => set('state', e.target.value)} />
+        <input className={INPUT} required maxLength={40} autoComplete="address-level1" value={data.state} onChange={(e) => set('state', e.target.value)} />
       </Field>
       <Field label={`${a.zip} *`}>
-        <input className={INPUT} required value={data.zip} onChange={(e) => set('zip', e.target.value)} />
+        <input
+          className={INPUT}
+          required
+          inputMode="numeric"
+          autoComplete="postal-code"
+          maxLength={10}
+          placeholder="84129"
+          value={data.zip}
+          onChange={(e) => set('zip', e.target.value.replace(/[^\d-]/g, ''))}
+        />
       </Field>
       <Field label={`${c.cell_phone} *`}>
-        <input className={INPUT} type="tel" required inputMode="tel" value={data.cell_phone} onChange={(e) => set('cell_phone', e.target.value)} />
+        <input className={INPUT} type="tel" required inputMode="tel" maxLength={25} autoComplete="tel" value={data.cell_phone} onChange={(e) => set('cell_phone', e.target.value)} />
       </Field>
       <Field label={c.email}>
         <input className={INPUT} type="email" value={data.email ?? ''} onChange={(e) => set('email', e.target.value)} />
@@ -499,7 +540,7 @@ function StepIncident({ locale, data, set }: StepProps) {
     <div className="grid gap-4">
       <div className="grid gap-4 md:grid-cols-2">
         <Field label={`${f.accident_date} *`}>
-          <input className={INPUT} type="date" required value={data.accident_date} onChange={(e) => set('accident_date', e.target.value)} />
+          <input className={INPUT} type="date" required min={data.date_of_birth || '1900-01-01'} max={todayISO()} value={data.accident_date} onChange={(e) => set('accident_date', e.target.value)} />
         </Field>
         <Field label={`${f.accident_type} *`}>
           <select className={INPUT} value={data.accident_type} onChange={(e) => set('accident_type', e.target.value as PatientReferral['accident_type'])}>
@@ -531,13 +572,13 @@ function StepInsurance({ locale, data, set }: StepProps) {
     <div className="grid gap-4">
       <div className="grid gap-4 md:grid-cols-2">
         <Field label={i.insurance_name}>
-          <input className={INPUT} value={data.insurance_name ?? ''} onChange={(e) => set('insurance_name', e.target.value)} />
+          <input className={INPUT} maxLength={80} value={data.insurance_name ?? ''} onChange={(e) => set('insurance_name', e.target.value)} />
         </Field>
         <Field label={i.policy_number}>
-          <input className={INPUT} value={data.policy_number ?? ''} onChange={(e) => set('policy_number', e.target.value)} />
+          <input className={INPUT} maxLength={30} value={data.policy_number ?? ''} onChange={(e) => set('policy_number', e.target.value)} />
         </Field>
         <Field label={i.claim_number}>
-          <input className={INPUT} value={data.claim_number ?? ''} onChange={(e) => set('claim_number', e.target.value)} />
+          <input className={INPUT} maxLength={30} value={data.claim_number ?? ''} onChange={(e) => set('claim_number', e.target.value)} />
         </Field>
         <Field label={inc.legal_representation}>
           <select className={INPUT} value={data.legal_representation} onChange={(e) => set('legal_representation', e.target.value as 'yes' | 'no')}>
@@ -549,19 +590,19 @@ function StepInsurance({ locale, data, set }: StepProps) {
       {data.legal_representation === 'yes' && (
         <div className="grid gap-4 rounded-xl bg-surface-2 p-4 md:grid-cols-2">
           <Field label={inc.lawyer_firm_name}>
-            <input className={INPUT} value={data.lawyer_firm_name ?? ''} onChange={(e) => set('lawyer_firm_name', e.target.value)} />
+            <input className={INPUT} maxLength={120} value={data.lawyer_firm_name ?? ''} onChange={(e) => set('lawyer_firm_name', e.target.value)} />
           </Field>
           <Field label={inc.lawyer_phone}>
-            <input className={INPUT} type="tel" value={data.lawyer_phone ?? ''} onChange={(e) => set('lawyer_phone', e.target.value)} />
+            <input className={INPUT} type="tel" maxLength={25} value={data.lawyer_phone ?? ''} onChange={(e) => set('lawyer_phone', e.target.value)} />
           </Field>
         </div>
       )}
       <div className="grid gap-4 md:grid-cols-2">
         <Field label={`${ref.first_name} (${locale === 'en' ? 'referrer' : 'referido'})`}>
-          <input className={INPUT} value={data.referral_name ?? ''} onChange={(e) => set('referral_name', e.target.value)} />
+          <input className={INPUT} maxLength={80} value={data.referral_name ?? ''} onChange={(e) => set('referral_name', e.target.value)} />
         </Field>
         <Field label={ref.cell_phone}>
-          <input className={INPUT} type="tel" value={data.referral_phone ?? ''} onChange={(e) => set('referral_phone', e.target.value)} />
+          <input className={INPUT} type="tel" maxLength={25} value={data.referral_phone ?? ''} onChange={(e) => set('referral_phone', e.target.value)} />
         </Field>
       </div>
     </div>

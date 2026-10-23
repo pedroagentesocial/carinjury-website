@@ -435,7 +435,7 @@ export default function ContactForm({ locale }: Props) {
               >
                 <p className="mb-2 inline-flex items-center gap-1.5 text-[11px] font-medium text-white/65">
                   <Icon name="check" size={12} strokeWidth={3} className="text-emerald-300" />
-                  {locale === 'en' ? 'Last step: confirm you are not a robot' : 'Último paso: confirmá que no sos un robot'}
+                  {locale === 'en' ? 'Last step: confirm you are not a robot' : 'Último paso: confirma que no eres un robot'}
                 </p>
                 <div className="overflow-hidden rounded-lg bg-white/95 p-1">
                   <Recaptcha
