@@ -4,7 +4,7 @@ description: "Si tu PIP se acabó y no tienes seguro médico, la atención no ti
 lang: "es"
 slug: "tratamiento-sin-pagar-por-adelantado"
 translationKey: "no-upfront-cost"
-publishDate: 2026-11-03T11:00:00Z
+publishDate: 2026-07-29
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "carta de protección accidente, lien médico reclamo, tratamiento sin pagar por adelantado, sin seguro después de accidente, LOP cuentas médicas, clínica accidentes Salt Lake City"

@@ -4,7 +4,7 @@ description: "Las terapias pasivas alivian, pero lo que más acelera la recupera
 lang: "es"
 slug: "terapia-pasiva-vs-activa-despues-accidente"
 translationKey: "passive-active-care"
-publishDate: 2026-11-03T17:00:00Z
+publishDate: 2026-10-21
 author: "Car Injury Clinic"
 category: "Tratamiento"
 keywords: "terapia pasiva vs activa, ultrasonido terapéutico latigazo, ejercicios después de accidente de auto, TENS dolor de cuello, tratamiento latigazo cervical evidencia, rehabilitación accidente Utah"

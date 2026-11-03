@@ -4,7 +4,7 @@ description: "You are not required to give a recorded statement to the other dri
 lang: "en"
 slug: "what-to-say-insurance-adjuster"
 translationKey: "adjuster-call"
-publishDate: 2026-11-03T12:00:00Z
+publishDate: 2026-08-12
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "what to say to insurance adjuster, recorded statement car accident, should I give a recorded statement, early settlement offer car accident, adjuster called me, car accident claim Utah"

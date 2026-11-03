@@ -4,7 +4,7 @@ description: "No todo choque necesita un estudio, y el estudio equivocado no enc
 lang: "es"
 slug: "radiografia-resonancia-tomografia-accidente"
 translationKey: "imaging"
-publishDate: 2026-11-03T07:00:00Z
+publishDate: 2026-06-03
 author: "Car Injury Clinic"
 category: "Tratamiento"
 keywords: "radiografía después de accidente, resonancia magnética accidente de auto, tomografía choque, necesito una resonancia, criterios NEXUS, regla canadiense cervical, clínica Salt Lake City"

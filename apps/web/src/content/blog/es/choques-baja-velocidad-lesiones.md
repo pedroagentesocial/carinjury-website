@@ -4,7 +4,7 @@ description: "La investigación biomecánica documenta lesión cervical con camb
 lang: "es"
 slug: "choques-baja-velocidad-lesiones"
 translationKey: "low-speed"
-publishDate: 2026-11-03T08:00:00Z
+publishDate: 2026-06-17
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "choque leve dolor de cuello, accidente baja velocidad lesión, golpecito latigazo cervical, sin daño en el carro pero lesionado, delta-v latigazo, colisión de bajo impacto Utah"

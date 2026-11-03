@@ -4,7 +4,7 @@ description: "No estás obligado a dar una declaración grabada a la aseguradora
 lang: "es"
 slug: "que-decir-ajustador-seguro"
 translationKey: "adjuster-call"
-publishDate: 2026-11-03T12:00:00Z
+publishDate: 2026-08-12
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "qué decirle al ajustador de seguros, declaración grabada accidente, debo dar declaración grabada, oferta temprana acuerdo accidente, me llamó el ajustador, reclamo accidente Utah"

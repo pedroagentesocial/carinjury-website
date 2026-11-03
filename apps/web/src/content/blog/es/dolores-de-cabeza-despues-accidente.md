@@ -4,7 +4,7 @@ description: "La cefalea postraumática no es una sola condición. Distinguir un
 lang: "es"
 slug: "dolores-de-cabeza-despues-accidente"
 translationKey: "headaches"
-publishDate: 2026-11-03T14:00:00Z
+publishDate: 2026-09-09
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor de cabeza después de accidente, cefalea postraumática, cefalea cervicogénica, neuralgia occipital tras choque, migraña después del accidente, tratamiento dolor de cabeza Salt Lake City"

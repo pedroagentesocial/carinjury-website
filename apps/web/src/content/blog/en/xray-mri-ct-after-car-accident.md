@@ -4,7 +4,7 @@ description: "Not every crash needs a scan, and the wrong scan finds nothing. He
 lang: "en"
 slug: "xray-mri-ct-after-car-accident"
 translationKey: "imaging"
-publishDate: 2026-11-03T07:00:00Z
+publishDate: 2026-06-03
 author: "Car Injury Clinic"
 category: "Treatment"
 keywords: "X-ray after car accident, MRI after car accident, CT scan car crash, do I need an MRI, NEXUS criteria, Canadian C-spine rule, imaging Salt Lake City clinic"

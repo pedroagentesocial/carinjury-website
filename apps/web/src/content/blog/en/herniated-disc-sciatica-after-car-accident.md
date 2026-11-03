@@ -4,7 +4,7 @@ description: "Leg pain, tingling and weakness after a crash usually mean a nerve
 lang: "en"
 slug: "herniated-disc-sciatica-after-car-accident"
 translationKey: "herniated-disc"
-publishDate: 2026-11-03T10:00:00Z
+publishDate: 2026-07-15
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "herniated disc car accident, sciatica after car accident, leg pain after crash, bulging disc accident, radiculopathy car accident, back injury Salt Lake City"

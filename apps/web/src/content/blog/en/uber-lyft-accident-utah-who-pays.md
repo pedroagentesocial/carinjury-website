@@ -4,7 +4,7 @@ description: "In a crash involving an Uber or Lyft vehicle, the insurance that r
 lang: "en"
 slug: "uber-lyft-accident-utah-who-pays"
 translationKey: "rideshare-accident"
-publishDate: 2026-11-03T15:00:00Z
+publishDate: 2026-09-23
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "Uber accident Utah, Lyft accident Utah, who pays Uber accident, injured Uber passenger, hit by Uber driver, rideshare insurance Utah, Utah PIP rideshare"
