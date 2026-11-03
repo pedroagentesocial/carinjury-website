@@ -4,7 +4,7 @@ description: "El cinturón cruza justo sobre el hombro y la clavícula, y el dol
 lang: "es"
 slug: "dolor-de-hombro-despues-accidente"
 translationKey: "shoulder-pain"
-publishDate: 2027-03-29
+publishDate: 2026-11-03T16:00:00Z
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor de hombro después de accidente, lesión de hombro cinturón de seguridad, manguito rotador accidente de auto, separación acromioclavicular, dolor de hombro y cuello choque, lesiones accidente Utah"

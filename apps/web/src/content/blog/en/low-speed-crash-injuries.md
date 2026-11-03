@@ -4,7 +4,7 @@ description: "Biomechanics research documents cervical injury at speed changes a
 lang: "en"
 slug: "low-speed-crash-injuries"
 translationKey: "low-speed"
-publishDate: 2026-11-29
+publishDate: 2026-11-03T08:00:00Z
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "low speed car accident injury, minor accident neck pain, fender bender whiplash, no damage to car but injured, delta-v whiplash, low impact collision Utah"

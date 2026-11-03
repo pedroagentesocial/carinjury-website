@@ -4,7 +4,7 @@ description: "El dolor, hormigueo y debilidad en la pierna después de un choque
 lang: "es"
 slug: "hernia-discal-ciatica-despues-accidente"
 translationKey: "herniated-disc"
-publishDate: 2026-12-29
+publishDate: 2026-11-03T10:00:00Z
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "hernia de disco accidente de auto, ciática después del accidente, dolor de pierna tras choque, disco abultado accidente, radiculopatía accidente, lesión de espalda Salt Lake City"

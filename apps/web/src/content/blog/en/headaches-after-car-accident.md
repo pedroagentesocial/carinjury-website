@@ -4,7 +4,7 @@ description: "Post-traumatic headache is not one condition. Telling a cervicogen
 lang: "en"
 slug: "headaches-after-car-accident"
 translationKey: "headaches"
-publishDate: 2027-02-27
+publishDate: 2026-11-03T14:00:00Z
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "headache after car accident, post traumatic headache, cervicogenic headache, occipital neuralgia after crash, migraine after accident, headache treatment Salt Lake City"

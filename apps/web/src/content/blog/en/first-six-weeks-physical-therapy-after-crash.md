@@ -4,7 +4,7 @@ description: "Rest is not the treatment. Decades of whiplash research point the 
 lang: "en"
 slug: "first-six-weeks-physical-therapy-after-crash"
 translationKey: "first-six-weeks"
-publishDate: 2027-02-12
+publishDate: 2026-11-03T13:00:00Z
 author: "Car Injury Clinic"
 category: "Recovery"
 keywords: "physical therapy after car accident, whiplash rehab timeline, WAD grades, recovery plan after crash, neck exercises after accident, rehabilitation Salt Lake City"

@@ -4,7 +4,7 @@ description: "Passive therapies bring relief, but what speeds up whiplash recove
 lang: "en"
 slug: "passive-vs-active-care-after-car-accident"
 translationKey: "passive-active-care"
-publishDate: 2027-04-13
+publishDate: 2026-11-03T17:00:00Z
 author: "Car Injury Clinic"
 category: "Treatment"
 keywords: "passive vs active care, therapeutic ultrasound whiplash, exercises after car accident, TENS neck pain, whiplash treatment evidence, car accident rehab Utah"

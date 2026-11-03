@@ -4,7 +4,7 @@ description: "En un choque con un vehículo de Uber o Lyft, el seguro que respon
 lang: "es"
 slug: "accidente-uber-lyft-utah-quien-paga"
 translationKey: "rideshare-accident"
-publishDate: 2027-03-14
+publishDate: 2026-11-03T15:00:00Z
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "accidente Uber Utah, accidente Lyft Utah, seguro de Uber quién paga, pasajero lesionado Uber, chocó un Uber, seguro rideshare Utah, PIP Utah Uber"

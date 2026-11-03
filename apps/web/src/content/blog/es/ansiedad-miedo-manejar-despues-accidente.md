@@ -4,7 +4,7 @@ description: "Sobresaltarte en cada frenón o evitar la calle donde chocaste es 
 lang: "es"
 slug: "ansiedad-miedo-manejar-despues-accidente"
 translationKey: "driving-anxiety"
-publishDate: 2027-04-28
+publishDate: 2026-11-03T18:00:00Z
 author: "Car Injury Clinic"
 category: "Recuperación"
 keywords: "miedo a manejar después de un accidente, ansiedad después de un choque, estrés postraumático accidente de auto, volver a manejar después de un accidente, pesadillas después de accidente, recuperación accidente Utah"

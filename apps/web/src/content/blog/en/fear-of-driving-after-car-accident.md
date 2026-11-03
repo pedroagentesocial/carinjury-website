@@ -4,7 +4,7 @@ description: "Flinching at every hard brake or avoiding the street where you cra
 lang: "en"
 slug: "fear-of-driving-after-car-accident"
 translationKey: "driving-anxiety"
-publishDate: 2027-04-28
+publishDate: 2026-11-03T18:00:00Z
 author: "Car Injury Clinic"
 category: "Recovery"
 keywords: "fear of driving after car accident, anxiety after car crash, PTSD car accident, driving again after accident, nightmares after car accident, car accident recovery Utah"

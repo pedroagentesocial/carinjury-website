@@ -4,7 +4,7 @@ description: "El reposo no es el tratamiento. Décadas de investigación sobre l
 lang: "es"
 slug: "primeras-seis-semanas-terapia-fisica"
 translationKey: "first-six-weeks"
-publishDate: 2027-02-12
+publishDate: 2026-11-03T13:00:00Z
 author: "Car Injury Clinic"
 category: "Recuperación"
 keywords: "terapia física después de accidente, rehabilitación latigazo cervical tiempo, grados WAD, plan de recuperación tras choque, ejercicios de cuello después del accidente, rehabilitación Salt Lake City"

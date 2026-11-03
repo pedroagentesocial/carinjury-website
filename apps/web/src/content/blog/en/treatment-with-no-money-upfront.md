@@ -4,7 +4,7 @@ description: "If your PIP ran out and you have no health insurance, care does no
 lang: "en"
 slug: "treatment-with-no-money-upfront"
 translationKey: "no-upfront-cost"
-publishDate: 2027-01-13
+publishDate: 2026-11-03T11:00:00Z
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "letter of protection car accident, medical lien injury claim, treatment no money upfront, no insurance after car accident, LOP medical bills, car accident clinic Salt Lake City"

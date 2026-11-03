@@ -4,7 +4,7 @@ description: "Una interrupción en el tratamiento es la forma más fácil que ti
 lang: "es"
 slug: "interrupciones-tratamiento-danan-reclamo"
 translationKey: "treatment-gaps"
-publishDate: 2026-12-14
+publishDate: 2026-11-03T09:00:00Z
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "interrupción de tratamiento reclamo, citas perdidas seguro, hueco en el tratamiento accidente, ajustador niega causalidad, continuidad de atención lesión, reclamo accidente Utah"

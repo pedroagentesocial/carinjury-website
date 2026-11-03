@@ -4,7 +4,7 @@ description: "A break in medical treatment is the single easiest way for an adju
 lang: "en"
 slug: "gaps-in-treatment-hurt-your-claim"
 translationKey: "treatment-gaps"
-publishDate: 2026-12-14
+publishDate: 2026-11-03T09:00:00Z
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "gap in treatment personal injury, missed appointments insurance claim, treatment gap car accident, adjuster denies causation, continuity of care injury claim, car accident claim Utah"

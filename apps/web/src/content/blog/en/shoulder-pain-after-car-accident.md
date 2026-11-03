@@ -4,7 +4,7 @@ description: "The seatbelt crosses right over your shoulder and collarbone, and 
 lang: "en"
 slug: "shoulder-pain-after-car-accident"
 translationKey: "shoulder-pain"
-publishDate: 2027-03-29
+publishDate: 2026-11-03T16:00:00Z
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "shoulder pain after car accident, seatbelt shoulder injury, rotator cuff car accident, AC joint separation, shoulder and neck pain after crash, car accident injury Utah"
