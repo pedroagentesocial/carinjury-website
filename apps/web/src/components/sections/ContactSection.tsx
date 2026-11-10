@@ -22,7 +22,7 @@ export default function ContactSection({ locale, bgClass = 'bg-deep' }: Props) {
     ? [
         { icon: 'sparkles',    label: 'Same-day X-Ray and diagnosis' },
         { icon: 'clock',       label: 'Same-day care after the accident' },
-        { icon: 'stethoscope', label: 'Medical team with 15+ years experience' },
+        { icon: 'stethoscope', label: 'Medical team with 10+ years experience' },
         { icon: 'gavel',       label: 'Specialized legal support included' },
         { icon: 'shield',      label: 'We handle the full insurance process' },
         { icon: 'check',       label: 'Advanced rehabilitation treatments' },
@@ -32,7 +32,7 @@ export default function ContactSection({ locale, bgClass = 'bg-deep' }: Props) {
     : [
         { icon: 'sparkles',    label: 'Rayos X y diagnóstico el mismo día' },
         { icon: 'clock',       label: 'Atención el mismo día del accidente' },
-        { icon: 'stethoscope', label: 'Equipo médico con +15 años de experiencia' },
+        { icon: 'stethoscope', label: 'Equipo médico con +10 años de experiencia' },
         { icon: 'gavel',       label: 'Apoyo legal especializado incluido' },
         { icon: 'shield',      label: 'Manejamos todo el proceso con tu seguro' },
         { icon: 'check',       label: 'Tratamientos avanzados de rehabilitación' },

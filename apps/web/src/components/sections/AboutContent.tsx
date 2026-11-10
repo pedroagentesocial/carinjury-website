@@ -49,7 +49,7 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
   const stats: Stat[] = [
     { value: '5,000+', label: t('aboutus.hero.stats.patients', locale), icon: 'sparkles' },
     { value: '95%',    label: t('aboutus.hero.stats.recovery', locale), icon: 'check' },
-    { value: '15+',    label: t('aboutus.hero.stats.experience', locale), icon: 'clock' },
+    { value: '10+',    label: t('aboutus.hero.stats.experience', locale), icon: 'clock' },
   ];
 
   return (
@@ -570,8 +570,8 @@ const VALUES: Value[] = [
     icon: 'shield',
     title: { es: 'Excelencia médica', en: 'Medical excellence' },
     description: {
-      es: 'Equipo con +15 años de experiencia y formación continua en quiropráctica avanzada.',
-      en: '15+ years of experience and continuous training in advanced chiropractic care.',
+      es: 'Equipo con +10 años de experiencia y formación continua en quiropráctica avanzada.',
+      en: '10+ years of experience and continuous training in advanced chiropractic care.',
     },
   },
   {
