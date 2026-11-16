@@ -5,6 +5,7 @@ import Footer from '@components/Footer';
 import FloatingButtons from '@components/FloatingButtons';
 import PromoAd from '@components/ui/PromoAd';
 import { resolveLocale } from '@i18n/index';
+import { soloEnEspanol } from '../lib/solo-es';
 
 interface Props {
   title?: string;
@@ -42,7 +43,9 @@ const currentPath = Astro.url.pathname;
 // Si un artículo aún no tiene traducción publicada, al índice del blog del otro
 // idioma en vez de a un 404.
 const isBlogPost = /^\/(en\/)?blog\/[^/]+\/?$/.test(currentPath);
-const navAltHref = alternateUrl
+const navAltHref = soloEnEspanol(currentPath)
+  ? '/en'
+  : alternateUrl
   ? new URL(alternateUrl).pathname
   : isBlogPost
     ? locale === 'en' ? '/blog' : '/en/blog'
