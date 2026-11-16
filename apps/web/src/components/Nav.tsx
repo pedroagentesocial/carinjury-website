@@ -9,6 +9,12 @@ import PioneerDayNotice from '@components/react/PioneerDayNotice';
 interface Props {
   locale: Locale;
   currentPath: string;
+  /**
+   * Ruta de la página en el otro idioma cuando el slug cambia (artículos del
+   * blog). Sin esto el botón de idioma solo quita o pone /en y en el blog
+   * llevaba a un 404: /en/blog/back-pain-… → /blog/back-pain-….
+   */
+  altHref?: string;
 }
 
 function normalize(path: string): string {
@@ -30,7 +36,7 @@ function isItemActive(item: NavItem, currentPath: string): boolean {
   return false;
 }
 
-export default function Nav({ locale, currentPath }: Props) {
+export default function Nav({ locale, currentPath, altHref: altHrefProp }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -49,7 +55,7 @@ export default function Nav({ locale, currentPath }: Props) {
   }, [open]);
 
   const links = navLinks(locale);
-  const altHref = altLocaleHref(locale === 'es' ? 'en' : 'es', currentPath);
+  const altHref = altHrefProp ?? altLocaleHref(locale === 'es' ? 'en' : 'es', currentPath);
   const langLabel = locale === 'es' ? 'EN' : 'ES';
   const langFull = locale === 'es' ? 'English' : 'Español';
   const homeHref = locale === 'en' ? '/en/' : '/';

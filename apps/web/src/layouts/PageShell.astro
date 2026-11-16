@@ -38,6 +38,15 @@ const {
 } = Astro.props;
 const locale = resolveLocale(Astro.currentLocale);
 const currentPath = Astro.url.pathname;
+// El botón de idioma usa la misma URL que el hreflang cuando la página la trae.
+// Si un artículo aún no tiene traducción publicada, al índice del blog del otro
+// idioma en vez de a un 404.
+const isBlogPost = /^\/(en\/)?blog\/[^/]+\/?$/.test(currentPath);
+const navAltHref = alternateUrl
+  ? new URL(alternateUrl).pathname
+  : isBlogPost
+    ? locale === 'en' ? '/blog' : '/en/blog'
+    : undefined;
 ---
 
 <Layout
@@ -50,7 +59,7 @@ const currentPath = Astro.url.pathname;
   schemas={schemas}
   alternateUrl={alternateUrl}
 >
-  <Nav locale={locale} currentPath={currentPath} client:load />
+  <Nav locale={locale} currentPath={currentPath} altHref={navAltHref} client:load />
   <main class={fullBleed ? '' : 'pt-24'}>
     <slot />
   </main>
