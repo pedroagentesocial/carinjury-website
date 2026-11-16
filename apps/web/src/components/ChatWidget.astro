@@ -10,12 +10,28 @@ const widgetId =
   import.meta.env.PUBLIC_GHL_WIDGET_ID ?? '69cc5bc9af4d3484b4c4f464';
 ---
 
+{/* El chat se inyecta con la primera interacción o 6 s después del load: la
+    burbuja no hace falta para ver la página y bloqueaba ~230 ms el hilo principal. */}
 {widgetId && (
-  <script
-    is:inline
-    src="https://widgets.leadconnectorhq.com/loader.js"
-    data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
-    data-widget-id={widgetId}
-    defer
-  ></script>
+  <script is:inline define:vars={{ widgetId }}>
+    (function () {
+      var cargado = false;
+      function cargar() {
+        if (cargado) return;
+        cargado = true;
+        var s = document.createElement('script');
+        s.src = 'https://widgets.leadconnectorhq.com/loader.js';
+        s.async = true;
+        s.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
+        s.setAttribute('data-widget-id', widgetId);
+        document.body.appendChild(s);
+      }
+      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
+        window.addEventListener(ev, cargar, { once: true, passive: true });
+      });
+      function luego() { setTimeout(cargar, 6000); }
+      if (document.readyState === 'complete') luego();
+      else window.addEventListener('load', luego, { once: true });
+    })();
+  </script>
 )}

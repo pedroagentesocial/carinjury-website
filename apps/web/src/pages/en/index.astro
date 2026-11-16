@@ -26,9 +26,9 @@ const meta = getPageMeta('home', locale);
   keywords={meta.keywords}
   isHome
 >
-  <Nav locale={locale} currentPath={currentPath} client:load />
+  <Nav locale={locale} currentPath={currentPath} client:idle />
   <main>
-    <HeroCarousel locale={locale} client:load />
+    <HeroCarousel locale={locale} client:idle />
     <FeatureIcons locale={locale} client:visible />
     <Services locale={locale} client:visible />
     <ResultsAndProcess locale={locale} client:visible />
