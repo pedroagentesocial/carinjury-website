@@ -45,7 +45,27 @@ const anyAnalytics = Boolean(GA4 || META || GADS);
 
 {(GA4 || GADS) && (
   <>
-    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA4 || GADS}`} />
+    <!-- gtag.js (~100 KB) llega con la primera interacción o 4 s después del load.
+         Los eventos y conversiones anteriores esperan en dataLayer y se envían igual. -->
+    <script is:inline define:vars={{ GTAG_ID: GA4 || GADS }}>
+      (function () {
+        var cargado = false;
+        function cargar() {
+          if (cargado) return;
+          cargado = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GTAG_ID;
+          document.head.appendChild(s);
+        }
+        ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
+          window.addEventListener(ev, cargar, { once: true, passive: true });
+        });
+        function luego() { setTimeout(cargar, 4000); }
+        if (document.readyState === 'complete') luego();
+        else window.addEventListener('load', luego, { once: true });
+      })();
+    </script>
     <script is:inline define:vars={{ GA4, GADS }}>
       {`
         gtag('js', new Date());

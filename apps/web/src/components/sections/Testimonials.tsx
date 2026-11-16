@@ -241,10 +241,15 @@ export default function Testimonials({ locale }: Props) {
                   onClick={() => goTo(i)}
                   aria-label={`${locale === 'en' ? 'Go to review' : 'Ir a reseña'} ${i + 1}`}
                   aria-current={active}
-                  className={`relative h-1.5 overflow-hidden rounded-full transition-all ${
-                    active ? 'w-12 bg-line' : 'w-2 bg-line hover:bg-primary/40'
-                  }`}
+                  className="group flex h-6 min-w-6 items-center justify-center"
                 >
+                  {/* El botón mide 24 px de alto (zona táctil); la barrita visible va dentro. */}
+                  <span
+                    aria-hidden="true"
+                    className={`relative block h-1.5 overflow-hidden rounded-full transition-all ${
+                      active ? 'w-12 bg-line' : 'w-2 bg-line group-hover:bg-primary/40'
+                    }`}
+                  >
                   {active && !paused && (
                     <motion.span
                       key={`${index}-progress`}
@@ -254,6 +259,7 @@ export default function Testimonials({ locale }: Props) {
                       className="absolute inset-y-0 left-0 bg-primary"
                     />
                   )}
+                  </span>
                 </button>
               );
             })}
@@ -429,10 +435,13 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
+// Formato fijo (no toLocaleDateString): el servidor y el navegador daban textos
+// distintos según zona horaria y datos de idioma, y React tiraba el error #418.
+const MESES = {
+  es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic'],
+  en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+} as const;
 function formatDate(iso: string, locale: Locale): string {
-  const d = new Date(iso);
-  return d.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
-    month: 'short',
-    year: 'numeric',
-  });
+  const [y, m] = iso.split('-').map(Number);
+  return `${MESES[locale === 'es' ? 'es' : 'en'][m - 1]} ${y}`;
 }
