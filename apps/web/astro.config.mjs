@@ -30,6 +30,8 @@ export default defineConfig({
         if (path.endsWith('/thank-you') || path.endsWith('/thank-you/')) return false;
         // 404
         if (path === '/404' || path.endsWith('/404/')) return false;
+        // Panel de administración
+        if (/^\/(en\/)?admin(\/|$)/.test(path)) return false;
         return true;
       },
       // Custom priority / changefreq por ruta
@@ -88,6 +90,11 @@ export default defineConfig({
           item.changefreq = cf('yearly');
         }
 
+        // Misma forma que el canonical: sin "/" final (salvo la portada).
+        if (url.pathname.length > 1 && url.pathname.endsWith('/')) {
+          url.pathname = url.pathname.replace(/\/+$/, '');
+          item.url = url.toString();
+        }
         return item;
       },
     }),
