@@ -1,5 +1,7 @@
 ---
 import type { Locale } from '@carinjury/shared';
+import { tituloSeo, descripcionSeo } from '../lib/seo-text';
+const MARCA = 'Car Injury Clinic';
 import { SITE, SEARCH_CONSOLE_VERIFICATION, BING_VERIFICATION } from '@lib/site';
 import {
   buildLocalBusinessSchema,
@@ -49,7 +51,13 @@ const {
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? SITE.url;
 const currentPath = Astro.url.pathname;
-const canonicalUrl = canonical ?? new URL(currentPath, siteUrl).toString();
+// Cada página respondía con y sin "/" final y cada versión se declaraba canónica
+// (contenido duplicado). La forma oficial es sin barra, igual que los enlaces
+// internos y el sitemap del blog.
+const pathSinBarra = currentPath.length > 1 ? currentPath.replace(/\/+$/, '') : currentPath;
+const canonicalUrl = canonical ?? new URL(pathSinBarra, siteUrl).toString();
+// El panel de administración no debe salir en Google.
+const noIndexar = /^\/(en\/)?admin(\/|$)/.test(currentPath);
 const ogImageUrl = absoluteUrl(image ?? '/og-default.svg', siteUrl);
 
 /* hreflang ES <-> EN + x-default */
@@ -109,11 +117,11 @@ const allSchemas = [...globalSchemas, ...schemas];
 ---
 
 <!-- Primary meta -->
-<title>{title}</title>
-<meta name="description" content={description} />
+<title>{tituloSeo(title, MARCA)}</title>
+<meta name="description" content={descripcionSeo(description)} />
 {keywords && <meta name="keywords" content={keywords} />}
 <meta name="author" content={SITE.name} />
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="robots" content={noIndexar ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
 <link rel="canonical" href={canonicalUrl} />
 
 <!-- Geo meta (local SEO) -->
