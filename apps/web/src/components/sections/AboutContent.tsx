@@ -435,7 +435,7 @@ export default function AboutContent({ locale, doctorPhotos }: Props) {
               className="relative inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80 backdrop-blur"
             >
               <span className="h-1 w-1 rounded-full bg-secondary" />
-              {locale === 'en' ? "Let's meet" : 'Conocémonos'}
+              {locale === 'en' ? "Let's meet" : 'Conozcámonos'}
             </motion.span>
 
             <motion.h2
