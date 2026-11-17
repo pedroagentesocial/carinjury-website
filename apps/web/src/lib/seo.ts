@@ -246,7 +246,8 @@ export function buildLocalBusinessSchema(opts: {
 
   return {
     '@context': 'https://schema.org',
-    '@type': ['MedicalClinic', 'Chiropractor'],
+    // "Chiropractor" no existe en schema.org; la especialidad va en medicalSpecialty.
+    '@type': 'MedicalClinic',
     '@id': `${SITE_URL}/#business`,
     name: SITE.name,
     legalName: 'Car Injury Clinic LLC',
@@ -461,10 +462,10 @@ export function buildLocalBusinessSchema(opts: {
 }
 
 /**
- * Schema por landing de ciudad — MedicalClinic + Chiropractor con el NAP
- * idéntico al del negocio principal, pero con `areaServed` apuntando a la
- * ciudad y un `@id` propio de la página (no pisa al `#business` global).
- * Refuerza la entidad local para búsquedas "[servicio] en [ciudad]".
+ * Schema por landing de ciudad. Antes era un MedicalClinic "Car Injury Clinic —
+ * <ciudad>" con la dirección de Taylorsville: para Google parecían sucursales que
+ * no existen. Ahora es el servicio de la clínica real, con la ciudad como zona
+ * atendida.
  */
 export function buildCityClinicSchema(opts: {
   url: string;
@@ -475,33 +476,13 @@ export function buildCityClinicSchema(opts: {
   const { url, cityName, description, geo } = opts;
   return {
     '@context': 'https://schema.org',
-    '@type': ['MedicalClinic', 'Chiropractor'],
-    '@id': `${absoluteUrl(url)}#clinic`,
+    '@type': 'Service',
+    '@id': `${absoluteUrl(url)}#service`,
     name: `${SITE.name} — ${cityName}`,
-    parentOrganization: { '@id': `${SITE_URL}/#business` },
+    serviceType: 'Chiropractic care',
+    provider: { '@id': `${SITE_URL}/#business` },
     url: absoluteUrl(url),
-    telephone: SITE.phone.tel,
-    email: SITE.email,
-    logo: absoluteUrl(SITE.logo),
     description,
-    priceRange: '$$',
-    paymentAccepted: ['Insurance', 'Cash', 'Credit Card'],
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: SITE.address.street,
-      addressLocality: SITE.address.city,
-      addressRegion: SITE.address.region,
-      postalCode: SITE.address.postalCode,
-      addressCountry: SITE.address.country,
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: SITE.address.geo.lat,
-      longitude: SITE.address.geo.lng,
-    },
-    hasMap: SITE.mapsUrl,
-    medicalSpecialty: ['Chiropractic', 'PainManagement', 'PhysicalTherapy', 'Rehabilitation'],
-    knowsLanguage: ['Spanish', 'English'],
     areaServed: {
       '@type': 'City',
       name: cityName,
@@ -704,10 +685,11 @@ export function buildDoctorSchema(doc: {
 }) {
   return {
     '@context': 'https://schema.org',
-    '@type': ['Physician', 'Person'],
+    // "Physician" en schema.org es un negocio (con dirección), no una persona.
+    '@type': 'Person',
     name: doc.name,
     jobTitle: doc.title,
-    medicalSpecialty: doc.specialty,
+    knowsAbout: doc.specialty,
     ...(doc.image && { image: absoluteUrl(doc.image) }),
     worksFor: { '@id': `${SITE_URL}/#business` },
   };
