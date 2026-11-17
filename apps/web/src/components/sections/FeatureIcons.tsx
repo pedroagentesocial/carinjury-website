@@ -43,7 +43,13 @@ export default function FeatureIcons({ locale }: Props) {
   const prefix = locale === 'en' ? '/en' : '';
   const gridRef = useRef<HTMLDivElement>(null);
   const inView = useInView(gridRef, { amount: 0.35 });
-  const reduce = useReducedMotion();
+  // El servidor no conoce "reducir movimiento" y siempre dibuja la barra de
+  // progreso. Si el primer render del navegador ya la quitaba, React tiraba el
+  // error de hidratación #418 (pasaba en Lighthouse y con esa opción activada).
+  // Se arranca igual que el servidor y se aplica la preferencia tras hidratar.
+  const prefiereReducir = useReducedMotion();
+  const [reduce, setReduce] = useState(false);
+  useEffect(() => setReduce(Boolean(prefiereReducir)), [prefiereReducir]);
   const [featured, setFeatured] = useState(0);
   const [hovered, setHovered] = useState(false);
 
