@@ -7,6 +7,7 @@
     { "path": "/api/cron/sorteo-resumen", "schedule": "0 14 * * *" }
   ],
   "redirects": [
+    { "source": "/:path*", "has": [{ "type": "host", "value": "www.carinjuryclinics.com" }], "destination": "https://carinjuryclinics.com/:path*", "permanent": true },
     { "source": "/formulario", "destination": "/form", "permanent": true },
     { "source": "/gracias", "destination": "/thank-you", "permanent": true }
   ],
