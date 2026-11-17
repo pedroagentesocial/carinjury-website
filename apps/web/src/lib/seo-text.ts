@@ -28,7 +28,9 @@ export function tituloSeo(titulo: string, marca: string): string {
   if (m && m[1] && m[2] && m[1].trim().includes(' ')) {
     const cabeza = m[1].trim() + (m[2].startsWith('?') ? '?' : '');
     if (conMarca && (cabeza + sep + marca).length <= 60) return cabeza + sep + marca;
-    if (cabeza.length <= 65) return cabeza;
+    // Sin la marca, la cabeza sola tiene que decir algo: "The 30-Day Gap" o
+    // "Plazos en Utah" quedaban demasiado vagos. Mejor el titular completo.
+    if (cabeza.length >= 30 && cabeza.length <= 65) return cabeza;
   }
   return base;
 }

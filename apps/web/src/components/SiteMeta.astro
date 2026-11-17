@@ -1,6 +1,7 @@
 ---
 import type { Locale } from '@carinjury/shared';
 import { tituloSeo, descripcionSeo } from '../lib/seo-text';
+import { soloEnEspanol } from '../lib/solo-es';
 const MARCA = 'Car Injury Clinic';
 import { SITE, SEARCH_CONSOLE_VERIFICATION, BING_VERIFICATION } from '@lib/site';
 import {
@@ -136,7 +137,7 @@ const allSchemas = [...globalSchemas, ...schemas];
 
 <!-- hreflang -->
 <link rel="alternate" hreflang={locale} href={canonicalUrl} />
-<link rel="alternate" hreflang={altLocale} href={altUrl} />
+{!soloEnEspanol(currentPath) && <link rel="alternate" hreflang={altLocale} href={altUrl} />}
 <link rel="alternate" hreflang="x-default" href={siteUrl} />
 
 <!-- Open Graph -->
