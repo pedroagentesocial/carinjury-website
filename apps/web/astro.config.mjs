@@ -30,6 +30,8 @@ export default defineConfig({
         if (path.endsWith('/thank-you') || path.endsWith('/thank-you/')) return false;
         // 404
         if (path === '/404' || path.endsWith('/404/')) return false;
+        // Prototipos locales (en producción responden 404)
+        if (path.startsWith('/prototypes')) return false;
         // Panel de administración
         if (/^\/(en\/)?admin(\/|$)/.test(path)) return false;
         return true;
