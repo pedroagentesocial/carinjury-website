@@ -109,8 +109,8 @@ export default function HeroCarousel({ locale }: Props) {
   }, [index]);
 
   /* Play active video + pause las demás cuando cambia el index.
-     Necesario porque slides 1-3 tienen preload=metadata: el browser no
-     descarga el video hasta que se lo pedimos explícitamente. */
+     Necesario porque todos los videos tienen preload=none: el browser no
+     descarga ninguno hasta que se lo pedimos explícitamente. */
   useEffect(() => {
     videoRefs.current.forEach((v, i) => {
       if (!v) return;
@@ -201,11 +201,17 @@ export default function HeroCarousel({ locale }: Props) {
               }}
               src={s.src}
               poster={s.poster}
-              autoPlay={i === 0}
+              /* Ningún video se descarga con la página. El primero pesa 7.7 MB
+                 y con preload="auto" + autoPlay empezaba a bajarse junto con el
+                 HTML, quitándole ancho de banda al CSS y a las fuentes (en
+                 celular retrasaba el primer pintado ~3 s en Lighthouse).
+                 Mientras tanto se ve el póster; el efecto de abajo llama a
+                 load() y play() al hidratar (client:idle, ya con la página
+                 cargada). */
               muted
               loop
               playsInline
-              preload={i === 0 ? 'auto' : 'metadata'}
+              preload="none"
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
                 i === index ? 'opacity-100' : 'opacity-0'
               }`}
