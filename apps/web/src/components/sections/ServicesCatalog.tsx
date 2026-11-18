@@ -143,12 +143,14 @@ export default function ServicesCatalog({ locale }: Props) {
           >
             {locale === 'en' ? (
               <>
-                Specialized care.{' '}
+                {/* El H1 dice qué es la página ("after a car accident"), igual que
+                    el <title>; antes era solo un lema y no nombraba el servicio. */}
+                Chiropractic &amp; rehab after a car accident.{' '}
                 <span className="text-secondary">All under one roof.</span>
               </>
             ) : (
               <>
-                Atención especializada.{' '}
+                Quiropráctica y rehabilitación tras un accidente.{' '}
                 <span className="text-secondary">Todo en un solo lugar.</span>
               </>
             )}
