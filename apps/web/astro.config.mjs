@@ -4,6 +4,8 @@ import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+// Solo en Windows: deja compilar sin permisos de symlink (ver el archivo).
+import './scripts/symlinks-windows.mjs';
 
 const SITE_URL = process.env.PUBLIC_SITE_URL ?? 'https://carinjuryclinics.com';
 
