@@ -42,6 +42,9 @@ const siteDesc = description ?? t('site.description', locale);
 
     {/* Performance: hint al navegador sobre orígenes externos que vamos a usar */}
     {/* Las fuentes se sirven desde /fonts (ver src/styles/global.css): sin Google Fonts. */}
+    {/* Manrope (títulos) se precarga: el H1 de la portada la usa, y así el cambio
+        desde la fuente del sistema ocurre antes. Solo el subconjunto latino (24 KB). */}
+    <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="dns-prefetch" href="https://api.leadconnectorhq.com" />
     <link rel="dns-prefetch" href="https://link.msgsndr.com" />
     <link rel="dns-prefetch" href="https://www.google.com" />
