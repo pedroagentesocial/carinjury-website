@@ -1,5 +1,6 @@
 ---
 title: "\"It Was Just a Fender Bender\": Why Low-Speed Crashes Still Injure People"
+seoTitle: "\"Just a Fender Bender\": Why Low-Speed Crashes Still Injure People"
 description: "Biomechanics research documents cervical injury at speed changes as low as 5–8 mph — well below the point where a bumper shows damage. Here is why your car can look fine while your neck is not."
 lang: "en"
 slug: "low-speed-crash-injuries"

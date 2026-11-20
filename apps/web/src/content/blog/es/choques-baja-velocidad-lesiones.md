@@ -1,5 +1,6 @@
 ---
 title: "\"Fue un golpecito nada más\": por qué los choques a baja velocidad sí lesionan"
+seoTitle: "\"Fue un golpecito\": los choques a baja velocidad sí lesionan"
 description: "La investigación biomecánica documenta lesión cervical con cambios de velocidad de apenas 5 a 8 mph — muy por debajo del punto en que un parachoques muestra daño. Por qué tu carro puede verse bien y tu cuello no."
 lang: "es"
 slug: "choques-baja-velocidad-lesiones"

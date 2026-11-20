@@ -1,5 +1,6 @@
 ---
 title: "Your Utah Crash Report: How to Get It, What It Includes and What to Check"
+seoTitle: "Utah Crash Report: How to Get It, What It Includes, What to Check"
 description: "The police crash report is one of the first documents an insurer looks at. When Utah law requires police to be notified, who is allowed to get the full report, the 10-business-day rule for the video and photos, and the mistakes worth catching early."
 lang: "en"
 slug: "utah-crash-report-how-to-get-it"

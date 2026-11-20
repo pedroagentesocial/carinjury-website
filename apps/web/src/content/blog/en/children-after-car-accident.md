@@ -1,5 +1,6 @@
 ---
 title: "Children After a Car Accident: Warning Signs and What to Do With the Car Seat"
+seoTitle: "Children After a Car Accident: Warning Signs and the Car Seat"
 description: "Kids cannot always tell you what hurts, and a car seat can be damaged without showing it. These are the signs you should not ignore, when to go to the ER, and when the car seat has to be replaced."
 lang: "en"
 slug: "children-after-car-accident"

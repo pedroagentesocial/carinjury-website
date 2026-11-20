@@ -1,5 +1,6 @@
 ---
 title: "Accidente de moto en Utah: por qué el seguro funciona distinto y quién paga"
+seoTitle: "Accidente de moto en Utah: quién paga y cómo cambia el seguro"
 description: "En Utah, el seguro de moto no está obligado a incluir PIP, así que tus primeros gastos médicos no se pagan igual que en un choque de carro. Qué coberturas revisar, cómo reclamar al conductor culpable y qué hacer después del accidente."
 lang: "es"
 slug: "accidente-moto-utah-quien-paga"

@@ -56,14 +56,14 @@ export const PAGE_META: Record<string, Record<Locale, PageMeta>> = {
   },
   services: {
     es: {
-      title: 'Servicios de Quiropráctica y Rehabilitación tras Accidentes · Salt Lake City',
+      title: 'Quiropráctica y Rehabilitación tras Accidentes · Salt Lake City',
       description:
         'Quiropráctica, terapia física, masaje, rayos X digitales, MRI y manejo del dolor para víctimas de accidentes de auto. 15 servicios en Salt Lake City, Utah.',
       keywords:
         'servicios quiropráctica Utah, terapia física Salt Lake City, rayos X mismo día, masaje terapéutico, manejo del dolor, MRI accidentes auto, rehabilitación lesiones',
     },
     en: {
-      title: 'Chiropractic & Rehab Services After Car Accidents · Salt Lake City',
+      title: 'Chiropractic & Rehab After Car Accidents · Salt Lake City',
       description:
         'Chiropractic, physical therapy, massage, digital X-Ray, MRI and pain management for car accident victims. 15 services in Salt Lake City, Utah.',
       keywords:
@@ -72,7 +72,7 @@ export const PAGE_META: Record<string, Record<Locale, PageMeta>> = {
   },
   'lawyer-approved': {
     es: {
-      title: 'Apoyo Legal para Víctimas de Accidentes en Utah | Sin Ganar, Sin Pagar',
+      title: 'Apoyo Legal tras un Accidente en Utah | Sin Ganar, Sin Pagar',
       description:
         'Red de abogados especialistas en accidentes de auto en Utah. Coordinación médico-legal completa. Sin pagos por adelantado. $25M+ recuperado para clientes.',
       keywords:

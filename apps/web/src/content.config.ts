@@ -13,6 +13,8 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
+    /** Título corto para <title> y og:title (Google corta ~65). El H1 usa `title`. */
+    seoTitle: z.string().max(65).optional(),
     description: z.string(),
     lang: z.enum(['es', 'en']),
     /** Slug de la URL (sin prefijo de idioma). */

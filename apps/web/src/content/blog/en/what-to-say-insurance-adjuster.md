@@ -1,5 +1,6 @@
 ---
 title: "What to Say to the Insurance Adjuster (and the Six Sentences That Cost the Most)"
+seoTitle: "What to Say to the Insurance Adjuster (and Six Costly Phrases)"
 description: "You are not required to give a recorded statement to the other driver's insurer. Here is what you must share, what you should never guess at, why early offers are low, and a script you can read out loud when they call."
 lang: "en"
 slug: "what-to-say-insurance-adjuster"

@@ -1,5 +1,6 @@
 ---
 title: "Hormigueo o adormecimiento en brazos o manos después de un accidente"
+seoTitle: "Hormigueo o adormecimiento en brazos o manos tras un accidente"
 description: "Piquetes, una mano que se duerme o un dolor que baja por el brazo después de un choque muchas veces vienen de un nervio irritado en el cuello. Por qué pasa, qué señales son una emergencia y cómo se trata."
 lang: "es"
 slug: "hormigueo-adormecimiento-brazos-manos-accidente"
