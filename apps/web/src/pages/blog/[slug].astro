@@ -61,7 +61,7 @@ const formattedDate = data.publishDate.toLocaleDateString('es-US', {
 ---
 
 <PageShell
-  title={data.title}
+  title={data.seoTitle ?? data.title}
   description={data.description}
   keywords={data.keywords}
   ogType="article"

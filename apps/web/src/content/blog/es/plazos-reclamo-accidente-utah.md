@@ -1,5 +1,6 @@
 ---
 title: "Plazos en Utah: 4 años para demandar, pero semanas para proteger tu caso"
+seoTitle: "Plazos en Utah: 4 años para demandar, semanas para cuidar tu caso"
 description: "Utah te da cuatro años para demandar por lesiones — y solo uno si hubo un vehículo del gobierno. Aquí están todos los plazos que importan, más el reloj informal que se cierra mucho antes que el legal."
 lang: "es"
 slug: "plazos-reclamo-accidente-utah"

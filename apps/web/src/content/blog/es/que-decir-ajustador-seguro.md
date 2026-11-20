@@ -1,5 +1,6 @@
 ---
 title: "Qué decirle al ajustador del seguro (y las seis frases que más caro salen)"
+seoTitle: "Qué decirle al ajustador del seguro y 6 frases que salen caras"
 description: "No estás obligado a dar una declaración grabada a la aseguradora del otro conductor. Qué sí debes compartir, qué nunca debes adivinar, por qué las ofertas tempranas son bajas y un guion que puedes leer en voz alta cuando llamen."
 lang: "es"
 slug: "que-decir-ajustador-seguro"

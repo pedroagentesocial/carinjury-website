@@ -1,5 +1,6 @@
 ---
 title: "Motorcycle Accident in Utah: Why Insurance Works Differently and Who Pays"
+seoTitle: "Motorcycle Accident in Utah: Who Pays and Why Insurance Differs"
 description: "In Utah, motorcycle insurance is not required to include PIP, so your first medical bills are not paid the same way as in a car crash. Which coverages to check, how to claim against the at-fault driver, and what to do after the accident."
 lang: "en"
 slug: "motorcycle-accident-utah-who-pays"

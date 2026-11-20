@@ -1,5 +1,6 @@
 ---
 title: "Utah Car Accident Deadlines: 4 Years to Sue, But Weeks to Protect Your Case"
+seoTitle: "Utah Car Accident Deadlines: 4 Years to Sue, Weeks to Act"
 description: "Utah gives you four years to file an injury lawsuit — and only one year if a government vehicle was involved. Here is every deadline that matters, plus the informal clock that closes long before the legal one."
 lang: "en"
 slug: "utah-car-accident-claim-deadlines"

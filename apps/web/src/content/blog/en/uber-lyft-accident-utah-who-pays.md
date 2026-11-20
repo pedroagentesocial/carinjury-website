@@ -1,5 +1,6 @@
 ---
 title: "Uber or Lyft Accident in Utah: Who Pays Depends on What the App Showed"
+seoTitle: "Uber or Lyft Accident in Utah: Who Pays Depends on the App Status"
 description: "In a crash involving an Uber or Lyft vehicle, the insurance that responds changes depending on whether the app was off, waiting for a ride or carrying a passenger. Here are the three phases Utah law sets, and what to do if you were hurt."
 lang: "en"
 slug: "uber-lyft-accident-utah-who-pays"

@@ -1,5 +1,6 @@
 ---
 title: "Tus primeras seis semanas de rehabilitación tras un choque, semana por semana"
+seoTitle: "Tus primeras seis semanas de rehabilitación tras un choque"
 description: "El reposo no es el tratamiento. Décadas de investigación sobre latigazo cervical apuntan al revés: el movimiento temprano y guiado le gana a la inmovilización. Cómo se ve un plan real de seis semanas, cómo se mide el progreso y qué errores lo frenan."
 lang: "es"
 slug: "primeras-seis-semanas-terapia-fisica"

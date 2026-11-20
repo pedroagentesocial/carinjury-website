@@ -1,5 +1,6 @@
 ---
 title: "The 30-Day Gap: How Missed Appointments Quietly Destroy Injury Claims"
+seoTitle: "The 30-Day Gap: How Missed Appointments Destroy Injury Claims"
 description: "A break in medical treatment is the single easiest way for an adjuster to argue your injury was not serious — or not caused by the crash. Here is how gaps are used, which ones are survivable, and how to repair one."
 lang: "en"
 slug: "gaps-in-treatment-hurt-your-claim"
