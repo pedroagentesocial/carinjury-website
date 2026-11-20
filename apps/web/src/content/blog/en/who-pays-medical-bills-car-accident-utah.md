@@ -76,7 +76,7 @@ That is good news and bad news at the same time:
 <div class="pa-note">
   <span class="pa-note-icon">⚖️</span>
   <div>
-    <p><strong>The $3,000 threshold cuts both ways.</strong> Under Utah Code § 31A-22-309, you can only bring a claim against the at-fault driver for pain and suffering once your reasonable medical expenses exceed <strong>$3,000</strong> — or if you suffered permanent disability, permanent disfigurement, dismemberment or death.</p>
+    <p><strong>The $3,000 threshold cuts both ways.</strong> Under Utah Code § 31A-22-309, you can only bring a claim against the at-fault driver for pain and suffering once your reasonable medical expenses exceed <strong>$3,000</strong> — or if you suffered a <strong>bone fracture</strong>, permanent disability or impairment, permanent disfigurement, dismemberment or death.</p>
     <p>In other words: the same number that limits your PIP is the door you have to walk through to claim anything more. Under-treating an injury does not just hurt your neck — it can close that door.</p>
   </div>
 </div>
@@ -130,6 +130,7 @@ If you are unsure what your policy covers, bring your declarations page to your 
     <li><a href="https://codes.findlaw.com/ut/title-31a-insurance-code/ut-code-sect-31a-22-307" target="_blank" rel="noopener nofollow">Utah Code Title 31A § 31A-22-307 — FindLaw</a>.</li>
     <li><a href="https://www.valuepenguin.com/car-insurance/how-pip-works-utah" target="_blank" rel="noopener nofollow">ValuePenguin — How Personal Injury Protection works in Utah</a> ($3,000 minimum).</li>
     <li><a href="https://www.parkerandmcconkie.com/blog/utahs-3000-pip-minimum-why-most-salt-lake-car-accident-victims-face-massive-medical-bills/" target="_blank" rel="noopener nofollow">Parker &amp; McConkie — Utah's $3,000 PIP minimum and the § 31A-22-309 injury threshold</a>.</li>
+    <li><a href="https://le.utah.gov/xcode/Title31A/Chapter22/31A-22-S309.html" target="_blank" rel="noopener nofollow">Utah Code § 31A-22-309 — Utah Legislature</a> (current version, effective May 6, 2026: the general-damages threshold includes a bone fracture).</li>
   </ol>
 </div>
 

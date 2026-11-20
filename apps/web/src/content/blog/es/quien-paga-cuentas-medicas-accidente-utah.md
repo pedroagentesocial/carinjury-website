@@ -76,7 +76,7 @@ Eso es una buena y una mala noticia al mismo tiempo:
 <div class="pa-note">
   <span class="pa-note-icon">⚖️</span>
   <div>
-    <p><strong>El umbral de $3,000 corta en dos direcciones.</strong> Según el Utah Code § 31A-22-309, solo puedes reclamar dolor y sufrimiento al conductor culpable cuando tus gastos médicos razonables superan los <strong>$3,000</strong> — o si sufriste discapacidad permanente, desfiguración permanente, pérdida de un miembro o muerte.</p>
+    <p><strong>El umbral de $3,000 corta en dos direcciones.</strong> Según el Utah Code § 31A-22-309, solo puedes reclamar dolor y sufrimiento al conductor culpable cuando tus gastos médicos razonables superan los <strong>$3,000</strong> — o si sufriste una <strong>fractura de hueso</strong>, discapacidad o deterioro permanente, desfiguración permanente, pérdida de un miembro o muerte.</p>
     <p>Dicho de otro modo: el mismo número que limita tu PIP es la puerta que debes cruzar para reclamar algo más. Tratarte de menos no solo daña tu cuello: puede cerrar esa puerta.</p>
   </div>
 </div>
@@ -130,6 +130,7 @@ Si no sabes qué cubre tu póliza, trae tu página de declaraciones a la primera
     <li><a href="https://codes.findlaw.com/ut/title-31a-insurance-code/ut-code-sect-31a-22-307" target="_blank" rel="noopener nofollow">Utah Code Title 31A § 31A-22-307 — FindLaw</a>.</li>
     <li><a href="https://www.valuepenguin.com/car-insurance/how-pip-works-utah" target="_blank" rel="noopener nofollow">ValuePenguin — Cómo funciona el PIP en Utah</a> (mínimo de $3,000).</li>
     <li><a href="https://www.parkerandmcconkie.com/blog/utahs-3000-pip-minimum-why-most-salt-lake-car-accident-victims-face-massive-medical-bills/" target="_blank" rel="noopener nofollow">Parker &amp; McConkie — El mínimo de $3,000 de PIP en Utah y el umbral del § 31A-22-309</a>.</li>
+    <li><a href="https://le.utah.gov/xcode/Title31A/Chapter22/31A-22-S309.html" target="_blank" rel="noopener nofollow">Utah Code § 31A-22-309 — Legislatura de Utah</a> (versión vigente desde el 6 de mayo de 2026: el umbral para reclamar daños generales incluye una fractura de hueso).</li>
   </ol>
 </div>
 
