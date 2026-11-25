@@ -5,7 +5,7 @@ description: "Most of an injury settlement from a car accident is not taxable in
 lang: "en"
 slug: "is-car-accident-settlement-taxable"
 translationKey: "settlement-taxes"
-publishDate: 2026-11-26
+publishDate: 2026-11-25
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "is a car accident settlement taxable, personal injury settlement taxes, IRS car accident settlement, section 104(a)(2), are lost wages in a settlement taxable, punitive damages taxable, settlement interest taxable, car accident Utah"

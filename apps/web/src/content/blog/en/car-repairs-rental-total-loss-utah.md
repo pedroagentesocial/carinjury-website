@@ -5,7 +5,7 @@ description: "While you recover, the car is its own claim. What Utah's claims ru
 lang: "en"
 slug: "car-repairs-rental-total-loss-utah"
 translationKey: "property-damage"
-publishDate: 2026-11-26
+publishDate: 2026-11-25
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "property damage claim Utah, car repair after accident Utah, rental car after accident Utah, total loss car Utah, totaled car value Utah, aftermarket parts Utah 31A-22-319, R590-190 Utah, car accident Utah"

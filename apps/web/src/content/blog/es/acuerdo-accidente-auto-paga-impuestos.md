@@ -5,7 +5,7 @@ description: "La mayor parte de un acuerdo por lesiones de un accidente de auto 
 lang: "es"
 slug: "acuerdo-accidente-auto-paga-impuestos"
 translationKey: "settlement-taxes"
-publishDate: 2026-11-26
+publishDate: 2026-11-25
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "acuerdo por accidente de auto paga impuestos, impuestos de un acuerdo por lesiones, IRS acuerdo accidente de auto, sección 104(a)(2), salario perdido en un acuerdo impuestos, daños punitivos impuestos, intereses del acuerdo impuestos, accidente de auto Utah"
