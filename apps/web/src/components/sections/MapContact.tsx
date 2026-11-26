@@ -16,7 +16,7 @@ const SCHEDULE: { day: DayKey; value: string }[] = [
   { day: 'wednesday', value: '11:00 AM - 8:00 PM' },
   { day: 'thursday', value: '11:00 AM - 8:00 PM' },
   { day: 'friday', value: '11:00 AM - 8:00 PM' },
-  { day: 'saturday', value: '10:00 AM - 2:00 PM' },
+  { day: 'saturday', value: '9:30 AM - 2:00 PM' },
   { day: 'sunday', value: 'closed' },
 ];
 

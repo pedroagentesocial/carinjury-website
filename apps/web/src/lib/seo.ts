@@ -283,7 +283,7 @@ export function buildLocalBusinessSchema(opts: {
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: 'Saturday',
-        opens: '10:00',
+        opens: '09:30',
         closes: '14:00',
       },
     ],
