@@ -1,0 +1,274 @@
+---
+/* Paginacion del listado del blog, en la misma pagina, con animaciones.
+
+   El servidor manda TODAS las tarjetas en el HTML (Google sigue viendo cada
+   articulo y sin JavaScript se ve el listado completo). El script solo oculta
+   las que no son de la pagina actual y dibuja los numeros.
+   La pagina queda en la URL (?pagina=2 / ?page=2) para que recargar, compartir
+   o usar "atras" del navegador te deje donde estabas.
+
+   Uso: la cuadricula lleva `data-blog-grid` y cada tarjeta `data-blog-card`.
+   Colores: --pager-accent / --pager-ink / --pager-line / --pager-muted. */
+interface Props {
+  locale: 'es' | 'en';
+  perPage?: number;
+}
+const { locale, perPage = 9 } = Astro.props;
+const labels =
+  locale === 'es'
+    ? { nav: 'Paginación del blog', prev: 'Anterior', next: 'Siguiente', page: 'Página', of: 'de', param: 'pagina' }
+    : { nav: 'Blog pagination', prev: 'Previous', next: 'Next', page: 'Page', of: 'of', param: 'page' };
+---
+
+<nav
+  data-blog-pager
+  data-per-page={perPage}
+  data-param={labels.param}
+  data-label-prev={labels.prev}
+  data-label-next={labels.next}
+  data-label-page={labels.page}
+  data-label-of={labels.of}
+  aria-label={labels.nav}
+  class="blog-pager"
+  hidden
+>
+  <ul class="blog-pager__list" data-pager-list></ul>
+  <p class="blog-pager__status" data-pager-status aria-live="polite"></p>
+</nav>
+
+<style is:global>
+  .blog-pager {
+    --pager-accent: var(--c-purple, #7a2e87);
+    --pager-ink: var(--ink, #1a1d2a);
+    --pager-line: var(--line, rgba(15, 18, 35, 0.12));
+    --pager-muted: var(--muted, #6b6f85);
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .blog-pager[hidden] { display: none; }
+  .blog-pager__list {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .blog-pager__btn {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 0.75rem;
+    border: 1px solid var(--pager-line);
+    border-radius: 9999px;
+    background: #fff;
+    color: var(--pager-ink);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s, border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+  }
+  .blog-pager__btn:hover:not(:disabled):not([aria-current]) {
+    transform: translateY(-2px) scale(1.06);
+    color: var(--pager-accent);
+    border-color: color-mix(in srgb, var(--pager-accent) 40%, transparent);
+    box-shadow: 0 8px 18px -10px color-mix(in srgb, var(--pager-accent) 60%, transparent);
+  }
+  .blog-pager__btn:active:not(:disabled) { transform: scale(0.94); }
+  .blog-pager__btn:focus-visible { outline: 2px solid var(--pager-accent); outline-offset: 2px; }
+  .blog-pager__btn[aria-current] {
+    border-color: transparent;
+    background: transparent;
+    color: #fff;
+    cursor: default;
+  }
+  .blog-pager__btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  /* Pastilla de color que se desliza hasta el numero activo. */
+  .blog-pager__pill {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background: var(--pager-accent);
+    box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--pager-accent) 80%, transparent);
+    pointer-events: none;
+    transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1), width 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  .blog-pager__dots { padding: 0 0.25rem; color: var(--pager-muted); font-size: 0.875rem; }
+  .blog-pager__status { margin: 0; color: var(--pager-muted); font-size: 0.75rem; }
+  [data-blog-card].blog-pager-off { display: none !important; }
+  @media (prefers-reduced-motion: reduce) {
+    .blog-pager__btn, .blog-pager__pill { transition: none; }
+  }
+</style>
+
+<script>
+  function initBlogPager() {
+    const pager = document.querySelector<HTMLElement>('[data-blog-pager]');
+    const gridEl = document.querySelector<HTMLElement>('[data-blog-grid]');
+    if (!pager || !gridEl || pager.dataset.ready) return;
+    const grid: HTMLElement = gridEl;
+    pager.dataset.ready = '1';
+
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('[data-blog-card]'));
+    const perPage = Number(pager.dataset.perPage) || 9;
+    const totalPages = Math.ceil(cards.length / perPage);
+    if (totalPages <= 1) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const param = pager.dataset.param || 'page';
+    const L = {
+      prev: pager.dataset.labelPrev || 'Previous',
+      next: pager.dataset.labelNext || 'Next',
+      page: pager.dataset.labelPage || 'Page',
+      of: pager.dataset.labelOf || 'of',
+    };
+    const list = pager.querySelector<HTMLElement>('[data-pager-list]')!;
+    const status = pager.querySelector<HTMLElement>('[data-pager-status]')!;
+    const pill = document.createElement('li');
+    pill.className = 'blog-pager__pill';
+    pill.setAttribute('aria-hidden', 'true');
+
+    let current = 0;
+    let busy = false;
+
+    const clamp = (n: number) => Math.min(Math.max(1, n), totalPages);
+    const fromUrl = () => clamp(Number(new URL(location.href).searchParams.get(param)) || 1);
+    const pageCards = (p: number) => cards.filter((_, i) => Math.floor(i / perPage) + 1 === p);
+
+    /* Numeros visibles: 1 … 4 5 6 … 12 (con pocas paginas, todas). */
+    const pageItems = (p: number): (number | '…')[] => {
+      if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
+      const nums = [...new Set([1, totalPages, p - 1, p, p + 1])]
+        .filter((n) => n >= 1 && n <= totalPages)
+        .sort((a, b) => a - b);
+      const out: (number | '…')[] = [];
+      nums.forEach((n, i) => {
+        if (i > 0 && n - nums[i - 1] > 1) out.push('…');
+        out.push(n);
+      });
+      return out;
+    };
+
+    const button = (label: string, target: number | null, opts: { current?: boolean; aria?: string } = {}) => {
+      const li = document.createElement('li');
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'blog-pager__btn';
+      b.textContent = label;
+      if (opts.aria) b.setAttribute('aria-label', opts.aria);
+      if (opts.current) b.setAttribute('aria-current', 'page');
+      else if (target === null) b.disabled = true;
+      else b.addEventListener('click', () => go(target));
+      li.appendChild(b);
+      return li;
+    };
+
+    function movePill(instant: boolean) {
+      const active = list.querySelector<HTMLElement>('[aria-current]');
+      if (!active) return;
+      if (instant || reduced) pill.style.transition = 'none';
+      pill.style.width = `${active.offsetWidth}px`;
+      pill.style.transform = `translate(${active.offsetLeft}px, ${active.offsetTop}px)`;
+      if (instant || reduced) {
+        void pill.offsetWidth;
+        pill.style.transition = '';
+      }
+    }
+
+    function drawControls(p: number, instant: boolean) {
+      /* La pastilla no se saca del DOM: si se reinsertara, perderia la transicion. */
+      if (pill.parentNode !== list) list.prepend(pill);
+      Array.from(list.children).forEach((c) => c !== pill && c.remove());
+      list.append(
+        button('←', p > 1 ? p - 1 : null, { aria: L.prev }),
+        ...pageItems(p).map((n) => {
+          if (n === '…') {
+            const li = document.createElement('li');
+            li.className = 'blog-pager__dots';
+            li.textContent = '…';
+            return li;
+          }
+          return button(String(n), n, { current: n === p, aria: `${L.page} ${n}` });
+        }),
+        button('→', p < totalPages ? p + 1 : null, { aria: L.next }),
+      );
+      status.textContent = `${L.page} ${p} ${L.of} ${totalPages}`;
+      movePill(instant);
+    }
+
+    function showCards(p: number) {
+      cards.forEach((card, i) => card.classList.toggle('blog-pager-off', Math.floor(i / perPage) + 1 !== p));
+    }
+
+    /* Salida: las tarjetas actuales bajan y se desvanecen. Entrada: las nuevas
+       suben una tras otra (efecto cascada). */
+    async function animateTo(p: number, direction: number) {
+      if (reduced || !grid.animate) {
+        showCards(p);
+        return;
+      }
+      const shift = 24 * direction;
+      const leaving = pageCards(current).map((c) =>
+        c.animate(
+          [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: `translateX(${-shift}px) scale(0.97)` }],
+          { duration: 180, easing: 'ease-in', fill: 'forwards' },
+        ),
+      );
+      await Promise.all(leaving.map((a) => a.finished.catch(() => {})));
+      leaving.forEach((a) => a.cancel());
+      showCards(p);
+      pageCards(p).forEach((c, i) =>
+        c.animate(
+          [
+            { opacity: 0, transform: `translate(${shift}px, 18px) scale(0.97)` },
+            { opacity: 1, transform: 'none' },
+          ],
+          { duration: 420, delay: i * 55, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' },
+        ),
+      );
+    }
+
+    async function go(page: number, fromHistory = false) {
+      const p = clamp(page);
+      if (p === current || busy) return;
+      busy = true;
+      const direction = p > current ? 1 : -1;
+      drawControls(p, false);
+      if (!fromHistory) {
+        const url = new URL(location.href);
+        if (p === 1) url.searchParams.delete(param);
+        else url.searchParams.set(param, String(p));
+        history.pushState({ blogPage: p }, '', url);
+      }
+      const top = grid.getBoundingClientRect().top + window.scrollY - 120;
+      if (window.scrollY > top) window.scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' });
+      await animateTo(p, direction);
+      current = p;
+      busy = false;
+    }
+
+    window.addEventListener('popstate', () => go(fromUrl(), true));
+    window.addEventListener('resize', () => movePill(true));
+    pager.hidden = false;
+    current = fromUrl();
+    showCards(current);
+    drawControls(current, true);
+  }
+
+  initBlogPager();
+  document.addEventListener('astro:page-load', initBlogPager);
+</script>

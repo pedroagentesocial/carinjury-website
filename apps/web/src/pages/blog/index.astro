@@ -1,5 +1,6 @@
 ---
 import PageShell from '@layouts/PageShell.astro';
+import BlogPager from '@components/BlogPager.astro';
 import { getCollection } from 'astro:content';
 import { getPageMeta, buildBreadcrumbSchema, absoluteUrl } from '@lib/seo';
 
@@ -63,9 +64,10 @@ const fmt = (d: Date) => d.toLocaleDateString('es-US', { year: 'numeric', month:
   {/* GRID */}
   <section class="relative bg-white py-16 md:py-20">
     <div class="mx-auto max-w-content px-6">
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-blog-grid>
         {posts.map((post) => (
           <a
+            data-blog-card
             href={`/blog/${post.data.slug}`}
             class="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition-colors hover:border-primary/30 hover:shadow-[0_18px_40px_-22px_rgba(74,28,90,0.4)]"
           >
@@ -103,6 +105,8 @@ const fmt = (d: Date) => d.toLocaleDateString('es-US', { year: 'numeric', month:
           </a>
         ))}
       </div>
+
+      <BlogPager locale="es" />
 
       {posts.length === 0 && (
         <p class="text-center text-muted">Pronto publicaremos nuevos artículos.</p>
