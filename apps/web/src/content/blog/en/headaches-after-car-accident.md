@@ -8,8 +8,8 @@ publishDate: 2026-09-09
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "headache after car accident, post traumatic headache, cervicogenic headache, occipital neuralgia after crash, migraine after accident, headache treatment Salt Lake City"
-heroImage: "/assets/img/hotcold.webp"
-heroAlt: "Cold and heat therapy used for post-traumatic headaches after a car accident"
+heroImage: "/assets/img/blog-headaches.jpg"
+heroAlt: "Man pressing his temples because of a headache"
 readingTime: 8
 ---
 

@@ -8,8 +8,8 @@ publishDate: 2026-09-04
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "accidente con camión Utah, choque con tráiler, me chocó un tráiler, accidente con camión comercial quién paga, seguro de la compañía de camiones, horas de servicio, abogado accidente de camión Utah, accidente de auto Salt Lake City"
-heroImage: "/assets/img/utah.jpg"
-heroAlt: "Carretera de Utah donde carros y camiones comerciales comparten el camino"
+heroImage: "/assets/img/blog-truck-accident.jpg"
+heroAlt: "Camiones de carga circulando por una carretera de montaña"
 readingTime: 7
 ---
 

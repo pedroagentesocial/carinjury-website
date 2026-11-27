@@ -9,8 +9,8 @@ publishDate: 2026-11-26
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "car accident on ice Utah, snow car accident who is at fault, black ice accident fault, winter car accident Utah, slid on ice rear-ended, pileup on ice who pays, weather related crash Utah, car accident Salt Lake City snow"
-heroImage: "/assets/img/utah.jpg"
-heroAlt: "Utah highway in winter conditions"
+heroImage: "/assets/img/blog-snow-ice-crash.jpg"
+heroAlt: "Car driving on a snow-covered road through a winter forest"
 readingTime: 6
 ---
 

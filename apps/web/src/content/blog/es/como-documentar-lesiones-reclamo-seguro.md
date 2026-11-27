@@ -8,8 +8,8 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "documentar lesiones accidente, reclamo seguro auto Utah, prueba lesiones accidente, expediente médico accidente, qué hacer reclamo seguro"
-heroImage: "/assets/img/second-opinion.jpeg"
-heroAlt: "Paciente entregando documentos médicos en la recepción de la clínica"
+heroImage: "/assets/img/blog-document-injuries.jpg"
+heroAlt: "Persona tomando notas en una tablilla con sujetapapeles"
 readingTime: 7
 ---
 

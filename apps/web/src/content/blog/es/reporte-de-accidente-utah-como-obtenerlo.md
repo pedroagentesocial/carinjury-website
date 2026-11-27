@@ -8,8 +8,8 @@ publishDate: 2026-09-11
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "reporte de accidente Utah, cómo conseguir el reporte policial de un accidente, reporte de la UHP, reporte de la policía choque Utah, errores en el reporte policial, video de cámara corporal accidente, Código de Utah 41-6a-404, accidente de auto Salt Lake City"
-heroImage: "/assets/img/legal.jpg"
-heroAlt: "Reporte policial y papeles del seguro después de un accidente de auto en Utah"
+heroImage: "/assets/img/blog-crash-report.jpg"
+heroAlt: "Luces rojas y azules de una patrulla de policía encendidas de noche"
 readingTime: 6
 ---
 

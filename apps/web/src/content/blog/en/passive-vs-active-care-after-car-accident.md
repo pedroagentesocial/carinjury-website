@@ -8,8 +8,8 @@ publishDate: 2026-10-21
 author: "Car Injury Clinic"
 category: "Treatment"
 keywords: "passive vs active care, therapeutic ultrasound whiplash, exercises after car accident, TENS neck pain, whiplash treatment evidence, car accident rehab Utah"
-heroImage: "/assets/img/ultrasonido.jpeg"
-heroAlt: "Therapist applying therapeutic ultrasound to a patient's knee"
+heroImage: "/assets/img/blog-passive-active-care.jpg"
+heroAlt: "Physical therapist guiding a patient through a resistance band exercise"
 readingTime: 7
 ---
 

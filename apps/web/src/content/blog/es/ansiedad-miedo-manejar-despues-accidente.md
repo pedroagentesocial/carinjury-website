@@ -8,8 +8,8 @@ publishDate: 2026-10-28
 author: "Car Injury Clinic"
 category: "Recuperación"
 keywords: "miedo a manejar después de un accidente, ansiedad después de un choque, estrés postraumático accidente de auto, volver a manejar después de un accidente, pesadillas después de accidente, recuperación accidente Utah"
-heroImage: "/assets/img/fondo-hero.jpg"
-heroAlt: "Vista aérea de un vecindario del valle de Salt Lake con sus calles"
+heroImage: "/assets/img/blog-driving-anxiety.jpg"
+heroAlt: "Mujer al volante de un auto mirando el camino"
 readingTime: 7
 ---
 

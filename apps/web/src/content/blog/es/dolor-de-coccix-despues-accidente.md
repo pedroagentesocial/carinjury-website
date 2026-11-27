@@ -9,8 +9,8 @@ publishDate: 2026-11-19
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor de cóccix después de un accidente, lesión del cóccix en un choque, cóccix golpeado, fractura de cóccix cuánto tarda en sanar, coccigodinia después de un accidente, dolor al sentarse después de un accidente, cojín para el cóccix, accidente de auto Utah"
-heroImage: "/assets/img/masaje.jpeg"
-heroAlt: "Terapia manual en la parte baja de la espalda de un paciente después de un accidente de auto"
+heroImage: "/assets/img/blog-tailbone-pain.jpg"
+heroAlt: "Mujer sentada al borde de la cama sujetándose la parte baja de la espalda"
 readingTime: 6
 ---
 

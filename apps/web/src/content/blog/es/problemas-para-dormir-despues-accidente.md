@@ -8,8 +8,8 @@ publishDate: 2026-08-19
 author: "Car Injury Clinic"
 category: "Recuperación"
 keywords: "no puedo dormir después del accidente, insomnio después de accidente de auto, posición para dormir con dolor de cuello, pesadillas después de un choque, sueño y recuperación, recuperación accidente Utah"
-heroImage: "/assets/img/hotcold.webp"
-heroAlt: "Paciente descansando durante su recuperación después de un accidente de auto"
+heroImage: "/assets/img/blog-sleep-problems.jpg"
+heroAlt: "Persona acostada en la cama con la cara hundida en la almohada"
 readingTime: 6
 ---
 

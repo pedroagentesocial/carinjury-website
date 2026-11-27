@@ -9,8 +9,8 @@ publishDate: 2026-11-25
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "pasajero lesionado accidente Utah, pasajero en un choque quién paga, PIP para pasajeros Utah, reclamo del pasajero contra el conductor, pasajero lesionado seguro del amigo, pasajero sin seguro de auto accidente, Utah 31A-22-308, accidente de auto Utah"
-heroImage: "/assets/img/legal.jpg"
-heroAlt: "Pasajero revisando papeles del seguro después de un accidente de auto en Utah"
+heroImage: "/assets/img/blog-passenger-injured.jpg"
+heroAlt: "Pasajera con el cinturón puesto en el asiento trasero de un auto"
 readingTime: 6
 ---
 

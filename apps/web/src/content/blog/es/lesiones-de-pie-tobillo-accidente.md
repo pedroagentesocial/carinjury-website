@@ -8,8 +8,8 @@ publishDate: 2026-11-13
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "lesión de pie accidente de auto, lesión de tobillo accidente, esguince de tobillo después de un choque, fractura de tobillo accidente de auto, fractura de talón accidente, lesión por el pedal del freno, lesiones por accidente de auto Utah"
-heroImage: "/assets/img/rehab.webp"
-heroAlt: "Sesión de rehabilitación por una lesión de tobillo después de un accidente de auto"
+heroImage: "/assets/img/blog-foot-ankle.jpg"
+heroAlt: "Especialista colocando una férula de tobillo a una paciente"
 readingTime: 6
 ---
 

@@ -9,8 +9,8 @@ publishDate: 2026-11-25
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "blurry vision after car accident, double vision after car accident, eye injury car accident, red spot on eye after accident, black eye car accident, flashes floaters after accident, retinal detachment after car accident, vision problems concussion"
-heroImage: "/assets/img/concussion.jpeg"
-heroAlt: "Patient having their eyes checked after a car accident"
+heroImage: "/assets/img/blog-vision-problems.jpg"
+heroAlt: "Eye doctor examining a patient with a slit lamp"
 readingTime: 6
 ---
 

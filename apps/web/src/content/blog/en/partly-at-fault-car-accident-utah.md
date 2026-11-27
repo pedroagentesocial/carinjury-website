@@ -8,8 +8,8 @@ publishDate: 2026-08-05
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "comparative fault Utah, partly at fault accident, Utah 50% rule, fault percentage car accident, shared fault crash, can I claim if I was at fault"
-heroImage: "/assets/img/utah.jpg"
-heroAlt: "Utah highway"
+heroImage: "/assets/img/blog-comparative-fault.jpg"
+heroAlt: "Cars moving through a downtown intersection"
 readingTime: 6
 ---
 

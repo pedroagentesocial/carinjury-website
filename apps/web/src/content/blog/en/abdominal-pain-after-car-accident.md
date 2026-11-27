@@ -9,8 +9,8 @@ publishDate: 2026-09-16
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "abdominal pain after car accident, stomach pain after car accident, seatbelt sign abdomen, seat belt bruise stomach, spleen injury car accident, internal bleeding after car accident, left shoulder pain after car accident, delayed abdominal pain after crash, car accident Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Doctor examining a patient's abdomen after a car accident"
+heroImage: "/assets/img/blog-abdominal-pain.jpg"
+heroAlt: "Woman holding her stomach because of abdominal pain"
 readingTime: 6
 ---
 

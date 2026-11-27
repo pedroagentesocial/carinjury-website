@@ -8,8 +8,8 @@ publishDate: 2026-08-28
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "condición preexistente accidente de auto, lesión previa empeoró con el choque, degeneración de disco accidente, lesión de espalda anterior reclamo, ajustador condición preexistente, reclamo por accidente de auto Utah"
-heroImage: "/assets/img/xray.jpg"
-heroAlt: "Radiografía de la columna cervical después de un accidente de auto"
+heroImage: "/assets/img/blog-pre-existing-condition.jpg"
+heroAlt: "Modelo anatómico de la columna vertebral en una clínica"
 readingTime: 6
 ---
 

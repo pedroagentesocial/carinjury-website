@@ -8,8 +8,8 @@ publishDate: 2026-11-13
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "foot injury car accident, ankle injury car accident, sprained ankle after crash, broken ankle car accident, heel fracture car accident, brake pedal injury, car accident injury Utah"
-heroImage: "/assets/img/rehab.webp"
-heroAlt: "Rehabilitation session for an ankle injury after a car accident"
+heroImage: "/assets/img/blog-foot-ankle.jpg"
+heroAlt: "Specialist fitting an ankle brace on a patient"
 readingTime: 6
 ---
 

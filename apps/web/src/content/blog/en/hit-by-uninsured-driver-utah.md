@@ -8,8 +8,8 @@ publishDate: 2026-10-12
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "uninsured driver Utah, hit by uninsured driver, UM coverage Utah, UIM coverage Utah, hit and run Utah, underinsured motorist accident, who pays uninsured accident"
-heroImage: "/assets/img/legal.jpg"
-heroAlt: "Insurance and medical paperwork after a car accident in Utah"
+heroImage: "/assets/img/blog-uninsured-driver.jpg"
+heroAlt: "Insurance policy document with a magnifying glass and cash"
 readingTime: 7
 ---
 

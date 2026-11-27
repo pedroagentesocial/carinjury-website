@@ -9,8 +9,8 @@ publishDate: 2026-10-02
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor de codo después de un accidente, lesión de codo en un choque, fractura de la cabeza del radio, fractura de olécranon, bursitis de codo después de un accidente, codo hinchado después de un choque, rigidez de codo después de una fractura, accidente de auto Utah"
-heroImage: "/assets/img/chiro2.jpeg"
-heroAlt: "Especialista revisando la fuerza y el movimiento del brazo de un paciente después de un accidente de auto"
+heroImage: "/assets/img/blog-elbow-pain.jpg"
+heroAlt: "Mujer sujetándose el codo adolorido"
 readingTime: 6
 ---
 

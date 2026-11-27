@@ -8,8 +8,8 @@ publishDate: 2026-09-25
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "accidente de auto trabajando Utah, compensación laboral accidente de auto, workers comp accidente de carro, choque con vehículo de la empresa, PIP y compensación laboral Utah, lesionado manejando por trabajo, reclamo contra tercero, accidente de auto Salt Lake City"
-heroImage: "/assets/img/legal.jpg"
-heroAlt: "Papeles de compensación laboral y del seguro de auto después de un accidente de trabajo en Utah"
+heroImage: "/assets/img/blog-work-crash.jpg"
+heroAlt: "Conductor de una camioneta de reparto sonriendo al volante"
 readingTime: 7
 ---
 

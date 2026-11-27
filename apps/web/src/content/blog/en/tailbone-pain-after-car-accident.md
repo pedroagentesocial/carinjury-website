@@ -9,8 +9,8 @@ publishDate: 2026-11-19
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "tailbone pain after car accident, coccyx injury car crash, bruised tailbone, broken tailbone how long to heal, coccydynia after accident, pain when sitting after car accident, tailbone cushion, car accident Utah"
-heroImage: "/assets/img/masaje.jpeg"
-heroAlt: "Hands-on lower back therapy for a patient after a car accident"
+heroImage: "/assets/img/blog-tailbone-pain.jpg"
+heroAlt: "Woman sitting on the edge of a bed holding her lower back"
 readingTime: 6
 ---
 

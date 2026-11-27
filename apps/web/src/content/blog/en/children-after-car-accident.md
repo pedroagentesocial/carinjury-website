@@ -9,8 +9,8 @@ publishDate: 2026-11-02
 author: "Car Injury Clinic"
 category: "First steps"
 keywords: "children after car accident, child symptoms after crash, replace car seat after accident, concussion in children, Utah car seat law, baby in car accident"
-heroImage: "/assets/img/concussion.jpeg"
-heroAlt: "Person writing down symptoms after a car accident"
+heroImage: "/assets/img/blog-children-after-crash.jpg"
+heroAlt: "Doctor talking with a young boy and his mother during a checkup"
 readingTime: 7
 ---
 

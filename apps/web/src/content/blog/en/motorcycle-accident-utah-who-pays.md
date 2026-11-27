@@ -9,8 +9,8 @@ publishDate: 2026-07-08
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "motorcycle accident Utah, motorcycle insurance PIP Utah, injured motorcyclist who pays, car hit my motorcycle, Utah helmet law, motorcycle crash Salt Lake"
-heroImage: "/assets/img/utah.jpg"
-heroAlt: "Utah highway"
+heroImage: "/assets/img/blog-motorcycle-accident.jpg"
+heroAlt: "Motorcyclist riding on a winding road through a forest"
 readingTime: 7
 ---
 

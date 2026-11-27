@@ -8,8 +8,8 @@ publishDate: 2026-10-16
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "wrist pain after car accident, wrist injury car accident, scaphoid fracture missed x-ray, broken wrist car accident, wrist sprain vs fracture, hand pain after car accident, steering wheel wrist injury, car accident Utah"
-heroImage: "/assets/img/xray.jpg"
-heroAlt: "Provider reviewing imaging after a car accident"
+heroImage: "/assets/img/blog-wrist-hand.jpg"
+heroAlt: "Doctor fitting a wrist splint on a patient's arm"
 readingTime: 6
 ---
 

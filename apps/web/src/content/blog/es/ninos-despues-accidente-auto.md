@@ -8,8 +8,8 @@ publishDate: 2026-11-02
 author: "Car Injury Clinic"
 category: "Primeros pasos"
 keywords: "niños después de un accidente de auto, niño chocó síntomas, reemplazar silla de auto después de un choque, conmoción cerebral niños, ley de sillas de auto Utah, bebé accidente de auto"
-heroImage: "/assets/img/concussion.jpeg"
-heroAlt: "Persona anotando síntomas después de un accidente de auto"
+heroImage: "/assets/img/blog-children-after-crash.jpg"
+heroAlt: "Médico conversando con un niño y su madre durante una consulta"
 readingTime: 7
 ---
 

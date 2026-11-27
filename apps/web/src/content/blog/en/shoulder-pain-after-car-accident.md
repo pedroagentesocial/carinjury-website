@@ -8,8 +8,8 @@ publishDate: 2026-10-07
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "shoulder pain after car accident, seatbelt shoulder injury, rotator cuff car accident, AC joint separation, shoulder and neck pain after crash, car accident injury Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Specialist examining a patient's shoulder after a car accident"
+heroImage: "/assets/img/blog-shoulder-pain.jpg"
+heroAlt: "Physical therapist mobilizing a patient's shoulder on a treatment table"
 readingTime: 7
 ---
 

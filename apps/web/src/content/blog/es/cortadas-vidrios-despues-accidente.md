@@ -9,8 +9,8 @@ publishDate: 2026-10-19
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "cortadas después de un accidente, cortaduras por vidrio en un choque, necesito puntos, herida después de un accidente de auto, vacuna del tétanos después de un accidente, herida punzante accidente, señales de herida infectada, cuidado de puntos, accidente de auto Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Especialista revisando las lesiones de un paciente después de un accidente de auto"
+heroImage: "/assets/img/blog-cuts-lacerations.jpg"
+heroAlt: "Mano envuelta en un vendaje blanco"
 readingTime: 6
 ---
 

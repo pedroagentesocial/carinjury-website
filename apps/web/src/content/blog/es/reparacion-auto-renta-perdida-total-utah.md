@@ -9,8 +9,8 @@ publishDate: 2026-11-25
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "reclamo por daños al carro Utah, reparación del carro después de un accidente Utah, carro de renta después de un accidente Utah, pérdida total carro Utah, valor del carro pérdida total Utah, piezas aftermarket Utah 31A-22-319, R590-190 Utah, accidente de auto Utah"
-heroImage: "/assets/img/utah.jpg"
-heroAlt: "Carro dañado esperando reparación después de un accidente en Utah"
+heroImage: "/assets/img/blog-property-damage.jpg"
+heroAlt: "Mecánico trabajando debajo de un auto elevado en un taller de reparación"
 readingTime: 6
 ---
 

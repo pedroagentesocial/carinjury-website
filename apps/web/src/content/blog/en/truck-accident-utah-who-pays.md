@@ -8,8 +8,8 @@ publishDate: 2026-09-04
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "truck accident Utah, semi truck accident, hit by a semi, commercial truck accident who pays, trucking company insurance, hours of service, truck accident lawyer Utah, car accident Salt Lake City"
-heroImage: "/assets/img/utah.jpg"
-heroAlt: "Utah highway where cars and commercial trucks share the road"
+heroImage: "/assets/img/blog-truck-accident.jpg"
+heroAlt: "Semi trucks traveling on a mountain highway"
 readingTime: 7
 ---
 

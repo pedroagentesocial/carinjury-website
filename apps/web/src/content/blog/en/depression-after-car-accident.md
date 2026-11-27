@@ -9,8 +9,8 @@ publishDate: 2026-11-27
 author: "Car Injury Clinic"
 category: "Recovery"
 keywords: "depression after car accident, sadness after car accident, depressed after car crash, chronic pain and depression, mood changes after concussion, mental health after car accident, emotional distress car accident, car accident recovery Utah"
-heroImage: "/assets/img/terapia.jpg"
-heroAlt: "Patient talking with a provider about how they feel after a car accident"
+heroImage: "/assets/img/blog-depression-after-accident.jpg"
+heroAlt: "Woman sitting alone by a window, looking outside"
 readingTime: 6
 ---
 

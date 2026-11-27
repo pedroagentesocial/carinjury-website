@@ -8,8 +8,8 @@ publishDate: 2026-11-04
 author: "Car Injury Clinic"
 category: "Primeros pasos"
 keywords: "embarazada accidente de auto, choque durante el embarazo, desprendimiento de placenta accidente, cinturón de seguridad embarazo, qué hacer embarazada choque, bolsa de aire embarazo"
-heroImage: "/assets/img/second-opinion.jpeg"
-heroAlt: "Paciente entregando papeles médicos en la recepción de una clínica"
+heroImage: "/assets/img/blog-pregnancy-crash.jpg"
+heroAlt: "Mujer embarazada hablando con su médico en un consultorio"
 readingTime: 6
 ---
 

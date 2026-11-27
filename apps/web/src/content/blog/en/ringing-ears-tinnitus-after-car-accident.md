@@ -8,8 +8,8 @@ publishDate: 2026-10-09
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "ringing in ears after car accident, tinnitus after car accident, airbag hearing loss, ear ringing after airbag, tinnitus after concussion, hearing loss after accident, car accident injury Utah"
-heroImage: "/assets/img/second-opinion.jpeg"
-heroAlt: "Specialist talking with a patient about ringing in the ears after a car accident"
+heroImage: "/assets/img/blog-tinnitus.jpg"
+heroAlt: "Older man cupping his hands behind his ears"
 readingTime: 6
 ---
 

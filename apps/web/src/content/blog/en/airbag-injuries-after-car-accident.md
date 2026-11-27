@@ -8,8 +8,8 @@ publishDate: 2026-11-16
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "airbag injuries, airbag burn, airbag rash, airbag eye injury, chest pain after airbag deployment, wrist injury airbag, car accident injury Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Specialist checking a patient's face and arms for airbag injuries after a car accident"
+heroImage: "/assets/img/blog-airbag-injuries.jpg"
+heroAlt: "Passenger-side dashboard with the airbag label"
 readingTime: 6
 ---
 

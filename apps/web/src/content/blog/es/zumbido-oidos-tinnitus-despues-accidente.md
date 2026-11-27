@@ -8,8 +8,8 @@ publishDate: 2026-10-09
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "zumbido en los oídos después de un accidente, tinnitus después de un choque, pérdida de audición por bolsa de aire, pitido en el oído después del airbag, tinnitus después de una conmoción, pérdida de audición después de un accidente, lesiones por accidente de auto Utah"
-heroImage: "/assets/img/second-opinion.jpeg"
-heroAlt: "Especialista hablando con un paciente sobre el zumbido en los oídos después de un accidente"
+heroImage: "/assets/img/blog-tinnitus.jpg"
+heroAlt: "Hombre mayor llevándose las manos detrás de las orejas"
 readingTime: 6
 ---
 

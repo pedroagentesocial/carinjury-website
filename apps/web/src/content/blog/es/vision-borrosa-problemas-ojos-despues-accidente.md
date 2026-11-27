@@ -9,8 +9,8 @@ publishDate: 2026-11-25
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "visión borrosa después de un accidente, visión doble después de un choque, lesión en el ojo accidente de auto, mancha roja en el ojo después de un accidente, ojo morado accidente, destellos moscas volantes después de un accidente, desprendimiento de retina accidente, problemas de visión conmoción"
-heroImage: "/assets/img/concussion.jpeg"
-heroAlt: "Paciente al que le revisan los ojos después de un accidente de auto"
+heroImage: "/assets/img/blog-vision-problems.jpg"
+heroAlt: "Oftalmólogo examinando a una paciente con una lámpara de hendidura"
 readingTime: 6
 ---
 

@@ -8,8 +8,8 @@ publishDate: 2026-11-18
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "diente tumbado accidente de auto, diente roto después de un choque, diente despostillado bolsa de aire, diente rajado después de un accidente, lesión dental accidente de auto Utah, el PIP cubre el dentista, señales de mandíbula rota, accidente de auto Salt Lake City"
-heroImage: "/assets/img/cic.jpg"
-heroAlt: "Car Injury Clinic en Taylorsville, Utah, donde se evalúa a los pacientes después de un choque"
+heroImage: "/assets/img/blog-tooth-injury.jpg"
+heroAlt: "Consultorio dental moderno e iluminado con sillón de tratamiento"
 readingTime: 6
 ---
 

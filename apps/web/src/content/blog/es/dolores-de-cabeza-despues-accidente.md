@@ -8,8 +8,8 @@ publishDate: 2026-09-09
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor de cabeza después de accidente, cefalea postraumática, cefalea cervicogénica, neuralgia occipital tras choque, migraña después del accidente, tratamiento dolor de cabeza Salt Lake City"
-heroImage: "/assets/img/hotcold.webp"
-heroAlt: "Terapia de frío y calor para dolores de cabeza postraumáticos tras un accidente"
+heroImage: "/assets/img/blog-headaches.jpg"
+heroAlt: "Hombre presionándose las sienes por un dolor de cabeza"
 readingTime: 8
 ---
 
