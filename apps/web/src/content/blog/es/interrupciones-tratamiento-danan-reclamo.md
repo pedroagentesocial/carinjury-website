@@ -8,8 +8,8 @@ publishDate: 2026-07-01
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "interrupción de tratamiento reclamo, citas perdidas seguro, hueco en el tratamiento accidente, ajustador niega causalidad, continuidad de atención lesión, reclamo accidente Utah"
-heroImage: "/assets/img/terapia.jpg"
-heroAlt: "Sesión de terapia física — la constancia protege la recuperación y el reclamo"
+heroImage: "/assets/img/blog-treatment-gaps.jpg"
+heroAlt: "Calendario con chinchetas rojas marcando fechas de citas"
 readingTime: 7
 ---
 

@@ -8,8 +8,8 @@ publishDate: 2026-07-22
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "atropellado por un carro Utah, accidente de peatón quién paga, PIP peatón Utah, atropello y fuga Utah, accidente en paso peatonal Salt Lake City, reclamo lesiones peatón Utah"
-heroImage: "/assets/img/fondo-hero.jpeg"
-heroAlt: "Calle con paso peatonal en el área de Salt Lake City"
+heroImage: "/assets/img/blog-pedestrian-accident.jpg"
+heroAlt: "Peatones cruzando un paso de cebra en una calle concurrida"
 readingTime: 7
 ---
 

@@ -8,8 +8,8 @@ publishDate: 2026-11-17
 author: "Car Injury Clinic"
 category: "Treatment"
 keywords: "ibuprofen after car accident, Tylenol after car accident, pain relievers after accident, acetaminophen max dose, NSAIDs side effects, muscle relaxer after car accident, pain medication whiplash, car accident Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Provider reviewing a patient's pain medications after a car accident"
+heroImage: "/assets/img/blog-pain-relievers.jpg"
+heroAlt: "Blister packs of pain relief tablets"
 readingTime: 6
 ---
 

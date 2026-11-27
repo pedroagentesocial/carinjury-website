@@ -8,8 +8,8 @@ publishDate: 2026-08-05
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "culpa comparativa Utah, parte de la culpa accidente, regla del 50% Utah, porcentaje de culpa accidente de auto, culpa compartida choque, puedo reclamar si tuve culpa"
-heroImage: "/assets/img/utah.jpg"
-heroAlt: "Carretera de Utah"
+heroImage: "/assets/img/blog-comparative-fault.jpg"
+heroAlt: "Autos circulando por una intersección del centro de la ciudad"
 readingTime: 6
 ---
 

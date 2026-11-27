@@ -8,8 +8,8 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "car accident injuries, accident symptoms, neck injury, back injury, accident concussion, pain after crash"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Chiropractor checking a patient's injuries after an accident"
+heroImage: "/assets/img/blog-common-injuries.jpg"
+heroAlt: "Doctor checking a patient's blood pressure in the office"
 readingTime: 7
 ---
 

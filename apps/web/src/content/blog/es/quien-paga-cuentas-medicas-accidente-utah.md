@@ -8,8 +8,8 @@ publishDate: 2026-09-15
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "quién paga cuentas médicas accidente Utah, PIP Utah, seguro no-fault Utah, mínimo 3000 PIP, accidente de auto Salt Lake City, seguro de auto Utah"
-heroImage: "/assets/img/legal.jpg"
-heroAlt: "Documentos de seguro y médicos después de un accidente de auto en Utah"
+heroImage: "/assets/img/blog-who-pays-medical-bills.jpg"
+heroAlt: "Calculadora y bolígrafo sobre unos documentos"
 readingTime: 7
 ---
 

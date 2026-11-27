@@ -8,8 +8,8 @@ publishDate: 2026-10-23
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "dizziness after car accident, vertigo after car accident, BPPV after head injury, balance problems after crash, dizzy after whiplash, Epley maneuver, car accident injury Utah"
-heroImage: "/assets/img/concussion.jpeg"
-heroAlt: "Patient writing down when the dizziness happens after a car accident"
+heroImage: "/assets/img/blog-dizziness.jpg"
+heroAlt: "Woman holding her head as if feeling dizzy"
 readingTime: 6
 ---
 

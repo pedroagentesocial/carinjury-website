@@ -8,8 +8,8 @@ publishDate: 2026-09-30
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "delayed symptoms car accident, pain days after car accident, adrenaline masking injury, neck pain 3 days after crash, whiplash delayed onset, car accident injury Utah"
-heroImage: "/assets/img/chiro2.jpeg"
-heroAlt: "Patient describing delayed neck pain during a post-accident evaluation"
+heroImage: "/assets/img/blog-delayed-symptoms.jpg"
+heroAlt: "Woman holding the back of her neck because of neck pain"
 readingTime: 7
 ---
 

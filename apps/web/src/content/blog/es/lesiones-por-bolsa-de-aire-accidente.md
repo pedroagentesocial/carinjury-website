@@ -8,8 +8,8 @@ publishDate: 2026-11-16
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "lesiones por bolsa de aire, quemadura de bolsa de aire, raspones por airbag, lesión en los ojos por bolsa de aire, dolor de pecho después de que se abrió la bolsa de aire, lesión de muñeca airbag, lesiones por accidente de auto Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Especialista revisando la cara y los brazos de un paciente por lesiones de la bolsa de aire después de un accidente"
+heroImage: "/assets/img/blog-airbag-injuries.jpg"
+heroAlt: "Tablero del lado del pasajero con la etiqueta del airbag"
 readingTime: 6
 ---
 

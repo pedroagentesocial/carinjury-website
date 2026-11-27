@@ -8,8 +8,8 @@ publishDate: 2026-11-06
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor de pecho después de accidente, costilla rota accidente de auto, moretón del cinturón de seguridad, dolor al respirar después de un choque, fractura de esternón, lesiones accidente Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Especialista revisando las lesiones de un paciente después de un accidente"
+heroImage: "/assets/img/blog-chest-pain.jpg"
+heroAlt: "Cinturón de seguridad cruzando el asiento de un auto"
 readingTime: 6
 ---
 

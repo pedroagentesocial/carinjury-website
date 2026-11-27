@@ -9,8 +9,8 @@ publishDate: 2026-11-25
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "passenger injured car accident Utah, passenger car accident who pays, passenger PIP Utah, passenger claim against driver, injured passenger friend's car insurance, passenger no car insurance accident, Utah 31A-22-308, car accident Utah"
-heroImage: "/assets/img/legal.jpg"
-heroAlt: "Passenger reviewing insurance papers after a car accident in Utah"
+heroImage: "/assets/img/blog-passenger-injured.jpg"
+heroAlt: "Passenger wearing a seat belt in the back seat of a car"
 readingTime: 6
 ---
 

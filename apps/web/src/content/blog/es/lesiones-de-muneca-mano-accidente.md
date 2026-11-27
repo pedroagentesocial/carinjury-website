@@ -8,8 +8,8 @@ publishDate: 2026-10-16
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor de muñeca después de un accidente, lesión de muñeca choque, fractura de escafoides no se ve en radiografía, muñeca rota accidente de auto, esguince o fractura de muñeca, dolor de mano después de un choque, lesión de muñeca por el volante, accidente de auto Utah"
-heroImage: "/assets/img/xray.jpg"
-heroAlt: "Proveedor revisando estudios de imagen después de un accidente de auto"
+heroImage: "/assets/img/blog-wrist-hand.jpg"
+heroAlt: "Médico colocando una férula de muñeca en el brazo de una paciente"
 readingTime: 6
 ---
 

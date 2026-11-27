@@ -8,8 +8,8 @@ publishDate: 2026-11-17
 author: "Car Injury Clinic"
 category: "Tratamiento"
 keywords: "ibuprofeno después de un accidente, Tylenol después de un choque, analgésicos después de un accidente, dosis máxima de acetaminofén, efectos secundarios de los AINE, relajante muscular después de un accidente, medicina para el latigazo cervical, accidente de auto Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Proveedor revisando los medicamentos para el dolor de un paciente después de un accidente"
+heroImage: "/assets/img/blog-pain-relievers.jpg"
+heroAlt: "Blísteres de pastillas para el dolor"
 readingTime: 6
 ---
 

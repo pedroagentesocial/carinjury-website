@@ -9,8 +9,8 @@ publishDate: 2026-09-11
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "Utah crash report, how to get police report car accident Utah, UHP crash report, accident report Utah, police report errors, body camera video car accident, Utah Code 41-6a-404, car accident Salt Lake City"
-heroImage: "/assets/img/legal.jpg"
-heroAlt: "Crash report and insurance paperwork after a car accident in Utah"
+heroImage: "/assets/img/blog-crash-report.jpg"
+heroAlt: "Police car light bar flashing red and blue at night"
 readingTime: 6
 ---
 

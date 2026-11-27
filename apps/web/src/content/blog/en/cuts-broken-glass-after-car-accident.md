@@ -9,8 +9,8 @@ publishDate: 2026-10-19
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "cuts after car accident, broken glass cut car crash, do I need stitches, laceration after car accident, tetanus shot after car accident, puncture wound car accident, infected cut signs, stitches care, car accident Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Specialist checking a patient's injuries after a car accident"
+heroImage: "/assets/img/blog-cuts-lacerations.jpg"
+heroAlt: "Hand wrapped in a white bandage"
 readingTime: 6
 ---
 

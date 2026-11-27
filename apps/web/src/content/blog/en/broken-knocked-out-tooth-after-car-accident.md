@@ -8,8 +8,8 @@ publishDate: 2026-11-18
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "knocked out tooth car accident, broken tooth after car accident, chipped tooth airbag, cracked tooth after accident, dental injury car accident Utah, does PIP cover dental, broken jaw signs, car accident Salt Lake City"
-heroImage: "/assets/img/cic.jpg"
-heroAlt: "Car Injury Clinic in Taylorsville, Utah, where patients are evaluated after a crash"
+heroImage: "/assets/img/blog-tooth-injury.jpg"
+heroAlt: "Bright, modern dental office with a treatment chair"
 readingTime: 6
 ---
 

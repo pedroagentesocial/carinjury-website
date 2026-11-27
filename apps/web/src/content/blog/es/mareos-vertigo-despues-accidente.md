@@ -8,8 +8,8 @@ publishDate: 2026-10-23
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "mareos después de un accidente, vértigo después de un choque, vértigo posicional después de un golpe en la cabeza, problemas de equilibrio después de un accidente, mareo después de latigazo cervical, maniobra de Epley, lesiones por accidente de auto Utah"
-heroImage: "/assets/img/concussion.jpeg"
-heroAlt: "Paciente anotando cuándo le dan los mareos después de un accidente de auto"
+heroImage: "/assets/img/blog-dizziness.jpg"
+heroAlt: "Mujer sujetándose la cabeza como si estuviera mareada"
 readingTime: 6
 ---
 

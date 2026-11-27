@@ -9,8 +9,8 @@ publishDate: 2026-10-14
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "upper back pain after car accident, mid back pain after car accident, pain between shoulder blades after car accident, thoracic spine injury car accident, thoracic compression fracture, Chance fracture seat belt, upper back muscle strain, car accident Utah"
-heroImage: "/assets/img/chiro3.jpeg"
-heroAlt: "Specialist examining the upper back of a patient after a car accident"
+heroImage: "/assets/img/blog-upper-back-pain.jpg"
+heroAlt: "Man pressing on his upper back and shoulder blade in pain"
 readingTime: 6
 ---
 

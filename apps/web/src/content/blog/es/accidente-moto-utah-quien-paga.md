@@ -9,8 +9,8 @@ publishDate: 2026-07-08
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "accidente de moto Utah, seguro de moto PIP Utah, motociclista lesionado quién paga, chocaron mi moto, ley de casco Utah, accidente de motocicleta Salt Lake"
-heroImage: "/assets/img/utah.jpg"
-heroAlt: "Carretera de Utah"
+heroImage: "/assets/img/blog-motorcycle-accident.jpg"
+heroAlt: "Motociclista recorriendo una carretera con curvas entre el bosque"
 readingTime: 7
 ---
 

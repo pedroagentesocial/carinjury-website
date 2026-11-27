@@ -8,8 +8,8 @@ publishDate: 2026-09-30
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "síntomas tardíos accidente de auto, dolor días después del choque, adrenalina esconde lesión, dolor de cuello 3 días después, latigazo cervical tardío, lesiones accidente Utah"
-heroImage: "/assets/img/chiro2.jpeg"
-heroAlt: "Paciente describiendo dolor de cuello tardío en una evaluación después del accidente"
+heroImage: "/assets/img/blog-delayed-symptoms.jpg"
+heroAlt: "Mujer sujetándose la nuca por dolor de cuello"
 readingTime: 7
 ---
 

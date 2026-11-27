@@ -8,8 +8,8 @@ publishDate: 2026-10-07
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor de hombro después de accidente, lesión de hombro cinturón de seguridad, manguito rotador accidente de auto, separación acromioclavicular, dolor de hombro y cuello choque, lesiones accidente Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Especialista evaluando el hombro de un paciente después de un accidente de auto"
+heroImage: "/assets/img/blog-shoulder-pain.jpg"
+heroAlt: "Fisioterapeuta movilizando el hombro de una paciente en la camilla"
 readingTime: 7
 ---
 

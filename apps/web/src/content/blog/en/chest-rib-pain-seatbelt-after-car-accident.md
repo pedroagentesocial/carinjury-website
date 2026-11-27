@@ -8,8 +8,8 @@ publishDate: 2026-11-06
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "chest pain after car accident, broken rib car accident, seatbelt bruise, pain when breathing after crash, sternal fracture, car accident injury Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Specialist checking a patient's injuries after an accident"
+heroImage: "/assets/img/blog-chest-pain.jpg"
+heroAlt: "Seat belt stretched across a car seat"
 readingTime: 6
 ---
 

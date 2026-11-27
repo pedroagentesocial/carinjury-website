@@ -9,8 +9,8 @@ publishDate: 2026-11-20
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "expediente médico después de un accidente, cómo pedir mi expediente médico, derecho de acceso HIPAA, cuánto tardan en dar el expediente médico, costo de copias del expediente, factura detallada accidente de auto, enviar expediente médico al abogado, corregir error en expediente médico, accidente de auto Utah"
-heroImage: "/assets/img/second-opinion.jpeg"
-heroAlt: "Paciente entregando papeles médicos en la recepción de la clínica"
+heroImage: "/assets/img/blog-medical-records.jpg"
+heroAlt: "Cajón abierto de un archivero lleno de fichas"
 readingTime: 6
 ---
 

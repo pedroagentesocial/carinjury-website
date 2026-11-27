@@ -9,8 +9,8 @@ publishDate: 2026-11-26
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "accidente en hielo Utah, accidente en la nieve quién tiene la culpa, hielo negro accidente culpa, accidente de auto en invierno Utah, me patiné en el hielo y choqué, choque en cadena hielo quién paga, accidente por el clima Utah, accidente de auto Salt Lake City nieve"
-heroImage: "/assets/img/utah.jpg"
-heroAlt: "Carretera de Utah en condiciones de invierno"
+heroImage: "/assets/img/blog-snow-ice-crash.jpg"
+heroAlt: "Auto circulando por un camino cubierto de nieve en un bosque invernal"
 readingTime: 6
 ---
 

@@ -8,8 +8,8 @@ publishDate: 2026-09-15
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "who pays medical bills car accident Utah, Utah PIP, personal injury protection Utah, no-fault Utah, $3000 PIP minimum, car accident insurance Salt Lake City"
-heroImage: "/assets/img/legal.jpg"
-heroAlt: "Insurance and medical paperwork after a car accident in Utah"
+heroImage: "/assets/img/blog-who-pays-medical-bills.jpg"
+heroAlt: "Calculator and pen on top of paperwork"
 readingTime: 7
 ---
 

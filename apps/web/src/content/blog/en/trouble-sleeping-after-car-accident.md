@@ -8,8 +8,8 @@ publishDate: 2026-08-19
 author: "Car Injury Clinic"
 category: "Recovery"
 keywords: "trouble sleeping after car accident, insomnia after car accident, neck pain sleeping position, nightmares after car accident, sleep and recovery, car accident recovery Utah"
-heroImage: "/assets/img/hotcold.webp"
-heroAlt: "Patient resting during recovery after a car accident"
+heroImage: "/assets/img/blog-sleep-problems.jpg"
+heroAlt: "Person lying in bed with their face buried in the pillow"
 readingTime: 6
 ---
 

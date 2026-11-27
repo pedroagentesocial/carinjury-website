@@ -8,8 +8,8 @@ publishDate: 2026-11-04
 author: "Car Injury Clinic"
 category: "First steps"
 keywords: "pregnant car accident, crash during pregnancy, placental abruption car accident, seat belt pregnancy, what to do pregnant crash, air bag pregnancy"
-heroImage: "/assets/img/second-opinion.jpeg"
-heroAlt: "Patient handing in medical paperwork at the clinic front desk"
+heroImage: "/assets/img/blog-pregnancy-crash.jpg"
+heroAlt: "Pregnant woman talking with her doctor in an exam room"
 readingTime: 6
 ---
 

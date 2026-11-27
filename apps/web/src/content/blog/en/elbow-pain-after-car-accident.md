@@ -8,8 +8,8 @@ publishDate: 2026-10-02
 author: "Car Injury Clinic"
 category: "Common injuries"
 keywords: "elbow pain after car accident, elbow injury car crash, radial head fracture, olecranon fracture, elbow bursitis after accident, swollen elbow after car accident, elbow stiffness after fracture, car accident Utah"
-heroImage: "/assets/img/chiro2.jpeg"
-heroAlt: "Specialist checking the strength and movement of a patient's arm after a car accident"
+heroImage: "/assets/img/blog-elbow-pain.jpg"
+heroAlt: "Woman holding her sore elbow"
 readingTime: 6
 ---
 

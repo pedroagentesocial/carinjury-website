@@ -8,8 +8,8 @@ publishDate: 2026-09-02
 author: "Car Injury Clinic"
 category: "Recovery"
 keywords: "back to work after car accident, lost wages accident Utah, PIP lost wages, FMLA leave car accident, work restrictions doctor note, can't work after car accident"
-heroImage: "/assets/img/rehab.webp"
-heroAlt: "Rehabilitation session before returning to work after an accident"
+heroImage: "/assets/img/blog-return-to-work.jpg"
+heroAlt: "Man working on a laptop at his desk"
 readingTime: 7
 ---
 

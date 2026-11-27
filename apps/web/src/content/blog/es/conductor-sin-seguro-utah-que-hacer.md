@@ -8,8 +8,8 @@ publishDate: 2026-10-12
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "conductor sin seguro Utah, me chocó alguien sin seguro, cobertura UM Utah, cobertura UIM Utah, choque y fuga Utah, seguro insuficiente accidente, quién paga accidente sin seguro"
-heroImage: "/assets/img/legal.jpg"
-heroAlt: "Papeles médicos y de seguro después de un accidente de auto en Utah"
+heroImage: "/assets/img/blog-uninsured-driver.jpg"
+heroAlt: "Póliza de seguro con una lupa y billetes"
 readingTime: 7
 ---
 

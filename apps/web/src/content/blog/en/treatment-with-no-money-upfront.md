@@ -8,8 +8,8 @@ publishDate: 2026-07-29
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "letter of protection car accident, medical lien injury claim, treatment no money upfront, no insurance after car accident, LOP medical bills, car accident clinic Salt Lake City"
-heroImage: "/assets/img/cic.jpg"
-heroAlt: "Car Injury Clinic reception — treatment options when PIP has run out"
+heroImage: "/assets/img/blog-no-upfront-cost.jpg"
+heroAlt: "Medical staff reviewing paperwork at a clinic front desk"
 readingTime: 7
 ---
 

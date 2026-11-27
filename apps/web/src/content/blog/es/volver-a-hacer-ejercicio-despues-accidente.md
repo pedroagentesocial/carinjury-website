@@ -9,8 +9,8 @@ publishDate: 2026-11-27
 author: "Car Injury Clinic"
 category: "Recuperación"
 keywords: "ejercicio después de un accidente de auto, cuándo puedo hacer ejercicio después de un choque, volver al gimnasio después de un accidente, correr después de un accidente, deporte después de un accidente, pesas después del latigazo cervical, ejercicio después de una conmoción, recuperación accidente Utah"
-heroImage: "/assets/img/rehab.webp"
-heroAlt: "Paciente haciendo ejercicios guiados de rehabilitación después de un accidente de auto"
+heroImage: "/assets/img/blog-exercise-after-accident.jpg"
+heroAlt: "Dos mujeres caminando para hacer ejercicio en un sendero del parque"
 readingTime: 6
 ---
 

@@ -8,8 +8,8 @@ publishDate: 2026-10-28
 author: "Car Injury Clinic"
 category: "Recovery"
 keywords: "fear of driving after car accident, anxiety after car crash, PTSD car accident, driving again after accident, nightmares after car accident, car accident recovery Utah"
-heroImage: "/assets/img/fondo-hero.jpg"
-heroAlt: "Aerial view of a Salt Lake Valley neighborhood and its streets"
+heroImage: "/assets/img/blog-driving-anxiety.jpg"
+heroAlt: "Woman behind the wheel of a car, looking at the road ahead"
 readingTime: 7
 ---
 

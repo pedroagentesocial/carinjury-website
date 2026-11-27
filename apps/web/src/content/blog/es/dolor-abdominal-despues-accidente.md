@@ -9,8 +9,8 @@ publishDate: 2026-09-16
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor abdominal después de un accidente, dolor de estómago después de un choque, marca del cinturón en el abdomen, moretón del cinturón en la panza, lesión del bazo accidente de auto, sangrado interno después de un accidente, dolor en el hombro izquierdo después de un choque, dolor de estómago días después del accidente, accidente de auto Utah"
-heroImage: "/assets/img/pain-management.jpeg"
-heroAlt: "Médico revisando el abdomen de un paciente después de un accidente de auto"
+heroImage: "/assets/img/blog-abdominal-pain.jpg"
+heroAlt: "Mujer sujetándose el abdomen por dolor abdominal"
 readingTime: 6
 ---
 

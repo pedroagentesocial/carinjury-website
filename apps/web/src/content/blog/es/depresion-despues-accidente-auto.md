@@ -9,8 +9,8 @@ publishDate: 2026-11-27
 author: "Car Injury Clinic"
 category: "Recuperación"
 keywords: "depresión después de un accidente de auto, tristeza después de un accidente, deprimido después de un choque, dolor crónico y depresión, cambios de ánimo después de una conmoción, salud mental después de un accidente, daño emocional accidente de auto, recuperación accidente Utah"
-heroImage: "/assets/img/terapia.jpg"
-heroAlt: "Paciente platicando con un proveedor sobre cómo se siente después de un accidente de auto"
+heroImage: "/assets/img/blog-depression-after-accident.jpg"
+heroAlt: "Mujer sentada sola junto a una ventana mirando hacia afuera"
 readingTime: 6
 ---
 

@@ -8,8 +8,8 @@ publishDate: 2026-05-27
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor de espalda accidente auto, dolor lumbar accidente, hernia de disco accidente, ciática accidente, tratamiento dolor espalda Utah"
-heroImage: "/assets/img/masaje.jpeg"
-heroAlt: "Terapia manual sobre la espalda de un paciente tras un accidente"
+heroImage: "/assets/img/blog-back-pain.jpg"
+heroAlt: "Mujer sujetándose la zona lumbar por dolor de espalda"
 readingTime: 7
 ---
 

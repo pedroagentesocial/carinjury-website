@@ -8,8 +8,8 @@ publishDate: 2026-10-21
 author: "Car Injury Clinic"
 category: "Tratamiento"
 keywords: "terapia pasiva vs activa, ultrasonido terapéutico latigazo, ejercicios después de accidente de auto, TENS dolor de cuello, tratamiento latigazo cervical evidencia, rehabilitación accidente Utah"
-heroImage: "/assets/img/ultrasonido.jpeg"
-heroAlt: "Terapeuta aplicando ultrasonido terapéutico en la rodilla de un paciente"
+heroImage: "/assets/img/blog-passive-active-care.jpg"
+heroAlt: "Fisioterapeuta guiando a una paciente en un ejercicio con banda elástica"
 readingTime: 7
 ---
 

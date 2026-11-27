@@ -9,8 +9,8 @@ publishDate: 2026-11-27
 author: "Car Injury Clinic"
 category: "Recovery"
 keywords: "exercise after car accident, when can I work out after a car accident, going back to the gym after car accident, running after car accident, sports after car accident, lifting weights after whiplash, exercise after concussion, car accident recovery Utah"
-heroImage: "/assets/img/rehab.webp"
-heroAlt: "Patient doing guided rehabilitation exercises after a car accident"
+heroImage: "/assets/img/blog-exercise-after-accident.jpg"
+heroAlt: "Two women walking for exercise on a park path"
 readingTime: 6
 ---
 

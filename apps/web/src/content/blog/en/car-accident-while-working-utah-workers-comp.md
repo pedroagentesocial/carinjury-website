@@ -8,8 +8,8 @@ publishDate: 2026-09-25
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "car accident while working Utah, workers comp car accident, work vehicle accident, PIP and workers compensation Utah, injured driving for work, third party claim workers comp, car accident Salt Lake City"
-heroImage: "/assets/img/legal.jpg"
-heroAlt: "Workers' compensation and auto insurance paperwork after a work-related car accident in Utah"
+heroImage: "/assets/img/blog-work-crash.jpg"
+heroAlt: "Smiling delivery van driver behind the wheel"
 readingTime: 7
 ---
 

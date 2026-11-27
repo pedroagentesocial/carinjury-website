@@ -8,8 +8,8 @@ publishDate: 2026-07-22
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "pedestrian hit by car Utah, pedestrian accident who pays, PIP pedestrian Utah, hit and run pedestrian Utah, crosswalk accident Salt Lake City, pedestrian injury claim Utah"
-heroImage: "/assets/img/fondo-hero.jpeg"
-heroAlt: "Street with a crosswalk in the Salt Lake City area"
+heroImage: "/assets/img/blog-pedestrian-accident.jpg"
+heroAlt: "Pedestrians crossing a busy city crosswalk"
 readingTime: 7
 ---
 

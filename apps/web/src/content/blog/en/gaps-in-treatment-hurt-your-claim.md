@@ -9,8 +9,8 @@ publishDate: 2026-07-01
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "gap in treatment personal injury, missed appointments insurance claim, treatment gap car accident, adjuster denies causation, continuity of care injury claim, car accident claim Utah"
-heroImage: "/assets/img/terapia.jpg"
-heroAlt: "Physical therapy session — consistent treatment protects both recovery and claim"
+heroImage: "/assets/img/blog-treatment-gaps.jpg"
+heroAlt: "Calendar with red pins marking appointment dates"
 readingTime: 7
 ---
 

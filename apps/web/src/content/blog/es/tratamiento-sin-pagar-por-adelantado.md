@@ -8,8 +8,8 @@ publishDate: 2026-07-29
 author: "Car Injury Clinic"
 category: "Seguros y legal"
 keywords: "carta de protección accidente, lien médico reclamo, tratamiento sin pagar por adelantado, sin seguro después de accidente, LOP cuentas médicas, clínica accidentes Salt Lake City"
-heroImage: "/assets/img/cic.jpg"
-heroAlt: "Recepción de Car Injury Clinic — opciones de tratamiento cuando el PIP se agotó"
+heroImage: "/assets/img/blog-no-upfront-cost.jpg"
+heroAlt: "Personal médico revisando documentos en la recepción de una clínica"
 readingTime: 7
 ---
 

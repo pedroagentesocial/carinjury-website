@@ -9,8 +9,8 @@ publishDate: 2026-11-20
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "medical records after car accident, how to request medical records, HIPAA right of access, how long to get medical records, medical records fee, itemized medical bill car accident, send medical records to attorney, correct error in medical record, car accident Utah"
-heroImage: "/assets/img/second-opinion.jpeg"
-heroAlt: "Patient handing in medical paperwork at the clinic front desk"
+heroImage: "/assets/img/blog-medical-records.jpg"
+heroAlt: "Open filing cabinet drawer full of record cards"
 readingTime: 6
 ---
 

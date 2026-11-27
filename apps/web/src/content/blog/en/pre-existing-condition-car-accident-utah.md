@@ -8,8 +8,8 @@ publishDate: 2026-08-28
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "pre-existing condition car accident, aggravation of pre-existing injury, degenerative disc disease car accident, prior back injury car accident claim, insurance adjuster pre-existing condition, car accident claim Utah"
-heroImage: "/assets/img/xray.jpg"
-heroAlt: "X-ray imaging of the cervical spine after a car accident"
+heroImage: "/assets/img/blog-pre-existing-condition.jpg"
+heroAlt: "Anatomical model of the spine in a clinic"
 readingTime: 6
 ---
 

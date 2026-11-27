@@ -8,8 +8,8 @@ publishDate: 2026-09-02
 author: "Car Injury Clinic"
 category: "Recuperación"
 keywords: "volver al trabajo después de un accidente, salario perdido accidente Utah, PIP salario perdido, licencia FMLA accidente, restricciones médicas trabajo, no puedo trabajar por accidente de auto"
-heroImage: "/assets/img/rehab.webp"
-heroAlt: "Sesión de rehabilitación antes de regresar al trabajo después de un accidente"
+heroImage: "/assets/img/blog-return-to-work.jpg"
+heroAlt: "Hombre trabajando con una computadora portátil en su escritorio"
 readingTime: 7
 ---
 

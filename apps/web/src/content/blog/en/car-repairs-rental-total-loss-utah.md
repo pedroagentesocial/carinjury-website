@@ -9,8 +9,8 @@ publishDate: 2026-11-25
 author: "Car Injury Clinic"
 category: "Insurance & legal"
 keywords: "property damage claim Utah, car repair after accident Utah, rental car after accident Utah, total loss car Utah, totaled car value Utah, aftermarket parts Utah 31A-22-319, R590-190 Utah, car accident Utah"
-heroImage: "/assets/img/utah.jpg"
-heroAlt: "Damaged car waiting for repair after an accident in Utah"
+heroImage: "/assets/img/blog-property-damage.jpg"
+heroAlt: "Mechanic working under a car raised on a lift in a repair shop"
 readingTime: 6
 ---
 

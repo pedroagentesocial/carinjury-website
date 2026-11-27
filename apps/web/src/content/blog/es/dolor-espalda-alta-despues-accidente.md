@@ -9,8 +9,8 @@ publishDate: 2026-10-14
 author: "Car Injury Clinic"
 category: "Lesiones comunes"
 keywords: "dolor de espalda alta después de un accidente, dolor a la mitad de la espalda después de un choque, dolor entre los omóplatos después de un accidente, lesión de la columna torácica accidente de auto, fractura por compresión torácica, fractura de Chance cinturón, distensión muscular espalda alta, accidente de auto Utah"
-heroImage: "/assets/img/chiro3.jpeg"
-heroAlt: "Especialista revisando la espalda alta de un paciente después de un accidente de auto"
+heroImage: "/assets/img/blog-upper-back-pain.jpg"
+heroAlt: "Hombre presionándose la parte alta de la espalda y el omóplato por dolor"
 readingTime: 6
 ---
 
